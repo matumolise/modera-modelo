@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Modera F12 Diagnostic</string>
+    <string name="diagnostic_title">F12-A Android Diagnostic Logger</string>
+    <string name="diagnostic_description">Captura UsageEvents crudos para validar qué observa Android. No interpreta sesiones, aperturas ni desbloqueos.</string>
+    <string name="usage_access_checking">Verificando Usage Access…</string>
+    <string name="usage_access_granted">Usage Access: concedido</string>
+    <string name="usage_access_missing">Usage Access: falta concederlo</string>
+    <string name="usage_access_settings_unavailable">Este dispositivo no expone la pantalla de Usage Access.</string>
+    <string name="open_usage_access">Abrir configuración de Usage Access</string>
+    <string name="collect_last_hour">Capturar última hora</string>
+    <string name="collecting">Capturando y exportando eventos…</string>
+    <string name="no_collection_yet">Todavía no se realizó ninguna captura.</string>
+    <string name="collection_failed">Captura fallida: %1$s — %2$s</string>
+    <string name="collection_succeeded">Captura completa. Eventos: %1$d\nRun ID: %2$s\nArchivos: %3$s</string>
 </resources>
