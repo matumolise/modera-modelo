@@ -7,6 +7,20 @@ from .contracts import (
     ObservationStatus,
     Provenance,
 )
+from .detector import (
+    C1_DETECTOR_FAMILY,
+    C1DetectorConfig,
+    C1EvaluationResult,
+    CusumState,
+    DetectorEvaluation,
+    DetectorEvaluationOutcome,
+    evaluate_c1,
+)
+from .reference import (
+    MAD_NORMAL_CONSISTENCY,
+    ScalarReference,
+    build_scalar_reference,
+)
 from .eligibility import (
     AnalysisEligibilityDecision,
     AnalysisEligibilityReason,
@@ -20,12 +34,22 @@ __all__ = [
     "AnalysisEligibilityDecision",
     "AnalysisEligibilityReason",
     "BehavioralObservation",
+    "C1_DETECTOR_FAMILY",
+    "C1DetectorConfig",
+    "C1EvaluationResult",
+    "CusumState",
+    "DetectorEvaluation",
+    "DetectorEvaluationOutcome",
+    "MAD_NORMAL_CONSISTENCY",
     "Coverage",
     "HistoricalRepresentation",
     "ObservationStatus",
     "Provenance",
+    "ScalarReference",
     "ReferenceInclusionDecision",
     "ReferenceInclusionReason",
+    "build_scalar_reference",
     "decide_analysis_eligibility",
+    "evaluate_c1",
     "decide_reference_inclusion",
 ]
