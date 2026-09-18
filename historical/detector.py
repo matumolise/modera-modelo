@@ -104,6 +104,7 @@ class DetectorEvaluation:
     reference_cutoff: datetime
     detector_family: str
     detector_k: float
+    detector_min_history: int
     threshold: float
     detector_statistic: float | None
     positive_cusum: float | None
@@ -140,6 +141,8 @@ class DetectorEvaluation:
             )
         if self.reference_history_count < 0:
             raise ValueError("reference_history_count cannot be negative")
+        if self.detector_min_history < 1:
+            raise ValueError("detector_min_history must be at least 1")
 
         if self.outcome is DetectorEvaluationOutcome.ABSTAIN:
             if self.abstention_reason is None:
@@ -213,7 +216,7 @@ def evaluate_c1(
 
     _require_aware("computed_at", computed_at)
 
-    if reference.reference_end_exclusive > current.interval_start:
+    if reference.reference_cutoff > current.interval_start:
         raise ValueError("reference cutoff violates prequential ordering")
 
     eligibility = decide_analysis_eligibility(
@@ -237,9 +240,10 @@ def evaluate_c1(
             reference_location=reference.location,
             reference_scale=reference.scale,
             reference_history_count=reference.history_count,
-            reference_cutoff=reference.reference_end_exclusive,
+            reference_cutoff=reference.reference_cutoff,
             detector_family=C1_DETECTOR_FAMILY,
             detector_k=float(config.k),
+            detector_min_history=config.min_history,
             threshold=float(config.threshold),
             detector_statistic=None,
             positive_cusum=None,
@@ -287,9 +291,10 @@ def evaluate_c1(
         reference_location=reference.location,
         reference_scale=reference.scale,
         reference_history_count=reference.history_count,
-        reference_cutoff=reference.reference_end_exclusive,
+        reference_cutoff=reference.reference_cutoff,
         detector_family=C1_DETECTOR_FAMILY,
         detector_k=float(config.k),
+        detector_min_history=config.min_history,
         threshold=float(config.threshold),
         detector_statistic=statistic,
         positive_cusum=positive,

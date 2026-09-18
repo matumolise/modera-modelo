@@ -55,7 +55,7 @@ def reference(
         location=location,
         scale=scale,
         history_count=history_count,
-        reference_end_exclusive=cutoff
+        reference_cutoff=cutoff
         or datetime(2026, 9, 15, tzinfo=UTC),
     )
 
@@ -260,9 +260,10 @@ class C1DetectorEvaluationTests(unittest.TestCase):
             evaluation.representation_spec_id,
             current.representation_spec_id,
         )
-        self.assertEqual(evaluation.reference_cutoff, ref.reference_end_exclusive)
+        self.assertEqual(evaluation.reference_cutoff, ref.reference_cutoff)
         self.assertEqual(evaluation.reference_history_count, ref.history_count)
         self.assertEqual(evaluation.detector_family, C1_DETECTOR_FAMILY)
+        self.assertEqual(evaluation.detector_min_history, 3)
         self.assertEqual(evaluation.analysis_version, "historical_analyzer_v1")
 
 

@@ -32,7 +32,7 @@ class ScalarReference:
     location: float | None
     scale: float | None
     history_count: int
-    reference_end_exclusive: datetime
+    reference_cutoff: datetime
 
     @property
     def estimable(self) -> bool:
@@ -88,10 +88,10 @@ def build_scalar_reference(
     values: list[float] = []
 
     for candidate in history:
-        _validate_same_series(current, candidate)
-
         if candidate.interval_end > current.interval_start:
             continue
+
+        _validate_same_series(current, candidate)
 
         if not decide_reference_inclusion(candidate).included:
             continue
@@ -103,7 +103,7 @@ def build_scalar_reference(
             location=None,
             scale=None,
             history_count=0,
-            reference_end_exclusive=current.interval_start,
+            reference_cutoff=current.interval_start,
         )
 
     location = float(median(values))
@@ -115,5 +115,5 @@ def build_scalar_reference(
         location=location,
         scale=scale,
         history_count=len(values),
-        reference_end_exclusive=current.interval_start,
+        reference_cutoff=current.interval_start,
     )

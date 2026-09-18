@@ -66,6 +66,28 @@ class ScalarReferenceTests(unittest.TestCase):
 
         self.assertEqual(with_future, without_future)
 
+    def test_future_unrelated_observation_cannot_change_past_reference(self) -> None:
+        previous = [
+            representation(12, 10.0),
+            representation(13, 20.0),
+            representation(14, 30.0),
+        ]
+        current = representation(15, 40.0)
+        future_unrelated = representation(
+            16,
+            10000.0,
+            subject_id="child-999",
+            spec_id="other.v1",
+        )
+
+        without_future = build_scalar_reference(current, previous)
+        with_future = build_scalar_reference(
+            current,
+            [*previous, future_unrelated],
+        )
+
+        self.assertEqual(with_future, without_future)
+
     def test_reference_uses_median_and_scaled_mad(self) -> None:
         history = [
             representation(12, 0.0, status=ObservationStatus.OBSERVED_ZERO),
@@ -127,7 +149,7 @@ class ScalarReferenceTests(unittest.TestCase):
 
         reference = build_scalar_reference(current, [representation(14, 3.0)])
 
-        self.assertEqual(reference.reference_end_exclusive, current.interval_start)
+        self.assertEqual(reference.reference_cutoff, current.interval_start)
 
     def test_same_history_different_order_same_result(self) -> None:
         history = [
