@@ -1,5 +1,10 @@
-"""Historical Analyzer package for ModerÃ¡."""
+"""Historical Analyzer package for Moderá."""
 
+from .analyzer import (
+    HistoricalAnalysisResult,
+    HistoricalAnalyzerState,
+    analyze_c1_representation,
+)
 from .contracts import (
     BehavioralObservation,
     Coverage,
@@ -52,11 +57,14 @@ __all__ = [
     "MAD_NORMAL_CONSISTENCY",
     "Coverage",
     "HistoricalRepresentation",
+    "HistoricalAnalysisResult",
+    "HistoricalAnalyzerState",
     "ObservationStatus",
     "Provenance",
     "ScalarReference",
     "ReferenceInclusionDecision",
     "ReferenceInclusionReason",
+    "analyze_c1_representation",
     "build_scalar_reference",
     "decide_analysis_eligibility",
     "decide_detection_event",
