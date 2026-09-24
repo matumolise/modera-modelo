@@ -1,5 +1,11 @@
-"""Historical Analyzer package for Moderá."""
+﻿"""Historical Analyzer package for Moderá."""
 
+from .adapters import (
+    DAILY_USE_DURATION_ADAPTER_VERSION,
+    DAILY_USE_DURATION_PHENOMENON,
+    DAILY_USE_DURATION_SPEC_ID,
+    adapt_daily_use_duration,
+)
 from .analyzer import (
     HistoricalAnalysisResult,
     HistoricalAnalyzerState,
@@ -43,6 +49,9 @@ from .eligibility import (
 
 __all__ = [
     "AnalysisEligibilityDecision",
+    "DAILY_USE_DURATION_ADAPTER_VERSION",
+    "DAILY_USE_DURATION_PHENOMENON",
+    "DAILY_USE_DURATION_SPEC_ID",
     "AnalysisEligibilityReason",
     "BehavioralObservation",
     "C1_DETECTOR_FAMILY",
@@ -64,6 +73,7 @@ __all__ = [
     "ScalarReference",
     "ReferenceInclusionDecision",
     "ReferenceInclusionReason",
+    "adapt_daily_use_duration",
     "analyze_c1_representation",
     "build_scalar_reference",
     "decide_analysis_eligibility",
