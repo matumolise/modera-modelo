@@ -1,0 +1,439 @@
+{
+  "experiment": "F12-B2 real human trajectory descriptive audit",
+  "dataset": {
+    "file_name": "Dataset_LongFormat.csv",
+    "sha256": "cdfdb5b2d665efcfcc25da6337d2102877541201e7da55ff3f0e121b57f0b51e",
+    "rows": 2587,
+    "columns": 14,
+    "participants": 93,
+    "duplicate_id_day_pairs": 0
+  },
+  "scope": {
+    "cusum_executed": false,
+    "threshold_selected": false,
+    "maturity_selected": false,
+    "missing_days_imputed": false,
+    "day1_automatically_excluded": false,
+    "published_filters_used_as_modera_rules": false
+  },
+  "cohorts": {
+    "distributed_artifact": {
+      "definition": "All rows distributed in the inspected CSV.",
+      "audit": {
+        "rows": 2587,
+        "participants": 93,
+        "temporal_structure": {
+          "participants": 93,
+          "observed_days_per_participant": {
+            "n": 93,
+            "min": 1.0,
+            "p25": 15.0,
+            "median": 30.0,
+            "mean": 27.817204301075268,
+            "p75": 43.0,
+            "max": 46.0
+          },
+          "span_days_per_participant": {
+            "n": 93,
+            "min": 1.0,
+            "p25": 33.0,
+            "median": 45.0,
+            "mean": 36.344086021505376,
+            "p75": 46.0,
+            "max": 46.0
+          },
+          "span_coverage": {
+            "n": 93,
+            "min": 0.10526315789473684,
+            "p25": 0.5869565217391305,
+            "median": 0.8787878787878788,
+            "mean": 0.7514169685446176,
+            "p75": 0.9565217391304348,
+            "max": 1.0
+          },
+          "participants_with_internal_gaps": 74,
+          "participants_without_internal_gaps": 19
+        },
+        "metrics": {
+          "duration_minutes": {
+            "column": "totOnDurPerDayMin",
+            "observed_values": {
+              "n": 2587,
+              "min": 0.02,
+              "p25": 54.2,
+              "median": 124.22,
+              "mean": 161.0946566164283,
+              "p75": 210.925,
+              "max": 1439.45
+            },
+            "zero_value_rows": 0,
+            "missing_value_rows": 0,
+            "within_person_variation": {
+              "participants_with_values": 93,
+              "within_person_sd": {
+                "n": 91,
+                "min": 7.407173887522824,
+                "p25": 52.995864524017804,
+                "median": 84.43832462217615,
+                "mean": 103.27008391082666,
+                "p75": 123.16266980568972,
+                "max": 637.711084933937
+              },
+              "within_person_range": {
+                "n": 93,
+                "min": 0.0,
+                "p25": 178.64999999999998,
+                "median": 319.42,
+                "mean": 360.2415053763441,
+                "p75": 506.12,
+                "max": 1438.37
+              },
+              "full_history_mad": {
+                "n": 93,
+                "min": 0.0,
+                "p25": 28.1,
+                "median": 44.73000000000002,
+                "mean": 54.98851254462365,
+                "p75": 70.53,
+                "max": 323.75500000000005
+              },
+              "participants_full_history_mad_zero": 2
+            },
+            "prequential_reference": {
+              "evaluated_rows": 2587,
+              "rows_with_no_prior_history": 93,
+              "rows_with_any_prior_history": 2494,
+              "rows_with_positive_finite_mad_scale": 2403,
+              "rows_with_zero_mad_given_history": 91,
+              "history_checkpoints_descriptive_only": {
+                "1": {
+                  "rows_with_at_least_n_prior_values": 2494,
+                  "participants_reaching_n_prior_values": 91,
+                  "rows_with_positive_finite_mad_scale": 2403,
+                  "positive_scale_rate_given_history": 0.9635124298315958
+                },
+                "3": {
+                  "rows_with_at_least_n_prior_values": 2315,
+                  "participants_reaching_n_prior_values": 85,
+                  "rows_with_positive_finite_mad_scale": 2315,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "7": {
+                  "rows_with_at_least_n_prior_values": 1989,
+                  "participants_reaching_n_prior_values": 78,
+                  "rows_with_positive_finite_mad_scale": 1989,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "14": {
+                  "rows_with_at_least_n_prior_values": 1473,
+                  "participants_reaching_n_prior_values": 71,
+                  "rows_with_positive_finite_mad_scale": 1473,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "28": {
+                  "rows_with_at_least_n_prior_values": 623,
+                  "participants_reaching_n_prior_values": 50,
+                  "rows_with_positive_finite_mad_scale": 623,
+                  "positive_scale_rate_given_history": 1.0
+                }
+              }
+            }
+          },
+          "turn_on_count": {
+            "column": "totTurnONPerDay",
+            "observed_values": {
+              "n": 2587,
+              "min": 1.0,
+              "p25": 23.0,
+              "median": 47.0,
+              "mean": 62.686122922303824,
+              "p75": 86.5,
+              "max": 500.0
+            },
+            "zero_value_rows": 0,
+            "missing_value_rows": 0,
+            "within_person_variation": {
+              "participants_with_values": 93,
+              "within_person_sd": {
+                "n": 91,
+                "min": 2.6457513110645907,
+                "p25": 19.819298474745846,
+                "median": 32.54285331047819,
+                "mean": 37.40576615046923,
+                "p75": 50.43278204184068,
+                "max": 162.43550756422397
+              },
+              "within_person_range": {
+                "n": 93,
+                "min": 0.0,
+                "p25": 68.0,
+                "median": 129.0,
+                "mean": 146.44086021505376,
+                "p75": 193.0,
+                "max": 499.0
+              },
+              "full_history_mad": {
+                "n": 93,
+                "min": 0.0,
+                "p25": 10.0,
+                "median": 17.5,
+                "mean": 21.322580645161292,
+                "p75": 28.0,
+                "max": 123.5
+              },
+              "participants_full_history_mad_zero": 2
+            },
+            "prequential_reference": {
+              "evaluated_rows": 2587,
+              "rows_with_no_prior_history": 93,
+              "rows_with_any_prior_history": 2494,
+              "rows_with_positive_finite_mad_scale": 2400,
+              "rows_with_zero_mad_given_history": 94,
+              "history_checkpoints_descriptive_only": {
+                "1": {
+                  "rows_with_at_least_n_prior_values": 2494,
+                  "participants_reaching_n_prior_values": 91,
+                  "rows_with_positive_finite_mad_scale": 2400,
+                  "positive_scale_rate_given_history": 0.9623095429029671
+                },
+                "3": {
+                  "rows_with_at_least_n_prior_values": 2315,
+                  "participants_reaching_n_prior_values": 85,
+                  "rows_with_positive_finite_mad_scale": 2313,
+                  "positive_scale_rate_given_history": 0.9991360691144708
+                },
+                "7": {
+                  "rows_with_at_least_n_prior_values": 1989,
+                  "participants_reaching_n_prior_values": 78,
+                  "rows_with_positive_finite_mad_scale": 1989,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "14": {
+                  "rows_with_at_least_n_prior_values": 1473,
+                  "participants_reaching_n_prior_values": 71,
+                  "rows_with_positive_finite_mad_scale": 1473,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "28": {
+                  "rows_with_at_least_n_prior_values": 623,
+                  "participants_reaching_n_prior_values": 50,
+                  "rows_with_positive_finite_mad_scale": 623,
+                  "positive_scale_rate_given_history": 1.0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "published_filter_subset": {
+      "definition": "Rows belonging to participants satisfying OUTLIERS == 1 and SD == 1, reconstructed only for comparison with the source study.",
+      "audit": {
+        "rows": 2548,
+        "participants": 82,
+        "temporal_structure": {
+          "participants": 82,
+          "observed_days_per_participant": {
+            "n": 82,
+            "min": 4.0,
+            "p25": 20.25,
+            "median": 33.5,
+            "mean": 31.073170731707318,
+            "p75": 43.75,
+            "max": 46.0
+          },
+          "span_days_per_participant": {
+            "n": 82,
+            "min": 4.0,
+            "p25": 38.0,
+            "median": 45.0,
+            "mean": 39.792682926829265,
+            "p75": 46.0,
+            "max": 46.0
+          },
+          "span_coverage": {
+            "n": 82,
+            "min": 0.13333333333333333,
+            "p25": 0.6317934782608696,
+            "median": 0.8888339920948616,
+            "mean": 0.7731782078152786,
+            "p75": 0.9565217391304348,
+            "max": 1.0
+          },
+          "participants_with_internal_gaps": 67,
+          "participants_without_internal_gaps": 15
+        },
+        "metrics": {
+          "duration_minutes": {
+            "column": "totOnDurPerDayMin",
+            "observed_values": {
+              "n": 2548,
+              "min": 0.02,
+              "p25": 54.755,
+              "median": 124.3,
+              "mean": 156.7636603872449,
+              "p75": 210.07,
+              "max": 922.78
+            },
+            "zero_value_rows": 0,
+            "missing_value_rows": 0,
+            "within_person_variation": {
+              "participants_with_values": 82,
+              "within_person_sd": {
+                "n": 82,
+                "min": 7.407173887522824,
+                "p25": 53.48252933311733,
+                "median": 82.91083836964513,
+                "mean": 90.02705204415729,
+                "p75": 120.59524490736389,
+                "max": 226.34196129399825
+              },
+              "within_person_range": {
+                "n": 82,
+                "min": 16.77,
+                "p25": 195.565,
+                "median": 336.99,
+                "mean": 359.2308536585366,
+                "p75": 497.9225,
+                "max": 919.63
+              },
+              "full_history_mad": {
+                "n": 82,
+                "min": 2.0500000000000007,
+                "p25": 31.4725,
+                "median": 47.1675,
+                "mean": 53.164227642073165,
+                "p75": 70.27625,
+                "max": 164.805
+              },
+              "participants_full_history_mad_zero": 0
+            },
+            "prequential_reference": {
+              "evaluated_rows": 2548,
+              "rows_with_no_prior_history": 82,
+              "rows_with_any_prior_history": 2466,
+              "rows_with_positive_finite_mad_scale": 2384,
+              "rows_with_zero_mad_given_history": 82,
+              "history_checkpoints_descriptive_only": {
+                "1": {
+                  "rows_with_at_least_n_prior_values": 2466,
+                  "participants_reaching_n_prior_values": 82,
+                  "rows_with_positive_finite_mad_scale": 2384,
+                  "positive_scale_rate_given_history": 0.9667477696674777
+                },
+                "3": {
+                  "rows_with_at_least_n_prior_values": 2302,
+                  "participants_reaching_n_prior_values": 82,
+                  "rows_with_positive_finite_mad_scale": 2302,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "7": {
+                  "rows_with_at_least_n_prior_values": 1985,
+                  "participants_reaching_n_prior_values": 77,
+                  "rows_with_positive_finite_mad_scale": 1985,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "14": {
+                  "rows_with_at_least_n_prior_values": 1473,
+                  "participants_reaching_n_prior_values": 71,
+                  "rows_with_positive_finite_mad_scale": 1473,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "28": {
+                  "rows_with_at_least_n_prior_values": 623,
+                  "participants_reaching_n_prior_values": 50,
+                  "rows_with_positive_finite_mad_scale": 623,
+                  "positive_scale_rate_given_history": 1.0
+                }
+              }
+            }
+          },
+          "turn_on_count": {
+            "column": "totTurnONPerDay",
+            "observed_values": {
+              "n": 2548,
+              "min": 1.0,
+              "p25": 23.0,
+              "median": 48.0,
+              "mean": 63.38265306122449,
+              "p75": 87.0,
+              "max": 500.0
+            },
+            "zero_value_rows": 0,
+            "missing_value_rows": 0,
+            "within_person_variation": {
+              "participants_with_values": 82,
+              "within_person_sd": {
+                "n": 82,
+                "min": 4.014751125659624,
+                "p25": 21.795126799969427,
+                "median": 34.13554646625443,
+                "mean": 39.85689379409673,
+                "p75": 53.68221180498579,
+                "max": 162.43550756422397
+              },
+              "within_person_range": {
+                "n": 82,
+                "min": 13.0,
+                "p25": 84.25,
+                "median": 139.5,
+                "mean": 162.4390243902439,
+                "p75": 222.25,
+                "max": 499.0
+              },
+              "full_history_mad": {
+                "n": 82,
+                "min": 3.0,
+                "p25": 12.125,
+                "median": 19.0,
+                "mean": 23.5,
+                "p75": 29.875,
+                "max": 123.5
+              },
+              "participants_full_history_mad_zero": 0
+            },
+            "prequential_reference": {
+              "evaluated_rows": 2548,
+              "rows_with_no_prior_history": 82,
+              "rows_with_any_prior_history": 2466,
+              "rows_with_positive_finite_mad_scale": 2381,
+              "rows_with_zero_mad_given_history": 85,
+              "history_checkpoints_descriptive_only": {
+                "1": {
+                  "rows_with_at_least_n_prior_values": 2466,
+                  "participants_reaching_n_prior_values": 82,
+                  "rows_with_positive_finite_mad_scale": 2381,
+                  "positive_scale_rate_given_history": 0.9655312246553123
+                },
+                "3": {
+                  "rows_with_at_least_n_prior_values": 2302,
+                  "participants_reaching_n_prior_values": 82,
+                  "rows_with_positive_finite_mad_scale": 2300,
+                  "positive_scale_rate_given_history": 0.9991311902693311
+                },
+                "7": {
+                  "rows_with_at_least_n_prior_values": 1985,
+                  "participants_reaching_n_prior_values": 77,
+                  "rows_with_positive_finite_mad_scale": 1985,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "14": {
+                  "rows_with_at_least_n_prior_values": 1473,
+                  "participants_reaching_n_prior_values": 71,
+                  "rows_with_positive_finite_mad_scale": 1473,
+                  "positive_scale_rate_given_history": 1.0
+                },
+                "28": {
+                  "rows_with_at_least_n_prior_values": 623,
+                  "participants_reaching_n_prior_values": 50,
+                  "rows_with_positive_finite_mad_scale": 623,
+                  "positive_scale_rate_given_history": 1.0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
