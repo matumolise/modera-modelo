@@ -1,4 +1,4 @@
-"""Historical Analyzer package for Moderá."""
+"""Historical Analyzer package for ModerÃ¡."""
 
 from .contracts import (
     BehavioralObservation,
@@ -15,6 +15,12 @@ from .detector import (
     DetectorEvaluation,
     DetectorEvaluationOutcome,
     evaluate_c1,
+)
+from .emitter import (
+    DetectionEvent,
+    DetectionEventDecision,
+    DetectionEventEmissionResult,
+    decide_detection_event,
 )
 from .reference import (
     MAD_NORMAL_CONSISTENCY,
@@ -40,6 +46,9 @@ __all__ = [
     "CusumState",
     "DetectorEvaluation",
     "DetectorEvaluationOutcome",
+    "DetectionEvent",
+    "DetectionEventDecision",
+    "DetectionEventEmissionResult",
     "MAD_NORMAL_CONSISTENCY",
     "Coverage",
     "HistoricalRepresentation",
@@ -50,6 +59,7 @@ __all__ = [
     "ReferenceInclusionReason",
     "build_scalar_reference",
     "decide_analysis_eligibility",
+    "decide_detection_event",
     "evaluate_c1",
     "decide_reference_inclusion",
 ]
