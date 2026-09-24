@@ -171,19 +171,22 @@ def run_arm(
     shift_scale_multiplier: float,
     perturb: bool,
     config: C1DetectorConfig,
+    initial_state: CusumState,
 ) -> dict:
     """
-    Evaluate one paired arm.
+    Evaluate one paired arm from the shared pre-intervention detector state.
 
-    References for BOTH arms are always built from the same strictly prior
-    REAL trajectory. Perturbed values never enter later references.
-
-    The CUSUM state is arm-specific because accumulating detector evidence is
-    precisely what F12-C is evaluating.
+    References remain based only on strictly prior REAL observations.
+    Perturbed values never enter later references.
     """
-    state = CusumState()
-    outcomes = []
-    first_change_offset = None
+    state = initial_state
+    first_new_crossing_offset = None
+    evaluations = []
+
+    threshold = float(config.threshold)
+    preexisting_threshold_exceedance = (
+        max(float(state.positive), float(state.negative)) >= threshold
+    )
 
     end_index = min(
         len(real_records),
@@ -216,11 +219,17 @@ def run_arm(
                 + 1,
                 value=value,
                 record_suffix=(
-                    f"shift-{shift_scale_multiplier:g}-offset-{idx-start_index}"
+                    f"shift-{shift_scale_multiplier:g}-"
+                    f"offset-{idx-start_index}"
                 ),
             )
         else:
             current = real_current
+
+        previous_statistic = max(
+            float(state.positive),
+            float(state.negative),
+        )
 
         result = evaluate_c1(
             current,
@@ -232,97 +241,158 @@ def run_arm(
                 f"{start_index}-{idx}-"
                 f"{'intervention' if perturb else 'control'}"
             ),
-            analysis_version="f12c_semisynthetic_v1",
+            analysis_version="f12c_semisynthetic_stateful_v2",
             computed_at=current.interval_end,
         )
 
         state = result.next_state
         evaluation = result.evaluation
-
         offset = idx - start_index
 
-        if (
-            first_change_offset is None
-            and evaluation.outcome
-            is DetectorEvaluationOutcome.CHANGE
-        ):
-            first_change_offset = offset
+        current_statistic = max(
+            float(state.positive),
+            float(state.negative),
+        )
 
-        outcomes.append(
+        new_crossing = (
+            evaluation.outcome is not DetectorEvaluationOutcome.ABSTAIN
+            and previous_statistic < threshold
+            and current_statistic >= threshold
+        )
+
+        if first_new_crossing_offset is None and new_crossing:
+            first_new_crossing_offset = offset
+
+        evaluations.append(
             {
                 "offset": offset,
-                "day": (
-                    current.interval_start - BASE_DATE
-                ).days
-                + 1,
                 "outcome": evaluation.outcome.value,
                 "statistic": evaluation.detector_statistic,
-                "reference_location": evaluation.reference_location,
-                "reference_scale": evaluation.reference_scale,
-                "reference_history_count": (
-                    evaluation.reference_history_count
-                ),
+                "new_threshold_crossing": new_crossing,
             }
         )
 
     return {
-        "first_change_offset": first_change_offset,
-        "change_within_window": first_change_offset is not None,
+        "preexisting_threshold_exceedance": (
+            preexisting_threshold_exceedance
+        ),
+        "first_new_crossing_offset": first_new_crossing_offset,
+        "new_crossing_within_window": (
+            first_new_crossing_offset is not None
+        ),
         "final_positive_cusum": state.positive,
         "final_negative_cusum": state.negative,
-        "evaluations": outcomes,
+        "evaluations": evaluations,
     }
 
+def build_preintervention_state(
+    *,
+    real_records: list[HistoricalRepresentation],
+    start_index: int,
+    config: C1DetectorConfig,
+) -> CusumState:
+    """Replay the strictly prior real trajectory using the product detector."""
+    state = CusumState()
+
+    for idx in range(start_index):
+        current = real_records[idx]
+        reference = build_scalar_reference(
+            current,
+            real_records[:idx],
+        )
+
+        result = evaluate_c1(
+            current,
+            reference,
+            state,
+            config,
+            evaluation_id=(
+                f"{current.subject_id}-pre-{start_index}-{idx}"
+            ),
+            analysis_version="f12c_semisynthetic_stateful_v2",
+            computed_at=current.interval_end,
+        )
+        state = result.next_state
+
+    return state
 
 def summarize_scenarios(scenarios: list[dict]) -> dict:
     if not scenarios:
         return {"n": 0}
 
-    control_change = np.asarray(
-        [s["control"]["change_within_window"] for s in scenarios],
-        dtype=bool,
-    )
-    intervention_change = np.asarray(
-        [s["intervention"]["change_within_window"] for s in scenarios],
+    preexisting = np.asarray(
+        [
+            s["control"]["preexisting_threshold_exceedance"]
+            for s in scenarios
+        ],
         dtype=bool,
     )
 
-    intervention_only = (~control_change) & intervention_change
-    both = control_change & intervention_change
-    neither = (~control_change) & (~intervention_change)
-    control_only = control_change & (~intervention_change)
+    eligible = ~preexisting
+    eligible_scenarios = [
+        s
+        for s, keep in zip(scenarios, eligible)
+        if keep
+    ]
+
+    if not eligible_scenarios:
+        return {
+            "n": len(scenarios),
+            "preexisting_threshold_exceedance_n": int(preexisting.sum()),
+            "preexisting_threshold_exceedance_rate": float(
+                preexisting.mean()
+            ),
+            "new_crossing_eligible_n": 0,
+        }
+
+    control_crossing = np.asarray(
+        [
+            s["control"]["new_crossing_within_window"]
+            for s in eligible_scenarios
+        ],
+        dtype=bool,
+    )
+    intervention_crossing = np.asarray(
+        [
+            s["intervention"]["new_crossing_within_window"]
+            for s in eligible_scenarios
+        ],
+        dtype=bool,
+    )
+
+    intervention_only = (~control_crossing) & intervention_crossing
+    both = control_crossing & intervention_crossing
+    neither = (~control_crossing) & (~intervention_crossing)
+    control_only = control_crossing & (~intervention_crossing)
 
     delays = [
-        s["intervention"]["first_change_offset"]
-        for s in scenarios
-        if s["intervention"]["first_change_offset"] is not None
+        s["intervention"]["first_new_crossing_offset"]
+        for s in eligible_scenarios
+        if s["intervention"]["first_new_crossing_offset"] is not None
     ]
 
     return {
         "n": len(scenarios),
-        "control_change_rate": float(control_change.mean()),
-        "intervention_change_rate": float(intervention_change.mean()),
-        "paired_intervention_only_rate": float(intervention_only.mean()),
-        "paired_both_change_rate": float(both.mean()),
-        "paired_neither_change_rate": float(neither.mean()),
+        "preexisting_threshold_exceedance_n": int(preexisting.sum()),
+        "preexisting_threshold_exceedance_rate": float(
+            preexisting.mean()
+        ),
+        "new_crossing_eligible_n": len(eligible_scenarios),
+        "control_new_crossing_rate": float(control_crossing.mean()),
+        "intervention_new_crossing_rate": float(
+            intervention_crossing.mean()
+        ),
+        "paired_intervention_only_rate": float(
+            intervention_only.mean()
+        ),
+        "paired_both_cross_rate": float(both.mean()),
+        "paired_neither_cross_rate": float(neither.mean()),
         "paired_control_only_rate": float(control_only.mean()),
-        "intervention_first_change_offset": {
+        "intervention_first_new_crossing_offset": {
             "n": len(delays),
-            "median": (
-                float(np.median(delays))
-                if delays
-                else None
-            ),
-            "mean": (
-                float(np.mean(delays))
-                if delays
-                else None
-            ),
-            "max": (
-                int(max(delays))
-                if delays
-                else None
-            ),
+            "median": float(np.median(delays)) if delays else None,
+            "mean": float(np.mean(delays)) if delays else None,
+            "max": int(max(delays)) if delays else None,
         },
     }
 
@@ -334,7 +404,7 @@ def main() -> None:
         "--output",
         type=Path,
         default=Path(
-            "artifacts/f12/f12_c1_semisynthetic_duration.json"
+            "artifacts/f12/f12_c2_stateful_semisynthetic_duration.json"
         ),
     )
     args = parser.parse_args()
@@ -376,6 +446,12 @@ def main() -> None:
                         min_history=MIN_HISTORY,
                     )
 
+                    initial_state = build_preintervention_state(
+                        real_records=records,
+                        start_index=start_index,
+                        config=config,
+                    )
+
                     for shift in SHIFT_SCALES:
                         control = run_arm(
                             real_records=records,
@@ -383,6 +459,7 @@ def main() -> None:
                             shift_scale_multiplier=shift,
                             perturb=False,
                             config=config,
+                            initial_state=initial_state,
                         )
                         intervention = run_arm(
                             real_records=records,
@@ -390,6 +467,7 @@ def main() -> None:
                             shift_scale_multiplier=shift,
                             perturb=True,
                             config=config,
+                            initial_state=initial_state,
                         )
 
                         scenarios.append(
@@ -440,7 +518,7 @@ def main() -> None:
 
     result = {
         "experiment": (
-            "F12-C1 paired semisynthetic detector response "
+            "F12-C2 corrected stateful paired semisynthetic detector response "
             "on real human backgrounds"
         ),
         "dataset": {
@@ -472,6 +550,12 @@ def main() -> None:
             "real_false_positive_rate_claimed": False,
             "detection_event_emission_evaluated": False,
             "reset_rearm_policy_evaluated": False,
+            "shared_preintervention_detector_state": True,
+            "preintervention_state_replayed_with_product_detector": True,
+            "new_threshold_crossing_distinguished_from_change_state": True,
+            "preexisting_threshold_exceedance_reported_separately": True,
+            "scenario_level_records_persisted": False,
+            "overlapping_windows_treated_as_independent_samples": False,
         },
         "scenario_admission": {
             "requires_three_observed_continuation_records": True,
@@ -481,7 +565,6 @@ def main() -> None:
         },
         "summary_by_experimental_condition": grouped_summary,
         "scenario_count": len(scenarios),
-        "scenarios": scenarios,
     }
 
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,201 @@
+{
+  "experiment": "F12-C2 corrected stateful paired semisynthetic detector response on real human backgrounds",
+  "dataset": {
+    "file_name": "Dataset_LongFormat.csv",
+    "sha256": "cdfdb5b2d665efcfcc25da6337d2102877541201e7da55ff3f0e121b57f0b51e",
+    "rows": 2587,
+    "participants": 93
+  },
+  "metric": {
+    "column": "totOnDurPerDayMin",
+    "phenomenon": "TOTAL_USE_MINUTES",
+    "unit": "minutes"
+  },
+  "design": {
+    "paired_control_intervention": true,
+    "real_human_backgrounds": true,
+    "reference_uses_real_prior_history_only": true,
+    "perturbed_values_enter_future_reference": false,
+    "missing_days_imputed": false,
+    "perturbation_length_observed_records": 3,
+    "shift_scale_multipliers": [
+      1.0,
+      2.0
+    ],
+    "k_values_experimental": [
+      0.5,
+      1.0
+    ],
+    "thresholds_experimental": [
+      3.0,
+      5.0
+    ],
+    "min_history_experimental": 7,
+    "product_parameter_selected": false,
+    "real_ground_truth_available": false,
+    "real_sensitivity_claimed": false,
+    "real_specificity_claimed": false,
+    "real_false_positive_rate_claimed": false,
+    "detection_event_emission_evaluated": false,
+    "reset_rearm_policy_evaluated": false,
+    "shared_preintervention_detector_state": true,
+    "preintervention_state_replayed_with_product_detector": true,
+    "new_threshold_crossing_distinguished_from_change_state": true,
+    "preexisting_threshold_exceedance_reported_separately": true,
+    "scenario_level_records_persisted": false,
+    "overlapping_windows_treated_as_independent_samples": false
+  },
+  "scenario_admission": {
+    "requires_three_observed_continuation_records": true,
+    "requires_estimable_start_reference": true,
+    "skipped_non_estimable_start": 0,
+    "skipped_short_followup": 184
+  },
+  "summary_by_experimental_condition": {
+    "k=0.5|h=3|shift=1scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 656,
+      "preexisting_threshold_exceedance_rate": 0.3572984749455338,
+      "new_crossing_eligible_n": 1180,
+      "control_new_crossing_rate": 0.21864406779661016,
+      "intervention_new_crossing_rate": 0.4711864406779661,
+      "paired_intervention_only_rate": 0.2889830508474576,
+      "paired_both_cross_rate": 0.18220338983050846,
+      "paired_neither_cross_rate": 0.4923728813559322,
+      "paired_control_only_rate": 0.036440677966101696,
+      "intervention_first_new_crossing_offset": {
+        "n": 556,
+        "median": 1.0,
+        "mean": 0.9694244604316546,
+        "max": 2
+      }
+    },
+    "k=0.5|h=3|shift=2scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 656,
+      "preexisting_threshold_exceedance_rate": 0.3572984749455338,
+      "new_crossing_eligible_n": 1180,
+      "control_new_crossing_rate": 0.21864406779661016,
+      "intervention_new_crossing_rate": 0.8550847457627119,
+      "paired_intervention_only_rate": 0.6677966101694915,
+      "paired_both_cross_rate": 0.18728813559322033,
+      "paired_neither_cross_rate": 0.1135593220338983,
+      "paired_control_only_rate": 0.03135593220338983,
+      "intervention_first_new_crossing_offset": {
+        "n": 1009,
+        "median": 1.0,
+        "mean": 0.8761149653121902,
+        "max": 2
+      }
+    },
+    "k=0.5|h=5|shift=1scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 418,
+      "preexisting_threshold_exceedance_rate": 0.22766884531590414,
+      "new_crossing_eligible_n": 1418,
+      "control_new_crossing_rate": 0.11636107193229901,
+      "intervention_new_crossing_rate": 0.28138222849083216,
+      "paired_intervention_only_rate": 0.18194640338504936,
+      "paired_both_cross_rate": 0.09943582510578279,
+      "paired_neither_cross_rate": 0.7016925246826516,
+      "paired_control_only_rate": 0.01692524682651622,
+      "intervention_first_new_crossing_offset": {
+        "n": 399,
+        "median": 1.0,
+        "mean": 1.0275689223057645,
+        "max": 2
+      }
+    },
+    "k=0.5|h=5|shift=2scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 418,
+      "preexisting_threshold_exceedance_rate": 0.22766884531590414,
+      "new_crossing_eligible_n": 1418,
+      "control_new_crossing_rate": 0.11636107193229901,
+      "intervention_new_crossing_rate": 0.6318758815232722,
+      "paired_intervention_only_rate": 0.5324400564174894,
+      "paired_both_cross_rate": 0.09943582510578279,
+      "paired_neither_cross_rate": 0.3511988716502116,
+      "paired_control_only_rate": 0.01692524682651622,
+      "intervention_first_new_crossing_offset": {
+        "n": 896,
+        "median": 1.0,
+        "mean": 1.1194196428571428,
+        "max": 2
+      }
+    },
+    "k=1|h=3|shift=1scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 289,
+      "preexisting_threshold_exceedance_rate": 0.1574074074074074,
+      "new_crossing_eligible_n": 1547,
+      "control_new_crossing_rate": 0.11053652230122818,
+      "intervention_new_crossing_rate": 0.248868778280543,
+      "paired_intervention_only_rate": 0.1493212669683258,
+      "paired_both_cross_rate": 0.09954751131221719,
+      "paired_neither_cross_rate": 0.7401422107304461,
+      "paired_control_only_rate": 0.01098901098901099,
+      "intervention_first_new_crossing_offset": {
+        "n": 385,
+        "median": 1.0,
+        "mean": 1.0155844155844156,
+        "max": 2
+      }
+    },
+    "k=1|h=3|shift=2scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 289,
+      "preexisting_threshold_exceedance_rate": 0.1574074074074074,
+      "new_crossing_eligible_n": 1547,
+      "control_new_crossing_rate": 0.11053652230122818,
+      "intervention_new_crossing_rate": 0.6308985132514544,
+      "paired_intervention_only_rate": 0.5313510019392372,
+      "paired_both_cross_rate": 0.09954751131221719,
+      "paired_neither_cross_rate": 0.3581124757595346,
+      "paired_control_only_rate": 0.01098901098901099,
+      "intervention_first_new_crossing_offset": {
+        "n": 976,
+        "median": 1.0,
+        "mean": 1.0706967213114753,
+        "max": 2
+      }
+    },
+    "k=1|h=5|shift=1scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 172,
+      "preexisting_threshold_exceedance_rate": 0.09368191721132897,
+      "new_crossing_eligible_n": 1664,
+      "control_new_crossing_rate": 0.05889423076923077,
+      "intervention_new_crossing_rate": 0.1268028846153846,
+      "paired_intervention_only_rate": 0.07271634615384616,
+      "paired_both_cross_rate": 0.054086538461538464,
+      "paired_neither_cross_rate": 0.8683894230769231,
+      "paired_control_only_rate": 0.004807692307692308,
+      "intervention_first_new_crossing_offset": {
+        "n": 211,
+        "median": 1.0,
+        "mean": 1.1042654028436019,
+        "max": 2
+      }
+    },
+    "k=1|h=5|shift=2scale": {
+      "n": 1836,
+      "preexisting_threshold_exceedance_n": 172,
+      "preexisting_threshold_exceedance_rate": 0.09368191721132897,
+      "new_crossing_eligible_n": 1664,
+      "control_new_crossing_rate": 0.05889423076923077,
+      "intervention_new_crossing_rate": 0.35877403846153844,
+      "paired_intervention_only_rate": 0.3046875,
+      "paired_both_cross_rate": 0.054086538461538464,
+      "paired_neither_cross_rate": 0.6364182692307693,
+      "paired_control_only_rate": 0.004807692307692308,
+      "intervention_first_new_crossing_offset": {
+        "n": 597,
+        "median": 1.0,
+        "mean": 1.289782244556114,
+        "max": 2
+      }
+    }
+  },
+  "scenario_count": 14688
+}
