@@ -114,7 +114,7 @@ class DailyInteractiveDurationTests(unittest.TestCase):
 
         self.assertEqual(result.duration_minutes, 0.0)
         self.assertTrue(result.has_open_interval)
-    
+
     def test_negative_duration_is_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "no negativo"):
             DailyInteractiveDuration(
@@ -224,7 +224,7 @@ class DailyUseObservationTests(unittest.TestCase):
 
         self.assertIsNone(observation.value)
         self.assertEqual(observation.status, ObservationStatus.MISSING)
-    
+
     def test_complete_capture_reaches_historical_representation(self) -> None:
         events = [
             ScreenStateEvent(
@@ -265,7 +265,7 @@ class DailyUseObservationTests(unittest.TestCase):
             DAILY_USE_DURATION_SPEC_ID,
         )
         self.assertEqual(representation.subject_id, "subject-1")
-    
+
     def test_complete_capture_is_processed_and_persisted(self) -> None:
         events = [
             ScreenStateEvent(
