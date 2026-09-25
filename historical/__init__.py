@@ -52,6 +52,8 @@ from .persistence import (
     HistoricalStreamKey,
 )
 
+from .service import process_c1_representation
+
 __all__ = [
     "AnalysisEligibilityDecision",
     "DAILY_USE_DURATION_ADAPTER_VERSION",
@@ -87,4 +89,5 @@ __all__ = [
     "decide_detection_event",
     "evaluate_c1",
     "decide_reference_inclusion",
+    "process_c1_representation",
 ]

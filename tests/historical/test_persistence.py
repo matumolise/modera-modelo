@@ -710,6 +710,69 @@ class HistoricalRepositoryTests(unittest.TestCase):
             tzinfo=timezone.utc,
         )
 
+    def test_contains_representation_detects_persisted_record_id(
+        self,
+    ) -> None:
+        start = datetime(
+            2026,
+            9,
+            1,
+            tzinfo=timezone.utc,
+        )
+
+        representation = HistoricalRepresentation(
+            representation_record_id="contains-rep-001",
+            representation_spec_id="daily_use_duration_minutes_v1",
+            subject_id="child-contains-001",
+            phenomenon="DAILY_USE_DURATION",
+            interval_start=start,
+            interval_end=start + timedelta(days=1),
+            value=120.0,
+            unit="minutes",
+            status=ObservationStatus.OBSERVED,
+            coverage=Coverage(),
+            provenance=Provenance(
+                source_id="contains-test"
+            ),
+            computed_at=start + timedelta(days=1),
+        )
+
+        config = C1DetectorConfig(0.5, 3.0, 3)
+        key = HistoricalStreamKey.from_c1(
+            "child-contains-001",
+            "daily_use_duration_minutes_v1",
+            config,
+            "historical_analyzer_v1",
+        )
+
+        with TemporaryDirectory() as directory:
+            repository = FileHistoricalRepository(
+                Path(directory) / "historical_store.json"
+            )
+
+            self.assertFalse(
+                repository.contains_representation(
+                    "contains-rep-001"
+                )
+            )
+
+            repository.save_analysis_progress(
+                representation=representation,
+                stream_key=key,
+                state=HistoricalAnalyzerState(),
+            )
+
+            self.assertTrue(
+                repository.contains_representation(
+                    "contains-rep-001"
+                )
+            )
+            self.assertFalse(
+                repository.contains_representation(
+                    "contains-rep-999"
+                )
+            )
+
         first = HistoricalRepresentation(
             representation_record_id="atomic-rep-001",
             representation_spec_id="daily_use_duration_minutes_v1",

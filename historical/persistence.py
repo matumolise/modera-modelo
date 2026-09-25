@@ -512,6 +512,25 @@ class FileHistoricalRepository:
 
         return True
 
+    def contains_representation(
+        self,
+        representation_record_id: str,
+    ) -> bool:
+        """Indica si una representación ya fue persistida por su identificador."""
+
+        if not representation_record_id.strip():
+            raise ValueError(
+                "representation_record_id no puede estar vacío."
+            )
+
+        document = self._read_document()
+
+        return any(
+            stored.get("representation_record_id")
+            == representation_record_id
+            for stored in document["representations"]
+        )
+
     def load_history(
         self,
         *,
