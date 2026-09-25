@@ -1,6 +1,6 @@
 import unittest
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -21,6 +21,7 @@ from historical.daily_usage import (
     ScreenStateEventType,
     build_daily_use_observation,
     calculate_interactive_duration,
+    prepare_interactive_duration_window,
 )
 
 
@@ -342,6 +343,171 @@ class DailyUseObservationTests(unittest.TestCase):
                 repository.load_state(stream_key),
                 result.next_state,
             )
+
+class DailyInteractiveWindowTests(unittest.TestCase):
+    def test_previous_interactive_state_is_carried_to_interval_start(self) -> None:
+        interval_start = datetime(2026, 9, 25, 0, 0, tzinfo=timezone.utc)
+        interval_end = datetime(2026, 9, 26, 0, 0, tzinfo=timezone.utc)
+
+        events = [
+            ScreenStateEvent(
+                occurred_at=interval_start - timedelta(minutes=30),
+                event_type=ScreenStateEventType.INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=interval_start + timedelta(hours=2),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+        ]
+
+        prepared = prepare_interactive_duration_window(
+            events=events,
+            interval_start=interval_start,
+            interval_end=interval_end,
+        )
+
+        self.assertTrue(prepared.initial_state_known)
+        self.assertEqual(
+            prepared.events[0],
+            ScreenStateEvent(
+                occurred_at=interval_start,
+                event_type=ScreenStateEventType.INTERACTIVE,
+            ),
+        )
+
+    def test_previous_non_interactive_state_is_carried_to_interval_start(self) -> None:
+        interval_start = datetime(2026, 9, 25, 0, 0, tzinfo=timezone.utc)
+        interval_end = datetime(2026, 9, 26, 0, 0, tzinfo=timezone.utc)
+
+        events = [
+            ScreenStateEvent(
+                occurred_at=interval_start - timedelta(minutes=30),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+        ]
+
+        prepared = prepare_interactive_duration_window(
+            events=events,
+            interval_start=interval_start,
+            interval_end=interval_end,
+        )
+
+        self.assertTrue(prepared.initial_state_known)
+        self.assertEqual(
+            prepared.events[0].event_type,
+            ScreenStateEventType.NON_INTERACTIVE,
+        )
+
+    def test_missing_previous_state_is_reported_as_unknown(self) -> None:
+        interval_start = datetime(2026, 9, 25, 0, 0, tzinfo=timezone.utc)
+        interval_end = datetime(2026, 9, 26, 0, 0, tzinfo=timezone.utc)
+
+        prepared = prepare_interactive_duration_window(
+            events=[],
+            interval_start=interval_start,
+            interval_end=interval_end,
+        )
+
+        self.assertFalse(prepared.initial_state_known)
+        self.assertEqual(prepared.events, ())
+
+    def test_events_outside_target_interval_are_not_in_daily_window(self) -> None:
+        interval_start = datetime(2026, 9, 25, 0, 0, tzinfo=timezone.utc)
+        interval_end = datetime(2026, 9, 26, 0, 0, tzinfo=timezone.utc)
+
+        events = [
+            ScreenStateEvent(
+                occurred_at=interval_start - timedelta(minutes=10),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=interval_start + timedelta(hours=1),
+                event_type=ScreenStateEventType.INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=interval_end + timedelta(minutes=1),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+        ]
+
+        prepared = prepare_interactive_duration_window(
+            events=events,
+            interval_start=interval_start,
+            interval_end=interval_end,
+        )
+
+        self.assertTrue(
+            all(
+                interval_start <= event.occurred_at <= interval_end
+                for event in prepared.events
+            )
+        )
+
+        self.assertNotIn(
+            interval_end + timedelta(minutes=1),
+            [event.occurred_at for event in prepared.events],
+        )
+
+    def test_interactive_state_is_clipped_at_interval_end(self) -> None:
+        interval_start = datetime(2026, 9, 25, 0, 0, tzinfo=timezone.utc)
+        interval_end = datetime(2026, 9, 26, 0, 0, tzinfo=timezone.utc)
+
+        events = [
+            ScreenStateEvent(
+                occurred_at=interval_start - timedelta(minutes=30),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=interval_end - timedelta(minutes=30),
+                event_type=ScreenStateEventType.INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=interval_end + timedelta(minutes=20),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+        ]
+
+        prepared = prepare_interactive_duration_window(
+            events=events,
+            interval_start=interval_start,
+            interval_end=interval_end,
+        )
+
+        reconstruction = calculate_interactive_duration(list(prepared.events))
+
+        self.assertEqual(reconstruction.duration_minutes, 30.0)
+        self.assertFalse(reconstruction.has_open_interval)
+
+
+    def test_non_interactive_state_does_not_add_synthetic_duration_at_end(self) -> None:
+        interval_start = datetime(2026, 9, 25, 0, 0, tzinfo=timezone.utc)
+        interval_end = datetime(2026, 9, 26, 0, 0, tzinfo=timezone.utc)
+
+        events = [
+            ScreenStateEvent(
+                occurred_at=interval_start - timedelta(minutes=30),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=interval_start + timedelta(hours=1),
+                event_type=ScreenStateEventType.INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=interval_start + timedelta(hours=2),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+        ]
+
+        prepared = prepare_interactive_duration_window(
+            events=events,
+            interval_start=interval_start,
+            interval_end=interval_end,
+        )
+
+        reconstruction = calculate_interactive_duration(list(prepared.events))
+
+        self.assertEqual(reconstruction.duration_minutes, 60.0)
+        self.assertFalse(reconstruction.has_open_interval)
 
 if __name__ == "__main__":
     unittest.main()

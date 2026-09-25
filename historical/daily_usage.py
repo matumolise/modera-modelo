@@ -35,6 +35,13 @@ class ScreenStateEvent:
             )
 
 @dataclass(frozen=True)
+class PreparedInteractiveDurationWindow:
+    """Ventana diaria preparada a partir de un estado inicial observable."""
+
+    events: tuple[ScreenStateEvent, ...]
+    initial_state_known: bool
+
+@dataclass(frozen=True)
 class DailyInteractiveDuration:
     """Resultado técnico de reconstruir intervalos de pantalla interactiva."""
 
@@ -49,6 +56,79 @@ class DailyInteractiveDuration:
                 "duration_minutes debe ser finito y no negativo."
             )
 
+def prepare_interactive_duration_window(
+    *,
+    events: list[ScreenStateEvent],
+    interval_start: datetime,
+    interval_end: datetime,
+) -> PreparedInteractiveDurationWindow:
+    """
+    Prepara los eventos de un intervalo usando el último estado conocido
+    anterior a su inicio.
+
+    No inventa un estado inicial cuando no existe evidencia previa.
+    """
+
+    if (
+        interval_start.tzinfo is None
+        or interval_start.utcoffset() is None
+        or interval_end.tzinfo is None
+        or interval_end.utcoffset() is None
+    ):
+        raise ValueError(
+            "interval_start e interval_end deben incluir zona horaria."
+        )
+
+    if interval_start >= interval_end:
+        raise ValueError(
+            "interval_start debe ser anterior a interval_end."
+        )
+
+    ordered_events = sorted(events, key=lambda event: event.occurred_at)
+
+    previous_events = [
+        event
+        for event in ordered_events
+        if event.occurred_at < interval_start
+    ]
+
+    interval_events = [
+        event
+        for event in ordered_events
+        if interval_start <= event.occurred_at < interval_end
+    ]
+
+    if not previous_events:
+        return PreparedInteractiveDurationWindow(
+            events=tuple(interval_events),
+            initial_state_known=False,
+        )
+
+    previous_state = previous_events[-1].event_type
+
+    boundary_event = ScreenStateEvent(
+        occurred_at=interval_start,
+        event_type=previous_state,
+    )
+
+    prepared_events = [boundary_event, *interval_events]
+
+    current_state = previous_state
+    for event in interval_events:
+        current_state = event.event_type
+
+    if current_state is ScreenStateEventType.INTERACTIVE:
+        prepared_events.append(
+            ScreenStateEvent(
+                occurred_at=interval_end,
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            )
+        )
+
+    return PreparedInteractiveDurationWindow(
+        events=tuple(prepared_events),
+        initial_state_known=True,
+    )
 
 def calculate_interactive_duration(
     events: list[ScreenStateEvent],

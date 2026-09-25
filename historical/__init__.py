@@ -54,6 +54,16 @@ from .persistence import (
 
 from .service import process_c1_representation
 
+from .android_usage import (
+    AndroidCollectorRunSummary,
+    RawAndroidUsageEvent,
+    build_daily_use_observation_from_raw_android,
+)
+from .daily_usage import (
+    ScreenStateEvent,
+    ScreenStateEventType,
+)
+
 __all__ = [
     "AnalysisEligibilityDecision",
     "DAILY_USE_DURATION_ADAPTER_VERSION",
@@ -90,4 +100,10 @@ __all__ = [
     "evaluate_c1",
     "decide_reference_inclusion",
     "process_c1_representation",
+    "AndroidCollectorRunSummary",
+    "RawAndroidUsageEvent",
+    "build_daily_use_observation_from_raw_android",
+    "DAILY_USE_DURATION_PHENOMENON",
+    "ScreenStateEvent",
+    "ScreenStateEventType",
 ]
