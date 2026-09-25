@@ -47,6 +47,11 @@ from .eligibility import (
     decide_reference_inclusion,
 )
 
+from .persistence import (
+    FileHistoricalRepository,
+    HistoricalStreamKey,
+)
+
 __all__ = [
     "AnalysisEligibilityDecision",
     "DAILY_USE_DURATION_ADAPTER_VERSION",
@@ -63,11 +68,13 @@ __all__ = [
     "DetectionEvent",
     "DetectionEventDecision",
     "DetectionEventEmissionResult",
+    "FileHistoricalRepository",
     "MAD_NORMAL_CONSISTENCY",
     "Coverage",
     "HistoricalRepresentation",
     "HistoricalAnalysisResult",
     "HistoricalAnalyzerState",
+    "HistoricalStreamKey",
     "ObservationStatus",
     "Provenance",
     "ScalarReference",
