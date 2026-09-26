@@ -16,6 +16,8 @@ from historical import (
     build_daily_use_observation_from_raw_android,
     process_c1_representation,
     DetectionEventDecision,
+    ChangeDirection,
+    build_historical_interpretation,
 )
 
 
@@ -370,6 +372,39 @@ class AndroidHistoricalVerticalTests(unittest.TestCase):
             self.assertEqual(
                 day_five.emission.event.representation_record_id,
                 "rep-day-5",
+            )
+
+            persisted_day_five = repository.load_history(
+                subject_id=self.SUBJECT_ID,
+                representation_spec_id=DAILY_USE_DURATION_SPEC_ID,
+            )[-1]
+
+            interpretation = build_historical_interpretation(
+                current=persisted_day_five,
+                result=day_five,
+                interpretation_id="interpretation-day-5",
+                interpretation_version="f15.3-integration-test-v1",
+                computed_at=(
+                    persisted_day_five.interval_end
+                    + timedelta(minutes=4)
+                ),
+            )
+
+            self.assertEqual(
+                interpretation.detection_event_id,
+                day_five.emission.event.event_id,
+            )
+            self.assertEqual(
+                interpretation.observed_value,
+                150.0,
+            )
+            self.assertEqual(
+                interpretation.direction,
+                ChangeDirection.INCREASE,
+            )
+            self.assertGreater(
+                interpretation.value_change,
+                0.0,
             )
 
             persisted_history = repository.load_history(

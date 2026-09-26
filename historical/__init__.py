@@ -33,6 +33,11 @@ from .emitter import (
     DetectionEventEmissionResult,
     decide_detection_event,
 )
+from .interpretation import (
+    ChangeDirection,
+    HistoricalInterpretation,
+    build_historical_interpretation,
+)
 from .reference import (
     MAD_NORMAL_CONSISTENCY,
     ScalarReference,
@@ -103,7 +108,9 @@ __all__ = [
     "AndroidCollectorRunSummary",
     "RawAndroidUsageEvent",
     "build_daily_use_observation_from_raw_android",
-    "DAILY_USE_DURATION_PHENOMENON",
     "ScreenStateEvent",
     "ScreenStateEventType",
+    "ChangeDirection",
+    "HistoricalInterpretation",
+    "build_historical_interpretation",
 ]
