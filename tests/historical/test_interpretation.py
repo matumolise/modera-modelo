@@ -14,6 +14,7 @@ from historical.contracts import (
 from historical.detector import C1DetectorConfig, CusumState
 from historical.interpretation import (
     ChangeDirection,
+    HistoricalInterpretation,
     build_historical_interpretation,
 )
 
@@ -302,6 +303,30 @@ class HistoricalInterpretationTests(unittest.TestCase):
                 interpretation_version=" ",
                 computed_at=current.interval_end,
             )
+
+    def test_interpretation_contract_excludes_decision_and_clinical_semantics(
+        self,
+    ) -> None:
+        excluded_fields = {
+            "risk",
+            "risk_level",
+            "severity",
+            "clinical_meaning",
+            "problematic_use",
+            "improvement",
+            "worsening",
+            "persistence_days",
+            "change_started_at",
+            "communicable",
+            "alert",
+            "recommendation",
+        }
+
+        self.assertTrue(
+            excluded_fields.isdisjoint(
+                HistoricalInterpretation.__dataclass_fields__
+            )
+        )
 
 if __name__ == "__main__":
     unittest.main()
