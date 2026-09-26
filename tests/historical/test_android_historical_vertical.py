@@ -407,6 +407,23 @@ class AndroidHistoricalVerticalTests(unittest.TestCase):
                 0.0,
             )
 
+            self.assertEqual(
+                interpretation.reference_history_count,
+                day_five.evaluation.reference_history_count,
+            )
+            self.assertEqual(
+                interpretation.reference_cutoff,
+                day_five.evaluation.reference_cutoff,
+            )
+            self.assertEqual(
+                interpretation.evaluated_interval_start,
+                day_five.evaluation.evaluated_interval_start,
+            )
+            self.assertEqual(
+                interpretation.evaluated_interval_end,
+                day_five.evaluation.evaluated_interval_end,
+            )
+
             persisted_history = repository.load_history(
                 subject_id=self.SUBJECT_ID,
                 representation_spec_id=DAILY_USE_DURATION_SPEC_ID,
