@@ -98,7 +98,6 @@ class DurableReceiptTests(unittest.TestCase):
             {"coverage": Coverage(value=0.5, basis="test")},
             {"quality_flags": ("OTHER",)},
             {"provenance": replace(current.provenance, input_fingerprint="other")},
-            {"computed_at": current.computed_at + timedelta(seconds=1)},
             {"interval_end": current.interval_end + timedelta(hours=1)},
         ]
         for fields in changes:
@@ -181,7 +180,7 @@ class DurableReceiptTests(unittest.TestCase):
         self.assertEqual(self.path.read_bytes(), before)
         self.process(representation(1, 70))
         upgraded = json.loads(self.path.read_text())
-        self.assertEqual(upgraded["format_version"], 2)
+        self.assertEqual(upgraded["format_version"], 3)
         self.assertEqual(len(upgraded["representations"]), 2)
         self.assertEqual(set(upgraded["receipts"]), {"service-rep-1"})
 
@@ -208,10 +207,103 @@ class DurableReceiptTests(unittest.TestCase):
             )
         self.assertEqual(self.path.read_bytes(), before)
 
-    def test_version_two_without_receipts_is_rejected(self):
+    def test_current_format_without_receipts_is_rejected(self):
         self.process(representation(0, 60))
         document = json.loads(self.path.read_text())
         del document["receipts"]
         self.path.write_text(json.dumps(document))
         with self.assertRaisesRegex(ValueError, "recibos válidos"):
             self.process(representation(0, 60))
+
+    def test_representation_recomputation_preserves_original_receipt_and_timestamp(self):
+        current = representation(0, 60)
+        original = self.process(current)
+        before = self.path.read_bytes()
+        retry = replace(current, computed_at=current.computed_at + timedelta(days=2))
+        with patch("historical.service.analyze_c1_representation",
+                   side_effect=AssertionError("must not reanalyze")):
+            self.assertEqual(self.process(retry), original)
+        self.assertEqual(self.path.read_bytes(), before)
+
+    def test_deleted_new_receipt_is_integrity_failure(self):
+        current = representation(0, 60)
+        self.process(current)
+        document = json.loads(self.path.read_text())
+        document["receipts"].clear()
+        self.path.write_text(json.dumps(document))
+        before = self.path.read_bytes()
+        with patch("historical.service.analyze_c1_representation",
+                   side_effect=AssertionError("must not reanalyze")):
+            with self.assertRaisesRegex(ValueError, "integridad"):
+                self.process(current)
+        self.assertEqual(self.path.read_bytes(), before)
+
+    def test_activation_rejects_low_level_save_without_receipt(self):
+        result = self.process(representation(0, 60))
+        before = self.path.read_bytes()
+        with self.assertRaisesRegex(ValueError, "requiere un recibo"):
+            self.repository.save_analysis_progress(
+                representation=representation(1, 70), stream_key=self.key,
+                state=result.next_state,
+            )
+        self.assertEqual(self.path.read_bytes(), before)
+
+    def test_pre_activation_record_keeps_explicit_legacy_classification(self):
+        current = representation(0, 60)
+        self.repository.save_analysis_progress(
+            representation=current, stream_key=self.key,
+            state=self.repository.load_state(self.key),
+        )
+        document = json.loads(self.path.read_text())
+        self.assertFalse(document["receipts_required"])
+        self.assertEqual(document["records_without_receipt"],
+                         {current.representation_record_id: "legacy"})
+        self.process(representation(1, 70))
+        self.assertTrue(json.loads(self.path.read_text())["receipts_required"])
+        with self.assertRaisesRegex(ValueError, "legada"):
+            self.process(current)
+
+    def test_v2_missing_receipt_is_unclassified_and_never_reanalyzed(self):
+        current = representation(0, 60)
+        self.process(current)
+        document = json.loads(self.path.read_text())
+        document["format_version"] = 2
+        document["receipts"].clear()
+        del document["records_without_receipt"]
+        del document["receipts_required"]
+        self.path.write_text(json.dumps(document))
+        before = self.path.read_bytes()
+        with patch("historical.service.analyze_c1_representation",
+                   side_effect=AssertionError("must not reanalyze")):
+            with self.assertRaisesRegex(ValueError, "no clasificable"):
+                self.process(current)
+        self.assertEqual(self.path.read_bytes(), before)
+        self.process(representation(1, 70))
+        upgraded = json.loads(self.path.read_text())
+        self.assertEqual(upgraded["format_version"], 3)
+        self.assertEqual(upgraded["records_without_receipt"],
+                         {current.representation_record_id: "unclassified"})
+
+    def test_intact_v2_receipt_recovers_without_inventing_previous_state(self):
+        current = representation(0, 60)
+        original = self.process(current)
+        document = json.loads(self.path.read_text())
+        document["format_version"] = 2
+        del document["records_without_receipt"]
+        del document["receipts_required"]
+        del document["receipts"][current.representation_record_id]["previous_state"]
+        self.path.write_text(json.dumps(document))
+        before = self.path.read_bytes()
+        self.assertEqual(self.process(current), original)
+        self.assertEqual(self.path.read_bytes(), before)
+
+    def test_event_receipt_keeps_previous_state_after_later_progress(self):
+        from historical.persistence import serialize_analyzer_state
+        inputs, results = self.seed()
+        expected = serialize_analyzer_state(results[3].next_state)
+        event_id = inputs[4].representation_record_id
+        self.process(representation(5, 170))
+        self.repository = FileHistoricalRepository(self.path)
+        self.assertEqual(self.process(inputs[4]), results[4])
+        document = json.loads(self.path.read_text())
+        self.assertEqual(document["receipts"][event_id]["previous_state"], expected)

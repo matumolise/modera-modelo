@@ -360,7 +360,7 @@ class FileHistoricalRepository:
     procesamientos concurrentes ni promete durabilidad ante todo fallo físico.
     """
 
-    FORMAT_VERSION = 2
+    FORMAT_VERSION = 3
 
     def __init__(self, path: str | Path) -> None:
         self.path = Path(path)
@@ -371,6 +371,8 @@ class FileHistoricalRepository:
             "representations": [],
             "streams": {},
             "receipts": {},
+            "records_without_receipt": {},
+            "receipts_required": False,
         }
 
     def _read_document(self) -> dict:
@@ -380,7 +382,7 @@ class FileHistoricalRepository:
         with self.path.open("r", encoding="utf-8") as file:
             document = json.load(file)
 
-        if document.get("format_version") not in (1, self.FORMAT_VERSION):
+        if document.get("format_version") not in (1, 2, self.FORMAT_VERSION):
             raise ValueError(
                 "La versión del repositorio histórico no es compatible."
             )
@@ -395,12 +397,39 @@ class FileHistoricalRepository:
                 "El repositorio histórico no contiene streams válidos."
             )
 
-        if document["format_version"] == 1:
-            # Evolución en memoria: leer no reescribe el archivo anterior.
-            document["format_version"] = self.FORMAT_VERSION
+        original_version = document["format_version"]
+        if original_version == 1:
             document["receipts"] = {}
-        elif not isinstance(document.get("receipts"), dict):
+        if not isinstance(document.get("receipts"), dict):
             raise ValueError("El repositorio histórico no contiene recibos válidos.")
+
+        if original_version in (1, 2):
+            # Migración en memoria: una lectura no modifica el archivo.
+            # v2 no registraba activación; no permite demostrar el origen de
+            # un registro sin recibo. No se lo declara automáticamente legado.
+            document["records_without_receipt"] = {
+                item["representation_record_id"]: (
+                    "legacy" if original_version == 1 else "unclassified"
+                )
+                for item in document["representations"]
+                if item["representation_record_id"] not in document["receipts"]
+            }
+            document["receipts_required"] = original_version == 2
+            document["format_version"] = self.FORMAT_VERSION
+
+        exemptions = document.get("records_without_receipt")
+        if (not isinstance(exemptions, dict)
+                or type(document.get("receipts_required")) is not bool
+                or any(value not in ("legacy", "unclassified")
+                       for value in exemptions.values())):
+            raise ValueError("La política de integridad de recibos no es válida.")
+        record_ids = {item["representation_record_id"]
+                      for item in document["representations"]}
+        receipt_ids = set(document["receipts"])
+        if (record_ids != receipt_ids | set(exemptions)
+                or receipt_ids & set(exemptions)
+                or (receipt_ids and not document["receipts_required"])):
+            raise ValueError("Falla de integridad: representación o recibo sin asociación válida.")
 
         return document
 
@@ -493,6 +522,9 @@ class FileHistoricalRepository:
         elif emitter_version is not None:
             raise ValueError("emitter_version requiere un resultado para el recibo.")
 
+        if result is None and document["receipts_required"]:
+            raise ValueError("Falla de integridad: el repositorio activado requiere un recibo.")
+
         representation_added = True
 
         for stored in document["representations"]:
@@ -536,6 +568,9 @@ class FileHistoricalRepository:
 
         document["representations"].append(serialized)
 
+        previous_state = document["streams"].get(stream_id, {}).get(
+            "state", serialize_analyzer_state(HistoricalAnalyzerState()),
+        )
         document["streams"][stream_id] = {
             "key": asdict(stream_key),
             "state": serialized_state,
@@ -546,7 +581,12 @@ class FileHistoricalRepository:
                 "stream_key": asdict(stream_key),
                 "emitter_version": emitter_version,
                 "result": serialize_analysis_result(result),
+                "previous_state": previous_state,
             }
+            document["receipts_required"] = True
+        else:
+            # Compatibilidad del API de bajo nivel antes de activar recibos.
+            document["records_without_receipt"][representation.representation_record_id] = "legacy"
 
         self._write_document(document)
 
@@ -592,13 +632,26 @@ class FileHistoricalRepository:
     ) -> HistoricalAnalysisResult | None:
         receipt = document["receipts"].get(representation.representation_record_id)
         if receipt is None:
+            status = document["records_without_receipt"].get(
+                representation.representation_record_id,
+            )
+            if status == "legacy":
+                raise ValueError("La representación legada fue procesada sin recibo recuperable.")
+            if status == "unclassified":
+                raise ValueError("Registro v2 sin recibo: origen no clasificable automáticamente.")
             return None
         stored = next((item for item in document["representations"]
                        if item["representation_record_id"]
                        == representation.representation_record_id), None)
         if stored is None:
             raise ValueError("El recibo no tiene una representación asociada.")
-        if stored != serialize_historical_representation(representation):
+        incoming = serialize_historical_representation(representation)
+        # La fecha de cálculo puede cambiar al reconstruir el mismo dato.
+        # Se conserva el registro original; los demás campos deben coincidir.
+        stored_input = {name: value for name, value in stored.items()
+                        if name != "computed_at"}
+        incoming.pop("computed_at")
+        if stored_input != incoming:
             raise ValueError("Reintento incompatible: representación con contenido diferente.")
         if (receipt["stream_key"] != asdict(stream_key)
                 or receipt["emitter_version"] != emitter_version):

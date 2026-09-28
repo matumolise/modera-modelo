@@ -1,5 +1,9 @@
 # F16: resultado durable del procesamiento histórico
 
+> Registro de la implementación inicial (formato 2). Para el ajuste posterior
+> de compatibilidad, integridad y formato 3, consultar
+> [alcance y siguientes pasos](F16_IMPLEMENTED_SCOPE_AND_NEXT_STEPS.md).
+
 ## Alcance y estado
 
 Cambio preparado sobre `bef0db66da4003ac65439de281f821477fc44f1c`.

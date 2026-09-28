@@ -38,8 +38,9 @@ def process_c1_representation(
 
     En reintentos compatibles se ignoran los nuevos evaluation_id, event_id,
     computed_at y emitted_at: se conservan los originales. La representación
-    completa (incluido su computed_at), el stream y emitter_version deben
-    coincidir. El llamador debe serializar el acceso al repositorio.
+    debe coincidir en contenido y procedencia, excepto su computed_at; el
+    registro persistido conserva su fecha original. El stream y emitter_version
+    deben coincidir. El llamador debe serializar el acceso al repositorio.
     """
 
     expected_key = HistoricalStreamKey.from_c1(
