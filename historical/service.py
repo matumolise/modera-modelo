@@ -34,7 +34,13 @@ def process_c1_representation(
     computed_at: datetime,
     emitted_at: datetime,
 ) -> HistoricalAnalysisResult:
-    """Procesa y persiste una nueva representación histórica con C1."""
+    """Procesa una entrada nueva o recupera el resultado durable de un reintento.
+
+    En reintentos compatibles se ignoran los nuevos evaluation_id, event_id,
+    computed_at y emitted_at: se conservan los originales. La representación
+    completa (incluido su computed_at), el stream y emitter_version deben
+    coincidir. El llamador debe serializar el acceso al repositorio.
+    """
 
     expected_key = HistoricalStreamKey.from_c1(
         subject_id=current.subject_id,
@@ -49,11 +55,19 @@ def process_c1_representation(
             "la configuración o la versión de análisis."
         )
 
+    original = repository.load_analysis_result(
+        representation=current,
+        stream_key=stream_key,
+        emitter_version=emitter_version,
+    )
+    if original is not None:
+        return original
+
     if repository.contains_representation(
         current.representation_record_id
     ):
         raise ValueError(
-            "La representación histórica ya fue procesada."
+            "La representación histórica ya fue procesada sin recibo recuperable."
         )
 
     history = repository.load_history(
@@ -89,6 +103,8 @@ def process_c1_representation(
         representation=current,
         stream_key=stream_key,
         state=result.next_state,
+        result=result,
+        emitter_version=emitter_version,
     )
 
     return result

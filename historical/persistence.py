@@ -8,9 +8,10 @@ import json
 from pathlib import Path
 import os
 
-from .analyzer import HistoricalAnalyzerState
+from .analyzer import HistoricalAnalysisResult, HistoricalAnalyzerState
 from .contracts import Coverage, HistoricalRepresentation, ObservationStatus, Provenance
 from .detector import C1_DETECTOR_FAMILY, C1DetectorConfig, CusumState
+from .receipts import deserialize_analysis_result, serialize_analysis_result
 
 
 @dataclass(frozen=True)
@@ -353,9 +354,13 @@ class FileHistoricalRepresentationStore:
         )
 
 class FileHistoricalRepository:
-    """Persistencia conjunta del historial y del estado analítico."""
+    """Historial, estado y recibos en un archivo; requiere un único escritor.
 
-    FORMAT_VERSION = 1
+    El reemplazo atómico evita publicar progreso parcial. No serializa
+    procesamientos concurrentes ni promete durabilidad ante todo fallo físico.
+    """
+
+    FORMAT_VERSION = 2
 
     def __init__(self, path: str | Path) -> None:
         self.path = Path(path)
@@ -365,6 +370,7 @@ class FileHistoricalRepository:
             "format_version": self.FORMAT_VERSION,
             "representations": [],
             "streams": {},
+            "receipts": {},
         }
 
     def _read_document(self) -> dict:
@@ -374,7 +380,7 @@ class FileHistoricalRepository:
         with self.path.open("r", encoding="utf-8") as file:
             document = json.load(file)
 
-        if document.get("format_version") != self.FORMAT_VERSION:
+        if document.get("format_version") not in (1, self.FORMAT_VERSION):
             raise ValueError(
                 "La versión del repositorio histórico no es compatible."
             )
@@ -388,6 +394,13 @@ class FileHistoricalRepository:
             raise ValueError(
                 "El repositorio histórico no contiene streams válidos."
             )
+
+        if document["format_version"] == 1:
+            # Evolución en memoria: leer no reescribe el archivo anterior.
+            document["format_version"] = self.FORMAT_VERSION
+            document["receipts"] = {}
+        elif not isinstance(document.get("receipts"), dict):
+            raise ValueError("El repositorio histórico no contiene recibos válidos.")
 
         return document
 
@@ -441,8 +454,10 @@ class FileHistoricalRepository:
         representation: HistoricalRepresentation,
         stream_key: HistoricalStreamKey,
         state: HistoricalAnalyzerState,
+        result: HistoricalAnalysisResult | None = None,
+        emitter_version: str | None = None,
     ) -> bool:
-        """Guarda representación y estado como una única versión persistida."""
+        """Guarda el progreso y, si se suministra, su resultado en un solo reemplazo."""
 
         if representation.subject_id != stream_key.subject_id:
             raise ValueError(
@@ -461,6 +476,22 @@ class FileHistoricalRepository:
         serialized = serialize_historical_representation(
             representation
         )
+
+        if result is not None:
+            if not emitter_version or not emitter_version.strip():
+                raise ValueError("El recibo requiere emitter_version.")
+            if state != result.next_state:
+                raise ValueError("El estado no coincide con el resultado del recibo.")
+            self._validate_result(representation, stream_key, emitter_version, result)
+            original = self._load_receipt(
+                document, representation, stream_key, emitter_version,
+            )
+            if original is not None:
+                if serialize_analysis_result(original) != serialize_analysis_result(result):
+                    raise ValueError("El recibo ya existe con un resultado diferente.")
+                return False
+        elif emitter_version is not None:
+            raise ValueError("emitter_version requiere un resultado para el recibo.")
 
         representation_added = True
 
@@ -482,6 +513,8 @@ class FileHistoricalRepository:
         serialized_state = serialize_analyzer_state(state)
 
         if not representation_added:
+            if result is not None:
+                raise ValueError("La representación ya fue procesada sin recibo recuperable.")
             stored_stream = document["streams"].get(stream_id)
 
             if stored_stream is None:
@@ -508,9 +541,80 @@ class FileHistoricalRepository:
             "state": serialized_state,
         }
 
+        if result is not None:
+            document["receipts"][representation.representation_record_id] = {
+                "stream_key": asdict(stream_key),
+                "emitter_version": emitter_version,
+                "result": serialize_analysis_result(result),
+            }
+
         self._write_document(document)
 
         return True
+
+    @staticmethod
+    def _validate_result(representation, stream_key, emitter_version, result) -> None:
+        evaluation = result.evaluation
+        expected = {
+            "subject_id": representation.subject_id,
+            "representation_record_id": representation.representation_record_id,
+            "representation_spec_id": representation.representation_spec_id,
+            "evaluated_interval_start": representation.interval_start,
+            "evaluated_interval_end": representation.interval_end,
+            "analysis_version": stream_key.analysis_version,
+            "detector_family": stream_key.detector_family,
+            "detector_k": stream_key.detector_k,
+            "threshold": stream_key.threshold,
+            "detector_min_history": stream_key.detector_min_history,
+            "reference_location": result.reference.location,
+            "reference_scale": result.reference.scale,
+            "reference_history_count": result.reference.history_count,
+            "reference_cutoff": result.reference.reference_cutoff,
+        }
+        if any(getattr(evaluation, name) != value for name, value in expected.items()):
+            raise ValueError("El resultado del recibo no coincide con su entrada o referencia.")
+        event = result.emission.event
+        if event is not None:
+            names = (
+                "evaluation_id", "subject_id", "representation_record_id",
+                "representation_spec_id", "evaluated_interval_start",
+                "evaluated_interval_end", "detector_family", "detector_statistic",
+                "threshold",
+            )
+            if event.emitter_version != emitter_version or any(
+                getattr(event, name) != getattr(evaluation, name) for name in names
+            ):
+                raise ValueError("El evento del recibo no coincide con su evaluación.")
+
+    def _load_receipt(
+        self, document: dict, representation: HistoricalRepresentation,
+        stream_key: HistoricalStreamKey, emitter_version: str,
+    ) -> HistoricalAnalysisResult | None:
+        receipt = document["receipts"].get(representation.representation_record_id)
+        if receipt is None:
+            return None
+        stored = next((item for item in document["representations"]
+                       if item["representation_record_id"]
+                       == representation.representation_record_id), None)
+        if stored is None:
+            raise ValueError("El recibo no tiene una representación asociada.")
+        if stored != serialize_historical_representation(representation):
+            raise ValueError("Reintento incompatible: representación con contenido diferente.")
+        if (receipt["stream_key"] != asdict(stream_key)
+                or receipt["emitter_version"] != emitter_version):
+            raise ValueError("Reintento incompatible: stream o versión del emisor diferente.")
+        result = deserialize_analysis_result(receipt["result"])
+        self._validate_result(representation, stream_key, emitter_version, result)
+        return result
+
+    def load_analysis_result(
+        self, *, representation: HistoricalRepresentation,
+        stream_key: HistoricalStreamKey, emitter_version: str,
+    ) -> HistoricalAnalysisResult | None:
+        """Recupera el resultado original para una entrada compatible, sin escribir."""
+        return self._load_receipt(
+            self._read_document(), representation, stream_key, emitter_version,
+        )
 
     def contains_representation(
         self,

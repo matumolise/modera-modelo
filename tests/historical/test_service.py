@@ -106,7 +106,7 @@ class HistoricalServiceTests(unittest.TestCase):
                 result.next_state,
             )
 
-    def test_duplicate_is_rejected_without_advancing_state(self) -> None:
+    def test_duplicate_returns_original_without_advancing_state(self) -> None:
         with TemporaryDirectory() as directory:
             repository = FileHistoricalRepository(
                 Path(directory) / "historical.json"
@@ -120,15 +120,9 @@ class HistoricalServiceTests(unittest.TestCase):
                 "001",
             )
 
-            with self.assertRaisesRegex(
-                ValueError,
-                "ya fue procesada",
-            ):
-                self.process(
-                    repository,
-                    current,
-                    "002",
-                )
+            repeated = self.process(repository, current, "002")
+            self.assertEqual(repeated, first)
+            self.assertEqual(repeated.evaluation.evaluation_id, "eval-001")
 
             self.assertEqual(
                 repository.load_state(self.stream_key),
