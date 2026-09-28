@@ -146,13 +146,23 @@ def evaluate_daily_capture_evidence(
     prepared_window: PreparedInteractiveDurationWindow,
     target_begin_epoch_ms: int,
     target_end_epoch_ms: int,
+    initial_state_epoch_ms: int | None = None,
 ) -> DailyCaptureEvidence:
-    """Evalúa por separado cobertura temporal y conocimiento del estado inicial."""
+    """Evalúa cobertura y si la fuente del estado inicial también está cubierta."""
+
+    coverage_begin_epoch_ms = target_begin_epoch_ms
+    if prepared_window.initial_state_known:
+        if initial_state_epoch_ms is None:
+            return DailyCaptureEvidence(
+                continuous_query_coverage=False,
+                initial_state_known=True,
+            )
+        coverage_begin_epoch_ms = initial_state_epoch_ms
 
     return DailyCaptureEvidence(
         continuous_query_coverage=has_continuous_query_coverage(
             summaries=summaries,
-            target_begin_epoch_ms=target_begin_epoch_ms,
+            target_begin_epoch_ms=coverage_begin_epoch_ms,
             target_end_epoch_ms=target_end_epoch_ms,
         ),
         initial_state_known=prepared_window.initial_state_known,
@@ -184,12 +194,22 @@ def build_daily_use_observation_from_android(
 
     target_begin_epoch_ms = int(interval_start.timestamp() * 1000)
     target_end_epoch_ms = int(interval_end.timestamp() * 1000)
+    prior_events = [
+        event for event in events if event.occurred_at < interval_start
+    ]
+    initial_state_epoch_ms = (
+        int(max(prior_events, key=lambda event: event.occurred_at)
+            .occurred_at.timestamp() * 1000)
+        if prior_events
+        else None
+    )
 
     evidence = evaluate_daily_capture_evidence(
         summaries=summaries,
         prepared_window=prepared_window,
         target_begin_epoch_ms=target_begin_epoch_ms,
         target_end_epoch_ms=target_end_epoch_ms,
+        initial_state_epoch_ms=initial_state_epoch_ms,
     )
 
     reconstruction = calculate_interactive_duration(
@@ -225,10 +245,13 @@ def build_daily_use_observation_from_raw_android(
     histórico se normalizan. Los demás tipos no se reinterpretan como uso.
     """
 
-    summaries_by_run_id = {
-        summary.collector_run_id: summary
-        for summary in summaries
-    }
+    summaries_by_run_id: dict[str, AndroidCollectorRunSummary] = {}
+    for summary in summaries:
+        if summary.collector_run_id in summaries_by_run_id:
+            raise ValueError("collector_run_id debe ser único en los summaries.")
+        summaries_by_run_id[summary.collector_run_id] = summary
+
+    raw_event_counts: dict[str, int] = {}
 
     for raw_event in raw_events:
         summary = summaries_by_run_id.get(raw_event.collector_run_id)
@@ -238,6 +261,9 @@ def build_daily_use_observation_from_raw_android(
                 "Cada evento raw debe tener un collector run asociado."
             )
 
+        if not summary.query_succeeded:
+            raise ValueError("Un evento raw no puede pertenecer a un collector run fallido.")
+
         if (
             raw_event.query_begin_epoch_ms != summary.requested_begin_epoch_ms
             or raw_event.query_end_epoch_ms != summary.requested_end_epoch_ms
@@ -245,6 +271,26 @@ def build_daily_use_observation_from_raw_android(
             raise ValueError(
                 "La ventana de consulta del evento raw no coincide "
                 "con la de su collector run."
+            )
+
+        if not (
+            summary.requested_begin_epoch_ms
+            <= raw_event.event_time_epoch_ms
+            < summary.requested_end_epoch_ms
+        ):
+            raise ValueError(
+                "El timestamp del evento raw debe estar dentro de la "
+                "ventana de consulta de su collector run."
+            )
+
+        raw_event_counts[raw_event.collector_run_id] = (
+            raw_event_counts.get(raw_event.collector_run_id, 0) + 1
+        )
+
+    for summary in summaries:
+        if raw_event_counts.get(summary.collector_run_id, 0) != summary.event_count:
+            raise ValueError(
+                "event_count del collector run no coincide con los eventos raw exportados."
             )
 
     screen_state_events = []

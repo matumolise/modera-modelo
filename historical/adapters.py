@@ -10,8 +10,8 @@ from .contracts import (
 
 
 DAILY_USE_DURATION_PHENOMENON = "DAILY_USE_DURATION"
-DAILY_USE_DURATION_SPEC_ID = "daily_use_duration_minutes_v1"
-DAILY_USE_DURATION_ADAPTER_VERSION = "v1"
+DAILY_USE_DURATION_SPEC_ID = "daily_use_duration_minutes_v2"
+DAILY_USE_DURATION_ADAPTER_VERSION = "v2"
 
 
 def adapt_daily_use_duration(

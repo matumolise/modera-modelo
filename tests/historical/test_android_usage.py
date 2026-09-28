@@ -290,7 +290,7 @@ class AndroidDailyObservationIntegrationTests(unittest.TestCase):
         return AndroidCollectorRunSummary(
             collector_run_id="run-1",
             requested_begin_epoch_ms=int(
-                self.interval_start.timestamp() * 1000
+                (self.interval_start - timedelta(hours=1)).timestamp() * 1000
             ),
             requested_end_epoch_ms=int(
                 self.interval_end.timestamp() * 1000
@@ -300,7 +300,7 @@ class AndroidDailyObservationIntegrationTests(unittest.TestCase):
             ),
             usage_access_available=True,
             query_returned_null=False,
-            event_count=2,
+            event_count=3,
             error_code=None,
             error_message=None,
         )
@@ -334,6 +334,49 @@ class AndroidDailyObservationIntegrationTests(unittest.TestCase):
 
         self.assertEqual(observation.status, ObservationStatus.OBSERVED)
         self.assertEqual(observation.value, 60.0)
+
+    def test_initial_state_without_query_coverage_builds_missing_observation(self) -> None:
+        events = [
+            ScreenStateEvent(
+                occurred_at=self.interval_start - timedelta(minutes=30),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=self.interval_start + timedelta(hours=1),
+                event_type=ScreenStateEventType.INTERACTIVE,
+            ),
+            ScreenStateEvent(
+                occurred_at=self.interval_start + timedelta(hours=2),
+                event_type=ScreenStateEventType.NON_INTERACTIVE,
+            ),
+        ]
+
+        summary = self._successful_full_day_summary()
+        summary = AndroidCollectorRunSummary(
+            collector_run_id=summary.collector_run_id,
+            requested_begin_epoch_ms=int(self.interval_start.timestamp() * 1000),
+            requested_end_epoch_ms=summary.requested_end_epoch_ms,
+            collected_at_epoch_ms=summary.collected_at_epoch_ms,
+            usage_access_available=True,
+            query_returned_null=False,
+            event_count=summary.event_count,
+            error_code=None,
+            error_message=None,
+        )
+
+        observation = build_daily_use_observation_from_android(
+            observation_id="obs-init-uncovered",
+            subject_id="subject-1",
+            interval_start=self.interval_start,
+            interval_end=self.interval_end,
+            computed_at=self.interval_end + timedelta(minutes=2),
+            events=events,
+            summaries=[summary],
+            provenance=self.provenance,
+        )
+
+        self.assertEqual(observation.status, ObservationStatus.MISSING)
+        self.assertIsNone(observation.value)
 
     def test_missing_initial_state_builds_missing_observation(self) -> None:
         events = [
@@ -496,5 +539,120 @@ class AndroidDailyObservationIntegrationTests(unittest.TestCase):
                 computed_at=self.interval_end + timedelta(minutes=1),
                 raw_events=[raw_event],
                 summaries=[self._successful_full_day_summary()],
+                provenance=self.provenance,
+            )
+
+    def test_raw_event_outside_query_window_is_rejected(self) -> None:
+        interval_start_ms = int(self.interval_start.timestamp() * 1000)
+        interval_end_ms = int(self.interval_end.timestamp() * 1000)
+        event = RawAndroidUsageEvent(
+            schema_version="raw-usage-event-v1",
+            collector_run_id="run-1",
+            query_begin_epoch_ms=interval_start_ms,
+            query_end_epoch_ms=interval_end_ms,
+            collected_at_epoch_ms=interval_end_ms + 60000,
+            event_time_epoch_ms=interval_start_ms - 1,
+            event_type_code=15,
+            event_type_name="SCREEN_INTERACTIVE",
+            query_ordinal=0,
+        )
+        summary = self._successful_full_day_summary()
+        summary = AndroidCollectorRunSummary(
+            collector_run_id=summary.collector_run_id,
+            requested_begin_epoch_ms=interval_start_ms,
+            requested_end_epoch_ms=interval_end_ms,
+            collected_at_epoch_ms=summary.collected_at_epoch_ms,
+            usage_access_available=True,
+            query_returned_null=False,
+            event_count=1,
+            error_code=None,
+            error_message=None,
+        )
+
+        with self.assertRaisesRegex(ValueError, "timestamp.*dentro de la ventana"):
+            build_daily_use_observation_from_raw_android(
+                observation_id="obs-raw-outside-window",
+                subject_id="child-1",
+                interval_start=self.interval_start,
+                interval_end=self.interval_end,
+                computed_at=self.interval_end,
+                raw_events=[event],
+                summaries=[summary],
+                provenance=self.provenance,
+            )
+
+    def test_raw_event_from_failed_collector_run_is_rejected(self) -> None:
+        start = int(self.interval_start.timestamp() * 1000)
+        end = int(self.interval_end.timestamp() * 1000)
+        event = RawAndroidUsageEvent(
+            schema_version="raw-usage-event-v1",
+            collector_run_id="run-1",
+            query_begin_epoch_ms=start,
+            query_end_epoch_ms=end,
+            collected_at_epoch_ms=end + 1000,
+            event_time_epoch_ms=start + 1000,
+            event_type_code=15,
+            event_type_name="SCREEN_INTERACTIVE",
+            query_ordinal=0,
+        )
+        summary = AndroidCollectorRunSummary(
+            collector_run_id="run-1",
+            requested_begin_epoch_ms=start,
+            requested_end_epoch_ms=end,
+            collected_at_epoch_ms=end + 1000,
+            usage_access_available=False,
+            query_returned_null=False,
+            event_count=1,
+            error_code="ACCESS_UNAVAILABLE",
+            error_message="No access",
+        )
+
+        with self.assertRaisesRegex(ValueError, "collector run fallido"):
+            build_daily_use_observation_from_raw_android(
+                observation_id="obs-raw-failed-run",
+                subject_id="child-1",
+                interval_start=self.interval_start,
+                interval_end=self.interval_end,
+                computed_at=self.interval_end,
+                raw_events=[event],
+                summaries=[summary],
+                provenance=self.provenance,
+            )
+
+    def test_raw_event_count_must_match_run_summary(self) -> None:
+        start = int(self.interval_start.timestamp() * 1000)
+        end = int(self.interval_end.timestamp() * 1000)
+        event = RawAndroidUsageEvent(
+            schema_version="raw-usage-event-v1",
+            collector_run_id="run-1",
+            query_begin_epoch_ms=start,
+            query_end_epoch_ms=end,
+            collected_at_epoch_ms=end + 1000,
+            event_time_epoch_ms=start + 1000,
+            event_type_code=15,
+            event_type_name="SCREEN_INTERACTIVE",
+            query_ordinal=0,
+        )
+        summary = AndroidCollectorRunSummary(
+            collector_run_id="run-1",
+            requested_begin_epoch_ms=start,
+            requested_end_epoch_ms=end,
+            collected_at_epoch_ms=end + 1000,
+            usage_access_available=True,
+            query_returned_null=False,
+            event_count=0,
+            error_code=None,
+            error_message=None,
+        )
+
+        with self.assertRaisesRegex(ValueError, "event_count.*no coincide"):
+            build_daily_use_observation_from_raw_android(
+                observation_id="obs-raw-count-mismatch",
+                subject_id="child-1",
+                interval_start=self.interval_start,
+                interval_end=self.interval_end,
+                computed_at=self.interval_end,
+                raw_events=[event],
+                summaries=[summary],
                 provenance=self.provenance,
             )
