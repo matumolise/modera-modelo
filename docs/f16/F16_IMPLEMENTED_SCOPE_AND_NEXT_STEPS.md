@@ -88,6 +88,8 @@ a una misma oferta requiere una decisión explícita antes de habilitarlas.
 
 El instrumento de revisión, aún sin respuestas profesionales, está en
 `F16_PROFESSIONAL_ACTIVITY_REVIEW.md`. El catálogo permanece provisional.
+La comparación de alternativas de IA y sus condiciones de evaluación está en
+`F16_AI_ACTIVITY_FEASIBILITY.md`; ninguna IA generativa infantil queda aprobada.
 
 ### Señal provisional de elecciones repetidas
 
