@@ -86,6 +86,9 @@ El catálogo todavía necesita identidad/versionado estable para comparar oferta
 antiguas tras una revisión profesional. La política sobre múltiples respuestas
 a una misma oferta requiere una decisión explícita antes de habilitarlas.
 
+El instrumento de revisión, aún sin respuestas profesionales, está en
+`F16_PROFESSIONAL_ACTIVITY_REVIEW.md`. El catálogo permanece provisional.
+
 ### Señal provisional de elecciones repetidas
 
 `selected_activity_counts` cuenta solo selecciones de pares válidos para un
