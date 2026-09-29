@@ -1,4 +1,5 @@
 from recommendations import (
+    ActivityEligibility,
     CONTEXT_BEDTIME,
     CONTEXT_VOLUNTARY,
     recommend_activities,
@@ -107,3 +108,47 @@ print_recommendations(
     "ACTIVIDADES DESPUÉS DE EVITAR REPETICIÓN",
     after_recent,
 )
+# ============================================================
+# CASO 5
+# Elegibilidad funcional antes del ranking.
+# ============================================================
+
+without_device_or_other_person = recommend_activities(
+    context=CONTEXT_VOLUNTARY,
+    eligibility=ActivityEligibility(
+        allow_requires_other_person=False,
+        allow_may_require_device_interaction=False,
+    ),
+    random_seed=42,
+)
+
+assert all(
+    not activity.requires_other_person
+    for activity in without_device_or_other_person
+)
+
+assert all(
+    not activity.may_require_device_interaction
+    for activity in without_device_or_other_person
+)
+
+
+# ============================================================
+# CASO 6
+# Puede devolver menos de n o ninguna actividad.
+# ============================================================
+
+no_activities = recommend_activities(
+    context=CONTEXT_VOLUNTARY,
+    eligibility=ActivityEligibility(
+        excluded_categories=(
+            "movement",
+            "creative",
+            "reading",
+            "free_play",
+            "social_family",
+        ),
+    ),
+)
+
+assert no_activities == []

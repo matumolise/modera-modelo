@@ -47,18 +47,16 @@ intervention_history.py e intervention_service.py en b52667a muestra:
 
 | Componente | Disponible | Pendiente |
 | --- | --- | --- |
-| Selección | Contexto, intereses, penalización de repetición y variedad de categorías | Elegibilidad funcional antes de ordenar; salida con menos opciones o ninguna |
+| Selección | Contexto, intereses, penalización de repetición, variedad de categorías, elegibilidad funcional explícita y salida 0..N | Revisión profesional del catálogo y criterios de elegibilidad específicos por edad/capacidad |
 | Activación | Solicitud voluntaria y transición al descanso | Validación de reglas operativas de producto |
 | Catálogo | Actividades y metadatos básicos | Revisión profesional, requisitos y adaptaciones respaldadas; catálogo no congelado |
 | Respuestas | Registro de selección, rechazo, postergación o ignorado | Registrar oferta al generarla, identidad estable y versión para vincular respuestas |
 | Aprendizaje | No se observa actualización por preferencias históricas | Aprender de elecciones con exposición conocida y conservar variedad |
 
 Orden propuesto de implementación:
-1. Contrato de catálogo revisable y selección por elegibilidad antes del ranking.
-   No inventar una taxonomía clínica ni declarar aprobadas las actividades.
-2. Trazabilidad de ofertas y respuestas antes de inferir preferencias.
-3. Preferencias aprendidas con diversidad y evidencia suficiente de exposición.
-4. Evaluación separada de IA para selección, adaptación o generación.
+1. Trazabilidad de ofertas y respuestas antes de inferir preferencias.
+2. Preferencias aprendidas con diversidad y evidencia suficiente de exposición.
+3. Evaluación separada de IA para selección, adaptación o generación.
 
 Elegir no demuestra realizar; dejar de usar el teléfono no demuestra beneficio
 causado por una actividad. El motor infantil no se dispara por score PMU,

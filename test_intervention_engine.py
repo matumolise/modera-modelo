@@ -1,5 +1,9 @@
 from datetime import datetime, timedelta
 
+from recommendations import (
+    ActivityEligibility,
+)
+
 from intervention_engine import (
     request_voluntary_intervention,
     evaluate_bedtime_intervention,
@@ -193,3 +197,23 @@ print_decision(
     "CASO 6 - DESPUÉS DE BEDTIME",
     after_bedtime,
 )
+# ============================================================
+# CASO 7
+# La elegibilidad puede abstenerse sin forzar actividades.
+# ============================================================
+
+without_eligible_activities = request_voluntary_intervention(
+    eligibility=ActivityEligibility(
+        excluded_categories=(
+            "movement",
+            "creative",
+            "reading",
+            "free_play",
+            "social_family",
+        ),
+    ),
+)
+
+assert without_eligible_activities.should_intervene is False
+assert without_eligible_activities.reason == "no_eligible_activities"
+assert without_eligible_activities.activities == ()

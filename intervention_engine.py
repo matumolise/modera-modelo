@@ -21,6 +21,7 @@ from datetime import datetime, timedelta
 from typing import Iterable
 
 from recommendations import (
+    ActivityEligibility,
     Activity,
     CONTEXT_VOLUNTARY,
     CONTEXT_BEDTIME,
@@ -126,6 +127,7 @@ def bedtime_cooldown_elapsed(
 def request_voluntary_intervention(
     interests: Iterable[str] | None = None,
     recently_shown_ids: Iterable[str] | None = None,
+    eligibility: ActivityEligibility | None = None,
     random_seed: int | None = None,
 ) -> InterventionDecision:
     """
@@ -139,9 +141,19 @@ def request_voluntary_intervention(
         context=CONTEXT_VOLUNTARY,
         interests=interests,
         recently_shown_ids=recently_shown_ids,
+        eligibility=eligibility,
         n=3,
         random_seed=random_seed,
     )
+
+    if len(activities) == 0:
+        return InterventionDecision(
+            should_intervene=False,
+            source=None,
+            context=None,
+            reason="no_eligible_activities",
+            activities=(),
+        )
 
     return InterventionDecision(
         should_intervene=True,
@@ -164,6 +176,7 @@ def evaluate_bedtime_intervention(
     last_bedtime_intervention: datetime | None = None,
     interests: Iterable[str] | None = None,
     recently_shown_ids: Iterable[str] | None = None,
+    eligibility: ActivityEligibility | None = None,
     random_seed: int | None = None,
 ) -> InterventionDecision:
     """
@@ -211,9 +224,19 @@ def evaluate_bedtime_intervention(
         context=CONTEXT_BEDTIME,
         interests=interests,
         recently_shown_ids=recently_shown_ids,
+        eligibility=eligibility,
         n=3,
         random_seed=random_seed,
     )
+
+    if len(activities) == 0:
+        return InterventionDecision(
+            should_intervene=False,
+            source=None,
+            context=None,
+            reason="no_eligible_activities",
+            activities=(),
+        )
 
     return InterventionDecision(
         should_intervene=True,

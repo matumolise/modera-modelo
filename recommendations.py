@@ -49,6 +49,21 @@ class Activity:
     may_require_device_interaction: bool
 
 
+@dataclass(frozen=True)
+class ActivityEligibility:
+    """Restricciones operativas conocidas antes de ordenar actividades."""
+
+    excluded_activity_ids: tuple[str, ...] = ()
+    excluded_categories: tuple[str, ...] = ()
+    allowed_activity_levels: tuple[str, ...] = (
+        "calm",
+        "moderate",
+        "active",
+    )
+    allow_requires_other_person: bool = True
+    allow_may_require_device_interaction: bool = True
+
+
 # ============================================================
 # CATÁLOGO V1
 # ============================================================
@@ -568,6 +583,7 @@ def recommend_activities(
     context: str,
     interests: Iterable[str] | None = None,
     recently_shown_ids: Iterable[str] | None = None,
+    eligibility: ActivityEligibility | None = None,
     n: int = 3,
     random_seed: int | None = None,
 ) -> list[Activity]:
@@ -600,6 +616,23 @@ def recommend_activities(
             f"Contexto inválido: {context}"
         )
 
+    eligibility_rules = (
+        eligibility
+        if eligibility is not None
+        else ActivityEligibility()
+    )
+
+    valid_levels = {
+        "calm",
+        "moderate",
+        "active",
+    }
+
+    if not set(eligibility_rules.allowed_activity_levels).issubset(valid_levels):
+        raise ValueError(
+            "allowed_activity_levels contiene niveles de actividad inválidos."
+        )
+
     interests_set = {
         value.strip().lower()
         for value in (interests or [])
@@ -620,6 +653,25 @@ def recommend_activities(
         if context in activity.allowed_contexts
     ]
 
+    candidates = [
+        activity
+        for activity in candidates
+        if activity.activity_id
+        not in eligibility_rules.excluded_activity_ids
+        and activity.category
+        not in eligibility_rules.excluded_categories
+        and activity.activity_level
+        in eligibility_rules.allowed_activity_levels
+        and (
+            eligibility_rules.allow_requires_other_person
+            or not activity.requires_other_person
+        )
+        and (
+            eligibility_rules.allow_may_require_device_interaction
+            or not activity.may_require_device_interaction
+        )
+    ]
+
     if context == CONTEXT_BEDTIME:
         candidates = [
             activity
@@ -628,11 +680,8 @@ def recommend_activities(
             and activity.activity_level == "calm"
         ]
 
-    if len(candidates) < n:
-        raise ValueError(
-            "No hay suficientes actividades compatibles "
-            "con el contexto solicitado."
-        )
+    if len(candidates) == 0:
+        return []
 
     # --------------------------------------------------------
     # PUNTAJE BASE
@@ -700,7 +749,7 @@ def recommend_activities(
             activity.category
         )
 
-        if len(selected) == n:
+        if len(selected) == min(n, len(candidates)):
             break
 
     # Segunda pasada:
@@ -721,14 +770,8 @@ def recommend_activities(
                 activity
             )
 
-            if len(selected) == n:
+            if len(selected) == min(n, len(candidates)):
                 break
-
-    if len(selected) != n:
-        raise RuntimeError(
-            "No fue posible seleccionar la cantidad "
-            "solicitada de actividades."
-        )
 
     return selected
 
