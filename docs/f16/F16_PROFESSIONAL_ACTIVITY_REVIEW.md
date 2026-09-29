@@ -160,6 +160,15 @@ filtros funcionales; la variedad de categorías; y el refuerzo provisional por
 elecciones repetidas. Una elección registrada no demuestra realización ni
 beneficio. Una oferta generada no demuestra que el niño la vio.
 
+Consultar si la regla de transición previa al descanso, con ventana operativa
+actual de 60 minutos y requisito de dispositivo en uso, es apropiada para el
+objetivo del producto; no presentarla como umbral clínico validado. Preguntar
+qué señales deben impedir una oferta, qué hacer si faltan datos sobre
+capacidades o materiales y qué variantes requieren apoyo adulto. Revisar si
+los textos preservan la autonomía del niño y evitan culpa, presión o tareas
+inadecuadas. Solicitar nuevas opciones que cubran capacidades, edades y
+contextos poco representados; no limitar el dictamen a las 18 actuales.
+
 Revisar si la variedad de categorías se traduce en alternativas funcionalmente
 distintas: `creative_character_01`, `creative_animal_01`,
 `creative_favorite_01`, `creative_story_01` y `quiet_draw_01` pueden requerir

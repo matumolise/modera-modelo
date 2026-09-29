@@ -88,8 +88,10 @@ a una misma oferta requiere una decisión explícita antes de habilitarlas.
 
 El instrumento de revisión, aún sin respuestas profesionales, está en
 `F16_PROFESSIONAL_ACTIVITY_REVIEW.md`. El catálogo permanece provisional.
-La comparación de alternativas de IA y sus condiciones de evaluación está en
-`F16_AI_ACTIVITY_FEASIBILITY.md`; ninguna IA generativa infantil queda aprobada.
+La comparación de alternativas de IA y la decisión posterior del equipo están
+en `F16_AI_ACTIVITY_FEASIBILITY.md`: las actividades salen de un catálogo
+curado y se descarta generarlas o adaptarlas con IA. El ranking aprendido
+sobre ese catálogo sigue abierto como investigación, sin integración aprobada.
 
 ### Señal provisional de elecciones repetidas
 
@@ -120,3 +122,16 @@ La app familiar/backend no está disponible en este repositorio; no se justifica
 introducir aquí colas, confirmaciones de entrega ni tablas adicionales por
 anticipación. El analizador técnico y la comunicación al adulto son contratos
 separados.
+
+## Validación pendiente del dataset sintético del modelo PMU
+
+El dataset sintético de 1.400 perfiles y su mecanismo generador requieren una
+evaluación metodológica separada. La revisión profesional del catálogo de
+actividades no valida la plausibilidad estadística del dataset ni la utilidad
+predictiva o clínica del modelo PMU. Más adelante, contrastar distribuciones,
+dependencias y trayectorias generadas con fuentes empíricas pertinentes,
+examinar sensibilidad a supuestos y documentar qué aspectos no se pueden
+validar por falta de datos comparables. Una consulta a profesionales puede
+aportar juicio de plausibilidad sobre comportamientos y contexto infantil,
+pero no reemplaza esos contrastes. Pendiente: acordar protocolo, fuentes,
+criterios y responsables; no declarar validado el dataset por ahora.

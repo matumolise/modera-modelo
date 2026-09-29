@@ -1,4 +1,21 @@
-# F16: evaluación de IA para actividades infantiles (decisión abierta)
+# F16: evaluación de IA para actividades infantiles (decisión revisada)
+
+## Decisión del equipo, 29 de septiembre de 2026
+
+Las actividades infantiles se seleccionarán de un catálogo curado y
+versionado. Se descarta generar o adaptar actividades con IA, tanto en tiempo
+real para el niño como mediante borradores generados por IA para añadir al
+catálogo. El catálogo actual de 18 actividades es provisional: la revisión
+profesional puede conservar, adaptar, retirar y proponer nuevas actividades.
+Ninguna incorporación se presenta como profesionalmente validada antes de
+recibir y documentar ese dictamen. El modelo PMU es un componente distinto;
+esta decisión no altera su contrato.
+
+El ranking aprendido sobre actividades ya aprobadas no genera actividades.
+Continúa como línea de investigación separada, sin decisión de implementación
+ni datos de uso suficientes. La selección disponible es la heurística actual.
+Esta sección conserva la comparación anterior para trazabilidad, no como plan
+de desarrollo de generación con IA.
 
 ## Estado comprobado en `312c1ec`
 
@@ -23,13 +40,13 @@
 | --- | --- | --- | --- |
 | A. Selector actual | Referencia reproducible y explicable | Revisión profesional del catálogo y prueba de elegibilidad/variedad | Mantener como línea de base |
 | B. Ranking aprendido sobre catálogo aprobado | Ordenar solo actividades elegibles usando elecciones del mismo niño/contexto | Ofertas efectivamente mostradas, opciones y posiciones, selección, política que las eligió, consentimiento y volumen suficiente; comparar con A | Investigar después de instrumentar y reunir datos |
-| C. IA para proponer o adaptar textos *fuera* del flujo infantil | Generar borradores que profesionales revisen, aprueben y versionen antes de incorporarlos | Conjunto de escenarios de edad/capacidad, rúbrica profesional y registro de rechazos/correcciones | Prototipo acotado a evaluación, sin publicación automática |
-| D. Generación libre de actividades en tiempo real para el niño | Inventar contenido al momento | Control y revisión de seguridad, accesibilidad, privacidad, coherencia y trazabilidad de cada salida; mecanismo de abstención | No integrar en la app con la evidencia actual |
+| C. IA para proponer o adaptar textos *fuera* del flujo infantil | Generar borradores que profesionales revisen, aprueben y versionen antes de incorporarlos | Conjunto de escenarios de edad/capacidad, rúbrica profesional y registro de rechazos/correcciones | Descartada por decisión del equipo; se conserva la alternativa evaluada como antecedente |
+| D. Generación libre de actividades en tiempo real para el niño | Inventar contenido al momento | Control y revisión de seguridad, accesibilidad, privacidad, coherencia y trazabilidad de cada salida; mecanismo de abstención | Descartada por decisión del equipo |
 
 Las opciones no son etapas obligatorias. Que la tesis requiera IA no demuestra
 que el motor infantil necesite un modelo generativo: documentar por separado
-qué función académica cumple el modelo PMU y qué evidencia pedirían los
-profesores para una eventual IA adicional en actividades.
+qué función académica cumple el modelo PMU y verificar con los profesores
+si satisface el requisito académico de IA.
 
 ## Condiciones antes de experimentar con ranking aprendido
 
@@ -64,22 +81,15 @@ recomendación de implementación inmediata. Estos métodos requieren definir
 acciones, feedback y política de registro; los experimentos de recuperación
 de información no demuestran seguridad o eficacia en Moderá.
 
-## Protocolo acotado para evaluar generación/adaptación
+## Revisión del catálogo sin generación
 
-- Solicitar al profesional escenarios y restricciones funcionales relevantes,
-  incluidos casos donde corresponde abstenerse. No inventar una lista de
-  discapacidades a partir de métricas de uso.
-- Construir prompts con datos mínimos y ejemplos aprobados. Generar borradores
-  para revisión adulta fuera de la app, conservando entrada, salida, versión
-  del modelo, fecha y decisiones de aprobación/rechazo.
-- Pedir evaluación ciega de borradores frente a textos escritos o adaptados
-  manualmente, mediante rúbrica de adecuación por edad, accesibilidad,
-  factibilidad, autonomía del niño, seguridad y claridad. Registrar desacuerdos
-  y motivos; no publicar salidas que sigan pendientes.
-- Solo considerar una variante que supere una revisión profesional y una
-  prueba técnica de abstención, mantenga el catálogo versionado y ofrezca una
-  alternativa estable cuando falle. No atribuir a la IA un efecto sobre el
-  tiempo de pantalla por una pausa observada.
+Solicitar al profesional escenarios de capacidades y restricciones funcionales,
+incluidos casos donde corresponde no ofrecer opciones. Revisar actividades y
+adaptaciones propuestas por personas mediante una rúbrica de edad,
+accesibilidad, factibilidad, autonomía del niño, seguridad y claridad.
+Registrar motivos de aprobación, corrección, retiro o abstención por versión.
+No inventar una lista de discapacidades a partir de métricas de uso ni inferir
+eficacia por una pausa observada.
 
 ## Fundamento y límites de las fuentes
 
