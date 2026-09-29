@@ -44,6 +44,42 @@ Si distintas personas revisan desarrollo infantil, accesibilidad, sueño o
 actividad física, registrar sus juicios por separado. Una opinión sobre un área
 no se presenta como validación de las demás.
 
+## Aplicación de la consulta
+
+Enviar primero el resumen de Moderá, la tabla de 18 actividades, los textos
+que vería el niño, las preguntas comunes y los escenarios de abajo. Las fuentes
+se ofrecen como antecedentes con sus límites, no como argumento para pedir una
+aprobación. Permitir que quien revise elija el subconjunto de actividades y
+reglas que entra en su especialidad; registrar explícitamente qué quedó fuera.
+
+Proponer una primera pasada de **conservar / adaptar / retirar / pendiente** por
+actividad, con motivo breve. Pedir detalle de textos, metadatos y condiciones
+solo para los casos que pueda evaluar. La persona puede proponer opciones nuevas
+o recomendar que una regla de activación se suspenda. No forzar 18 dictámenes
+cuando el tiempo o la especialidad no alcancen: los casos no examinados quedan
+`pendiente`, no aprobados. Evitar compartir historias clínicas o datos
+identificables de niños; usar escenarios hipotéticos.
+
+Al cerrar la consulta, registrar por separado: respuesta textual o grabación
+autorizada, versión exacta del catálogo y preguntas que recibió, especialidad,
+fecha, alcance, desacuerdos y permisos para citar. El equipo decide después
+qué cambio propone y verifica su implementación; la opinión recibida no cambia
+por sí sola el catálogo ni certifica un efecto sobre uso de pantallas.
+
+### Escenarios para discutir reglas, no para clasificar diagnósticos
+
+Estos casos son hipotéticos y no sustituyen casos propuestos por la persona
+profesional. En cada uno preguntar: ¿qué opciones ofrecer, adaptar o evitar?,
+¿qué dato funcional mínimo hace falta?, ¿quién puede actualizarlo?, ¿cuándo
+debe abstenerse el sistema? No deducir restricciones de un diagnóstico.
+
+| Escenario | Regla a examinar |
+| --- | --- |
+| Un niño expresa interés por dibujar, pero hoy tiene limitada temporalmente la movilidad de una mano. | Si se requiere dibujo o manipulación, qué variantes permiten participar según la función disponible y cuándo conviene no ofrecer esa actividad. La preferencia no anula la limitación. |
+| Una niña quiere una pausa sin pantalla, pero no tiene libro ni materiales, y no hay otra persona disponible. | Si las alternativas siguen siendo factibles sin presuponer objetos o apoyo; abstención si no hay una opción adecuada. |
+| La app está dentro de los 60 minutos previos al horario de sueño y el dispositivo está en uso. El niño no desea iniciar ninguna actividad. | Si es apropiada la oferta contextual, cómo respetar la decisión del niño y cuándo no volver a insistir. |
+| Un adulto informa una restricción funcional que cambia con el tiempo; el niño describe de otra manera lo que le resulta posible. | Cómo combinar ambas perspectivas, revisar la restricción y no inferir automáticamente seguridad o imposibilidad. |
+
 ## Preguntas comunes para cada actividad
 
 1. ¿La propuesta y su redacción son apropiadas para 6 a 12 años? Indicar si
