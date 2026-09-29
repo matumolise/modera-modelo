@@ -13,6 +13,11 @@ diagnosticar uso problemático ni reemplazar una evaluación de producto con
 niños y familias. Se puede realizar primero mediante una revisión de escritorio
 con profesionales, sin desplegar la app durante un mes en familias.
 
+La búsqueda complementaria realizada antes de esta consulta no encontró una
+evaluación directa del catálogo de Moderá ni de estas consignas concretas en
+niños de 6 a 12 años. Es un límite de la búsqueda, no una prueba de que tales
+estudios no existan ni de que las actividades sean eficaces o ineficaces.
+
 **Resumen para quien revisa:** Moderá es un proyecto académico de una app para
 niños de 6 a 12 años y sus adultos responsables. Una función infantil propone
 pausas voluntarias y, en un contexto separado, opciones tranquilas durante la
@@ -48,6 +53,9 @@ no se presenta como validación de las demás.
 3. ¿Qué capacidades funcionales presupone? ¿Qué variantes equivalentes
    propondría para limitaciones permanentes o transitorias? Si no existe una
    variante adecuada, ¿en qué contexto debería abstenerse el sistema?
+   ¿Qué información puede aportar el niño y cuál necesita confirmar un adulto?
+   ¿Cómo debería actualizarse una restricción transitoria sin inferir
+   capacidades a partir de un diagnóstico?
 4. ¿Es razonable ofrecerla antes de dormir? Revisar por separado las etiquetas
    `bedtime_suitable` y `activity_level`, sin asumir que ya están validadas.
 5. ¿La etiqueta de dispositivo u otra persona es correcta? ¿El texto necesita
@@ -55,6 +63,24 @@ no se presenta como validación de las demás.
 6. Decisión por actividad: **conservar / adaptar / retirar / pendiente**.
    Registrar texto alternativo, condiciones, motivo y evidencia o criterio
    profesional. Dejar `pendiente` cuando no pueda evaluarse con lo entregado.
+
+## Evidencia que motiva preguntas, no aprobación del catálogo
+
+| Tema | Hallazgo y límite | Pregunta para la revisión |
+| --- | --- | --- |
+| Perspectivas sobre capacidad | En PEGS, 117 niños de 6 a 9 años con discapacidades, sus padres y docentes aportaron percepciones diferentes sobre actividades cotidianas; el instrumento no valida filtros automáticos de esta app [1]. | ¿Cómo combinar lo que el niño quiere intentar con la información adulta sobre apoyos y condiciones de seguridad, sin excluirlo por diagnóstico? |
+| Descanso | Un análisis secundario de un ensayo en 66 niños de 8 a 11 años examinó una intervención conductual con adultos sobre horarios y rutinas [2]. No evaluó dibujos, lectura ni las sugerencias de Moderá. Un experimento de luz nocturna midió melatonina en submuestras pequeñas, no calidad de sueño tras una actividad [3]. | ¿Conviene mantener actividades infantiles durante la transición al descanso? ¿Qué debe decidir la familia sobre horarios, luz y materiales? No convertir las mediciones de melatonina en instrucciones automáticas de iluminación. |
+| Lectura | Estudios de entrega de libros y lectura guiada examinaron resultados de alfabetización bajo condiciones distintas a una pausa voluntaria [4, 5]. | ¿Hace falta ofrecer opciones accesibles según lectura, materiales y apoyo disponibles? No atribuir a esta consigna un efecto lector demostrado. |
+| Registro de uso | La implementación registra una oferta generada y puede vincular una elección, pero todavía no acredita visualización ni realización. Una selección repetida es una señal provisional de preferencia, no de eficacia. | ¿Qué opciones y posiciones habría que constatar que aparecieron en pantalla para evaluar aceptación sin asumir que las alternativas no elegidas fueron rechazadas? |
+
+Referencias para preparar la entrevista (consultadas el 29 de septiembre de 2026;
+las decisiones del catálogo quedan pendientes de dictamen profesional):
+
+1. MISSIUNA, Cheryl, et al. *Examination of the Perceived Efficacy and Goal Setting System (PEGS) with children with disabilities, their parents, and teachers*. 2006. DOI: 10.5014/ajot.60.2.204. Disponible en: https://pubmed.ncbi.nlm.nih.gov/16596924/
+2. GEBRE, Azeb, et al. *Child routines moderate a brief behavioral intervention to enhance sleep in school-aged children*. 2024. DOI: 10.1093/jpepsy/jsae015. Disponible en: https://academic.oup.com/jpepsy/article/49/5/365/7637719
+3. HIGUCHI, Shigekazu, et al. *Influence of light at night on melatonin suppression in children*. 2014. DOI: 10.1210/jc.2014-1629. Disponible en: https://pubmed.ncbi.nlm.nih.gov/24840814/
+4. MOONEY, Jennifer; WINTER, Karen y CONNOLLY, Paul. *Effects of a book gifting programme on literacy outcomes for foster children: A randomised controlled trial evaluation of the Letterbox Club in Northern Ireland*. 2016. DOI: 10.1016/j.childyouth.2016.03.009. Disponible en: https://pure.qub.ac.uk/en/publications/effects-of-a-book-gifting-programme-on-literacy-outcomes-for-fost/
+5. KIM, James S. y WHITE, Thomas G. *Scaffolding voluntary summer reading for children in grades 3 to 5: An experimental study*. 2008. DOI: 10.1080/10888430701746849. Disponible en: https://jameskim.scholars.harvard.edu/publications/scaffolding-voluntary-summer-reading-children-grades-3-5-experimental-study
 
 ## Catálogo que debe examinarse
 
@@ -133,6 +159,15 @@ transición previa al descanso; la opción de no ofrecer ninguna actividad; los
 filtros funcionales; la variedad de categorías; y el refuerzo provisional por
 elecciones repetidas. Una elección registrada no demuestra realización ni
 beneficio. Una oferta generada no demuestra que el niño la vio.
+
+Revisar si la variedad de categorías se traduce en alternativas funcionalmente
+distintas: `creative_character_01`, `creative_animal_01`,
+`creative_favorite_01`, `creative_story_01` y `quiet_draw_01` pueden requerir
+escritura o dibujo aunque pertenezcan a distintas categorías. Comprobar además
+si el texto de `social_help_01` preserva el carácter voluntario y la seguridad;
+si las opciones de lectura presuponen libros disponibles; y si las actividades
+de descanso encajan con la rutina familiar. Son hipótesis de revisión, no
+decisiones anticipadas de conservar o retirar actividades.
 
 El profesional puede recomendar otra estructura de catálogo o descartar la
 ponderación actual. Tras recibir sus observaciones, registrar una matriz
