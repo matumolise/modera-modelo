@@ -50,8 +50,14 @@ intervention_history.py e intervention_service.py en b52667a muestra:
 | Selección | Contexto, intereses, penalización de repetición, variedad de categorías, elegibilidad funcional explícita y salida 0..N | Revisión profesional del catálogo y criterios de elegibilidad específicos por edad/capacidad |
 | Activación | Solicitud voluntaria y transición al descanso | Validación de reglas operativas de producto |
 | Catálogo | Actividades y metadatos básicos | Revisión profesional, requisitos y adaptaciones respaldadas; catálogo no congelado |
-| Respuestas | Registro de selección, rechazo, postergación o ignorado | Registrar oferta al generarla, identidad estable y versión para vincular respuestas |
+| Respuestas | Oferta registrada antes de la respuesta mediante `offer_id`; selección, rechazo, postergación o ignorado | Integridad referencial al leer el historial, versión estable de la oferta e integración obligatoria en la app |
 | Aprendizaje | No se observa actualización por preferencias históricas | Aprender de elecciones con exposición conocida y conservar variedad |
+
+Los registros nuevos distinguen `event_type=offer` y `event_type=response`.
+El JSONL previo no tiene `event_type` y sigue siendo legado. La función anterior
+de registro de respuestas continúa disponible y puede producir `offer_id=null`;
+por eso esta etapa aporta trazabilidad cuando se usa el flujo nuevo, pero aún
+no garantiza que toda respuesta corresponda a una oferta persistida.
 
 Orden propuesto de implementación:
 1. Trazabilidad de ofertas y respuestas antes de inferir preferencias.

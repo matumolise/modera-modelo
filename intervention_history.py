@@ -72,6 +72,16 @@ VALID_ACTIVITY_IDS = {
 # ============================================================
 
 @dataclass(frozen=True)
+class InterventionOffer:
+    offer_id: str
+    child_id: int
+    timestamp: str
+    source: str
+    context: str
+    activities_offered: tuple[str, ...]
+
+
+@dataclass(frozen=True)
 class InterventionRecord:
     intervention_id: str
     child_id: int
@@ -80,6 +90,7 @@ class InterventionRecord:
     context: str
     activities_offered: tuple[str, ...]
     response: str
+    offer_id: str | None
     selected_activity_id: str | None
 
 
@@ -95,6 +106,7 @@ def create_intervention_record(
     response: str,
     selected_activity_id: str | None = None,
     timestamp: datetime | None = None,
+    offer_id: str | None = None,
 ) -> InterventionRecord:
     """
     Crea y valida una interacción observable.
@@ -127,6 +139,11 @@ def create_intervention_record(
     if len(offered) != len(set(offered)):
         raise ValueError(
             "activities_offered contiene duplicados."
+        )
+
+    if offer_id is not None and not offer_id.strip():
+        raise ValueError(
+            "offer_id no puede estar vacio."
         )
 
     unknown_activity_ids = (
@@ -185,22 +202,93 @@ def create_intervention_record(
         context=context,
         activities_offered=offered,
         response=response,
+        offer_id=offer_id,
         selected_activity_id=selected_activity_id,
     )
+
+
+# ============================================================
+# CREACION DE OFERTA
+# ============================================================
+
+def create_intervention_offer(
+    child_id: int,
+    source: str,
+    context: str,
+    activities_offered: Iterable[str],
+    timestamp: datetime | None = None,
+) -> InterventionOffer:
+    """
+    Crea y valida una oferta observable antes de la respuesta.
+    """
+
+    offered = tuple(
+        activities_offered
+    )
+
+    if child_id <= 0:
+        raise ValueError(
+            "child_id debe ser mayor que 0."
+        )
+
+    if source not in VALID_SOURCES:
+        raise ValueError(
+            f"source invalido: {source}"
+        )
+
+    if context not in VALID_CONTEXTS:
+        raise ValueError(
+            f"context invalido: {context}"
+        )
+
+    if len(offered) == 0:
+        raise ValueError(
+            "Debe existir al menos una actividad ofrecida."
+        )
+
+    if len(offered) != len(set(offered)):
+        raise ValueError(
+            "activities_offered contiene duplicados."
+        )
+
+    unknown_activity_ids = (
+        set(offered) - VALID_ACTIVITY_IDS
+    )
+
+    if unknown_activity_ids:
+        raise ValueError(
+            "Se intentaron registrar actividades "
+            "que no existen en el catalogo: "
+            f"{sorted(unknown_activity_ids)}"
+        )
+
+    event_time = (
+        timestamp
+        if timestamp is not None
+        else datetime.now()
+    )
+
+    return InterventionOffer(
+        offer_id=str(uuid4()),
+        child_id=child_id,
+        timestamp=event_time.isoformat(),
+        source=source,
+        context=context,
+        activities_offered=offered,
+    )
+
 
 # ============================================================
 # PERSISTENCIA SIMPLE PARA MVP
 # ============================================================
 
-def append_intervention_record(
-    record: InterventionRecord,
+
+def _append_jsonl(
+    payload: dict,
     output_path: str = "data/intervention_history.jsonl",
 ) -> None:
     """
-    Guarda un evento como una línea JSON.
-
-    JSONL permite agregar registros sin reescribir
-    todo el historial.
+    Guarda un evento como una linea JSON.
     """
 
     path = Path(
@@ -212,11 +300,6 @@ def append_intervention_record(
         exist_ok=True,
     )
 
-    payload = asdict(
-        record
-    )
-
-    # tuple -> list para representación JSON natural.
     payload["activities_offered"] = list(
         payload["activities_offered"]
     )
@@ -234,3 +317,25 @@ def append_intervention_record(
         )
 
         file.write("\n")
+
+
+def append_intervention_offer(
+    offer: InterventionOffer,
+    output_path: str = "data/intervention_history.jsonl",
+) -> None:
+    payload = asdict(
+        offer
+    )
+    payload["event_type"] = "offer"
+    _append_jsonl(payload, output_path=output_path)
+
+
+def append_intervention_record(
+    record: InterventionRecord,
+    output_path: str = "data/intervention_history.jsonl",
+) -> None:
+    payload = asdict(
+        record
+    )
+    payload["event_type"] = "response"
+    _append_jsonl(payload, output_path=output_path)

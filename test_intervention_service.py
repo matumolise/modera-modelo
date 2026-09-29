@@ -174,3 +174,43 @@ print(
 print(
     "Registro persistido: OK"
 )
+# CASO: oferta y respuesta vinculadas, persistidas en orden.
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+from intervention_history import (
+    append_intervention_offer,
+    append_intervention_record,
+)
+from intervention_service import (
+    create_offer_from_decision,
+    register_offer_response,
+)
+
+traceable_decision = request_voluntary_intervention(random_seed=42)
+offer = create_offer_from_decision(
+    child_id=1,
+    decision=traceable_decision,
+    persist=False,
+)
+linked_response = register_offer_response(
+    offer=offer,
+    response=RESPONSE_POSTPONED,
+    persist=False,
+)
+
+assert linked_response.offer_id == offer.offer_id
+assert linked_response.activities_offered == offer.activities_offered
+
+with TemporaryDirectory() as directory:
+    history_path = str(Path(directory) / "history.jsonl")
+    append_intervention_offer(offer, output_path=history_path)
+    append_intervention_record(linked_response, output_path=history_path)
+    events = [
+        json.loads(line)
+        for line in Path(history_path).read_text(encoding="utf-8").splitlines()
+    ]
+
+assert [event["event_type"] for event in events] == ["offer", "response"]
+assert events[0]["offer_id"] == events[1]["offer_id"] == offer.offer_id
