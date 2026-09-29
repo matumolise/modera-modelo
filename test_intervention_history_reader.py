@@ -1,4 +1,4 @@
-"""Regression tests for evidence of offered child activities."""
+"""Regression tests for linked child activity offers and responses."""
 
 import json
 from pathlib import Path
@@ -43,7 +43,7 @@ class OfferHistoryReaderTests(unittest.TestCase):
             encoding="utf-8",
         )
 
-    def test_valid_pair_preserves_exposure_and_selection(self):
+    def test_valid_pair_preserves_offer_and_selection(self):
         self.write(self.offer, self.response)
         (pair,) = read_linked_offer_responses(self.path)
         self.assertEqual(pair.child_id, 3)

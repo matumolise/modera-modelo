@@ -1,4 +1,4 @@
-"""Read offer/response pairs with verified exposure from intervention JSONL."""
+"""Read verified offer/response links from intervention JSONL."""
 
 from __future__ import annotations
 

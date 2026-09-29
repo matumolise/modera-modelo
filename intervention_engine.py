@@ -18,7 +18,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Iterable
+from typing import Iterable, Mapping
 
 from recommendations import (
     ActivityEligibility,
@@ -129,6 +129,7 @@ def request_voluntary_intervention(
     recently_shown_ids: Iterable[str] | None = None,
     eligibility: ActivityEligibility | None = None,
     random_seed: int | None = None,
+    selected_activity_counts: Mapping[str, int] | None = None,
 ) -> InterventionDecision:
     """
     El niño solicita voluntariamente actividades.
@@ -144,6 +145,7 @@ def request_voluntary_intervention(
         eligibility=eligibility,
         n=3,
         random_seed=random_seed,
+        selected_activity_counts=selected_activity_counts,
     )
 
     if len(activities) == 0:
@@ -178,6 +180,7 @@ def evaluate_bedtime_intervention(
     recently_shown_ids: Iterable[str] | None = None,
     eligibility: ActivityEligibility | None = None,
     random_seed: int | None = None,
+    selected_activity_counts: Mapping[str, int] | None = None,
 ) -> InterventionDecision:
     """
     Evalúa si corresponde una intervención contextual
@@ -227,6 +230,7 @@ def evaluate_bedtime_intervention(
         eligibility=eligibility,
         n=3,
         random_seed=random_seed,
+        selected_activity_counts=selected_activity_counts,
     )
 
     if len(activities) == 0:

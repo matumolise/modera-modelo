@@ -18,7 +18,7 @@ NO asume que una actividad seleccionada fue realizada.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterable
+from typing import Iterable, Mapping
 import random
 
 
@@ -586,6 +586,7 @@ def recommend_activities(
     eligibility: ActivityEligibility | None = None,
     n: int = 3,
     random_seed: int | None = None,
+    selected_activity_counts: Mapping[str, int] | None = None,
 ) -> list[Activity]:
     """
     Selecciona actividades del catálogo.
@@ -596,8 +597,8 @@ def recommend_activities(
     - penalización por repetición reciente;
     - variedad entre categorías.
 
-    NO aprende todavía de la respuesta histórica del niño.
-    La interfaz queda preparada para evolucionar posteriormente.
+    Las elecciones vinculadas pueden aportar un refuerzo leve y provisional.
+    No representan realización ni eficacia de una actividad.
     """
 
     if n <= 0:
@@ -642,6 +643,16 @@ def recommend_activities(
     recently_shown_set = set(
         recently_shown_ids or []
     )
+
+    choice_counts = selected_activity_counts or {}
+    if any(
+        not isinstance(activity_id, str)
+        or not activity_id
+        or type(count) is not int
+        or count < 0
+        for activity_id, count in choice_counts.items()
+    ):
+        raise ValueError("selected_activity_counts must contain nonnegative counts.")
 
     rng = random.Random(
         random_seed
@@ -704,6 +715,12 @@ def recommend_activities(
 
         if matching_interests:
             score += 1.0
+
+        # A single choice may be incidental; repeated choices get a small,
+        # capped boost that cannot override the recent-offer penalty.
+        choice_count = choice_counts.get(activity.activity_id, 0)
+        if choice_count >= 2:
+            score += min(0.20, 0.05 * (choice_count - 1))
 
         # Evita mostrar excesivamente lo mismo.
         if activity.activity_id in recently_shown_set:

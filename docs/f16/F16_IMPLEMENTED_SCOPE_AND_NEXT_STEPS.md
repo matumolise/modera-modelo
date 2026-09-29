@@ -54,7 +54,7 @@ actualizó con los bloques infantiles posteriores:
 | Activación | Solicitud voluntaria y transición al descanso | Validación de reglas operativas de producto |
 | Catálogo | Actividades y metadatos básicos | Revisión profesional, requisitos y adaptaciones respaldadas; catálogo no congelado |
 | Respuestas | Oferta registrada antes de la respuesta mediante `offer_id`; selección, rechazo, postergación o ignorado | Integridad referencial al leer el historial, versión estable de la oferta e integración obligatoria en la app |
-| Aprendizaje | No se observa actualización por preferencias históricas | Aprender de elecciones con exposición conocida y conservar variedad |
+| Aprendizaje | Conteo por niño y contexto de elecciones vinculadas; refuerzo acotado y opcional en el selector | Integrar el flujo en la app, evaluar la ponderación y revisar el catálogo con profesionales |
 
 Los registros nuevos distinguen `event_type=offer` y `event_type=response`.
 El JSONL previo no tiene `event_type` y sigue siendo legado. La función anterior
@@ -67,7 +67,7 @@ Orden propuesto de implementación:
 2. Preferencias aprendidas con diversidad y evidencia suficiente de exposición.
 3. Evaluación separada de IA para selección, adaptación o generación.
 
-### Lectura de exposición verificada
+### Lectura de vínculos verificables
 
 El lector `read_linked_offer_responses` acepta únicamente respuestas posteriores
 a una oferta presente en el mismo JSONL. Verifica identidad del niño, origen,
@@ -77,11 +77,30 @@ no se transforma en una preferencia. Las ofertas sin respuesta no producen una
 elección observada. Las respuestas legadas sin `event_type` y las respuestas
 nuevas con `offer_id=null` quedan fuera de los pares para aprendizaje.
 
-Este lector no calcula preferencias ni confirma realización de actividades.
+Una oferta guardada demuestra generación y registro, pero no confirma que
+se haya mostrado en pantalla. Una elección vinculada es una respuesta observada;
+las alternativas no elegidas no se tratan como rechazo ni como exposición visual
+confirmada. Este lector no calcula preferencias ni confirma realización de actividades.
 No interpreta el tiempo posterior sin pantalla como efecto de una actividad.
 El catálogo todavía necesita identidad/versionado estable para comparar ofertas
 antiguas tras una revisión profesional. La política sobre múltiples respuestas
 a una misma oferta requiere una decisión explícita antes de habilitarlas.
+
+### Señal provisional de elecciones repetidas
+
+`selected_activity_counts` cuenta solo selecciones de pares válidos para un
+niño y contexto. El selector acepta esos conteos como entrada opcional: la
+primera elección no cambia el puntaje; desde la segunda, suma 0,05 por elección
+adicional con un máximo de 0,20. Es un parámetro operativo provisional, no una
+estimación clínica ni una medida de eficacia. Se aplican antes los filtros de
+elegibilidad y contexto. El refuerzo no supera la penalización de 2,0 por
+oferta reciente y permanece la selección con variedad entre categorías.
+
+La integración de la app debe cargar y asociar el historial del niño antes de
+pasar los conteos al motor; esta biblioteca no lee archivos automáticamente.
+Con el historial legado incluido actualmente, el lector devuelve cero pares
+aptos y la señal queda vacía. Falta evaluar la ponderación, posibles cambios
+de intereses con el tiempo y la estabilidad de IDs/versiones del catálogo.
 
 Elegir no demuestra realizar; dejar de usar el teléfono no demuestra beneficio
 causado por una actividad. El motor infantil no se dispara por score PMU,
