@@ -42,7 +42,8 @@ def audit(summary_path: Path, events_path: Path) -> int:
     begin = summary.get("requestedBeginEpochMs")
     end = summary.get("requestedEndEpochMs")
 
-    previous_time = None
+    previous_key = None
+    seen_ordinals = set()
 
     for index, event in enumerate(events):
         if event.get("collectorRunId") != summary_run_id:
@@ -54,11 +55,18 @@ def audit(summary_path: Path, events_path: Path) -> int:
         if event.get("queryEndEpochMs") != end:
             fail(errors, f"event {index}: queryEndEpochMs mismatch")
 
-        if event.get("queryOrdinal") != index:
+        ordinal = event.get("queryOrdinal")
+        if (isinstance(ordinal, bool) or not isinstance(ordinal, int)
+                or not 0 <= ordinal < len(events)):
             fail(
                 errors,
-                f"event {index}: queryOrdinal={event.get('queryOrdinal')} expected={index}",
+                f"event {index}: invalid queryOrdinal={ordinal}",
             )
+            ordinal = None
+        elif ordinal in seen_ordinals:
+            fail(errors, f"event {index}: duplicate queryOrdinal={ordinal}")
+        else:
+            seen_ordinals.add(ordinal)
 
         event_time = event.get("eventTimeEpochMs")
 
@@ -70,10 +78,11 @@ def audit(summary_path: Path, events_path: Path) -> int:
             if not (begin <= event_time < end):
                 fail(errors, f"event {index}: timestamp outside query window")
 
-        if previous_time is not None and event_time < previous_time:
-            fail(errors, f"event {index}: events are not time ordered")
-
-        previous_time = event_time
+        if ordinal is not None:
+            key = (event_time, ordinal)
+            if previous_key is not None and key < previous_key:
+                fail(errors, f"event {index}: events are not time/ordinal ordered")
+            previous_key = key
 
     print(f"summary : {summary_path}")
     print(f"events  : {events_path}")
