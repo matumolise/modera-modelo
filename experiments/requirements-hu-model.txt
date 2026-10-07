@@ -1,0 +1,7 @@
+# Entorno con el que se entrenó el artefacto de Windows (Python 3.10.0).
+# Pin de dependencias directas para carga/inferencia; revisar dependencias
+# transitivas con el gestor del entorno al desplegar.
+numpy==2.2.6
+scipy==1.15.3
+scikit-learn==1.7.2
+joblib==1.5.3

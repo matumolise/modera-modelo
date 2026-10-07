@@ -93,6 +93,11 @@ una comprobación de monotonía en categorías. El comportamiento del adaptador
 de servicio se verifica por separado, al integrar el backend. **No** demuestra validez externa,
 precisión clínica ni preparación para publicar el modelo.
 
+Para preparar un traslado del artefacto entrenado en Windows, ejecutar
+`hu_pmum_environment_report_v1.py DIRECTORIO_DEL_MODELO` y contrastar el
+SHA-256 con el del documento `JUANMA_INTEGRATION_HANDOFF_DRAFT.md`. El archivo
+`requirements-hu-model.txt` fija las dependencias directas de ese entorno.
+
 El script `hu_pmum_sex_audit_v1.py` hace la comparación agregada y
 reproducible por código de sexo y por cantidad de hijos, seleccionando alpha
 por validación cruzada dentro de cada pliegue. Con cuatro entradas, el error
