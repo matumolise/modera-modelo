@@ -34,3 +34,6 @@ Thumbs.db
 
 # Backup ZIPs
 *.zip
+
+# Artefactos experimentales locales (evitar publicar un modelo sin revisión)
+experiments/output/
