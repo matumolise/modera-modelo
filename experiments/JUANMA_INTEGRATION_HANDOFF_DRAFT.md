@@ -74,6 +74,12 @@ produce error del servicio, no un puntaje inventado. No derivar de aquí
 etiquetas de riesgo o diagnósticos: no hay umbrales PMUM-SF validados para
 este uso ni evaluación local.
 
+En el prototipo HTTP una estimación y una abstención son ambas respuestas
+`200` con distinto `status` JSON. JSON inválido o largo inválido devuelve
+`400`, tipo de contenido distinto de JSON devuelve `415` y un artefacto que
+no se puede cargar devuelve `503`. El backend debe distinguir `unavailable`
+de un fallo técnico del servicio.
+
 ## Responsabilidades de cada parte
 
 | Parte | Responsabilidad |
@@ -118,6 +124,8 @@ del backend antes de fijar la URL final o abrirlo en una red.
   y la aprobación de alcance del docente siguen pendientes.
 
 **Preguntas concretas para Juanma antes del despliegue:** ¿en qué stack y
-entorno corre su backend (proceso local, contenedor o servidor)? ¿Ya guarda
-revisiones de respuestas parentales con fecha y `profile_id`? Con esas dos
-respuestas se acuerda la URL interna y el formato definitivo de persistencia.
+entorno corre su backend (proceso local, contenedor o servidor)? ¿El perfil ya
+guarda la edad y el sexo del niño, con una opción para dejar este último sin
+respuesta? ¿Ya guarda revisiones de respuestas parentales con fecha y
+`profile_id`? Con esas respuestas se acuerda la URL interna, el manejo de
+ausencias y el formato definitivo de persistencia.

@@ -27,7 +27,8 @@ identificadores, predicciones individuales ni un modelo para producción.
 Esta evaluación solo usa respuestas parentales húngaras. La muestra seleccionó
 al niño que más usaba pantallas en hogares con varios hijos. La pregunta de
 día hábil tiene su etiqueta truncada en el archivo: antes de implementarla
-en la aplicación hay que verificar su texto y alcance completos. Tampoco
+en la aplicación hay que documentar la redacción adoptada y su posible
+diferencia respecto del cuestionario original. Tampoco
 demuestra funcionamiento con niños argentinos ni con mediciones de Android.
 Tres niños tienen el código de sexo 4; se preserva como categoría sin asignarle
 un significado que no hemos verificado en el codebook. El archivo `SEM.inp`
