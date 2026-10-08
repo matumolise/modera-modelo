@@ -75,6 +75,48 @@ Antes de recibir `interactiveScreenMinutes` de Android en el histórico:
 - decidir cómo se tratan días corregidos o recibidos fuera de orden antes de
   incorporarlos al C1 persistente.
 
+## Contrato de agregado v3, todavía aislado
+
+`historical/interactive_aggregate_v3.py` define un contrato tipado y un
+adaptador experimental **sin conectarlo al detector ni a la persistencia**.
+La representación usa `interactive_screen_device_minutes_v3_draft`,
+`DEVICE_INTERACTIVE_SCREEN_DURATION` y `subject_id=device_id` seudónimo. El
+perfil infantil y la vinculación del dispositivo quedan en el backend. Los
+minutos son del dispositivo y no se atribuyen automáticamente al chico.
+
+| Campo interno | Significado |
+| --- | --- |
+| `capture_id`, `device_id` | Identidad de la captura e identificador seudónimo del dispositivo. |
+| `local_date`, `time_zone_id` | Fecha local y zona IANA vigente; conservar la zona usada al calcular. |
+| `interval_start`, `interval_end` | Instantes con zona que delimitan las dos medianoches locales, inicio incluido y fin excluido. Pueden abarcar 23, 24 o 25 horas. |
+| `computed_at`, `algorithm_version` | Momento del cálculo y versión exacta `interactive-screen-reference-v3-draft`. |
+| `status`, `interactive_screen_minutes`, `missing_reason` | `OBSERVED` > 0, `OBSERVED_ZERO` = 0 o `MISSING` con minutos nulos y motivo. |
+| `initial_state` | Último evento de estado anterior al inicio: timestamp en epoch ms y código 15 o 16. Es una declaración de Android; el agregado por sí solo no prueba que sea el último. |
+| `query_windows` | Cada consulta: `run_id`, comienzo/fin en epoch ms y `succeeded`. Las consultas fallidas no dan cobertura. |
+| `restart_in_day`, `conflicting_overlaps`, `ambiguous_event_order` | Resultados de los controles hechos sobre eventos en Android. Cualquiera verdadero obliga a abstenerse. |
+
+El adaptador comprueba la fecha local, la versión, valores, estado inicial y
+cobertura temporal continua desde ese estado hasta el fin del día. Si falta
+evidencia, produce `MISSING` con minutos nulos; no inventa cero. Conserva
+`coverage.value=None`: las ventanas exitosas **no prueban** exhaustividad de
+los eventos ni permiten recalcular el total. Los indicadores de reinicio,
+solapamiento y orden, así como que el estado inicial sea realmente el último,
+son afirmaciones del collector que sólo se pueden contrastar con eventos o
+pruebas de paridad. No presentarlos como verificación independiente de Python.
+
+La implementación de Android debe persistir su agregado con las ventanas y
+el estado inicial para auditoría, y conservar una vía diagnóstica de eventos
+para las pruebas de paridad. Ante permisos denegados, consulta nula o fallida,
+estado desconocido o conflicto, enviar `MISSING` y el motivo. Backend debe
+identificar revisiones y entregas repetidas sin reescribir el pasado; ese
+contrato de persistencia aún no está cerrado. No mandar esta representación al
+C1 ni combinarla con `daily_use_duration_minutes_v2` hasta resolver paridad,
+atribución y política de correcciones.
+
+El entorno Windows necesita datos de zonas IANA: `tzdata` está declarado en
+`requirements.txt`. La verificación local es
+`python -m unittest tests.historical.test_interactive_aggregate_v3 -v`.
+
 No se pueden recalcular minutos desde un agregado sin los eventos. Los metadatos
 permiten revisar cobertura y coherencia, no reproducir la suma. La política de
 conservar o exportar eventos diagnósticos requiere una decisión aparte.
