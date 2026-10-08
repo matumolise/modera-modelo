@@ -67,10 +67,11 @@ Antes de recibir `interactiveScreenMinutes` de Android en el histórico:
 
 - ejecutar estos mismos vectores en Kotlin y comparar estado, minutos y motivo;
 - contrastar registros de prueba en teléfonos físicos y documentar diferencias;
-- fijar el contrato del agregado y un adaptador Python con `spec_id` separado
-  de `daily_use_duration_minutes_v2`;
-- acordar perfil, dispositivo, fecha local, zona IANA, instantes UTC, ventanas
-  consultadas, evidencia del estado inicial y versión del algoritmo;
+- contrastar en Android el contrato de agregado y el adaptador Python ya
+  bosquejados abajo, manteniendo el `spec_id` separado de
+  `daily_use_duration_minutes_v2`;
+- acordar cómo el backend vincula perfil y dispositivo y conserva la fecha
+  local, zona IANA, ventanas, evidencia inicial y versión del algoritmo;
 - resolver la atribución cuando el dispositivo es compartido;
 - decidir cómo se tratan días corregidos o recibidos fuera de orden antes de
   incorporarlos al C1 persistente.
@@ -116,6 +117,36 @@ atribución y política de correcciones.
 El entorno Windows necesita datos de zonas IANA: `tzdata` está declarado en
 `requirements.txt`. La verificación local es
 `python -m unittest tests.historical.test_interactive_aggregate_v3 -v`.
+
+## Comparación automática con Android
+
+La implementación Kotlin debe correr los 15 casos del JSON compartido con
+**el mismo algoritmo** que calculará los agregados diarios. Puede exportar un
+archivo JSON de resultados de esta forma (ejemplo parcial):
+
+```json
+{
+  "schema_version": "interactive-screen-parity-v3-draft",
+  "results": [
+    {"id": "ordered_equal_timestamp", "status": "OBSERVED", "minutes": 120.0, "reason": null},
+    {"id": "ambiguous_equal_timestamp", "status": "MISSING", "minutes": null, "reason": "AMBIGUOUS_EVENT_ORDER"}
+  ]
+}
+```
+
+Debe incluir **todos** los IDs de los vectores, uno por caso. Para comparar:
+
+```text
+python tools/f12/compare_interactive_v3.py android-results.json
+```
+
+El comparador informa casos faltantes, duplicados o desconocidos, además de
+diferencias de estado, motivo y minutos (tolerancia de 0,000001 minuto). Un
+`PASS` prueba paridad sólo para estos casos preparados, no calidad del registro
+real. Para teléfonos físicos hay que conservar un diagnóstico acotado con
+eventos y resúmenes de consulta, comparar ambos cálculos por día y documentar
+modelo, versión Android, zona horaria, permisos, cobertura, discrepancias y
+decisión sobre cada caso. No incluir datos personales en el export de paridad.
 
 No se pueden recalcular minutos desde un agregado sin los eventos. Los metadatos
 permiten revisar cobertura y coherencia, no reproducir la suma. La política de
