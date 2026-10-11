@@ -122,7 +122,7 @@ Una abstención PMUM válida y elegibilidad desconocida siguen siendo 200 con es
 
 ## Docker
 
-Dockerfile.analytics propone Python 3.10 para acercarse al entorno del artefacto documentado. Las dependencias instaladas declaran soporte para 3.10, pero en esta revisión se ejecutaron con Python 3.12.14. No hay Docker disponible aquí: build, healthcheck de imagen y carga del artefacto Windows en Linux/3.10 quedan pendientes.
+Dockerfile.analytics usa Python 3.10-slim. Build y comprobaciones HTTP en Docker/Linux verificados el 2026-10-11; detalles abajo.
 
 ```text
 docker build -f Dockerfile.analytics -t modera-analytics:candidate .
@@ -136,7 +136,7 @@ Para Compose, Juanma puede añadir un servicio interno analytics, puerto de cont
 
 Pruebas de contrato con fixtures artificiales: autenticación, salud, carga única, hash previo a deserialización, archivo/metadata inválidos, abstenciones, error de inferencia, elección vacía, filtros, unknown, reproducibilidad y límites HTTP. Se ejecutó smoke por HTTP en proceso Uvicorn real.
 
-El artefacto real se verifico posteriormente en Windows, como se documenta abajo. Docker, AWS, backend y Android siguen pendientes. La suite nueva no reemplaza las pruebas globales del proyecto tras aplicar el parche. No se añade configuración C1, persistencia histórica, política de ofertas, revisión profesional ni tarjeta semanal.
+El artefacto real se verifico posteriormente en Windows, como se documenta abajo. AWS, backend y Android siguen pendientes. La suite nueva no reemplaza las pruebas globales del proyecto tras aplicar el parche. No se añade configuración C1, persistencia histórica, política de ofertas, revisión profesional ni tarjeta semanal.
 
 Aplicacion aislada y comprobacion del artefacto confiable completadas en Windows. Después integrar histórico con configuración C1 y exclusión mutua; no enviar el agregado v3 a C1 por adelantado.
 
@@ -176,3 +176,8 @@ los archivos locales sin seguimiento de C:\tesis_modelo.
 ## Resultado de la suite global Windows
 
 2026-10-11: 194 pruebas en 9.454 segundos; OK. Comando: python -m unittest discover -s tests -t . -v. pandas==2.3.3 instalado solo en el entorno separado, respetando las restricciones del candidato.
+
+## Validacion Docker Linux
+
+2026-10-11: build completado; contenedor running / healthy; UID y GID 10001. Artefacto HU v1 y manifiesto montados en modo de solo lectura. PMUM y actividades READY. Caso de referencia: 2.6959, experimental, internal_research_only. Seleccion: mismos tres identificadores y misma huella que el caso Windows. Puerto de prueba 127.0.0.1:8766 hacia 8765 del contenedor. No se ejecuto la suite global dentro de la imagen. AWS, backend y Android pendientes.
+
