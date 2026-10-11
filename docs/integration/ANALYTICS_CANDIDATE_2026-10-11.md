@@ -26,7 +26,7 @@ git switch -c analytics-api-candidate
 git apply "$env:USERPROFILE\Downloads\modera_analytics_candidate_2026-10-11.patch"
 ```
 
-No se hizo commit, push o merge al repositorio remoto en esta revisión.
+La rama analytics-api-candidate fue publicada; no se hizo merge en phase14-integration. Las instrucciones anteriores de aplicacion del parche son un antecedente: quien use la rama publicada no debe volver a aplicarlo.
 
 ## Ejecución y pruebas
 
@@ -62,7 +62,7 @@ Cada capacidad habilitada es requerida para readiness. Si PMUM no carga, el arra
 
 ## PMUM v1
 
-Para activarlo: ANALYTICS_PMUM_ENABLED=true, MODEL_PATH, MODEL_MANIFEST_PATH y MODEL_SHA256 explícitos. El hash esperado debe provenir de Matías/una entrega confiable; calcular el hash de cualquier archivo recibido no autentica su origen. Se verifica antes de deserializar y se cargan los bytes ya comprobados.
+Para activarlo: ANALYTICS_PMUM_ENABLED=true, ANALYTICS_MODEL_PATH, ANALYTICS_MODEL_MANIFEST_PATH y ANALYTICS_MODEL_SHA256 explícitos. El hash esperado debe provenir de Matías/una entrega confiable; calcular el hash de cualquier archivo recibido no autentica su origen. Se verifica antes de deserializar y se cargan los bytes ya comprobados.
 
 Artefacto y manifiesto quedan fuera de Git y de la imagen. El hash documentado del archivo Windows v1 es 56c991f40e56d2241196dc6f9efc1c9027c079e98a1b67549f48b10292e371e0; confirmar que el archivo entregado sea ese. Un reentrenamiento exige registrar otra huella y verificar el artefacto, no copiar ese hash.
 
@@ -165,15 +165,14 @@ las salidas de consola compartidas.
 
 Esta verificacion es tecnica y local. El modelo mantiene su condicion
 experimental, sin aprobacion para integrar en la app ni validacion externa;
-el catalogo mantiene su condicion provisional. No se verificaron Docker,
-AWS, backend ni Android. Suite global: 194 pruebas aprobadas.
+el catalogo mantiene su condicion provisional. Docker se verifico posteriormente, como se detalla abajo. AWS, backend y Android siguen pendientes. Suite tests/: 194 pruebas aprobadas; ocho archivos de pruebas de la raiz quedaron fuera de ese descubrimiento.
 
 Los comandos de ejecucion requieren crear previamente .venv-analytics.
 La aplicacion realizada utilizo un worktree independiente para conservar
 los archivos locales sin seguimiento de C:\tesis_modelo.
 
 
-## Resultado de la suite global Windows
+## Resultado de la suite tests/ en Windows
 
 2026-10-11: 194 pruebas en 9.454 segundos; OK. Comando: python -m unittest discover -s tests -t . -v. pandas==2.3.3 instalado solo en el entorno separado, respetando las restricciones del candidato.
 
