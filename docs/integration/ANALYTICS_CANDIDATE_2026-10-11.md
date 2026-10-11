@@ -180,4 +180,3 @@ los archivos locales sin seguimiento de C:\tesis_modelo.
 ## Validacion Docker Linux
 
 2026-10-11: build completado; contenedor running / healthy; UID y GID 10001. Artefacto HU v1 y manifiesto montados en modo de solo lectura. PMUM y actividades READY. Caso de referencia: 2.6959, experimental, internal_research_only. Seleccion: mismos tres identificadores y misma huella que el caso Windows. Puerto de prueba 127.0.0.1:8766 hacia 8765 del contenedor. No se ejecuto la suite global dentro de la imagen. AWS, backend y Android pendientes.
-
