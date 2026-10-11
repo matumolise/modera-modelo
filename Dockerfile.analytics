@@ -1,0 +1,18 @@
+# Candidato. Build no ejecutado en esta revisión: Docker no está instalado.
+FROM python:3.10-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
+    ANALYTICS_HOST=0.0.0.0 ANALYTICS_PORT=8765 \
+    ANALYTICS_PMUM_ENABLED=false ANALYTICS_ACTIVITIES_ENABLED=true
+WORKDIR /app
+COPY requirements-analytics.txt ./
+RUN pip install --no-cache-dir -r requirements-analytics.txt \
+    && groupadd --gid 10001 analytics \
+    && useradd --uid 10001 --gid analytics --no-create-home analytics
+COPY analytics_api.py recommendations.py ./
+COPY analytics_service/ ./analytics_service/
+COPY experiments/hu_pmum_candidate_v1.py experiments/hu_pmum_parent_adapter_v2.py experiments/hu_pmum_real_data.py ./experiments/
+USER 10001:10001
+EXPOSE 8765
+HEALTHCHECK --interval=30s --timeout=3s --start-period=20s --retries=3 \
+    CMD python -c "import os, urllib.request; urllib.request.urlopen('http://127.0.0.1:'+os.environ.get('ANALYTICS_PORT','8765')+'/health',timeout=2).close()"
+CMD ["python", "analytics_api.py"]

@@ -14,7 +14,10 @@ from pathlib import Path
 import joblib
 import numpy as np
 
-from hu_pmum_real_data import load_hungarian, make_ridge
+if __package__:
+    from .hu_pmum_real_data import load_hungarian, make_ridge
+else:
+    from hu_pmum_real_data import load_hungarian, make_ridge
 
 
 EXPECTED_SHA256 = "f16adde7e9fae278de2fa5d25412533b98db91306b31e2ba637f09c05347e8f5"

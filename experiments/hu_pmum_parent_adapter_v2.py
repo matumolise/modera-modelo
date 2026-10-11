@@ -6,7 +6,10 @@ resolver alcance docente, formulario y validación externa.
 
 from pathlib import Path
 
-from hu_pmum_candidate_v1 import predict, row_for_model
+if __package__:
+    from .hu_pmum_candidate_v1 import predict, row_for_model
+else:
+    from hu_pmum_candidate_v1 import predict, row_for_model
 
 
 REQUIRED = frozenset({"age", "sex_code", "weekday_category",
@@ -14,6 +17,16 @@ REQUIRED = frozenset({"age", "sex_code", "weekday_category",
 
 
 def estimate(model_path: str | Path, request: dict) -> dict:
+    return estimate_with_predictor(
+        request,
+        lambda age, sex_code, weekday, weekend: predict(
+            model_path, age, sex_code, weekday, weekend,
+        ),
+    )
+
+
+def estimate_with_predictor(request: dict, predictor) -> dict:
+    """Preserva las abstenciones; permite usar un modelo ya cargado."""
     if not isinstance(request, dict):
         return {"status": "unavailable", "reason": "invalid_request"}
     if set(request) - REQUIRED:
@@ -31,8 +44,8 @@ def estimate(model_path: str | Path, request: dict) -> dict:
                       request["weekday_category"], request["weekend_category"])
     except ValueError:
         return {"status": "unavailable", "reason": "invalid_feature_value"}
-    result = predict(model_path, request["age"], request["sex_code"],
-                     request["weekday_category"], request["weekend_category"])
+    result = predictor(request["age"], request["sex_code"],
+                       request["weekday_category"], request["weekend_category"])
     # Archivo ausente o corrupto, o versión de modelo incompatible, debe
     # propagarse como error técnico; no se debe disfrazar como respuesta omitida.
     return {"status": "estimated", "estimated_pmum_sf_mean": result["estimated_pmum_sf_mean"],

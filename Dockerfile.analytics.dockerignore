@@ -1,0 +1,11 @@
+.git
+**/__pycache__
+**/*.pyc
+**/*.joblib
+data
+models
+artifacts
+**/.env
+**/*.env
+**/venv
+**/.venv
