@@ -1,7 +1,8 @@
 """Valida el candidato en Windows en entorno, datos y contenedor separados.
 
 Usar Python 3.10 del entorno original. No crea commits ni publica cambios.
-Solo usa el perfil SMOKE_ONLY no calibrado; no habilita PMUM real.
+El histórico sólo usa SMOKE_ONLY no calibrado. Si existen los originales HU v1,
+comprueba su carga y HTTP en Windows/Docker sin entrenarlos o modificarlos.
 """
 
 import argparse
@@ -86,8 +87,10 @@ def run(args):
         port_available(args.docker_port)
         require(shutil.which("docker") is not None, "Docker no esta en PATH; abrir Docker Desktop")
     state.mkdir(parents=True)
-    summary = {"candidate_base": "94ff3a82ad3581e74cb6f97449adda264972c61b",
-               "fixture_only": True, "python_base": sys.version,
+    summary = {"candidate_base": "60c8764a2e2840503a598bf0c6605f1e2e1a6baf",
+               "fixture_only": True, "historical_fixture_only": True,
+               "original_pmum_artifact_loaded": False, "configuration_calibrated": False,
+               "python_base": sys.version,
                "started_utc": datetime.now(timezone.utc).isoformat()}
 
     def command(arguments, label, cwd=ROOT, custom_env=None):
@@ -191,6 +194,36 @@ def run(args):
         process.wait(timeout=10)
         process = None
 
+        audit_script = ROOT / "tools/validation/audit_c1_repository.py"
+        command([python, audit_script, "--repository", state / "windows-state/history.json",
+                 "--config", profile, "--output", state / "windows-c1-snapshot-audit.json"],
+                "windows_c1_snapshot_audit")
+        model_dir = args.model_dir
+        expected_model = model_dir / "hu_pmum_sf_experimental_v1.joblib"
+        expected_manifest = model_dir / "hu_pmum_sf_experimental_v1.json"
+        if expected_model.exists() or expected_manifest.exists():
+            require(expected_model.is_file() and expected_manifest.is_file(), "Entrega HU v1 incompleta")
+            command([python, ROOT / "tools/validation/verify_pmum_artifact_v1.py", "--model-dir", model_dir,
+                     "--output", state / "pmum-original-artifact-audit.json"], "pmum_original_artifact")
+            summary["original_pmum_artifact_loaded"] = True
+            summary["fixture_only"] = False
+            env.update({"ANALYTICS_PMUM_ENABLED": "true", "ANALYTICS_MODEL_PATH": str(expected_model),
+                        "ANALYTICS_MODEL_MANIFEST_PATH": str(expected_manifest),
+                        "ANALYTICS_MODEL_SHA256": "56c991f40e56d2241196dc6f9efc1c9027c079e98a1b67549f48b10292e371e0"})
+            process = start_server("pmum-c1-coexistence")
+            command([python, ROOT / "tools/validation/smoke_pmum_c1.py", "--base-url", base,
+                     "--output", state / "pmum-c1-http.json"], "windows_pmum_c1_http")
+            command([python, smoke_script, "--phase", "replay", "--base-url", base, "--receipt-file", receipt],
+                    "windows_c1_replay_with_pmum")
+            process.terminate()
+            process.wait(timeout=10)
+            process = None
+            env["ANALYTICS_PMUM_ENABLED"] = "false"
+        else:
+            summary["pmum_original_artifact"] = "PENDING: originales HU v1 no disponibles en model-dir"
+            summary["windows_pmum_c1_http"] = "PENDING: requiere originales HU v1"
+            print("PENDIENTE: no se encontro HU v1 original; las pruebas ficticias no lo sustituyen", flush=True)
+
         if not args.skip_docker:
             compose_env = {**env, "ANALYTICS_HISTORICAL_CONFIG_FILE": str(profile)}
             command(["docker", "compose", "-f", "compose.analytics-historical.candidate.yml", "config", "--quiet"],
@@ -237,11 +270,52 @@ def run(args):
             summary["docker_image_id"] = command(["docker", "image", "inspect", image, "--format", "{{.Id}}"],
                                                  "docker_image_identity")
             command(["docker", "logs", "--tail", "100", container_id], "docker_logs")
+            snapshot = state / "docker-history-snapshot.json"
+            command(["docker", "cp", container_id + ":/var/lib/modera/historical/history.json", snapshot],
+                    "docker_c1_snapshot_copy")
+            command([python, audit_script, "--repository", snapshot, "--config", profile,
+                     "--output", state / "docker-c1-snapshot-audit.json"], "docker_c1_snapshot_audit")
+            if summary["original_pmum_artifact_loaded"]:
+                # Sólo se reemplaza el contenedor creado en esta ejecución; se
+                # conserva su volumen y se montan ambos originales en sólo lectura.
+                command(["docker", "stop", container_id], "docker_fixture_stop")
+                command(["docker", "rm", container_id], "docker_fixture_remove")
+                container_id = None
+                pmum_argv = list(argv[:-1])
+                pmum_argv[pmum_argv.index("--name") + 1] += "-pmum"
+                for source, target in ((expected_model, "/models/hu.joblib"),
+                                       (expected_manifest, "/models/hu.json")):
+                    pmum_argv.extend(("--mount", "type=bind,source=" + str(source.resolve())
+                                      + ",target=" + target + ",readonly"))
+                pmum_env = {**docker_env, "ANALYTICS_PMUM_ENABLED": "true",
+                            "ANALYTICS_MODEL_PATH": "/models/hu.joblib",
+                            "ANALYTICS_MODEL_MANIFEST_PATH": "/models/hu.json",
+                            "ANALYTICS_MODEL_SHA256": "56c991f40e56d2241196dc6f9efc1c9027c079e98a1b67549f48b10292e371e0"}
+                for key in ("ANALYTICS_MODEL_PATH", "ANALYTICS_MODEL_MANIFEST_PATH", "ANALYTICS_MODEL_SHA256"):
+                    pmum_argv.extend(("--env", key))
+                pmum_argv.append(image)
+                container_id = command(pmum_argv, "docker_pmum_start", custom_env=pmum_env)
+                wait_http(None, docker_base, timeout=30)
+                command([python, ROOT / "tools/validation/smoke_pmum_c1.py", "--base-url", docker_base,
+                         "--output", state / "docker-pmum-c1-http.json"], "docker_pmum_c1_http")
+                command([python, smoke_script, "--phase", "replay", "--base-url", docker_base,
+                         "--receipt-file", docker_receipt], "docker_c1_replay_with_pmum")
+                pmum_snapshot = state / "docker-history-with-pmum.json"
+                command(["docker", "cp", container_id + ":/var/lib/modera/historical/history.json", pmum_snapshot],
+                        "docker_c1_snapshot_with_pmum")
+                require(pmum_snapshot.read_bytes() == snapshot.read_bytes(),
+                        "El replay con PMUM altero los bytes del historico")
+                summary["docker_history_bytes_unchanged_with_pmum"] = True
+            else:
+                summary["docker_pmum_c1_http"] = "PENDING: requiere originales HU v1"
         else:
             summary["docker"] = "PENDING: skipped explicitly"
         command(["git", "diff", "--check"], "git_diff_check")
-        print("PASS: validacion completada con datos ficticios y perfil no calibrado", flush=True)
-        summary["status"] = "PASS"
+        pending = [key for key, value in summary.items()
+                   if isinstance(value, str) and value.startswith("PENDING:")]
+        summary["pending_evidence"] = pending
+        summary["status"] = "PASS_WITH_PENDING_EVIDENCE" if pending else "PASS"
+        print(summary["status"] + ": etapas ejecutadas aprobadas; historico ficticio y no calibrado", flush=True)
         return 0
     except (OSError, RuntimeError, subprocess.SubprocessError) as exc:
         summary["status"] = "FAILED"
@@ -275,6 +349,9 @@ def main():
     parser.add_argument("--local-port", type=int, default=8767)
     parser.add_argument("--docker-port", type=int, default=8768)
     parser.add_argument("--state-root", type=Path)
+    parser.add_argument("--model-dir", type=Path,
+                        default=Path.home() / "Documents/modera_pmum_experimental",
+                        help="Originales HU v1 registrados; nunca los entrena ni sobrescribe")
     args = parser.parse_args()
     try:
         return run(args)

@@ -40,7 +40,9 @@ def integer_category(name, value, allowed):
 
 
 def row_for_model(age, sex_code, weekday_category, weekend_category):
-    if isinstance(age, bool) or not isinstance(age, (int, float)) or not math.isfinite(age) or not 6 <= age <= 12:
+    # Un entero JSON fuera del dominio puede desbordar math.isfinite al
+    # convertirse a float. Rechazarlo por rango antes de esa conversión.
+    if isinstance(age, bool) or not isinstance(age, (int, float)) or not 6 <= age <= 12 or not math.isfinite(age):
         raise ValueError("age debe ser un número finito entre 6 y 12 años")
     return np.asarray([[float(age),
                         integer_category("sex_code", sex_code, {1, 2}),

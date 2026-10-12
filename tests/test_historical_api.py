@@ -520,7 +520,13 @@ runtime.close();sys.exit(0)
                      "source_sha256": EXPECTED_SHA256, "trained_rows": 803,
                      "sex_codes": [1, 2], "target": "PMUMTotal/9"}, model)
         manifest.write_text(json.dumps({"model_version": MODEL_VERSION, "features": FEATURES,
-                                        "source_sha256": EXPECTED_SHA256, "n_trained": 803}))
+                                        "source_sha256": EXPECTED_SHA256, "n_trained": 803,
+                                        "source": "Zenodo 21802447 / SEM.dat",
+                                        "created_utc": "2026-10-07T18:52:05+00:00",
+                                        "target": "PMUM-SF mean, 1 to 5", "sex_code_4_excluded": 3,
+                                        "regularization": "Fixture, no entrenamiento real",
+                                        "evaluation": "Fixture, no evaluacion real",
+                                        "deployment_status": "NOT APPROVED; no app integration"}))
         settings = replace(self.settings, pmum_enabled=True, model_path=model, manifest_path=manifest,
                            model_sha256=hashlib.sha256(model.read_bytes()).hexdigest())
         with self.client(settings) as client:

@@ -18,11 +18,13 @@ from historical.receipts import serialize_analysis_result
 from historical.receipts import deserialize_analysis_result
 from historical.analyzer import HistoricalAnalyzerState
 from historical.detector import DetectorEvaluationOutcome
+from historical.eligibility import decide_reference_inclusion
 from historical.service import process_c1_representation
 
 from .historical_config import HISTORICAL_API_VERSION, HistoricalProfile, identifier
 from .json_codec import strict_json
 from .writer_lease import WriterLease
+from .historical_receipt_checks import validate_receipt_semantics
 
 
 class InvalidHistoricalRequest(ValueError):
@@ -165,6 +167,8 @@ class BoundHistoricalRepository(FileHistoricalRepository):
                 or document["format_version"] != self.FORMAT_VERSION
                 or document["analytics_binding"] != self.profile.binding):
             raise ValueError("Repositorio o vinculo de configuracion incompatible")
+        # La igualdad Python admite True == 1; validar también el contrato tipado.
+        HistoricalProfile.from_payload(document["analytics_binding"]["configuration"])
         if (not isinstance(document["representations"], list) or not isinstance(document["streams"], dict)
                 or not isinstance(document["receipts"], dict) or document["records_without_receipt"] != {}
                 or type(document["receipts_required"]) is not bool):
@@ -175,6 +179,7 @@ class BoundHistoricalRepository(FileHistoricalRepository):
                 or bool(records) != document["receipts_required"]):
             raise ValueError("Integridad de representaciones y recibos invalida")
         expected_streams = {}
+        history_counts = {}
         for record in records:
             key = self.stream_key(record)
             receipt = document["receipts"][record.representation_record_id]
@@ -193,6 +198,7 @@ class BoundHistoricalRepository(FileHistoricalRepository):
                                  if preceding else HistoricalAnalyzerState())
             if previous != expected_previous:
                 raise ValueError("Cadena de estados de recibos incompatible")
+            validate_receipt_semantics(record, previous, result, self.profile, history_counts.get(sid, 0))
             if preceding and record.interval_start < _date(preceding["result"]["evaluation"]["evaluated_interval_end"]):
                 raise ValueError("Orden temporal persistido incompatible")
             evaluation = result.evaluation
@@ -204,6 +210,8 @@ class BoundHistoricalRepository(FileHistoricalRepository):
                   or result.next_state.previous_eligible_statistic != evaluation.detector_statistic):
                 raise ValueError("Estado siguiente y evaluacion incompatibles")
             expected_streams[sid] = receipt
+            if decide_reference_inclusion(record).included:
+                history_counts[sid] = history_counts.get(sid, 0) + 1
         if set(document["streams"]) != set(expected_streams):
             raise ValueError("Streams sin asociacion valida")
         for sid, last_receipt in expected_streams.items():

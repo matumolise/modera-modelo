@@ -1,9 +1,11 @@
 """Carga única y verificación técnica de PMUM v1, sin cambiar el estimador."""
 
 import hashlib
-import json
 import math
 import threading
+from numbers import Real
+
+from .pmum_manifest import read_manifest, validate_manifest
 
 
 class ModelUnavailable(RuntimeError):
@@ -27,9 +29,7 @@ class CachedPmum:
                     digest.update(block)
             if digest.hexdigest() != settings.model_sha256:
                 raise ValueError("Huella del artefacto incompatible")
-            if settings.manifest_path.stat().st_size > 65536:
-                raise ValueError("Manifiesto excesivo")
-            manifest = json.loads(settings.manifest_path.read_text(encoding="utf-8"))
+            manifest = validate_manifest(read_manifest(settings.manifest_path))
             # Cargar estos mismos bytes evita un cambio entre hash y joblib.load(path).
             import io
             raw = settings.model_path.read_bytes()
@@ -44,9 +44,12 @@ class CachedPmum:
                 raise ValueError("Fuente incompatible")
             if not (tuple(manifest.get("features", ())) == tuple(artifact.get("features", ())) == FEATURES):
                 raise ValueError("Entradas incompatibles")
-            if not (manifest.get("n_trained") == artifact.get("trained_rows") == 803):
+            if not (type(artifact.get("trained_rows")) is int
+                    and manifest.get("n_trained") == artifact.get("trained_rows") == 803):
                 raise ValueError("Cantidad de casos incompatible")
-            if artifact.get("sex_codes") != [1, 2] or artifact.get("target") != "PMUMTotal/9":
+            sex_codes = artifact.get("sex_codes")
+            if (not isinstance(sex_codes, list) or any(type(code) is not int for code in sex_codes)
+                    or sex_codes != [1, 2] or artifact.get("target") != "PMUMTotal/9"):
                 raise ValueError("Contrato del artefacto incompatible")
             self._model = artifact["model"]
             if not callable(getattr(self._model, "predict", None)):
@@ -69,6 +72,8 @@ class CachedPmum:
                 values = self._model.predict(row)
                 if len(values) != 1:
                     raise ValueError("Cardinalidad de predicción inválida")
+                if isinstance(values[0], bool) or not isinstance(values[0], Real):
+                    raise ValueError("Prediccion requiere un escalar numerico real")
                 value = float(values[0])
                 if not math.isfinite(value):
                     raise ValueError("Predicción no finita")

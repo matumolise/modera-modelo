@@ -207,8 +207,13 @@ representaciones, streams y recibos. Ese vínculo se publica con el primer
 progreso, en el mismo reemplazo atómico.
 
 Se valida asociación de recibos/representaciones, cadena de estados, último
-estado, orden y vínculo de configuración. No se recalcula el detector para
-recuperar recibos. Un repositorio previo sin vínculo, un formato antiguo o un
+estado, orden y vínculo de configuración. El candidato de cierre PMUM/C1 añade
+una comprobación de las ecuaciones contra la referencia guardada: reusa los IDs
+y fechas originales solamente para comparar, sin reemplazar ni escribir recibos.
+El reintento devuelve el resultado original y no vuelve a avanzar el detector.
+La reconstrucción completa de mediana/MAD queda en la auditoría offline de un
+snapshot estable. Ver [cierre PMUM/C1](../model_closure/PMUM_C1_CLOSURE_2026-10-12.md).
+Un repositorio previo sin vínculo, un formato antiguo o un
 perfil distinto impiden el arranque; no se migra, borra ni reinicia silenciosamente.
 Una eventual importación de historiales anteriores requiere un trabajo separado.
 
