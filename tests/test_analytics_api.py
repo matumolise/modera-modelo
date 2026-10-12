@@ -67,12 +67,15 @@ class AnalyticsTests(unittest.TestCase):
                         manifest_path=self.manifest,
                         model_sha256=hashlib.sha256(self.model.read_bytes()).hexdigest())
 
-    def test_default_readiness_reports_historical_unimplemented(self):
+    def test_default_readiness_reports_historical_disabled(self):
         with TestClient(create_app(self.base)) as c:
             r = c.get("/health")
             self.assertEqual(r.status_code, 200)
             self.assertEqual(r.json()["capabilities"]["pmum"]["state"], "DISABLED")
-            self.assertEqual(r.json()["capabilities"]["historical"], {"state": "DISABLED", "implemented": False})
+            historical = r.json()["capabilities"]["historical"]
+            self.assertEqual(historical["state"], "DISABLED")
+            self.assertTrue(historical["implemented"])
+            self.assertIsNone(historical["configuration_id"])
             self.assertEqual(r.headers["cache-control"], "no-store")
 
     def test_no_capabilities_is_not_ready_but_alive(self):

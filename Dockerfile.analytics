@@ -1,4 +1,4 @@
-# Candidato tecnico: build y smoke Docker/Linux verificados el 2026-10-11.
+# Candidato histórico posterior a 6b0c55d; requiere verificar esta imagen nueva.
 FROM python:3.10-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
     ANALYTICS_HOST=0.0.0.0 ANALYTICS_PORT=8765 \
@@ -7,9 +7,12 @@ WORKDIR /app
 COPY requirements-analytics.txt ./
 RUN pip install --no-cache-dir -r requirements-analytics.txt \
     && groupadd --gid 10001 analytics \
-    && useradd --uid 10001 --gid analytics --no-create-home analytics
+    && useradd --uid 10001 --gid analytics --no-create-home analytics \
+    && mkdir -p /var/lib/modera/historical \
+    && chown 10001:10001 /var/lib/modera/historical
 COPY analytics_api.py recommendations.py ./
 COPY analytics_service/ ./analytics_service/
+COPY historical/ ./historical/
 COPY experiments/hu_pmum_candidate_v1.py experiments/hu_pmum_parent_adapter_v2.py experiments/hu_pmum_real_data.py ./experiments/
 USER 10001:10001
 EXPOSE 8765

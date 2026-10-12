@@ -1,8 +1,6 @@
-"""API interna candidata. Histórico permanece deshabilitado."""
+"""API interna candidata; capacidades habilitadas por configuración explícita."""
 
 import asyncio
-import json
-import math
 import secrets
 from contextlib import asynccontextmanager
 
@@ -12,8 +10,12 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from .activities import CATALOG_VERSION, SELECTOR_VERSION, InvalidSelection, select_activities
 from .pmum import CachedPmum, ModelUnavailable
+from .historical_api import (HistoricalRuntime, HistoricalConflict, HistoricalUnavailable,
+                             InvalidHistoricalRequest, parse_historical_request)
+from .historical_config import HISTORICAL_API_VERSION
+from .json_codec import strict_json as _strict_json
 
-API_VERSION = "analytics-api-v1-candidate"
+API_VERSION = "analytics-api-v2-historical-candidate"
 
 
 def reply(payload, status=200):
@@ -80,39 +82,25 @@ class TransportGuard:
         return await self.app(scope, receive, send)
 
 
-def _strict_json(body):
-    def finite_float(value):
-        result = float(value)
-        if not math.isfinite(result):
-            raise ValueError("JSON no finito")
-        return result
-    def constant(_):
-        raise ValueError("JSON no finito")
-    def pairs(items):
-        result = {}
-        for key, value in items:
-            if key in result:
-                raise ValueError("Clave duplicada")
-            result[key] = value
-        return result
-    return json.loads(body.decode("utf-8"), parse_constant=constant,
-                      parse_float=finite_float, object_pairs_hook=pairs)
-
-
 def create_app(settings):
     @asynccontextmanager
     async def lifespan(app):
         # No servir READY antes de completar la validación.
-        app.state.pmum = CachedPmum(settings) if settings.pmum_enabled else None
-        app.state.started = True
         try:
+            app.state.pmum = CachedPmum(settings) if settings.pmum_enabled else None
+            app.state.historical = HistoricalRuntime(settings) if settings.historical_enabled else None
+            app.state.started = True
             yield
         finally:
             app.state.started = False
+            if app.state.historical is not None:
+                app.state.historical.close()
+            app.state.historical = None
             app.state.pmum = None
 
     app = FastAPI(lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.started, app.state.pmum = False, None
+    app.state.historical = None
     app.add_middleware(TransportGuard, settings=settings)
 
     @app.exception_handler(StarletteHTTPException)
@@ -135,8 +123,11 @@ def create_app(settings):
     def health():
         model = app.state.pmum
         pmum_ready = bool(model and model.ready)
-        ready = (app.state.started and (settings.pmum_enabled or settings.activities_enabled)
-                 and (not settings.pmum_enabled or pmum_ready))
+        historical = app.state.historical
+        historical_ready = bool(historical and historical.check_ready())
+        ready = (app.state.started and (settings.pmum_enabled or settings.activities_enabled or settings.historical_enabled)
+                 and (not settings.pmum_enabled or pmum_ready)
+                 and (not settings.historical_enabled or historical_ready))
         return reply({
             "status": "ready" if ready else "not_ready", "api_version": API_VERSION,
             "capabilities": {
@@ -144,7 +135,14 @@ def create_app(settings):
                          "model_version": model.version if model else None},
                 "activities": {"state": "READY" if settings.activities_enabled and app.state.started else "DISABLED" if not settings.activities_enabled else "UNAVAILABLE",
                                "catalog_version": CATALOG_VERSION, "selector_version": SELECTOR_VERSION, "catalog_status": "PROVISIONAL"},
-                "historical": {"state": "DISABLED", "implemented": False},
+                "historical": {
+                    "state": "DISABLED" if not settings.historical_enabled else "READY" if historical_ready else "UNAVAILABLE",
+                    "implemented": True, "historical_api_version": HISTORICAL_API_VERSION,
+                    "configuration_id": historical.profile.configuration_id if historical else None,
+                    "configuration_fingerprint": historical.profile.fingerprint if historical else None,
+                    "representation_spec_id": "daily_use_duration_minutes_v2",
+                    "scope": "internal_technical_candidate",
+                },
             },
         }, 200 if ready else 503)
 
@@ -174,8 +172,23 @@ def create_app(settings):
             return reply({"error": "invalid_selection_request"}, 400)
 
     @app.post("/v1/historical/evaluate")
-    def historical():
-        return reply({"error": "historical_not_implemented"}, 503)
+    async def historical(request: Request):
+        if not app.state.started or not settings.historical_enabled:
+            return reply({"error": "historical_disabled"}, 503)
+        parsed, error = await parse(request)
+        if error is not None:
+            return error
+        try:
+            request_id, current = parse_historical_request(parsed)
+        except InvalidHistoricalRequest:
+            return reply({"error": "invalid_historical_request"}, 400)
+        from starlette.concurrency import run_in_threadpool
+        try:
+            return reply(await run_in_threadpool(app.state.historical.evaluate, request_id, current))
+        except HistoricalConflict as exc:
+            return reply({"error": str(exc)}, 409)
+        except HistoricalUnavailable:
+            return reply({"error": "historical_unavailable"}, 503)
 
     return app
 

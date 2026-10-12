@@ -19,6 +19,9 @@ class Settings:
     model_sha256: str | None = None
     body_timeout_seconds: float = 10.0
     max_body_bytes: int = 16384
+    historical_enabled: bool = False
+    historical_repository_path: Path | None = None
+    historical_config_path: Path | None = None
 
     def __post_init__(self):
         if (not isinstance(self.token, str) or len(self.token) < 16
@@ -27,7 +30,8 @@ class Settings:
             raise ValueError("ANALYTICS_SERVICE_TOKEN requiere 16+ caracteres ASCII sin espacios")
         if not self.host or type(self.port) is not int or not 1 <= self.port <= 65535:
             raise ValueError("Host o puerto inválido")
-        if type(self.pmum_enabled) is not bool or type(self.activities_enabled) is not bool:
+        if any(type(value) is not bool for value in
+               (self.pmum_enabled, self.activities_enabled, self.historical_enabled)):
             raise ValueError("Las capacidades requieren valores booleanos")
         if (isinstance(self.body_timeout_seconds, bool)
                 or not isinstance(self.body_timeout_seconds, (float, int))
@@ -41,6 +45,10 @@ class Settings:
                 raise ValueError("PMUM requiere artefacto y manifiesto explícitos")
             if not re.fullmatch(r"[0-9a-f]{64}", self.model_sha256 or ""):
                 raise ValueError("PMUM requiere SHA-256 esperado de origen confiable")
+        if self.historical_enabled:
+            if any(not isinstance(path, Path) or not path.is_absolute() for path in
+                   (self.historical_repository_path, self.historical_config_path)):
+                raise ValueError("Historico requiere rutas absolutas de perfil y repositorio")
 
     @classmethod
     def from_env(cls):
@@ -50,8 +58,6 @@ class Settings:
                 raise ValueError(name + " debe ser true o false")
             return value == "true"
 
-        if boolean("ANALYTICS_HISTORICAL_ENABLED", "false"):
-            raise ValueError("Histórico no implementado en este candidato")
         return cls(
             token=os.environ.get("ANALYTICS_SERVICE_TOKEN", ""),
             host=os.environ.get("ANALYTICS_HOST", "127.0.0.1"),
@@ -64,4 +70,9 @@ class Settings:
                 if os.environ.get("ANALYTICS_MODEL_MANIFEST_PATH") else None,
             model_sha256=os.environ.get("ANALYTICS_MODEL_SHA256"),
             body_timeout_seconds=float(os.environ.get("ANALYTICS_REQUEST_TIMEOUT_SECONDS", "10")),
+            historical_enabled=boolean("ANALYTICS_HISTORICAL_ENABLED", "false"),
+            historical_repository_path=Path(os.environ["ANALYTICS_HISTORICAL_REPOSITORY_PATH"])
+                if os.environ.get("ANALYTICS_HISTORICAL_REPOSITORY_PATH") else None,
+            historical_config_path=Path(os.environ["ANALYTICS_HISTORICAL_CONFIG_PATH"])
+                if os.environ.get("ANALYTICS_HISTORICAL_CONFIG_PATH") else None,
         )

@@ -9,3 +9,10 @@ artifacts
 **/*.env
 **/venv
 **/.venv
+**/.venv-*
+**/venv-*
+**/*.writer.lock
+**/*.initialized
+**/*.tmp
+**/historical_state
+outputs

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "configuration_id": "REQUIRED-EXPLICIT-PROFILE-ID",
+  "scope": "internal_technical_candidate",
+  "representation_spec_id": "daily_use_duration_minutes_v2",
+  "reference_policy": "all_prior_usable_records_v1",
+  "analysis_version": "REQUIRED-EXPLICIT-ANALYSIS-VERSION",
+  "emitter_version": "REQUIRED-EXPLICIT-EMITTER-VERSION",
+  "detector": {
+    "k": null,
+    "threshold": null,
+    "min_history": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "configuration_id": "smoke-only-not-calibrated",
+  "scope": "internal_technical_candidate",
+  "representation_spec_id": "daily_use_duration_minutes_v2",
+  "reference_policy": "all_prior_usable_records_v1",
+  "analysis_version": "published-c1-smoke-v1",
+  "emitter_version": "published-crossing-smoke-v1",
+  "detector": {
+    "k": 0.5,
+    "threshold": 3.0,
+    "min_history": 3
+  }
+}

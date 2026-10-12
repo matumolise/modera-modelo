@@ -38,3 +38,7 @@ Thumbs.db
 # Artefactos experimentales locales (evitar publicar un modelo sin revisión)
 experiments/output/
 /.venv-analytics/
+/.venv-historical/
+/historical_state/
+**/*.writer.lock
+**/*.initialized

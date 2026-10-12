@@ -1,5 +1,10 @@
 # Analytics: candidato técnico para integración con Juanma
 
+> Antecedente de la entrega 6b0c55d. Para la ampliación histórica candidata,
+> consultar [HISTORICAL_API_CANDIDATE_2026-10-11.md](HISTORICAL_API_CANDIDATE_2026-10-11.md).
+> Esa ampliación implementa el endpoint histórico, habilitado solo con configuración
+> explícita, y cambia la versión de salud; no modifica la rama entregada a Juanma.
+
 Fecha: 11/10/2026. Base de los archivos modificados: e736500.
 Este parche añade infraestructura y adaptadores; no cierra F16 ni habilita histórico, tarjetas o coordinador de ofertas.
 

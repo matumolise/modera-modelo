@@ -1,0 +1,39 @@
+# Plantilla del candidato técnico; no incluye backend, Android ni despliegue AWS.
+# Configurar ANALYTICS_SERVICE_TOKEN y ANALYTICS_HISTORICAL_CONFIG_FILE.
+# Usar un volumen NUEVO para el smoke; no monta ni migra historiales anteriores.
+services:
+  analytics:
+    build:
+      context: .
+      dockerfile: Dockerfile.analytics
+    image: modera-analytics:historical-candidate
+    environment:
+      ANALYTICS_SERVICE_TOKEN: ${ANALYTICS_SERVICE_TOKEN:?Definir credencial propia}
+      ANALYTICS_HOST: 0.0.0.0
+      ANALYTICS_PORT: "8765"
+      ANALYTICS_PMUM_ENABLED: "false"
+      ANALYTICS_ACTIVITIES_ENABLED: "true"
+      ANALYTICS_HISTORICAL_ENABLED: "true"
+      ANALYTICS_HISTORICAL_CONFIG_PATH: /config/historical.json
+      ANALYTICS_HISTORICAL_REPOSITORY_PATH: /var/lib/modera/historical/history.json
+    volumes:
+      - type: volume
+        source: historical_state
+        target: /var/lib/modera/historical
+      - type: bind
+        source: ${ANALYTICS_HISTORICAL_CONFIG_FILE:?Definir ruta absoluta del perfil C1}
+        target: /config/historical.json
+        read_only: true
+    networks:
+      - analytics_internal
+    read_only: true
+    tmpfs:
+      - /tmp
+    # Un único escritor del volumen: no escalar este servicio.
+    deploy:
+      replicas: 1
+volumes:
+  historical_state:
+networks:
+  analytics_internal:
+    internal: true
