@@ -307,6 +307,10 @@ class ExportAdapterTests(unittest.TestCase):
             (packet / "binding.original.json").write_text(json.dumps(self.binding))
             (packet / "lineage.json").write_text(json.dumps(result["audit"]))
             (packet / "request.json").write_text(json.dumps(result["request"]))
+            (packet / "preparation.json").write_text(json.dumps(result["preparation"]))
+            files = sorted(p for p in packet.rglob("*") if p.is_file())
+            (packet / "SHA256SUMS.txt").write_text("".join(
+                sha256(p.read_bytes()).hexdigest() + "  " + p.relative_to(packet).as_posix() + "\n" for p in files))
             rep = result["request"]["representation"]
             report = {"reportSchema": "f12-phone-parity-v1", "collectorRunId": self.summary["collectorRunId"],
                       "summarySha256": sha256(pair[0]).hexdigest(), "eventsSha256": sha256(pair[1]).hexdigest(),

@@ -1,5 +1,8 @@
 # Entrega candidata de integración: backend, F12, C1 y condiciones
 
+Estado acumulativo posterior a94ff3a8: ver [INTEGRATION_AUDIT_CLOSURE_2026-10-12.md](INTEGRATION_AUDIT_CLOSURE_2026-10-12.md) y [MODERA_BACKLOG_2026-10-12.md](MODERA_BACKLOG_2026-10-12.md). Las secciones previas conservan su alcance/fecha; no describen por sí solas la última entrega.
+
+
 Ampliación de export F12 preparada sobre `61e31ce`, en
 `f12-export-integration-candidate`, sin modificar las tres ramas publicadas.
 El contrato canónico/API/C1 permanece vigente. Para convertir los pares reales

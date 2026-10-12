@@ -73,6 +73,20 @@ def run(args):
     require(historical["state"] == "READY" and historical["implemented"], "Historico no habilitado")
     require(historical["configuration_id"] == "smoke-only-not-calibrated",
             "Este smoke exige el perfil de fixture; no usar contra un perfil de producto")
+    from analytics_service.daily_delivery import assess_daily_plan
+    plan = strict_json((ROOT / "tests/fixtures/integration/daily_delivery_plan_synthetic.json").read_bytes())
+    decisions = assess_daily_plan(plan)["decisions"]
+    require([r["decision"] for r in decisions] ==
+            ["READY_TO_FREEZE", "WAIT_FOR_EVIDENCE", "WAIT_FOR_PRECEDING_DAY"],
+            "El preflight no preserva pendientes/orden")
+    invalid = representation(0, 1500, "invalid-only-not-persisted")
+    code, _ = request(base, "/v1/historical/evaluate", token, invalid)
+    require(code == 400, "API acepta duracion mayor al intervalo")
+    invalid["representation"]["value"] = 90
+    invalid["representation"]["computed_at"] = invalid["representation"]["interval_start"]
+    code, _ = request(base, "/v1/historical/evaluate", token, invalid)
+    require(code == 400, "API acepta intervalo no cerrado al preparar")
+    print("PASS: preflight diario y guardas semanticas HTTP400")
 
     for conditions in (["none"], ["visual"], ["sensory", "mobility_both"]):
         code, resolved = request(base, "/v1/activities/eligibility", token,

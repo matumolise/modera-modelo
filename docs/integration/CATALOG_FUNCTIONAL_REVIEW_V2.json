@@ -1,0 +1,392 @@
+{
+  "audit_schema": "catalog-functional-review-v2-candidate",
+  "base_commit": "94ff3a82ad3581e74cb6f97449adda264972c61b",
+  "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+  "clinical_safety_validated": false,
+  "automatic_condition_to_filter_mapping": false,
+  "legend": {
+    "E": "Tarea o estimulo expreso en la consigna; NO incapacidad/exclusion automatica",
+    "V": "Depende de variante, material, apoyo o modo de comunicacion no especificado",
+    "N": "No especificado en la consigna; NO garantiza compatibilidad"
+  },
+  "activities": [
+    {
+      "activity_id": "movement_dance_01",
+      "title": "Bailá una canción",
+      "description": "Elegí una canción que te guste, dejá el celular y bailá mientras suena.",
+      "description_sha256": "3d4b3cdc9eff3ea2e39c18a40cf3efe935030095feb96ffce56b51fd48c92459",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "N",
+        "auditory": "E",
+        "sensory": "E"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": true,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Qué movimientos y estímulos puede admitir; acceso a la consigna y elección de canción.",
+      "title_sha256": "eaea858678c62775a1f537509cfb29b6bc54293cd7d0f90137fdd25c85717de8"
+    },
+    {
+      "activity_id": "movement_sequence_01",
+      "title": "Armá una secuencia de movimientos",
+      "description": "Elegí tres movimientos que puedas hacer, como saltar, girar o agacharte, y tratá de repetir la secuencia.",
+      "description_sha256": "6320905c82571ea64c5e7ef6ec0eda968111c22ac5d0b74bf1ec763106a0d982",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "N",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Elegir los movimientos concretos: saltar/girar/agacharse son ejemplos, no una secuencia obligatoria ni una inferencia de capacidades.",
+      "title_sha256": "f7c924b2db2bec1f11f8c160b67389f445ac109ff18e8f762d7fa4ecb2da3cfa"
+    },
+    {
+      "activity_id": "movement_ball_01",
+      "title": "Jugá con una pelota",
+      "description": "Si tenés una pelota cerca y un lugar seguro, elegí una forma de jugar con ella.",
+      "description_sha256": "c85742950b68aae82e960311dea0fbbe7d19fb9f4cf66d609ee602d35ee128f6",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "V",
+        "auditory": "V",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Cómo se jugaría y con qué apoyos; no definir compatibilidad por categoría.",
+      "title_sha256": "5899b3139cf93b22089512780e66e4bee14fb77e849f738da682e3671b23a8f2"
+    },
+    {
+      "activity_id": "creative_character_01",
+      "title": "Inventá un personaje",
+      "description": "Inventá un personaje nuevo y dibujá cómo sería.",
+      "description_sha256": "426eb2e04b646d5e466e971f71a7110109ef8cf54c49c2cd479cfb7565eb6efc",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "N",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Apoyos o variante accesible; si se evita dibujar, revisar esta consigna.",
+      "title_sha256": "d1ee0096ae6074c0dfec9324fd819a9e9360c9e5c1072e4e2752b46c98ac87d3"
+    },
+    {
+      "activity_id": "creative_animal_01",
+      "title": "Creá un animal imaginario",
+      "description": "Mezclá características de animales que conozcas e inventá uno nuevo para dibujar.",
+      "description_sha256": "45cc8162c576e21a08306c1e154b448421c5a29188e78366f4db006b948da659",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "N",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Igual que dibujo; interés por animales no elimina restricciones.",
+      "title_sha256": "dc4079d52a189af0a507e64b0519b7cf63b90a54b0e597045b7c64842ada03c6"
+    },
+    {
+      "activity_id": "creative_favorite_01",
+      "title": "Dibujá algo que te guste",
+      "description": "Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.",
+      "description_sha256": "117a1509b3959996ca271fb7481f668197b2b935db7cb8b1e7724fbe0c55f987",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "N",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Medio y apoyos para dibujar; no convertir calma en accesibilidad.",
+      "title_sha256": "6d8b6bb67cb6a91f2c2a7458f29bdc844476362e953f50693b803757b10f163a"
+    },
+    {
+      "activity_id": "creative_story_01",
+      "title": "Inventá una historia",
+      "description": "Inventá una historia corta. Podés escribirla, dibujarla o hacer las dos cosas.",
+      "description_sha256": "c143fa64349e1dc94f1cc00a921df93ab8f7ea4f0d16ba2092891febecf1ab8c",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "N",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Variante sin escritura/dibujo no está en el texto; requiere revisión.",
+      "title_sha256": "8ed31c57fb4e3ea0f689f2e2152753fb2a334e99563bb75f52844e356f888eba"
+    },
+    {
+      "activity_id": "reading_choose_01",
+      "title": "Elegí algo para leer",
+      "description": "Buscá un libro, cuento o cómic que tengas ganas de leer.",
+      "description_sha256": "5c08bfa17f74d9bfb697abbb0983631e845087a06d50dea873b556150b08d9ec",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "N",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Formato accesible y disponibilidad; no asumir audio o braille ya implementados.",
+      "title_sha256": "cb86bb751a6c20ac87cb3b6b8c613f9d52710eafa90eac2bb219904ddb2e333d"
+    },
+    {
+      "activity_id": "reading_favorite_01",
+      "title": "Volvé a una historia que te guste",
+      "description": "Elegí un libro, cuento o cómic que ya conozcas y buscá una parte que quieras volver a leer.",
+      "description_sha256": "e25627cccf85bbfa01e5915e1883c91e519fddb5c50917303f488bc0ff0cd841",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "N",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Igual que lectura; conocimiento de la historia no acredita acceso.",
+      "title_sha256": "a60c1098944a8522c0b20af7cb9834833d89325280358ba1b963d741a90950de"
+    },
+    {
+      "activity_id": "free_play_nearby_01",
+      "title": "Jugá con algo que tengas cerca",
+      "description": "Elegí un juguete, cartas, bloques u otra cosa que tengas ganas de usar y empezá a jugar.",
+      "description_sha256": "6b6f8029e47287b6271fdaefce03135b82212c035c776852670ab9f484575dcf",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "V",
+        "auditory": "V",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Actividad concreta, acceso a materiales y estímulos; no clasificar todo juego igual.",
+      "title_sha256": "4ecbda47dfdc5b6ec8e75af1962e43b5b987da8bd1abce1f70fa86c1903f138f"
+    },
+    {
+      "activity_id": "free_play_build_01",
+      "title": "Construí algo",
+      "description": "Si tenés bloques, piezas u objetos para construir, elegí qué querés crear y empezá.",
+      "description_sha256": "28b021321550074fab0bcc60c046a5e3d7719d88776c57abd65f37f0a3221835",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Material, apoyos y forma de construir; selección por interés no alcanza.",
+      "title_sha256": "697be1a70d4d9919991a71f40c6c192d2c9a3197a96a877c82fdbfb0cc80ffb5"
+    },
+    {
+      "activity_id": "free_play_story_01",
+      "title": "Creá una historia con tus juguetes",
+      "description": "Elegí algunos juguetes y pensá qué historia podría pasarles.",
+      "description_sha256": "2f108ec1c8fb85c212bd083abcd5f832954e161f1b56e6107b951730f5a4b2d9",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Distinguir imaginar de mover juguetes; variante no especificada.",
+      "title_sha256": "d4df5f7b3bceab686a47da0503588048a2d5b5c20ad1c33fa5fdc5bbb4aa8ffc"
+    },
+    {
+      "activity_id": "social_play_01",
+      "title": "Jugá con alguien",
+      "description": "Si hay alguien de confianza cerca, preguntale si quiere jugar a algo con vos.",
+      "description_sha256": "ee6fa2af5f87b30b44da1333ffe901f1ccf8c2660f7194480732b24ca54124d6",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "V",
+        "auditory": "V",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": true,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Persona disponible y juego concreto; no declararlo accesible por ser social.",
+      "title_sha256": "912300d0475cbe0f2ed9c378d5780f629b428a7c92901429bf13c1755430562a"
+    },
+    {
+      "activity_id": "social_talk_01",
+      "title": "Contá algo de tu día",
+      "description": "Si tenés ganas, contale a alguien de confianza algo divertido o interesante que te haya pasado.",
+      "description_sha256": "a04cc384d051078b7a7bc59e877cea62081f5725eb3f2a3a809d82acfa232fde",
+      "review_domains": {
+        "mobility_arms_hands": "N",
+        "mobility_legs": "N",
+        "visual": "N",
+        "auditory": "V",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": true,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Modo accesible de comunicación; no inferir capacidad de oír/hablar.",
+      "title_sha256": "f371a0f166f5a8816228d33e08973a08fed802bf9353fd35caf33750f68e0a4f"
+    },
+    {
+      "activity_id": "social_help_01",
+      "title": "Ayudá con algo",
+      "description": "Si hay alguien cerca, preguntale si necesita ayuda con alguna tarea sencilla.",
+      "description_sha256": "8a4283cbe467015cd3498bd85cfe49c4d810340584ae9ef6999d7f369c6cca88",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "V",
+        "auditory": "V",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": true,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Tarea concreta, apoyos y persona disponible; no usar categoría como filtro suficiente.",
+      "title_sha256": "e81de5180157813daeda50263a862b4248373185d6d4f090c62e7d2b76a57252"
+    },
+    {
+      "activity_id": "social_story_01",
+      "title": "Escuchá una historia",
+      "description": "Si hay alguien de confianza con quien tengas ganas de hablar, preguntale si quiere contarte una historia o una anécdota.",
+      "description_sha256": "41e4eefa1547f72cd4343492ebd134fb0f52517a57ed32ab0c0da4eb01d218e1",
+      "review_domains": {
+        "mobility_arms_hands": "N",
+        "mobility_legs": "N",
+        "visual": "N",
+        "auditory": "E",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": true,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "El titulo Escucha una historia explicita escucha; confirmar modo accesible, apoyos o variante revisada y persona disponible. La descripcion no fija apoyos.",
+      "title_sha256": "b995b43fa0301e9a1450dc6887330021b2b67ad9acfbc08a1f1474874ccd4dda"
+    },
+    {
+      "activity_id": "quiet_prepare_01",
+      "title": "Prepará algo para mañana",
+      "description": "Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.",
+      "description_sha256": "ba6d6dcd8f4ca4ca82f72a8a4aa59b1ddb0a3037618419cdf867893ede57a5f8",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "V",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Tarea concreta y apoyos; calm no excluye demanda manual o visual.",
+      "title_sha256": "31e78b2b2c1c69080bde696ade3471833ac26d4c8102f9d808bf673f354936ec"
+    },
+    {
+      "activity_id": "quiet_draw_01",
+      "title": "Hacé un dibujo tranquilo",
+      "description": "Elegí libremente algo que tengas ganas de dibujar mientras te preparás para terminar el día.",
+      "description_sha256": "0707bb5f68a743e80da29e3c3f0139c55f92e1357a8ad8179b7f5a29ce891cdf",
+      "review_domains": {
+        "mobility_arms_hands": "V",
+        "mobility_legs": "N",
+        "visual": "V",
+        "auditory": "N",
+        "sensory": "V"
+      },
+      "mobility_both": "review union of mobility_arms_hands and mobility_legs",
+      "instruction_access_review": "required globally; UI modality unverified",
+      "requires_other_person": false,
+      "may_require_device_interaction": false,
+      "professional_approval": "PENDING",
+      "runtime_compatibility": "UNKNOWN",
+      "followup": "Mismas restricciones que dibujo; etiqueta bedtime también provisional.",
+      "title_sha256": "47c242ddea9f550286572a50c5b4af4f552a5759d5b1e84bdd7cd440a05577d9"
+    }
+  ]
+}

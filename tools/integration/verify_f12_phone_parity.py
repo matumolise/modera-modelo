@@ -4,6 +4,7 @@ import argparse
 from datetime import datetime
 from hashlib import sha256
 import math
+import re
 from pathlib import Path
 import sys
 from uuid import UUID
@@ -14,23 +15,65 @@ if str(ROOT) not in sys.path:
 
 from analytics_service.f12_export import prepare_android_export
 from analytics_service.json_codec import strict_json
+from analytics_service.f12_bridge import canonical_hash
+
+
+def _verify_packet_manifest(packet):
+    manifest = packet / "SHA256SUMS.txt"
+    if manifest.is_symlink() or manifest.stat().st_size > 4 * 1024 * 1024:
+        raise ValueError("Manifiesto de paquete incompatible")
+    expected, total_bytes = {}, 0
+    for line in manifest.read_text(encoding="utf-8").splitlines():
+        digest, separator, name = line.partition("  ")
+        relative = Path(name)
+        if (separator != "  " or not re.fullmatch(r"[0-9a-f]{64}", digest)
+                or not name or "\\" in name or relative.is_absolute()
+                or any(p in {".", ".."} for p in name.split("/")) or name in expected
+                or name == "SHA256SUMS.txt" or not re.fullmatch(r"[A-Za-z0-9_./-]+", name)):
+            raise ValueError("Entrada de manifiesto incompatible")
+        path = packet / relative
+        if not path.resolve().is_relative_to(packet.resolve()) or any(
+                p.is_symlink() for p in (path, *(packet / p for p in relative.parents))):
+            raise ValueError("Ruta de paquete no permitida")
+        if not path.is_file():
+            raise ValueError("Archivo del paquete ausente")
+        total_bytes += path.stat().st_size
+        if total_bytes > 256 * 1024 * 1024:
+            raise ValueError("Paquete archivado excesivo")
+        if sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError("Archivo del paquete alterado o ausente")
+        expected[name] = digest
+    required = {"binding.original.json", "preparation.json", "request.json", "lineage.json"}
+    actual = {p.relative_to(packet).as_posix() for p in packet.rglob("*") if p.is_file()} - {"SHA256SUMS.txt"}
+    if not required <= set(expected) or set(expected) != actual:
+        raise ValueError("Inventario del paquete incompleto o desconocido")
+    return expected
 
 
 def load_packet(packet):
     """Reconstruye desde los originales, no confía solo en request.json."""
     packet = Path(packet)
-    binding = strict_json((packet / "binding.original.json").read_bytes())
-    lineage = strict_json((packet / "lineage.json").read_bytes())
+    expected = _verify_packet_manifest(packet)
+    def read_snapshot(name):
+        data = (packet / name).read_bytes()
+        if name not in expected or sha256(data).hexdigest() != expected[name]:
+            raise ValueError("Paquete cambio durante la lectura")
+        return data
+    binding = strict_json(read_snapshot("binding.original.json"))
+    lineage = strict_json(read_snapshot("lineage.json"))
     pairs = []
     for row in lineage["originals"]:
         run_id = row["collector_run_id"]
-        if str(UUID(run_id)) != run_id:
+        if not isinstance(run_id, str) or str(UUID(run_id)) != run_id or UUID(run_id).version != 4:
             raise ValueError("Identidad de consulta incompatible")
-        original = packet / "originals" / run_id
-        pairs.append(((original / "summary.json").read_bytes(), (original / "events.jsonl").read_bytes()))
+        original = "originals/" + run_id + "/"
+        pairs.append((read_snapshot(original + "summary.json"), read_snapshot(original + "events.jsonl")))
     rebuilt = prepare_android_export(binding, pairs)
-    request = strict_json((packet / "request.json").read_bytes())
-    if rebuilt["request"] != request or rebuilt["audit"] != lineage:
+    request = strict_json(read_snapshot("request.json"))
+    preparation = strict_json(read_snapshot("preparation.json"))
+    if (canonical_hash(rebuilt["request"]) != canonical_hash(request)
+            or canonical_hash(rebuilt["audit"]) != canonical_hash(lineage)
+            or canonical_hash(rebuilt["preparation"]) != canonical_hash(preparation)):
         raise ValueError("Paquete preparado alterado o version de herramienta distinta")
     return binding, lineage, request
 

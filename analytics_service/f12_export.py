@@ -5,6 +5,8 @@ Los bytes de entrada forman parte de la procedencia, incluso sus metadatos.
 """
 
 from hashlib import sha256
+from collections import Counter
+from bisect import bisect_left
 from uuid import UUID
 
 from .f12_bridge import BRIDGE_VERSION, build_f12_request, canonical_hash
@@ -14,6 +16,7 @@ from .json_codec import strict_json
 
 EXPORT_ADAPTER_VERSION = "f12-android-export-adapter-v1-candidate"
 MAX_BYTES = 32 * 1024 * 1024
+MAX_OVERLAP_COMPARISONS = 100000  # Presupuesto de trabajo, no parámetro de C1.
 SUMMARY_FIELDS = {
     "collectorRunId": "collector_run_id", "requestedBeginEpochMs": "requested_begin_epoch_ms",
     "requestedEndEpochMs": "requested_end_epoch_ms", "collectedAtEpochMs": "collected_at_epoch_ms",
@@ -133,6 +136,32 @@ def parse_export_pair(summary_bytes, events_bytes):
     return summary, rows, hardware
 
 
+def _validate_overlaps(queries):
+    """No elegir silenciosamente una historia entre snapshots contradictorios."""
+    if not any(rows for _, rows in queries):
+        return
+    successful = sorted(((s, rows, [r["eventTimeEpochMs"] for r in rows])
+                         for s, rows in queries if s["errorCode"] is None),
+                        key=lambda item: (item[0]["requestedBeginEpochMs"], item[0]["collectorRunId"]))
+    active, comparisons = [], 0
+    def snapshot(rows, times, begin, end):
+        keys = ("schemaVersion", "eventTimeEpochMs", "eventTypeCode", "eventTypeName",
+                "packageName", "className", "androidApiLevel", "manufacturer", "model")
+        return Counter(tuple(row[k] for k in keys)
+                       for row in rows[bisect_left(times, begin):bisect_left(times, end)])
+    for summary, rows, times in successful:
+        begin, end = summary["requestedBeginEpochMs"], summary["requestedEndEpochMs"]
+        active = [(s, r, ts) for s, r, ts in active if s["requestedEndEpochMs"] > begin]
+        for previous, earlier, earlier_times in active:
+            comparisons += 1
+            if comparisons > MAX_OVERLAP_COMPARISONS:
+                raise ValueError("Lote excede presupuesto de comparacion de solapamientos")
+            overlap_end = min(end, previous["requestedEndEpochMs"])
+            if snapshot(rows, times, begin, overlap_end) != snapshot(earlier, earlier_times, begin, overlap_end):
+                raise ValueError("Consultas exitosas discrepan en los eventos del tramo solapado")
+        active.append((summary, rows, times))
+
+
 def prepare_android_export(binding, pairs):
     """Produce preparación, payload y auditoría; pares = [(summary, JSONL)]."""
     if not isinstance(binding, dict) or set(binding) != BINDING_FIELDS:
@@ -141,7 +170,7 @@ def prepare_android_export(binding, pairs):
         raise ValueError("Coleccion de pares incompatible")
     if sum(len(s) + len(e) for s, e in pairs) > MAX_BYTES:
         raise ValueError("Coleccion export excesiva")
-    summaries, events, lineage, hardware, seen = [], [], [], set(), set()
+    summaries, events, lineage, hardware, seen, queries = [], [], [], set(), set(), []
     for summary_bytes, events_bytes in pairs:
         summary, rows, detected = parse_export_pair(summary_bytes, events_bytes)
         run_id = summary["collectorRunId"]
@@ -149,6 +178,7 @@ def prepare_android_export(binding, pairs):
             raise ValueError("Consulta repetida: seleccionar una copia original por run")
         seen.add(run_id)
         hardware.update(detected)
+        queries.append((summary, rows))
         summaries.append({target: summary[source] for source, target in SUMMARY_FIELDS.items()})
         events.extend({target: row[source] for source, target in EVENT_FIELDS.items()} for row in rows)
         lineage.append({"collector_run_id": run_id, "event_count": len(rows),
@@ -156,6 +186,7 @@ def prepare_android_export(binding, pairs):
                         "events_sha256": sha256(events_bytes).hexdigest()})
     if len(hardware) > 1:
         raise ValueError("API/manufacturer/model distintos: revisar origen antes de combinar")
+    _validate_overlaps(queries)
     preparation = {**binding, "raw_events": events, "summaries": summaries}
     payload = build_f12_request(preparation)
     lineage.sort(key=lambda item: item["collector_run_id"])

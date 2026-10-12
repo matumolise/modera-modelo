@@ -4,15 +4,15 @@ Juanma, te paso el estado de integración y una ampliación para conectar el exp
 
 **Código publicado y nuevo candidato**
 
-La última entrega publicada es [analytics-integration-handoff-candidate](https://github.com/matumolise/modera-modelo/tree/analytics-integration-handoff-candidate), commit `61e31ce`. Incluye API compartida, histórico persistente, preparador F12 y resolución candidata del formulario. Las entregas anteriores siguen intactas: `analytics-api-candidate` en `6b0c55d` y `analytics-historical-candidate` en `26654b6`. No hice merge en `phase14-integration`.
+La última entrega publicada es [f12-export-integration-candidate](https://github.com/matumolise/modera-modelo/tree/f12-export-integration-candidate), commit `94ff3a8`. Incluye export JSON/JSONL, preparador v2 y API histórica persistente. Se conservan intactas `analytics-api-candidate` (`6b0c55d`), `analytics-historical-candidate` (`26654b6`) y `analytics-integration-handoff-candidate` (`61e31ce`). No hice merge en phase14-integration.
 
-Guías publicadas:
+Documentos del commit publicado:
 
-- [Contrato backend–F12–C1](https://github.com/matumolise/modera-modelo/blob/61e31ceaaa7a81c775d143415a00a3fd9bf55721/docs/integration/BACKEND_F12_C1_CONTRACT_2026-10-12.md).
-- [API histórica y configuración](https://github.com/matumolise/modera-modelo/blob/61e31ceaaa7a81c775d143415a00a3fd9bf55721/docs/integration/HISTORICAL_API_CANDIDATE_2026-10-11.md).
-- [Matriz de condiciones y catálogo provisional](https://github.com/matumolise/modera-modelo/blob/61e31ceaaa7a81c775d143415a00a3fd9bf55721/docs/integration/CONDITIONS_MAPPING_2026-10-12.md).
+- [Contrato backend–F12–C1](https://github.com/matumolise/modera-modelo/blob/94ff3a82ad3581e74cb6f97449adda264972c61b/docs/integration/BACKEND_F12_C1_CONTRACT_2026-10-12.md).
+- [Export y preparador](https://github.com/matumolise/modera-modelo/blob/94ff3a82ad3581e74cb6f97449adda264972c61b/docs/integration/F12_EXPORT_ADAPTER_2026-10-12.md).
+- [Protocolo de teléfono](https://github.com/matumolise/modera-modelo/blob/94ff3a82ad3581e74cb6f97449adda264972c61b/docs/integration/F12_PHONE_PARITY_PROTOCOL_2026-10-12.md).
 
-El bloque nuevo del export está preparado como parche sobre `61e31ce` para una rama separada `f12-export-integration-candidate`; todavía no está publicado ni probado en Windows/Docker o teléfono. Sus documentos son `F12_EXPORT_ADAPTER_2026-10-12.md`, `F12_PHONE_PARITY_PROTOCOL_2026-10-12.md` y `F12_EXPORT_REVIEW_2026-10-12.md`, incluidos en el paquete de revisión. Hasta confirmar una nueva publicación, los enlaces anteriores apuntan a la entrega existente, no a este parche. Para la rama publicada usá el código directamente, sin volver a aplicar los parches anteriores.
+Hay además una auditoría nueva preparada para otra rama, `integration-audit-closure-candidate`, todavía sin publicación ni validación Windows/Docker. Corrige guardas de intervalo y coherencia de queries solapadas, refuerza verificación del paquete y añade un preflight offline del plan diario. Sus contratos y backlog están en el paquete de revisión. Los enlaces anteriores apuntan a 94ff3a8, no a esa ampliación. Usá el código publicado directamente sin reaplicar parches anteriores; la ampliación tiene un parche aparte sobre 94 para un worktree nuevo.
 
 **Servicio compartido y red**
 
@@ -30,7 +30,7 @@ Para empezar, actividades pueden habilitarse sin PMUM ni histórico. El históri
 
 Revisé el collector/exportador Kotlin: escribe un par `summary_<run>.json` y `events_<run>.jsonl` por consulta. El resumen tiene nueve claves camelCase y cada evento catorce, incluyendo package/class y metadatos Android. Ese exportador no produce CSV. La UI actual consulta la última hora y no exporta errores; eso no permite dar por validado un día completo.
 
-El parche nuevo agrega un adaptador para esos pares existentes. Comprueba UUID, conteos de todas las filas, asociación de límites/timestamps, orden y ordinales, nombres/códigos según API y estados de captura. Conserva los originales byte por byte en un paquete con huellas y produce la proyección interna, v2 y el payload HTTP final. No filtra el crudo a solo eventos de pantalla antes de validar sus conteos.
+El commit publicado 94ff3a8 agrega un adaptador para esos pares existentes. Comprueba UUID, conteos de todas las filas, asociación de límites/timestamps, orden y ordinales, nombres/códigos según API y estados de captura. Conserva los originales byte por byte en un paquete con huellas y produce la proyección interna, v2 y el payload HTTP final. No filtra el crudo a solo eventos de pantalla antes de validar sus conteos.
 
 El backend proporciona una cabecera explícita con `request_id`, día local, `computed_at` y los campos de serie `profile_id`, `device_id`, `assignment_id`, `time_zone` y `measurement_version`. Son campos del contrato de preparación propuesto, no campos encontrados dentro del export. Los IDs deben estar aislados por cuenta/tenant y pueden ser opacos. Necesitamos confirmar cómo se corresponden con tus IDs actuales y dónde conservar esa asociación.
 
@@ -40,11 +40,11 @@ El preparador trabaja con días cerrados, medianoche local a la siguiente, convi
 
 Se conservan consultas solapadas y eventos repetidos sin sumar dos veces los mismos tramos; estados opuestos al mismo timestamp se rechazan. Los metadatos incoherentes también se rechazan, sin pretender que dos teléfonos iguales se distingan por su modelo.
 
-El fingerprint nuevo incluye las huellas de los exports completos. Guardamos `request.json` antes de enviarlo y lo reusamos en reintentos. Reconsultar Android o reescribir los archivos puede cambiar la procedencia y generar un 409 para un record ya procesado. El adaptador no reemplaza recibos de la vía antigua: si ya tenés series guardadas, acordamos una transición explícita.
+El fingerprint nuevo incluye las huellas de los exports completos. El CLI conserva `request.json` en el paquete preparado; el backend deberá fijarlo de manera durable antes de enviarlo y reusarlo en reintentos. Reconsultar Android o reescribir los archivos puede cambiar la procedencia y generar un 409 para un record ya procesado. El adaptador no reemplaza recibos de la vía antigua: si ya tenés series guardadas, acordamos una transición explícita.
 
 Si no hay export, el backend puede declararlo explícitamente con `--no-export`: produce MISSING sin inventar una consulta. No se usa automáticamente ante un archivo perdido o corrupto. Tenemos que distinguir ausencia de captura de una transferencia todavía pendiente antes de fijar el payload diario; no definí un plazo arbitrario. Una nueva captura después de guardar MISSING sería una corrección de evidencia, no un reintento del mismo payload.
 
-También corregí la aceptación de mensajes de error vacíos que Kotlin puede exportar y preparé una defensa ante truncamiento silencioso del iterador del collector, usando su error de consulta existente. Esa corrección Kotlin y el harness añadido siguen pendientes de compilación/ensayo Android.
+En 94ff3a8 se corrigió la aceptación de mensajes de error vacíos que Kotlin puede exportar y preparé una defensa ante truncamiento silencioso del iterador del collector, usando su error de consulta existente. Esa corrección Kotlin y el harness añadido siguen pendientes de compilación/ensayo Android; pasar los tests Python no los compila.
 
 **API histórica y C1**
 
@@ -60,16 +60,22 @@ SMOKE_ONLY es un perfil ficticio para comprobar conexión y recuperación, no ca
 
 Después el backend arma el cuerpo de `POST /v1/activities/select`: hasta tres actividades, contextos voluntary/general/bedtime, intereses, IDs recientes y filtros operativos. Si el estado consolidado es desconocido, se abstiene. `eligibility: {}` con estado conocido declara ausencia de exclusiones operativas; no reemplaza datos faltantes.
 
-Las 18 actividades siguen siendo provisionales. Falta revisión funcional/profesional y, cuando corresponda, consignas adaptadas; no atribuimos seguridad clínica a las etiquetas. El selector no crea `offer_id`, guarda historial de ofertas ni registra entrega/elección/realización. Este bloque no implementa esos flujos.
+Las 18 actividades siguen siendo provisionales. Falta revisión funcional/profesional y, cuando corresponda, consignas adaptadas; no atribuimos seguridad clínica a las etiquetas. El selector no crea `offer_id`, no guarda historial de ofertas ni registra entrega/elección/realización. Este bloque no implementa esos flujos.
 
 PMUM conserva `/experimental/pmum-estimate` y los archivos externos del ZIP preparado anteriormente. Necesita habilitarse, montajes de modelo/manifiesto en solo lectura y SHA configurada; sigue `experimental: true` / `internal_research_only`. No se volvió a cargar el artefacto real en este bloque ni se usa para actividades, frecuencia o alertas. No está aprobado para mostrarlo a familias.
 
 **Qué se probó y qué queda**
 
-La entrega publicada `61e31ce` pasó previamente Windows/Docker con 257 pruebas de `tests/` y una omisión esperada de POSIX, otras 15 de la raíz y seis scripts heredados; HTTP, persistencia, reinicios y healthcheck también pasaron. Esos resultados pertenecen a esa entrega, no se transfieren al parche nuevo.
+94ff3a8 pasó Windows/Python3.10 y Docker con 288 casos de tests/ —287 aprobados y una omisión esperada exclusiva de POSIX—, 15 pruebas de raíz y seis scripts heredados. También pasaron HTTP Windows, terminación/reinicio/replay, Docker con volumen/restart/replay, identidad y healthcheck. El modelo HU real se verificó en la entrega API anterior, no en el recorrido del export/histórico. Son fixtures y perfil no calibrado; no es validación física ni de tu backend.
 
-En esta ampliación se ejecutaron en Linux 288 pruebas de `tests/`, incluidas 30 nuevas, las 15 de la raíz y los seis scripts heredados. También pasó HTTP real export ficticio → preparador → v2 → histórico → persistencia, con terminación abrupta del proceso, reinicio y recuperación exacta de recibos. El perfil fue ficticio/no calibrado y PMUM estuvo deshabilitado. Los reportes de prueba del verificador de teléfono son simulados, no evidencia de ejecución Kotlin.
+La auditoría nueva encontró casos que esa suite no cubría: duración imposible mayor que el intervalo; computed_at anterior al cierre; relatos incompatibles de dos consultas exitosas en el mismo tramo; y verificación incompleta del paquete intermedio. El candidato nuevo pasó 305 casos en Linux, 15 pruebas de raíz, seis scripts heredados y HTTP con recuperación de 11 recibos tras reinicio, usando datos ficticios y PMUM deshabilitado. Las guardas nuevas tienen regresiones; Windows/Docker del candidato nuevo tambi?n pasaron: 305 casos (304 aprobados y una omisi?n), 15 pruebas de ra?z, seis scripts heredados y recorridos HTTP con persistencia/reinicio, con datos ficticios y perfil no calibrado. No cambiaron parámetros, referencia C1 ni formato de recibos. Los resultados anteriores no se trasladan a una versión distinta por herencia.
 
-Falta validar el parche en Windows y reconstruir/probar la imagen, compilar los APKs, ejecutar el protocolo en un teléfono y probar tu backend. El protocolo conserva originales, reporte Kotlin, zona/clock, bitácora física y recibos; separa igualdad de reconstrucción de fidelidad real de captura. AWS sigue pendiente de integración conjunta, sin despliegue en este trabajo.
+También preparé un preflight del plan backend: EXPORT_PENDING espera sin crear MISSING; EXPORT_READY y ABSENCE_CONFIRMED validan el payload y pueden quedar READY_TO_FREEZE, mientras un pendiente anterior declarado bloquea los siguientes. Es un contrato nuevo propuesto, no campos encontrados en tu backend ni otro endpoint analytics. No persiste una cola ni decide un plazo de cierre. Necesitamos acordar quién fija la evidencia diaria y cómo se conserva el payload/reserva de envío antes de HTTP.
 
-Para avanzar juntos necesitamos cerrar primero tus IDs y asignación/namespace, dónde corre el preparador con conservación durable de payloads, y la transición de fuente si ya persististe registros del puente anterior. Recomiendo un job Python junto al backend para reutilizar el preparador probado, antes que reimplementar fórmulas en otro lenguaje. La configuración real C1 y el mapeo profesional del catálogo siguen como decisiones del equipo; no tenés que resolverlos solo desde infraestructura.
+Evidencia nueva después de un recibo no es retry: mantendríamos el original y abriríamos una revisión pendiente. Un replay técnico versionado en repositorio aislado sería una opción a diseñar, no reparación automática. No generaríamos una asignación o ID ficticio para eludir 409. La API actual no ofrece revisiones ni corrección de tarjetas.
+
+La matriz funcional nueva reexamina las 18 consignas, combinaciones y acceso a instrucciones. Contrasta título y descripción completos: Escuchá una historia explicita escucha, pero no acredita apoyos o una variante adaptada disponible. La lectura no fija formato visual ni el dibujo miembros o apoyos; la modalidad necesita confirmación. Tampoco Ninguna demuestra persona/materiales disponibles o accesibilidad global. Proponemos preguntar por tareas que convenga evitar/adaptar y revisar variantes, antes de mapear condiciones a filtros. El catálogo continúa provisional y sin dictamen profesional recibido.
+
+Falta build/harness/teléfono, integración/autorización/cola de tu backend, decisiones reales C1 y catálogo, y después el entorno AWS. No implementé ofertas diurnas/coordinador global ni tarjetas adultas: las propuestas de topes/esperas y 7 contra 7 no se adoptaron como contratos aprobados. El motor legado sí tiene voluntaria/descanso y registros de oferta/respuesta, pero eso no acredita entrega visual ni la misma durabilidad del repositorio C1.
+
+Para destrabar nuestra conexión, propongo cerrar primero IDs/asignación/namespace y calendario de días esperados; un job Python reutilizando el preparador; almacenamiento durable y envío serial por serie; quién fija evidencia y distingue copia pendiente de export ausente; y cómo registrar una corrección sin sobreescribir recibos. Podemos probar esos contratos con la serie ficticia mientras avanzamos con la validación física. La revisión profesional, aprobación de producto y configuración C1 siguen como decisiones del equipo, no responsabilidades tuyas solo por infraestructura.

@@ -1,5 +1,8 @@
 # Analytics: candidato técnico para integración con Juanma
 
+Estado acumulativo posterior a94ff3a8: ver [INTEGRATION_AUDIT_CLOSURE_2026-10-12.md](INTEGRATION_AUDIT_CLOSURE_2026-10-12.md) y [MODERA_BACKLOG_2026-10-12.md](MODERA_BACKLOG_2026-10-12.md). Las secciones previas conservan su alcance/fecha; no describen por sí solas la última entrega.
+
+
 > Antecedente de la entrega 6b0c55d. Para la ampliación histórica candidata,
 > consultar [HISTORICAL_API_CANDIDATE_2026-10-11.md](HISTORICAL_API_CANDIDATE_2026-10-11.md).
 > Esa ampliación implementa el endpoint histórico, habilitado solo con configuración

@@ -1,5 +1,10 @@
 # Condiciones del formulario y catálogo: matriz de revisión
 
+Revisión acumulativa posterior a94ff3a8: ver
+[CONDITIONS_FUNCTIONAL_REVIEW_2026-10-12.md](CONDITIONS_FUNCTIONAL_REVIEW_2026-10-12.md).
+La nueva matriz contrasta título y descripción, conservando escucha explícita en social_story_01;
+este documento conserva el antecedente, no es un dictamen profesional.
+
 Base: `26654b6`. Se auditan las 18 consignas actuales; no se modifica el catálogo ni se acredita seguridad clínica.
 Catálogo: `provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b`. Matriz JSON: `CATALOG_CONDITIONS_AUDIT_V1.json`.
 

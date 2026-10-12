@@ -1,5 +1,8 @@
 # Export Android F12 → preparador → histórico: candidato revisable
 
+Estado acumulativo posterior a94ff3a8: ver [INTEGRATION_AUDIT_CLOSURE_2026-10-12.md](INTEGRATION_AUDIT_CLOSURE_2026-10-12.md) y [MODERA_BACKLOG_2026-10-12.md](MODERA_BACKLOG_2026-10-12.md). Las secciones previas conservan su alcance/fecha; no describen por sí solas la última entrega.
+
+
 Base: `61e31ceaaa7a81c775d143415a00a3fd9bf55721`, rama publicada
 `analytics-integration-handoff-candidate`. Cambios preparados en una rama nueva
 `f12-export-integration-candidate`. Sin merge, publicación ni despliegue en esta

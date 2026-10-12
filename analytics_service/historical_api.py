@@ -89,18 +89,24 @@ def parse_representation(value):
         raise ValueError("Procedencia incompleta")
     if provenance["adapter_version"] != DAILY_USE_DURATION_ADAPTER_VERSION:
         raise ValueError("Version del adaptador incompatible")
+    begin, end, computed = (_date(value[field]) for field in
+                            ("interval_start", "interval_end", "computed_at"))
+    if begin >= end or computed < end:
+        raise ValueError("El intervalo debe estar cerrado al preparar la representacion")
+    if number is not None and number > (end - begin).total_seconds() / 60:
+        raise ValueError("Duracion mayor que el intervalo representado")
     return HistoricalRepresentation(
         representation_record_id=identifier(value["representation_record_id"]),
         representation_spec_id=DAILY_USE_DURATION_SPEC_ID, subject_id=identifier(value["subject_id"]),
-        phenomenon=DAILY_USE_DURATION_PHENOMENON, interval_start=_date(value["interval_start"]),
-        interval_end=_date(value["interval_end"]), value=number, unit="minutes", status=status,
+        phenomenon=DAILY_USE_DURATION_PHENOMENON, interval_start=begin,
+        interval_end=end, value=number, unit="minutes", status=status,
         coverage=Coverage(covered, _text(coverage["basis"], optional=True)), quality_flags=tuple(flags),
         provenance=Provenance(_text(provenance["source_id"]),
                               _text(provenance["source_version"], optional=True),
                               _text(provenance["source_semantics"], optional=True),
                               DAILY_USE_DURATION_ADAPTER_VERSION,
                               _text(provenance["input_fingerprint"], optional=True)),
-        computed_at=_date(value["computed_at"]),
+        computed_at=computed,
     )
 
 
