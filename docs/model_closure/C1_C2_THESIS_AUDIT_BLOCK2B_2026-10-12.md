@@ -1,5 +1,7 @@
 # Bloque 2B: C1/C2 y contraste parcial de tesis
 
+Estado vigente: ver [cierre Windows/Docker y entrega](WINDOWS_DOCKER_CLOSURE_2026-10-12.md). Este informe conserva el alcance y los pendientes de su bloque original; los cierres posteriores no se atribuyen retrospectivamente a esa ejecución.
+
 Revisión del 12/10/2026 desde d5eb630. No modifica núcleo, parámetros, perfil, v2 o resultados históricos. No ejecuta teléfono/Windows/Docker, ni una nueva simulación completa. Conserva la distinción entre código inspeccionado, verificaciones directas y resultados de la ejecución anterior.
 
 ## Fuente y denominadores

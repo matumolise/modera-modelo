@@ -42,7 +42,7 @@ Se distinguió esa comprobación de una selección anidada entre alpha=1, 10 y 1
 
 Las variables y las alternativas se habían explorado previamente, por lo que estos resultados no constituyen una validación externa ni un conjunto de prueba independiente no observado. No se contó con validación argentina, evaluación longitudinal independiente, puntos de corte clínicos ni prueba de utilidad para tomar decisiones individuales. La validación publicada del instrumento PMUM-SF tampoco valida por extensión esta regresión de cuatro entradas.
 
-El artefacto entregado conserva su versión y huella registradas. Su comprobación técnica previa en Windows constituye un antecedente. La carga y revisión de ese binario con las guardas del candidato actualizado quedan sujetas al ejecutor de validación; las pruebas con predictores ficticios no se describen como verificación del original. Tampoco se afirma haber reproducido los bytes de su entrenamiento final.
+El artefacto entregado conserva su versión y huella registradas. En el candidato actualizado se ejecutó en Windows/Python 3.10 el verificador del original, seguido por recorridos HTTP en Windows y Docker. El resumen recibido registra la carga del artefacto original y PASS en esas etapas. Esta evidencia se distingue de las pruebas con predictores ficticios y no equivale a reproducir el entrenamiento final, validar clínicamente la estimación o demostrar su generalización.
 
 ## Texto propuesto: analizador histórico C1
 
@@ -64,7 +64,7 @@ Los intervalos del experimento se construyen desde DayInStudy con una fecha base
 
 No se dispone de etiquetas independientes que permitan interpretar los cruces como verdaderos o falsos eventos clínicos. No se presentan esas tasas como sensibilidad, especificidad o falsas alarmas clínicas. La población y semántica de duración del archivo tampoco se equiparan automáticamente con niños de 6 a 12 años o con captura Android interactiva.
 
-Las pruebas técnicas del candidato actualizado verifican contratos, abstenciones, coordinación, persistencia, recuperación y reintentos con datos ficticios. Se documentan por separado las comprobaciones Linux realizadas y las pendientes Windows/Docker. La compilación Android, captura en teléfono físico y conexión con el backend real no forman parte de la evidencia de este bloque.
+Las pruebas técnicas del candidato actualizado verifican contratos, abstenciones, coordinación, persistencia, recuperación y reintentos. Se documentan por separado las comprobaciones Linux y la ejecución Windows/Python 3.10 y Docker aportada por el responsable del proyecto. La suite Windows comprendió 332 casos, con 331 aprobados y una omisión, además de 15 pruebas de raíz y seis scripts heredados. El recorrido incluyó el PMUM original; la serie histórica permaneció ficticia y su configuración no calibrada. La compilación Android y la captura en teléfono físico no forman parte de esta evidencia. Las pruebas backend→histórico informadas por el responsable del backend constituyen un antecedente externo, sin auditoría independiente en este bloque. La evidencia técnica no demuestra eficacia de alertas, recomendaciones o intervenciones.
 
 ## Referencias para integrar a la bibliografía vigente
 

@@ -1,8 +1,8 @@
 # Moderá: cierre técnico y metodológico PMUM/C1
 
-Fecha: 12 de octubre de 2026. Estado: candidato recuperado y revisado; evidencia técnica/metodológica consolidada hasta el alcance disponible, con HU original/Windows y decisiones de producto pendientes. Identificador: pmum-c1-model-closure-v1-reviewed-candidate. Ver FINAL_REVIEW_2026-10-12.md para la reauditoría y el paquete de entrega.
+Fecha: 12 de octubre de 2026. Estado: candidato recuperado y revisado; evidencia técnica/metodológica consolidada hasta el alcance disponible, con HU original y Windows/Docker comprobados por Matías según resumen PASS, y decisiones de producto pendientes. Identificador: pmum-c1-model-closure-v1-reviewed-candidate. Ver FINAL_REVIEW_2026-10-12.md para la reauditoría y el paquete de entrega.
 
-Consultar [auditoría de contratos del bloque 1](CONTRACT_AUDIT_BLOCK1_2026-10-12.md) y los bloques 2A/2B como antecedentes trazables. El inventario y las instrucciones del paquete identifican sus archivos finales, sin atribuirles validaciones Windows aún no ejecutadas.
+Consultar [auditoría de contratos del bloque 1](CONTRACT_AUDIT_BLOCK1_2026-10-12.md) y los bloques 2A/2B como antecedentes trazables. El inventario y las instrucciones del paquete identifican sus archivos finales. La validación posterior Windows/Docker se registra por separado en [el cierre vigente](WINDOWS_DOCKER_CLOSURE_2026-10-12.md), sin reasignar resultados a los bloques históricos.
 
 ## Resultado y límites
 
@@ -58,7 +58,7 @@ Los valores de MAE coinciden a cuatro decimales; los procedimientos son distinto
 
 El alpha fijo, las variables y el diseño se eligieron después de exploración previa; los pliegues son una comprobación interna de la misma cohorte, no un test externo nuevo. En el subgrupo operativo NoChildren=1 (n=300), el reporte recuperado registra MAE 0.6676 y R² 0.1568 para Ridge fijo. Se interpretaba como hogares con un hijo, pero la recodificación original requiere cotejo antes de asegurar esa equivalencia. En todos los casos, un 20.92% de los errores OOF fijos superó un punto de la escala; esto es un descriptivo de error, no un corte clínico. Tampoco la cercanía de medias por grupos de predicción acredita utilidad individual o grupal fuera de la cohorte. El bloque 2A confirmó fuente/cohorte/particiones, sin recalcular esas métricas.
 
-No se reprodujo el entrenamiento final que produjo los bytes entregados ni se leyó su pipeline original aquí. El verificador offline exige la huella registrada, examina el pipeline y sus categorías, verifica 350 combinaciones enteras y dos edades fraccionarias, y conserva ambos originales. También comprueba indirectamente la referencia 2.6959 al construir `CachedPmum`; el recorrido HTTP la comprueba por separado. La nueva carga del original sigue pendiente. Ese recorrido confirma contrato y comportamiento numérico; no reemplaza validación externa ni demuestra por sí solo la procedencia de cada coeficiente.
+No se reprodujo el entrenamiento final que produjo los bytes entregados ni se leyó su pipeline original aquí. El verificador offline exige la huella registrada, examina el pipeline y sus categorías, verifica 350 combinaciones enteras y dos edades fraccionarias, y conserva ambos originales. También comprueba indirectamente la referencia 2.6959 al construir `CachedPmum`; el recorrido HTTP la comprueba por separado. La nueva carga fue ejecutada por Matías y su resumen registra pmum_original_artifact=PASS y original_pmum_artifact_loaded=true, además de HTTP Windows/Docker PASS. El original y los logs detallados no se cargaron aquí. Ese recorrido confirma contrato y comportamiento numérico; no reemplaza validación externa ni demuestra por sí solo la procedencia de cada coeficiente.
 
 ## C1: conclusión metodológica
 
@@ -78,22 +78,22 @@ La ejecución recuperada registró 323 pruebas de tests/ y 15 de raíz; el bloqu
 
 Se ejecutó HTTP nativo: export ficticio→preparador→v2→API, persistencia, terminación del proceso, reinicio y replay, conflicto 409, autenticación 401, abstenciones y coexistencia PMUM/C1 con predictor ficticio. El archivo histórico quedó byte a byte intacto en replay. La auditoría completa de sus referencias pasó; la carga de una copia adulterada falló sin reescribirla.
 
-Windows/Docker del candidato nuevo siguen pendientes. Los 305 casos de la entrega 60c8764 (304 aprobados y una omisión), 15 de raíz, seis scripts y HTTP/Docker informados por Matías corresponden a esa base y no se reasignan al nuevo parche. La advertencia Starlette/httpx observada no fue un fallo de pruebas; no se cambian dependencias por esa deprecación.
+Windows/Docker del candidato nuevo fueron ejecutados por Matías: 332 casos (331 aprobados, uno omitido), 15 de raíz, seis scripts y etapas HTTP/Docker PASS, según consola y resumen aportados. La omisión es consistente con un caso exclusivo de POSIX en el código; el resumen no identifica su nombre. Ver el registro separado de procedencia y límites. Los 305 casos de la entrega 60c8764 (304 aprobados y una omisión), 15 de raíz, seis scripts y HTTP/Docker informados por Matías corresponden a esa base y no se reasignan al nuevo parche. La advertencia Starlette/httpx observada no fue un fallo de pruebas; no se cambian dependencias por esa deprecación.
 
 ## Cierres y pendientes indispensables
 
 | Parte | Estado | Responsable y criterio |
 |---|---|---|
-| Contratos, guardas PMUM/C1 y herramientas de auditoría | Implementada y probada en Linux | Matías: ejecutar validación agrupada Windows/Docker y revisar reporte |
+| Contratos, guardas PMUM/C1 y herramientas de auditoría | Linux y recorrido Windows/Docker PASS | Cierre técnico según consola/resumen recibidos; no validación científica de producto |
 | Fuente y evaluación PMUM/C2 | Probada en las condiciones declaradas | Evidencia reproducida en JSON, fuentes con SHA |
-| Binario HU v1 en esta nueva versión | Pendiente de evidencia | Matías: verificador y HTTP automático con sus originales, sin sustituirlos |
+| Binario HU v1 en esta nueva versión | Verificador y HTTP Windows/Docker PASS | Original cargado en entorno de Matías; no reproducido su entrenamiento final |
 | Entrenamiento final/validación externa PMUM | Pendiente de evidencia | Equipo: trazabilidad del ajuste original y evaluación independiente antes de ampliar uso; no es requisito para afirmar sólo candidato interno |
 | Formulario parental para uso real | Pendiente de evidencia y decisión | Recuperar redacción completa weekday y revisión de adaptación; mantener pruebas ficticias mientras falte |
 | C1 con perfil de producto | Pendiente de decisión y evidencia | Equipo y revisión metodológica: protocolo/objetivo y población, evaluación independiente, criterios de calidad y parámetros justificados |
 | Documento final de tesis | Propuesta revisable | Matías y dirección: integrar texto contrastado con E50 y verificar versión consolidada |
-| Conexión backend real | Pendiente de evidencia externa | Backend/equipo: aplicar contratos existentes y demostrar freeze durable, orden, reintentos y asignación; no se atribuye código no leído |
+| Conexión backend real | Pruebas informadas por Juanma; evidencia independiente pendiente | Backend/equipo: aportar resultados/código; la integración F12 y los acuerdos de cierre/identidad no quedan acreditados por ese mensaje |
 
-No se reabre la persistencia, el writer lease, el replay o la configuración explícita ya cerrados; se les agregan guardas de integridad. El cierre diario durable de backend conserva su estado anterior: el preflight existe, la implementación real no se acredita. La captura física y la revisión de catálogo se mantienen como pendientes anteriores, sin prioridad en este bloque.
+No se reabre la persistencia, el writer lease, el replay o la configuración explícita ya cerrados; se les agregan guardas de integridad. El preflight existe. Juanma informa persistencia previa al HTTP, idempotencia, retry tras caída y conflictos del backend; no se acredita aquí su implementación ni el cierre diario F12 por no haber auditado su código o evidencia. La captura física y la revisión de catálogo se mantienen como pendientes anteriores, sin prioridad en este bloque.
 
 Recomendación para el 15: presentar una versión interna estable con sus evidencias y restricciones, conservar HU v1 y las políticas C1 actuales y declarar los límites abiertos. No reemplazar esos límites por un perfil calibrado ficticio. El texto de tesis es una propuesta para aprobación académica; no se modifica automáticamente E50.
 

@@ -1,6 +1,6 @@
 # Cierre revisado PMUM/C1: evidencia y pendientes
 
-Estado: candidato técnico interno propuesto para revisión académica y verificación externa de entorno. No es aprobación clínica, calibración de producto o validación externa argentina.
+Estado vigente: candidato técnico interno publicado en 83fc635 y validado por Matías en Windows/Python 3.10 y Docker, con HU original y resumen PASS. La revisión académica/metodológica sigue abierta. No es aprobación clínica, calibración de producto o validación externa argentina. Ver [registro de evidencia y estado de entrega](WINDOWS_DOCKER_CLOSURE_2026-10-12.md).
 
 ## Feedback acumulativo: reauditoría solicitada
 
@@ -35,14 +35,14 @@ HU original no cargado en Linux; Windows/Docker no ejecutados aquí. El paquete 
 
 | Parte | Estado | Responsable / criterio de cierre |
 |---|---|---|
-| Correcciones/guardas/contratos de este candidato | Implementados y probados en Linux | Matías: ejecutar aplicación/validación agrupada en Windows y conservar resumen |
+| Correcciones/guardas/contratos de este candidato | Probados en Linux; Windows/Docker PASS según evidencia recibida | Cierre técnico de ese recorrido; conservar resumen y logs externos |
 | Fuentes, cohorte, particiones y resultados OOF/C2 | Reproducidos en condiciones declaradas | Equipo: conservar fuentes con hash; no atribuir validez externa |
-| Artefacto HU v1 y dependencias originales | Pendiente de evidencia con guardas nuevas | Matías: ambos originales registrados, hash/pipeline/grilla/HTTP Windows/Docker; no reentrenar ante fallo |
+| Artefacto HU v1 con guardas nuevas | pmum_original_artifact y HTTP Windows/Docker PASS; original cargado=true | Resumen y verificador identificado; logs detallados en entorno de Matías; no equivale a reproducción del entrenamiento |
 | Procedencia exacta del entrenamiento final | Pendiente de evidencia | Equipo: código/entorno/log de ajuste y artefacto; huella/grilla no prueban coeficientes entrenados sobre la cohorte |
 | Weekday completo y recodificación NoChildren | Pendiente de evidencia | Equipo/fuente: recuperar cuestionario y recodificación; no completarlos por analogía |
 | Independencia de hogar/informante y generalización | No establecidas | Equipo: fuentes/protocolo independiente antes de ampliar uso; IDs únicos no bastan |
 | Perfil C1 para producto | Pendiente de evidencia y decisión | Equipo/metodología/profesional: objetivo, población, calidad, madurez, k/h, adaptación/gaps y criterios de comunicación justificados |
 | Texto de tesis | Propuesta contrastada parcialmente con E50 | Matías/dirección: versión vigente, bibliografía de datasets y aceptación del alcance; PDF no modificado automáticamente |
-| Backend/operación real | Pendiente de evidencia externa | Equipo backend: identidad/asignación, payload durable, cierre/orden/correcciones y autorización; contrato no acredita su implementación |
+| Backend/operación real | Juanma informa pruebas backend→histórico; código/logs no auditados aquí | Solicitar evidencia antes de acreditarlo independientemente; F12 real, cierre diario, autorización y operación permanecen pendientes de verificación |
 
 Para el 15 se recomienda presentar el candidato interno con estas evidencias y restricciones, conservar HU v1 y C1 actuales y agrupar las verificaciones externas. No inventar un perfil calibrado, reemplazar silenciosamente el modelo o declarar aprobadas las comunicaciones/actividades. Un fallo conserva el worktree, originales, volumen y logs para investigación.

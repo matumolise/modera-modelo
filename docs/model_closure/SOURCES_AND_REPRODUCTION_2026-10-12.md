@@ -1,6 +1,6 @@
 # Fuentes, archivos y reproducción
 
-Estado: instrucciones del candidato y del paquete revisado. La reauditoría final reprodujo nuevamente PMUM OOF y C2 completos, contrastó conteos por SAV, leyó pasajes específicos del PDF y comprobó fuentes primarias dentro del alcance indicado. La carga del HU original y Windows/Docker siguen pendientes de ejecución externa; ver FINAL_REVIEW_2026-10-12.md.
+Estado: instrucciones del candidato y del paquete revisado. La reauditoría final reprodujo nuevamente PMUM OOF y C2 completos, contrastó conteos por SAV, leyó pasajes específicos del PDF y comprobó fuentes primarias dentro del alcance indicado. La carga del HU original y el recorrido Windows/Docker fueron ejecutados por Matías con PASS; el resumen recibido y su procedencia están en [cierre Windows/Docker](WINDOWS_DOCKER_CLOSURE_2026-10-12.md). No se declara ejecución Windows desde Linux ni validación externa científica.
 
 ## Fuentes primarias y alcance de lectura
 
@@ -13,7 +13,7 @@ Estado: instrucciones del candidato y del paquete revisado. La reauditoría fina
 
 En la reauditoría del 12/10 se abrieron de nuevo la copia de autora PMUM y las secciones NIST y DummyRegressor enlazadas. El artículo original describe evaluación parental, nueve ítems de la forma corta, edades 4–11 y límites de validación clínica/cortes; no valida la regresión HU ni su alcance argentino. La página NIST describe un diseño CUSUM con referencia y supuestos especificados; no avala la adaptación mediana/MAD del candidato. Zenodo volvió a fallar al consultarse: no se adjudican autores/licencia nuevos al ZIP por ese intento.
 
-El paquete previsto no redistribuirá microdatos HU/CSV, binarios joblib ni PDFs originales. Se conservarán resultados agregados y trazabilidad. Se excluye api.zip. El inventario de blobs comprobado identifica el alcance parcial de archivos recuperados.
+El paquete revisado entregado no redistribuye microdatos HU/CSV, binarios joblib ni PDFs originales. Conserva resultados agregados y trazabilidad. Se excluye api.zip. El inventario de blobs comprobado identifica el alcance parcial de archivos recuperados.
 
 ## Reproducir evaluación (optativo, fuente necesaria)
 
@@ -31,7 +31,7 @@ Para reproducir C2 con la fuente correspondiente, desde la raíz del worktree:
 ```
 Se usa invocación como módulo para resolver el paquete historical. La fecha base del runner es artificial y los offsets cuentan registros. En la reauditoría final ambos JSON nuevos coincidieron exactamente con sus antecedentes; no se guardó un modelo entrenado de entrega.
 
-## Verificar originales HU v1 (pendiente en Windows)
+## Verificar originales HU v1 (ejecutado; comando disponible para reproducción)
 
 ```powershell
 .\.venv-historical\Scripts\python.exe tools/validation/verify_pmum_artifact_v1.py --model-dir "$env:USERPROFILE\Documents\modera_pmum_experimental" --output NUEVO_ARTEFACTO_AUDIT.json
@@ -40,7 +40,7 @@ El aplicador del paquete crea un worktree/rama nuevos y comprueba las cinco rama
 
 ## Auditar C1
 
-Usar `audit_c1_repository.py` contra snapshot estable y perfil correspondiente, con salida nueva. Reconstruye mediana/MAD, evaluación, estado y emisor con IDs/fechas anteriores; compara y no escribe fuentes. Los archivos HTTP recuperados son ficticios. El validador Windows está preparado para copiar el estado de su contenedor de prueba y auditar esa copia; su ejecución con los cambios nuevos sigue pendiente.
+Usar `audit_c1_repository.py` contra snapshot estable y perfil correspondiente, con salida nueva. Reconstruye mediana/MAD, evaluación, estado y emisor con IDs/fechas anteriores; compara y no escribe fuentes. Los archivos HTTP recuperados son ficticios. El resumen Windows recibido registra PASS para windows_c1_snapshot_audit y docker_c1_snapshot_audit con los cambios nuevos. Registra también el snapshot posterior al recorrido PMUM y la conservación de bytes históricos. Los snapshots/logs completos permanecen en el entorno de Matías; no se afirma haberlos inspeccionado individualmente aquí.
 
 ## Pruebas disponibles
 

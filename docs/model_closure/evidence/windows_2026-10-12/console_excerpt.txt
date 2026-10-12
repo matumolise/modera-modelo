@@ -1,0 +1,15 @@
+# Extracto de consola aportado por Matías, 12/10/2026
+# Selección documental del mensaje; no es el log completo del runner.
+Ran 332 tests in 53.593s
+OK (skipped=1)
+Ran 15 tests in 0.301s
+OK
+PASS: etapas ejecutadas aprobadas; historico ficticio y no calibrado
+RESULTADO: PASS
+EVIDENCIA: C:\Users\matum\Documents\modera_pmum_c1_final_20261012-173042-acabed26
+
+# Publicación posterior, según salida Git aportada por Matías:
+# commit 83fc635e4fadca9a0ecc17e0f23c637ea6a7a398
+# 25 files changed, 1845 insertions(+), 16 deletions(-)
+# Rama publicada: pmum-c1-closure-reviewed-candidate
+# Estado: pmum-c1-closure-reviewed-candidate...origin/pmum-c1-closure-reviewed-candidate

@@ -1,5 +1,7 @@
 # Bloque 1: auditoría de correcciones y contratos PMUM/C1
 
+Estado vigente: ver [cierre Windows/Docker y entrega](WINDOWS_DOCKER_CLOSURE_2026-10-12.md). Este informe conserva el alcance y los pendientes de su bloque original; los cierres posteriores no se atribuyen retrospectivamente a esa ejecución.
+
 Fecha: 12/10/2026. Estado: implementado y probado en Linux, limitado a los contratos y correcciones examinados. No constituye el cierre metodológico completo ni el paquete final.
 
 ## Procedencia y alcance

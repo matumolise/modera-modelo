@@ -2,7 +2,7 @@
 
 Base: 60c8764. Este documento complementa las guías de integración; no cambia schemas HTTP, versiones de modelos, parámetros o respuestas válidas.
 
-Estado: contrato recuperado y revisado, incluido en el paquete final propuesto. El aplicador está preparado y ensayado en su núcleo Git; la validación Windows/Docker y HU original siguen pendientes de ejecución.
+Estado vigente: contrato recuperado y revisado, publicado en pmum-c1-closure-reviewed-candidate, commit 83fc635. Matías ejecutó la validación Windows/Python 3.10 y Docker con HU original: PASS, conforme al resumen aportado. El histórico fue ficticio y el perfil no calibrado. Ver [evidencia y límites](WINDOWS_DOCKER_CLOSURE_2026-10-12.md). No cambia el contrato HTTP.
 
 ## PMUM HU v1
 

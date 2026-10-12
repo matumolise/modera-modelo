@@ -1,0 +1,2 @@
+# Preserve the uploaded runner summary byte for byte, including CRLF.
+validation_summary.json -text whitespace=cr-at-eol
