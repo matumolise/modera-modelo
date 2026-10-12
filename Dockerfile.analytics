@@ -1,4 +1,4 @@
-# Candidato de integración posterior a 26654b6; verificar esta imagen nueva.
+# Candidato de export F12 posterior a 61e31ce; verificar esta imagen nueva.
 FROM python:3.10-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
     ANALYTICS_HOST=0.0.0.0 ANALYTICS_PORT=8765 \

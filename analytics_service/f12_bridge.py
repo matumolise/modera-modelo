@@ -88,9 +88,12 @@ def _run(row):
     for field in ("usage_access_available", "query_returned_null"):
         if type(row[field]) is not bool:
             raise ValueError("Campo collector requiere booleano")
-    for field in ("error_code", "error_message"):
-        if row[field] is not None and (not isinstance(row[field], str) or not row[field].strip()):
-            raise ValueError("Error collector invalido")
+    if row["error_code"] is not None and (
+            not isinstance(row["error_code"], str) or not row["error_code"].strip()):
+        raise ValueError("Codigo de error collector invalido")
+    # Kotlin exporta exception.message literalmente: puede ser null o "".
+    if row["error_message"] is not None and not isinstance(row["error_message"], str):
+        raise ValueError("Mensaje de error collector invalido")
     return AndroidCollectorRunSummary(**row)
 
 

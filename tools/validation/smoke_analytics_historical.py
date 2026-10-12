@@ -13,6 +13,12 @@ import urllib.error
 import urllib.request
 from uuid import uuid4
 
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+from analytics_service.f12_export import prepare_android_export
+from analytics_service.json_codec import strict_json
+
 
 def request(base, path, token, payload=None, authenticated=True):
     headers = {}
@@ -95,6 +101,22 @@ def run(args):
                     "Resultado de fixture inesperado")
             rows.append({"request": payload, "result": result["result"]})
         require(rows[-1]["result"]["emission"]["decision"] == "EMIT", "Falta evento de cruce del fixture")
+        fixture = ROOT / "tests/fixtures/f12_export"
+        binding = strict_json((fixture / "binding.synthetic.json").read_bytes())
+        # Serie aislada por ejecución; estos archivos son ficticios, no captura.
+        binding["series"]["assignment_id"] = subject
+        for case in ("observed", "empty", "permission_absent", "query_null", "no_export"):
+            header = json.loads(json.dumps(binding))
+            header["series"]["assignment_id"] += "-" + case
+            pairs = [] if case == "no_export" else [((fixture / case / "summary.json").read_bytes(),
+                                                     (fixture / case / "events.jsonl").read_bytes())]
+            payload = prepare_android_export(header, pairs)["request"]
+            require(payload["representation"]["status"] == ("OBSERVED" if case == "observed" else "MISSING"),
+                    "El export ficticio no conserva su estado de captura")
+            code, result = request(base, "/v1/historical/evaluate", token, payload)
+            require(code == 200 and not result["replayed"], "Fallo el recorrido export a API historica")
+            rows.append({"request": payload, "result": result["result"]})
+        print("PASS: exports ficticios JSON/JSONL, preparador, v2 y API persistente")
         saved = {"fixture_only": True, "configuration_fingerprint": historical["configuration_fingerprint"],
                  "rows": rows}
         args.receipt_file.parent.mkdir(parents=True, exist_ok=True)
@@ -118,7 +140,7 @@ def run(args):
                 "El reintento no recupero exactamente el resultado original")
     print("PASS: reintentos conservan evaluacion, evento, fechas y estado originales")
 
-    conflict = json.loads(json.dumps(rows[-1]["request"]))
+    conflict = json.loads(json.dumps(rows[4]["request"]))
     conflict["representation"]["value"] += 1
     code, result = request(base, "/v1/historical/evaluate", token, conflict)
     require(code == 409 and result["error"] == "representation_conflict", "Falta rechazo del reintento incompatible")

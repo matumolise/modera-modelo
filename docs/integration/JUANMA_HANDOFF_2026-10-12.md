@@ -1,5 +1,9 @@
 # Mensaje para Juanma — borrador, no enviado
 
+Antecedente de la entrega publicada en `61e31ce`. Para el bloque nuevo del export,
+usar el borrador completo actualizado [JUANMA_F12_EXPORT_HANDOFF_2026-10-12.md](JUANMA_F12_EXPORT_HANDOFF_2026-10-12.md),
+que distingue el candidato nuevo todavía no publicado de las pruebas anteriores.
+
 Juanma, te comparto una ampliación de la entrega anterior. Ya quedó publicado el candidato del histórico y estoy dejando también una propuesta de conexión F12–backend y del formulario de condiciones para que podamos revisar esos contratos juntos.
 
 **Ramas y documentación**

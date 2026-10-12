@@ -1,0 +1,11 @@
+{
+  "collectorRunId": "e12f9120-7641-4ae2-a988-d6c43d4cfd17",
+  "requestedBeginEpochMs": 1788228000000,
+  "requestedEndEpochMs": 1788318000000,
+  "collectedAtEpochMs": 1788318060000,
+  "usageAccessAvailable": false,
+  "queryReturnedNull": false,
+  "eventCount": 0,
+  "errorCode": "USAGE_ACCESS_NOT_GRANTED",
+  "errorMessage": "Usage Access is not granted for this app."
+}

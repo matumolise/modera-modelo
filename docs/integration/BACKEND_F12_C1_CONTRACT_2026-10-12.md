@@ -1,5 +1,14 @@
 # Entrega candidata de integración: backend, F12, C1 y condiciones
 
+Ampliación de export F12 preparada sobre `61e31ce`, en
+`f12-export-integration-candidate`, sin modificar las tres ramas publicadas.
+El contrato canónico/API/C1 permanece vigente. Para convertir los pares reales
+JSON/JSONL del collector, ver [F12_EXPORT_ADAPTER_2026-10-12.md](F12_EXPORT_ADAPTER_2026-10-12.md).
+Las pruebas físicas pendientes y sus pasos están en
+[F12_PHONE_PARITY_PROTOCOL_2026-10-12.md](F12_PHONE_PARITY_PROTOCOL_2026-10-12.md).
+Las secciones de evidencia anteriores describen sus respectivas entregas,
+no sustituyen la validación Windows/Docker de esta ampliación.
+
 Base publicada: `26654b64c88a8034d8dc5f86d724c0af299bc546`.
 Rama candidata de entrega: `analytics-integration-handoff-candidate`.
 Preparada mediante parche sobre la base publicada, en un worktree separado.
@@ -99,7 +108,7 @@ Los resúmenes usan los nueve campos de `AndroidCollectorRunSummary`:
 `event_count`, `error_code`, `error_message`.
 
 Es una proyección snake_case preparada desde el export diagnóstico. No es un
-parser del JSON/CSV completo Android ni modifica el registro crudo: conservar los
+parser del par JSON/JSONL completo Android ni modifica el registro crudo: conservar los
 originales con campos extra (package/class/etc.) por separado. La proyección
 conserva todos los tipos de evento necesarios para verificar `event_count`;
 no filtrar primero solo SCREEN_INTERACTIVE/NON_INTERACTIVE. El preparador no

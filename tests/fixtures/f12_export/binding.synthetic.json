@@ -1,0 +1,13 @@
+{
+  "request_id": "fixture-2026-09-01",
+  "schema_version": 1,
+  "local_date": "2026-09-01",
+  "computed_at": "2026-09-02T03:02:00+00:00",
+  "series": {
+    "profile_id": "profile-test",
+    "device_id": "device-test",
+    "assignment_id": "assignment-test",
+    "time_zone": "America/Argentina/Buenos_Aires",
+    "measurement_version": "capture-test-v1"
+  }
+}

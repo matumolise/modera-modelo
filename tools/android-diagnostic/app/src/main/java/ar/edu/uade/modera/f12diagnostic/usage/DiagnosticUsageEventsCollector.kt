@@ -149,8 +149,8 @@ class DiagnosticUsageEventsCollector(
         var ordinal = 0
 
         while (usageEvents.hasNextEvent()) {
-            if (!usageEvents.getNextEvent(event)) {
-                break
+            check(usageEvents.getNextEvent(event)) {
+                "UsageEvents.hasNextEvent was true but getNextEvent returned false."
             }
 
             records += RawUsageEventRecordV1(

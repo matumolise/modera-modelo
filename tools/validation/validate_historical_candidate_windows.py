@@ -86,7 +86,7 @@ def run(args):
         port_available(args.docker_port)
         require(shutil.which("docker") is not None, "Docker no esta en PATH; abrir Docker Desktop")
     state.mkdir(parents=True)
-    summary = {"candidate_base": "26654b64c88a8034d8dc5f86d724c0af299bc546",
+    summary = {"candidate_base": "61e31ceaaa7a81c775d143415a00a3fd9bf55721",
                "fixture_only": True, "python_base": sys.version,
                "started_utc": datetime.now(timezone.utc).isoformat()}
 
