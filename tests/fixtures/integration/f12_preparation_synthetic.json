@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "request_id": "fixture-2026-09-01",
+  "series": {
+    "profile_id": "profile-test",
+    "device_id": "device-test",
+    "assignment_id": "assignment-test",
+    "time_zone": "America/Argentina/Buenos_Aires",
+    "measurement_version": "capture-test-v1"
+  },
+  "local_date": "2026-09-01",
+  "computed_at": "2026-09-02T03:02:00+00:00",
+  "raw_events": [
+    {
+      "schema_version": "raw-usage-event-v1",
+      "collector_run_id": "run-2026-09-01",
+      "query_begin_epoch_ms": 1788228000000,
+      "query_end_epoch_ms": 1788318000000,
+      "collected_at_epoch_ms": 1788318060000,
+      "event_time_epoch_ms": 1788229800000,
+      "event_type_code": 16,
+      "event_type_name": "SCREEN_NON_INTERACTIVE",
+      "query_ordinal": 0
+    },
+    {
+      "schema_version": "raw-usage-event-v1",
+      "collector_run_id": "run-2026-09-01",
+      "query_begin_epoch_ms": 1788228000000,
+      "query_end_epoch_ms": 1788318000000,
+      "collected_at_epoch_ms": 1788318060000,
+      "event_time_epoch_ms": 1788267600000,
+      "event_type_code": 15,
+      "event_type_name": "SCREEN_INTERACTIVE",
+      "query_ordinal": 1
+    },
+    {
+      "schema_version": "raw-usage-event-v1",
+      "collector_run_id": "run-2026-09-01",
+      "query_begin_epoch_ms": 1788228000000,
+      "query_end_epoch_ms": 1788318000000,
+      "collected_at_epoch_ms": 1788318060000,
+      "event_time_epoch_ms": 1788271200000,
+      "event_type_code": 16,
+      "event_type_name": "SCREEN_NON_INTERACTIVE",
+      "query_ordinal": 2
+    }
+  ],
+  "summaries": [
+    {
+      "collector_run_id": "run-2026-09-01",
+      "requested_begin_epoch_ms": 1788228000000,
+      "requested_end_epoch_ms": 1788318000000,
+      "collected_at_epoch_ms": 1788318060000,
+      "usage_access_available": true,
+      "query_returned_null": false,
+      "event_count": 3,
+      "error_code": null,
+      "error_message": null
+    }
+  ]
+}

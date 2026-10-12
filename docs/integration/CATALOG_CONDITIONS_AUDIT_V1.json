@@ -1,0 +1,116 @@
+{
+  "audit_version": "catalog-demands-review-v1-candidate",
+  "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+  "status": "PROVISIONAL_TEXT_AUDIT_NOT_CLINICAL_APPROVAL",
+  "runtime_auto_mapping": false,
+  "activities": [
+    {
+      "activity_id": "movement_dance_01",
+      "text_evidence": "Elegir y escuchar música; bailar.",
+      "demands_to_review": "Movimiento según variante; música explícita.",
+      "unresolved_question": "Qué movimientos y estímulos puede admitir; acceso a la consigna y elección de canción."
+    },
+    {
+      "activity_id": "movement_sequence_01",
+      "text_evidence": "Elegir y repetir movimientos; ejemplos de saltar/girar/agacharse.",
+      "demands_to_review": "Demanda de piernas según variante; no equivale a toda actividad movement.",
+      "unresolved_question": "Movimientos concretos y variantes; no deducirlos de brazos/piernas."
+    },
+    {
+      "activity_id": "movement_ball_01",
+      "text_evidence": "Pelota y espacio; forma de juego no especificada.",
+      "demands_to_review": "Manipulación, visión, desplazamiento y estímulos dependen del juego.",
+      "unresolved_question": "Cómo se jugaría y con qué apoyos; no definir compatibilidad por categoría."
+    },
+    {
+      "activity_id": "creative_character_01",
+      "text_evidence": "Dibujar un personaje.",
+      "demands_to_review": "Dibujo/manual; material visual tal como está escrito.",
+      "unresolved_question": "Apoyos o variante accesible; si se evita dibujar, revisar esta consigna."
+    },
+    {
+      "activity_id": "creative_animal_01",
+      "text_evidence": "Inventar y dibujar un animal.",
+      "demands_to_review": "Dibujo/manual; material visual tal como está escrito.",
+      "unresolved_question": "Igual que dibujo; interés por animales no elimina restricciones."
+    },
+    {
+      "activity_id": "creative_favorite_01",
+      "text_evidence": "Dibujar libremente.",
+      "demands_to_review": "Dibujo/manual; material visual tal como está escrito.",
+      "unresolved_question": "Medio y apoyos para dibujar; no convertir calma en accesibilidad."
+    },
+    {
+      "activity_id": "creative_story_01",
+      "text_evidence": "Escribir, dibujar o ambas cosas.",
+      "demands_to_review": "Todas las variantes ofrecidas contienen tarea manual.",
+      "unresolved_question": "Variante sin escritura/dibujo no está en el texto; requiere revisión."
+    },
+    {
+      "activity_id": "reading_choose_01",
+      "text_evidence": "Buscar un libro/cuento/cómic y leer.",
+      "demands_to_review": "Acceso a material escrito; manipulación según soporte/apoyo.",
+      "unresolved_question": "Formato accesible y disponibilidad; no asumir audio o braille ya implementados."
+    },
+    {
+      "activity_id": "reading_favorite_01",
+      "text_evidence": "Buscar y releer una parte conocida.",
+      "demands_to_review": "Material escrito; manipulación según soporte/apoyo.",
+      "unresolved_question": "Igual que lectura; conocimiento de la historia no acredita acceso."
+    },
+    {
+      "activity_id": "free_play_nearby_01",
+      "text_evidence": "Elegir juguete, cartas, bloques u otra cosa.",
+      "demands_to_review": "Juego y materiales no fijados; demanda manual posible.",
+      "unresolved_question": "Actividad concreta, acceso a materiales y estímulos; no clasificar todo juego igual."
+    },
+    {
+      "activity_id": "free_play_build_01",
+      "text_evidence": "Construir con piezas/objetos.",
+      "demands_to_review": "Manipulación explícita; estímulos y material visual según objetos.",
+      "unresolved_question": "Material, apoyos y forma de construir; selección por interés no alcanza."
+    },
+    {
+      "activity_id": "free_play_story_01",
+      "text_evidence": "Elegir juguetes y pensar una historia.",
+      "demands_to_review": "Manipulación/visual posibles; pensar no exige por sí solo manipular.",
+      "unresolved_question": "Distinguir imaginar de mover juguetes; variante no especificada."
+    },
+    {
+      "activity_id": "social_play_01",
+      "text_evidence": "Jugar con una persona de confianza disponible.",
+      "demands_to_review": "Juego no especificado; comunicación, manos, piernas y estímulos variables.",
+      "unresolved_question": "Persona disponible y juego concreto; no declararlo accesible por ser social."
+    },
+    {
+      "activity_id": "social_talk_01",
+      "text_evidence": "Contar algo a alguien de confianza.",
+      "demands_to_review": "Forma de comunicación no especificada.",
+      "unresolved_question": "Modo accesible de comunicación; no inferir capacidad de oír/hablar."
+    },
+    {
+      "activity_id": "social_help_01",
+      "text_evidence": "Ayudar en una tarea sencilla no especificada.",
+      "demands_to_review": "Demandas indeterminadas; sencilla no acredita factibilidad.",
+      "unresolved_question": "Tarea concreta, apoyos y persona disponible; no usar categoría como filtro suficiente."
+    },
+    {
+      "activity_id": "social_story_01",
+      "text_evidence": "Escuchar una historia de otra persona.",
+      "demands_to_review": "Escucha explícita; forma de comunicación y estímulos por revisar.",
+      "unresolved_question": "Apoyo/variante de comunicación y persona disponible; variante visual no implementada."
+    },
+    {
+      "activity_id": "quiet_prepare_01",
+      "text_evidence": "Dejar listos mochila/ropa/materiales.",
+      "demands_to_review": "Organización/manipulación según tarea; desplazamiento posible.",
+      "unresolved_question": "Tarea concreta y apoyos; calm no excluye demanda manual o visual."
+    },
+    {
+      "activity_id": "quiet_draw_01",
+      "text_evidence": "Dibujar antes de terminar el día.",
+      "demands_to_review": "Dibujo/manual; material visual tal como está escrito.",
+      "unresolved_question": "Mismas restricciones que dibujo; etiqueta bedtime también provisional."
+    }
+  ]
+}

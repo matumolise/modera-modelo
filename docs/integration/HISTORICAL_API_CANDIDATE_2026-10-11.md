@@ -1,5 +1,10 @@
 # Histórico C1: candidato de integración HTTP
 
+> Antecedente publicado en 26654b6. La ampliación de preparación F12 y formulario
+> está en [BACKEND_F12_C1_CONTRACT_2026-10-12.md](BACKEND_F12_C1_CONTRACT_2026-10-12.md).
+> En esa ampliación la salud informa analytics-api-v3-integration-candidate;
+> el contrato histórico y su configuración se conservan.
+
 Base exacta: `6b0c55d0e43b27e8364aea90f60bad3f0a14e59b`, la entrega publicada a Juanma.
 Esta ampliación se prepara aparte. No modifica la rama publicada ni implica merge,
 despliegue AWS, validación Android o parámetros de producto aprobados.

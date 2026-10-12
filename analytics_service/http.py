@@ -13,9 +13,10 @@ from .pmum import CachedPmum, ModelUnavailable
 from .historical_api import (HistoricalRuntime, HistoricalConflict, HistoricalUnavailable,
                              InvalidHistoricalRequest, parse_historical_request)
 from .historical_config import HISTORICAL_API_VERSION
+from .condition_mapping import MAPPING_VERSION, resolve_considerations
 from .json_codec import strict_json as _strict_json
 
-API_VERSION = "analytics-api-v2-historical-candidate"
+API_VERSION = "analytics-api-v3-integration-candidate"
 
 
 def reply(payload, status=200):
@@ -134,7 +135,8 @@ def create_app(settings):
                 "pmum": {"state": "DISABLED" if not settings.pmum_enabled else "READY" if pmum_ready else "UNAVAILABLE",
                          "model_version": model.version if model else None},
                 "activities": {"state": "READY" if settings.activities_enabled and app.state.started else "DISABLED" if not settings.activities_enabled else "UNAVAILABLE",
-                               "catalog_version": CATALOG_VERSION, "selector_version": SELECTOR_VERSION, "catalog_status": "PROVISIONAL"},
+                               "catalog_version": CATALOG_VERSION, "selector_version": SELECTOR_VERSION,
+                               "considerations_mapping_version": MAPPING_VERSION, "catalog_status": "PROVISIONAL"},
                 "historical": {
                     "state": "DISABLED" if not settings.historical_enabled else "READY" if historical_ready else "UNAVAILABLE",
                     "implemented": True, "historical_api_version": HISTORICAL_API_VERSION,
@@ -170,6 +172,18 @@ def create_app(settings):
             return reply(select_activities(parsed))
         except InvalidSelection:
             return reply({"error": "invalid_selection_request"}, 400)
+
+    @app.post("/v1/activities/eligibility")
+    async def eligibility(request: Request):
+        if not app.state.started or not settings.activities_enabled:
+            return reply({"error": "activities_disabled"}, 503)
+        parsed, error = await parse(request)
+        if error is not None:
+            return error
+        try:
+            return reply(resolve_considerations(parsed))
+        except InvalidSelection:
+            return reply({"error": "invalid_considerations_request"}, 400)
 
     @app.post("/v1/historical/evaluate")
     async def historical(request: Request):

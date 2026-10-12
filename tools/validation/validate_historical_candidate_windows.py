@@ -5,6 +5,7 @@ Solo usa el perfil SMOKE_ONLY no calibrado; no habilita PMUM real.
 """
 
 import argparse
+import hashlib
 from datetime import datetime, timezone
 import json
 import os
@@ -85,7 +86,7 @@ def run(args):
         port_available(args.docker_port)
         require(shutil.which("docker") is not None, "Docker no esta en PATH; abrir Docker Desktop")
     state.mkdir(parents=True)
-    summary = {"candidate_base": "6b0c55d0e43b27e8364aea90f60bad3f0a14e59b",
+    summary = {"candidate_base": "26654b64c88a8034d8dc5f86d724c0af299bc546",
                "fixture_only": True, "python_base": sys.version,
                "started_utc": datetime.now(timezone.utc).isoformat()}
 
@@ -107,23 +108,37 @@ def run(args):
     process = None
     logs = []
     try:
+        summary["tested_commit"] = command(["git", "rev-parse", "HEAD"], "git_tested_commit")
+        summary["tested_branch"] = command(["git", "branch", "--show-current"], "git_tested_branch")
+        tracked = command(["git", "ls-files", "-z"], "git_tracked_files").split("\0")
+        untracked = command(["git", "ls-files", "--others", "--exclude-standard", "-z"],
+                            "git_untracked_files").split("\0")
+        source_manifest = {}
+        for name in sorted(set(tracked + untracked) - {""}):
+            source = ROOT / name
+            if source.is_file():
+                source_manifest[name] = hashlib.sha256(source.read_bytes()).hexdigest()
+        encoded_manifest = json.dumps(source_manifest, sort_keys=True).encode("utf-8")
+        summary["tested_source_manifest_sha256"] = hashlib.sha256(encoded_manifest).hexdigest()
+        (state / "tested_source_manifest.json").write_text(
+            json.dumps(source_manifest, sort_keys=True, indent=2) + "\n", encoding="utf-8")
         if not args.skip_docker:
             require(command(["docker", "info", "--format", "{{.OSType}}"], "docker_info") == "linux",
                     "Docker debe estar en modo Linux")
         python = venv / "Scripts" / "python.exe"
         if not args.reuse_environment:
             command([sys.executable, "-m", "venv", venv], "crear_entorno")
-            command([python, "-m", "pip", "install", "-r", "requirements-analytics-test.txt"], "instalar_dependencias")
+            command([python, "-m", "pip", "install", "-r", "requirements-integration-tools.txt"], "instalar_dependencias")
         # Reutilizar no permite omitir controles ni instalar versiones diferentes.
         probe = command([python, "-c",
                          "import sys,json,importlib.metadata as m; "
                          "print(json.dumps({'python':list(sys.version_info[:2]),"
                          "'versions':{n:m.version(n) for n in json.loads(sys.argv[1])}}))",
-                         json.dumps(pinned_requirements(ROOT / "requirements-analytics-test.txt"))],
+                         json.dumps(pinned_requirements(ROOT / "requirements-integration-tools.txt"))],
                         "verificar_entorno")
         installed = json.loads(probe)
         require(installed["python"] == [3, 10], "El entorno separado no usa Python 3.10")
-        for name, version in pinned_requirements(ROOT / "requirements-analytics-test.txt").items():
+        for name, version in pinned_requirements(ROOT / "requirements-integration-tools.txt").items():
             require(installed["versions"].get(name) == version, "Version incompatible del entorno: " + name)
         summary["environment_reused"] = args.reuse_environment
         command([python, "-m", "pip", "check"], "pip_check")

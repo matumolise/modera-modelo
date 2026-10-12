@@ -68,6 +68,18 @@ def run(args):
     require(historical["configuration_id"] == "smoke-only-not-calibrated",
             "Este smoke exige el perfil de fixture; no usar contra un perfil de producto")
 
+    for conditions in (["none"], ["visual"], ["sensory", "mobility_both"]):
+        code, resolved = request(base, "/v1/activities/eligibility", token,
+                                 {"request_id": "smoke-conditions", "considerations_state": "known",
+                                  "conditions": conditions})
+        require(code == 200, "Fallo la resolucion del formulario")
+        require(resolved["eligibility_state"] == ("known" if conditions == ["none"] else "unknown"),
+                "El formulario invento elegibilidad")
+        if conditions != ["none"]:
+            require("eligibility" not in resolved and resolved["reason"] == "functional_mapping_required",
+                    "Faltantes funcionales convertidos en filtros")
+    print("PASS: formulario explicito, combinaciones y abstencion funcional")
+
     if args.phase == "seed":
         require(not args.receipt_file.exists(), "El archivo de resultados ya existe; usar replay")
         subject = "smoke-device-" + uuid4().hex

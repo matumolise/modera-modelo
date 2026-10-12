@@ -1,0 +1,4 @@
+# Solo preparación F12 y pruebas; no cambia las dependencias del servidor.
+-r requirements-analytics-test.txt
+# Versión presente y comprobada en el entorno de preparación.
+tzdata==2026.5
