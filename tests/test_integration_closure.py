@@ -201,7 +201,7 @@ class PacketIntegrityTests(unittest.TestCase):
 class ConditionsCombinationsTests(unittest.TestCase):
     def test_review_matrix_covers_exact_catalog_without_implying_approval(self):
         from recommendations import ACTIVITY_CATALOG
-        matrix = json.loads((ROOT / "docs/integration/CATALOG_FUNCTIONAL_REVIEW_V2.json").read_text())
+        matrix = json.loads((ROOT / "docs/integration/CATALOG_FUNCTIONAL_REVIEW_V2.json").read_text(encoding="utf-8"))
         self.assertFalse(matrix["automatic_condition_to_filter_mapping"])
         self.assertFalse(matrix["clinical_safety_validated"])
         indexed = {r["activity_id"]: r for r in matrix["activities"]}

@@ -36,7 +36,7 @@ def main():
         outputs["card_history"]=service.history("demo-increase")
         outputs["request_example"]=increase
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    with args.output.open("x") as file:
+    with args.output.open("x", encoding="utf-8") as file:
         json.dump(outputs,file,ensure_ascii=False,indent=2); file.write("\n")
     print("PASS: aumento, disminucion, replay tras reinicio, retorno e historial; datos ficticios")
 

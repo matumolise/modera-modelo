@@ -17,7 +17,7 @@ def main():
     parser.add_argument("--inputs",type=Path,required=True)
     parser.add_argument("--output",type=Path,required=True)
     args=parser.parse_args()
-    source=json.loads(args.inputs.read_text())
+    source=json.loads(args.inputs.read_text(encoding="utf-8"))
     series=source["series"].copy()
     for original in source["series"]:
         if original["scenario"]!="S0": continue
@@ -61,7 +61,7 @@ def main():
     result={"source_sha256":hashlib.sha256(args.inputs.read_bytes()).hexdigest(),"configuration":CONFIG,"configuration_fingerprint":CONFIG_FINGERPRINT,
             "scope":"dependent_fictitious_series_internal_profile_evaluation", "n_series":len(series),"n_evaluations":len(decisions),"cells":list(summaries.values()),"decisions":decisions}
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")
+    args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n", encoding="utf-8")
     print(json.dumps({"n_series":len(series),"n_evaluations":len(decisions),"output":str(args.output)}))
 
 
