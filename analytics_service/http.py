@@ -15,6 +15,7 @@ from .historical_api import (HistoricalRuntime, HistoricalConflict, HistoricalUn
 from .historical_config import HISTORICAL_API_VERSION
 from .condition_mapping import MAPPING_VERSION, resolve_considerations
 from .json_codec import strict_json as _strict_json
+from .adult_messages import AdultMessageService, MessageConflict, MessageUnavailable, VERSION as MESSAGES_VERSION
 
 API_VERSION = "analytics-api-v3-integration-candidate"
 
@@ -90,6 +91,7 @@ def create_app(settings):
         try:
             app.state.pmum = CachedPmum(settings) if settings.pmum_enabled else None
             app.state.historical = HistoricalRuntime(settings) if settings.historical_enabled else None
+            app.state.adult_messages = AdultMessageService(settings.adult_messages_repository_path) if settings.adult_messages_enabled else None
             app.state.started = True
             yield
         finally:
@@ -98,10 +100,12 @@ def create_app(settings):
                 app.state.historical.close()
             app.state.historical = None
             app.state.pmum = None
+            app.state.adult_messages = None
 
     app = FastAPI(lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.started, app.state.pmum = False, None
     app.state.historical = None
+    app.state.adult_messages = None
     app.add_middleware(TransportGuard, settings=settings)
 
     @app.exception_handler(StarletteHTTPException)
@@ -126,12 +130,17 @@ def create_app(settings):
         pmum_ready = bool(model and model.ready)
         historical = app.state.historical
         historical_ready = bool(historical and historical.check_ready())
-        ready = (app.state.started and (settings.pmum_enabled or settings.activities_enabled or settings.historical_enabled)
+        messages_ready = bool(app.state.adult_messages and app.state.adult_messages.check_ready())
+        ready = (app.state.started and (settings.pmum_enabled or settings.activities_enabled or settings.historical_enabled or settings.adult_messages_enabled)
                  and (not settings.pmum_enabled or pmum_ready)
+                 and (not settings.adult_messages_enabled or messages_ready)
                  and (not settings.historical_enabled or historical_ready))
         return reply({
             "status": "ready" if ready else "not_ready", "api_version": API_VERSION,
             "capabilities": {
+                **({"adult_messages": {"state": "READY" if messages_ready and app.state.started else "UNAVAILABLE",
+                                       "version": MESSAGES_VERSION, "scope": "internal_candidate_not_family_validated"}}
+                   if settings.adult_messages_enabled else {}),
                 "pmum": {"state": "DISABLED" if not settings.pmum_enabled else "READY" if pmum_ready else "UNAVAILABLE",
                          "model_version": model.version if model else None},
                 "activities": {"state": "READY" if settings.activities_enabled and app.state.started else "DISABLED" if not settings.activities_enabled else "UNAVAILABLE",
@@ -203,6 +212,35 @@ def create_app(settings):
             return reply({"error": str(exc)}, 409)
         except HistoricalUnavailable:
             return reply({"error": "historical_unavailable"}, 503)
+
+    @app.post("/v1/adult-messages/evaluate")
+    async def adult_messages(request: Request):
+        if not app.state.started or app.state.adult_messages is None:
+            return reply({"error": "adult_messages_disabled"}, 503)
+        parsed, error = await parse(request)
+        if error is not None:
+            return error
+        from starlette.concurrency import run_in_threadpool
+        try:
+            return reply(await run_in_threadpool(app.state.adult_messages.evaluate, parsed))
+        except MessageConflict as exc:
+            return reply({"error": str(exc)}, 409)
+        except MessageUnavailable:
+            return reply({"error": "adult_messages_unavailable"}, 503)
+        except (ValueError, TypeError, OverflowError):
+            return reply({"error": "invalid_adult_message_request"}, 400)
+
+    @app.get("/v1/adult-messages/profiles/{profile_id}/history")
+    async def adult_message_history(profile_id: str):
+        if not app.state.started or app.state.adult_messages is None:
+            return reply({"error": "adult_messages_disabled"}, 503)
+        from starlette.concurrency import run_in_threadpool
+        try:
+            return reply({"versions": await run_in_threadpool(app.state.adult_messages.history, profile_id)})
+        except ValueError:
+            return reply({"error": "invalid_profile_id"}, 400)
+        except MessageUnavailable:
+            return reply({"error": "adult_messages_unavailable"}, 503)
 
     return app
 

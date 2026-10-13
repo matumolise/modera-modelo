@@ -22,6 +22,8 @@ class Settings:
     historical_enabled: bool = False
     historical_repository_path: Path | None = None
     historical_config_path: Path | None = None
+    adult_messages_enabled: bool = False
+    adult_messages_repository_path: Path | None = None
 
     def __post_init__(self):
         if (not isinstance(self.token, str) or len(self.token) < 16
@@ -31,7 +33,7 @@ class Settings:
         if not self.host or type(self.port) is not int or not 1 <= self.port <= 65535:
             raise ValueError("Host o puerto inválido")
         if any(type(value) is not bool for value in
-               (self.pmum_enabled, self.activities_enabled, self.historical_enabled)):
+               (self.pmum_enabled, self.activities_enabled, self.historical_enabled, self.adult_messages_enabled)):
             raise ValueError("Las capacidades requieren valores booleanos")
         if (isinstance(self.body_timeout_seconds, bool)
                 or not isinstance(self.body_timeout_seconds, (float, int))
@@ -49,6 +51,12 @@ class Settings:
             if any(not isinstance(path, Path) or not path.is_absolute() for path in
                    (self.historical_repository_path, self.historical_config_path)):
                 raise ValueError("Historico requiere rutas absolutas de perfil y repositorio")
+        if self.adult_messages_enabled:
+            if not isinstance(self.adult_messages_repository_path, Path) or not self.adult_messages_repository_path.is_absolute():
+                raise ValueError("Mensajes adultos requieren una base absoluta independiente de C1")
+            if (self.historical_repository_path is not None
+                    and self.adult_messages_repository_path.resolve() == self.historical_repository_path.resolve()):
+                raise ValueError("Mensajes adultos y C1 requieren repositorios diferentes")
 
     @classmethod
     def from_env(cls):
@@ -75,4 +83,7 @@ class Settings:
                 if os.environ.get("ANALYTICS_HISTORICAL_REPOSITORY_PATH") else None,
             historical_config_path=Path(os.environ["ANALYTICS_HISTORICAL_CONFIG_PATH"])
                 if os.environ.get("ANALYTICS_HISTORICAL_CONFIG_PATH") else None,
+            adult_messages_enabled=boolean("ANALYTICS_ADULT_MESSAGES_ENABLED", "false"),
+            adult_messages_repository_path=Path(os.environ["ANALYTICS_ADULT_MESSAGES_REPOSITORY_PATH"])
+                if os.environ.get("ANALYTICS_ADULT_MESSAGES_REPOSITORY_PATH") else None,
         )
