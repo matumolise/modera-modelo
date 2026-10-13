@@ -1,5 +1,10 @@
 # F16: recibos históricos y alcance del motor infantil
 
+Actualización de lectura, 13/10/2026: la sección de comunicación al adulto
+conserva el estado histórico F16. El motor de mensajes fue implementado y probado
+después; consultar [entrega vigente](../integration/JUANMA_DELIVERY_2026-10-13.md).
+Los pendientes infantiles/profesionales no se cierran por ese avance.
+
 ## Base y estado
 
 El ajuste de recibos se preparó sobre b52667a99864d1bb5279ff4e347e5838e32d6870

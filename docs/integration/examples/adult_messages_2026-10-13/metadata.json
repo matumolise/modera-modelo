@@ -1,0 +1,29 @@
+{
+  "all_examples_fictitious": true,
+  "tested_code_commit": "1fd977c8d03409778ea8ae67ca1cfc5fc842aba5",
+  "scope": "CONTROLLED_FIXTURE_ONLY",
+  "source_fixture_run": "analytics-integrated-path-evidence/fixture_run_final",
+  "source_case_sha256": "595d5760654ef6415161a41953191b92d79f23bff21b70985cb85ed09124648c",
+  "quality_assignment_basis": "Controlled fixture oracle only; not real coverage or attribution",
+  "coverage_remains_unknown": true,
+  "c1_configuration_id": "smoke-only-not-calibrated",
+  "requests_are_exact_http_bodies": true,
+  "metadata_is_not_an_http_body": true,
+  "hash_basis": "SHA256 of canonical JSON: sorted keys, compact separators, ensure_ascii=false, UTF-8; independent of LF/CRLF",
+  "files_canonical_json_sha256": {
+    "opening_request.fictitious.json": "9e53940f582f5bcc4b76aad38632db441d957b344291844b5f6414a3163132c1",
+    "opening_response.fictitious.json": "7a86fec8d286eead62b2f5403e458aee081505f530b2f6f81064e642912e9061",
+    "return_response.fictitious.json": "aec1284ed36d7ceece5d1a96a097a19dca74a55231badc46bdc3a40d46efcbc8",
+    "history.fictitious.json": "42ec6aaca90a6ec9012822479fb1e9aaa7b83ccc8aaff2191443f0106b96b086",
+    "insufficient_request.fictitious.json": "90fec3d8a7cc70af0ed8ae8603b791887fce3b46ddb3c0349ca879ada70a6c5c",
+    "insufficient_response.fictitious.json": "1b693bfbe0b502433baa51ad0e5617e333824d77a1573b2037a8e465744751de"
+  },
+  "files_git_blobs": {
+    "opening_request.fictitious.json": "0dd6305ed40628011160507a18f25b0b41825077",
+    "opening_response.fictitious.json": "615ea7efc89daae377fbd0e9a14a3d67ab04a2f1",
+    "return_response.fictitious.json": "3717ac89088ff3b703d27823dce634aaa170ebda",
+    "history.fictitious.json": "37f520fe03e6a33fe9c41c21b04755fed2bd1dd1",
+    "insufficient_request.fictitious.json": "9cfd56ffe95b2a0edab78d078b94d36c820a6834",
+    "insufficient_response.fictitious.json": "2dbbeec5edb243da5488c7014eea96bc6ecb3039"
+  }
+}

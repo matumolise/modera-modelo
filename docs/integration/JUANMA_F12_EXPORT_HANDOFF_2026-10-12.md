@@ -1,5 +1,11 @@
 # Mensaje completo para Juanma — borrador, no enviado
 
+Nota del 13/10/2026: conservar este borrador como antecedente; no enviarlo como
+estado vigente. La entrega actual es
+[JUANMA_DELIVERY_2026-10-13.md](JUANMA_DELIVERY_2026-10-13.md). Las afirmaciones
+posteriores de este borrador sobre tarjetas inexistentes y comparación 7/7
+corresponden a su fecha/base y fueron reemplazadas por la implementación adulta.
+
 Juanma, te paso el estado de integración y una ampliación para conectar el export diagnóstico Android F12 con el preparador histórico. Separé lo publicado de lo que todavía estamos validando, para que puedas avanzar sin interpretar las pruebas técnicas como aprobación de uso real.
 
 **Código publicado y nuevo candidato**

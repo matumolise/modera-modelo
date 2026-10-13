@@ -1,0 +1,112 @@
+{
+  "versions": [
+    {
+      "version": 1,
+      "card": {
+        "card_id": "6b28c17a7070a40f7609476b4d2a286a3dc4bd772455dafe69051f6db8963991",
+        "comparison_recent_start": "2026-01-19",
+        "configuration_fingerprint": "2e1e9a100fe70ca36fb5b44a79b32aed0350d0a0290dc260b8b36ab1e99a9adc",
+        "configuration_id": "adult-messages-internal-candidate-v1",
+        "delivery_status": "CANDIDATE_NOT_DELIVERED",
+        "direction": "INCREASE",
+        "evaluation_date": "2026-02-02",
+        "measurement": "uso registrado en este teléfono",
+        "measurement_detail": "Duración de pantalla interactiva registrada por Android. No incluye otras pantallas ni identifica por sí sola quién usó el teléfono.",
+        "opening_recent_start": "2026-01-19",
+        "opening_reference_start": "2026-01-05",
+        "profile_id": "fixture-profile-increase_return",
+        "recommendation": "Podés conversar con tu hijo/a sobre qué cambió en la rutina y acordar juntos un momento para una actividad que disfruten.",
+        "scope": "internal_candidate_not_family_validated",
+        "series_id": "series-fd8c54d19fb71f46a236f1debc3f397a6356814035cbb6d29d378de63cc5c8b3",
+        "statistics": {
+          "above": 14.0,
+          "below": 0.0,
+          "delta": 40.0,
+          "maximum": 40.317460317460316,
+          "minimum": 39.682539682539684,
+          "observed_days_recent": 14,
+          "observed_days_reference": 14,
+          "percent_change": 40.0,
+          "recent": 140.0,
+          "reference": 100.0
+        },
+        "status": "ACTIVE",
+        "text": "Del 2026-01-19 al 2026-02-01 se registraron 2 h 20 min por día en este teléfono; en la referencia (2026-01-05 al 2026-01-18), 1 h 40 min. Son 40 min más por día.",
+        "time_zone": "America/Argentina/Buenos_Aires",
+        "title": "Más uso registrado en este teléfono"
+      }
+    },
+    {
+      "version": 2,
+      "card": {
+        "card_id": "6b28c17a7070a40f7609476b4d2a286a3dc4bd772455dafe69051f6db8963991",
+        "comparison_recent_start": "2026-01-26",
+        "configuration_fingerprint": "2e1e9a100fe70ca36fb5b44a79b32aed0350d0a0290dc260b8b36ab1e99a9adc",
+        "configuration_id": "adult-messages-internal-candidate-v1",
+        "delivery_status": "CANDIDATE_NOT_DELIVERED",
+        "direction": "INCREASE",
+        "evaluation_date": "2026-02-09",
+        "measurement": "uso registrado en este teléfono",
+        "measurement_detail": "Duración de pantalla interactiva registrada por Android. No incluye otras pantallas ni identifica por sí sola quién usó el teléfono.",
+        "opening_recent_start": "2026-01-19",
+        "opening_reference_start": "2026-01-05",
+        "profile_id": "fixture-profile-increase_return",
+        "recommendation": "Podés conversar con tu hijo/a sobre qué cambió en la rutina y acordar juntos un momento para una actividad que disfruten.",
+        "scope": "internal_candidate_not_family_validated",
+        "series_id": "series-fd8c54d19fb71f46a236f1debc3f397a6356814035cbb6d29d378de63cc5c8b3",
+        "statistics": {
+          "above": 10.0,
+          "below": 3.0,
+          "delta": 20.0,
+          "maximum": 22.0,
+          "minimum": 18.0,
+          "observed_days_recent": 14,
+          "observed_days_reference": 14,
+          "percent_change": 20.0,
+          "recent": 120.0,
+          "reference": 100.0
+        },
+        "status": "INCONCLUSIVE",
+        "text": "Del 2026-01-26 al 2026-02-08 se registraron 2 h 00 min por día en este teléfono; en la referencia (2026-01-05 al 2026-01-18), 1 h 40 min. Son 20 min más por día. Seguimos observando; estos datos no alcanzan para confirmar ni cerrar el aviso.",
+        "time_zone": "America/Argentina/Buenos_Aires",
+        "title": "Actualización del aviso"
+      }
+    },
+    {
+      "version": 3,
+      "card": {
+        "card_id": "6b28c17a7070a40f7609476b4d2a286a3dc4bd772455dafe69051f6db8963991",
+        "comparison_recent_start": "2026-02-02",
+        "configuration_fingerprint": "2e1e9a100fe70ca36fb5b44a79b32aed0350d0a0290dc260b8b36ab1e99a9adc",
+        "configuration_id": "adult-messages-internal-candidate-v1",
+        "delivery_status": "CANDIDATE_NOT_DELIVERED",
+        "direction": "INCREASE",
+        "evaluation_date": "2026-02-16",
+        "measurement": "uso registrado en este teléfono",
+        "measurement_detail": "Duración de pantalla interactiva registrada por Android. No incluye otras pantallas ni identifica por sí sola quién usó el teléfono.",
+        "opening_recent_start": "2026-01-19",
+        "opening_reference_start": "2026-01-05",
+        "profile_id": "fixture-profile-increase_return",
+        "recommendation": "Podés conversar con tu hijo/a sobre qué cambió en la rutina y acordar juntos un momento para una actividad que disfruten.",
+        "scope": "internal_candidate_not_family_validated",
+        "series_id": "series-fd8c54d19fb71f46a236f1debc3f397a6356814035cbb6d29d378de63cc5c8b3",
+        "statistics": {
+          "above": 6.0,
+          "below": 6.0,
+          "delta": 0.0,
+          "maximum": 0.31746031746031744,
+          "minimum": -0.31746031746031744,
+          "observed_days_recent": 14,
+          "observed_days_reference": 14,
+          "percent_change": 0.0,
+          "recent": 100.0,
+          "reference": 100.0
+        },
+        "status": "RESOLVED",
+        "text": "Del 2026-02-02 al 2026-02-15 se registraron 1 h 40 min por día en este teléfono; en la referencia (2026-01-05 al 2026-01-18), 1 h 40 min. Son 0 min de diferencia por día. Cerramos este aviso. El promedio registrado ya no mantiene la diferencia que lo abrió.",
+        "time_zone": "America/Argentina/Buenos_Aires",
+        "title": "Actualización del aviso"
+      }
+    }
+  ]
+}

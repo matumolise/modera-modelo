@@ -1,5 +1,11 @@
 # Backlog único corroborado de Moderá
 
+Actualización de lectura, 13/10/2026: este inventario conserva el estado de su
+fecha. Para el candidato `1fd977c` y los cierres posteriores, usar
+[JUANMA_DELIVERY_2026-10-13.md](JUANMA_DELIVERY_2026-10-13.md): motor adulto,
+reglas 14/14, revisiones y pruebas Windows ya no están pendientes de implementación.
+Las dependencias externas no se cierran por esa actualización.
+
 Inventario de lo recuperable en esta auditoría, no certificación de que todos
 los chats/archivos del proyecto estén accesibles. Base 94ff3a8 verificada; las
 cuatro ramas entregadas permanecen intactas. Cambios nuevos en rama separada.

@@ -98,8 +98,12 @@ se exige su conservación exacta dentro de cada ejecución y su replay.
 La advertencia es la deprecación ya existente de Starlette/httpx. No se cambia
 la dependencia. Los subtests no se suman como tests independientes.
 Estos resultados corresponden a los archivos de este bloque. Las pruebas
-previas de 7b7d0f5 no se atribuyen a este candidato; Windows aún no fue ejecutado
-para esta nueva revisión. Los datos generados por tests de raíz se restauran
+previas de 7b7d0f5 no se atribuyen a este candidato. Windows se comprobó después
+por Matías sobre `1fd977c`: siete tests integrados, CLI PASS y regresión con
+384 aprobados, uno omitido, 190 subtests y una advertencia. Se conserva su
+[evidencia documental](../integration/evidence/windows_integrated_2026-10-13/validation_summary.json),
+basada en consola recibida; el XML Windows no fue aportado aquí.
+Los datos generados por tests de raíz se restauran
 y no se incluyen en el commit.
 
 C1 se ejecuta con el fixture existente `smoke-only-not-calibrated`, sin modificarlo.

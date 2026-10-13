@@ -1,0 +1,238 @@
+{
+  "request_id": "fixture-message-missing_day-28",
+  "profile_id": "fixture-profile-missing_day",
+  "series_id": "series-00efcb64cdf1b49ecb4931777fa31d0a3762190aaefa3409730b66ba041b3178",
+  "time_zone": "America/Argentina/Buenos_Aires",
+  "evaluation_date": "2026-02-02",
+  "assignment_verified": true,
+  "shared_phone": false,
+  "context_declared": false,
+  "days": [
+    {
+      "date": "2026-01-05",
+      "revision": 1,
+      "minutes": 100.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-06",
+      "revision": 1,
+      "minutes": 102.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-07",
+      "revision": 1,
+      "minutes": 98.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-08",
+      "revision": 1,
+      "minutes": 104.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-09",
+      "revision": 1,
+      "minutes": 96.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-10",
+      "revision": 1,
+      "minutes": 101.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-11",
+      "revision": 1,
+      "minutes": 99.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-12",
+      "revision": 1,
+      "minutes": 100.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-13",
+      "revision": 1,
+      "minutes": 102.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-14",
+      "revision": 1,
+      "minutes": 98.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-15",
+      "revision": 1,
+      "minutes": null,
+      "observed": false,
+      "quality_verified": false
+    },
+    {
+      "date": "2026-01-16",
+      "revision": 1,
+      "minutes": 96.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-17",
+      "revision": 1,
+      "minutes": 101.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-18",
+      "revision": 1,
+      "minutes": 99.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-19",
+      "revision": 1,
+      "minutes": 140.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-20",
+      "revision": 1,
+      "minutes": 142.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-21",
+      "revision": 1,
+      "minutes": 138.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-22",
+      "revision": 1,
+      "minutes": 144.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-23",
+      "revision": 1,
+      "minutes": 136.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-24",
+      "revision": 1,
+      "minutes": 141.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-25",
+      "revision": 1,
+      "minutes": 139.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-26",
+      "revision": 1,
+      "minutes": 140.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-27",
+      "revision": 1,
+      "minutes": 142.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-28",
+      "revision": 1,
+      "minutes": 138.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-29",
+      "revision": 1,
+      "minutes": 144.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-30",
+      "revision": 1,
+      "minutes": 136.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-01-31",
+      "revision": 1,
+      "minutes": 141.0,
+      "observed": true,
+      "quality_verified": true
+    },
+    {
+      "date": "2026-02-01",
+      "revision": 1,
+      "minutes": 139.0,
+      "observed": true,
+      "quality_verified": true
+    }
+  ],
+  "c1_evidence_ids": [
+    "eval-e22342bda69344299ef0526cc2bfc2a0",
+    "eval-5208b92497b34c5a97c8c69301ea0810",
+    "eval-456de65930ff47568754966d984e2aa4",
+    "eval-6e75bc7fa436477f98aca64394fb0537",
+    "eval-c3711166080241438362e63d39831088",
+    "eval-ae583e4096584a8b8f0f4727e6e641fa",
+    "eval-1f141aa1475444f7a6a6e71ea3eef3eb",
+    "eval-5b62e62a17c0492692603f91f56f9fdb",
+    "eval-64d9273679fe4b2ea95993e138b07ac0",
+    "eval-0b2683dee64b4bd1a156c20b0e56d9bc",
+    "eval-89634ec8241745dcb961f736658b2fe6",
+    "eval-0c36dae88d354d19bdf010274e44e853",
+    "eval-7116494dac1846ce8c3e3cab1ceee739",
+    "eval-9dea302eeb414e0b96743e371632b0c3",
+    "eval-c5a961c58c664081813aa132c85ab6f4",
+    "eval-3692cae43ce2487696d27bafd139bf38",
+    "eval-d8351e52ac77422784af58a6c73d0842",
+    "eval-77e4f48f41754c3394245cf8fec1b7d2",
+    "eval-50f5d0f09ad14311ac5fb3b270b0a6ce",
+    "eval-a1611e72925f4e19890ec8f137721560",
+    "eval-e1d7e83cf12643629ed55c8b5216ddd8",
+    "eval-a9051c976cb24844898264cbb9e3d19d",
+    "eval-fa38fd864e7c41b3933f78d205a5a9ad",
+    "eval-c2dc3191de634f47914056432764a5bc",
+    "eval-10d77b3f0c874d84936ef2d2a04d3af5",
+    "eval-0aa926b73833465d85536c9080f2df2b",
+    "eval-eb1996997c494775b37cf06ba3edc0bf",
+    "eval-2f26ccbc446943caaf13af51f00d4076"
+  ]
+}

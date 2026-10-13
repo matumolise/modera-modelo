@@ -1,5 +1,11 @@
 # Cierre diario, orden y corrección de evidencia
 
+Nota del 13/10/2026: la inmutabilidad y ausencia de API de corrección aquí
+descritas siguen aplicando a C1. El servicio independiente de mensajes al adulto
+sí admite revisiones diarias y versiones de tarjetas; su regla vigente es 14/14.
+Ver [contrato de integración adulto](BACKEND_ADULT_MESSAGES_CONTRACT_2026-10-13.md).
+No confundir esa revisión con rebuild o sobrescritura de recibos C1.
+
 Contrato propuesto para el backend, con preflight offline implementado. No es
 un nuevo formato del collector, endpoint C1 ni política de expiración.
 Base publicada 94ff3a8; cambios solo en integration-audit-closure-candidate.

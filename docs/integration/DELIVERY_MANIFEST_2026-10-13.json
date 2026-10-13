@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "prepared_date": "2026-10-13",
+  "code_branch": "adult-messages-integrated-path-candidate",
+  "code_commit": "1fd977c8d03409778ea8ae67ca1cfc5fc842aba5",
+  "code_tree": "fabbb37b5fe584106f87166cc6ff089504fde52c",
+  "documentation_branch": "adult-messages-handoff-ready-candidate",
+  "documentation_parent": "1fd977c8d03409778ea8ae67ca1cfc5fc842aba5",
+  "published_integrated_candidate_at_check": false,
+  "published_audit_commit": "7b7d0f50aa419d0ee8642bf825f6db8330422797",
+  "remote_check_method": "git ls-remote origin, 2026-10-13",
+  "production_code_changed": false,
+  "adult_message_config": {
+    "version": "adult-messages-internal-candidate-v1",
+    "window_days": 14,
+    "increase_minutes": 20,
+    "minimum_direction_days": 10,
+    "return_margin_minutes": 5,
+    "maximum_episode_days": 56,
+    "cooldown_days": 14,
+    "maximum_new_cards": 1,
+    "limit_period_days": 28,
+    "c1_role": "complementary_technical_evidence",
+    "pmum_role": "none",
+    "scope": "internal_candidate_not_family_validated"
+  },
+  "adult_message_config_fingerprint": "2e1e9a100fe70ca36fb5b44a79b32aed0350d0a0290dc260b8b36ab1e99a9adc",
+  "pmum_version": "hu_pmum_sf_experimental_v1",
+  "pmum_binary_included": false,
+  "external_original_pmum_sha256": "56c991f40e56d2241196dc6f9efc1c9027c079e98a1b67549f48b10292e371e0",
+  "c1_reference_policy": "all_prior_usable_records_v1",
+  "c1_product_profile_supplied": false,
+  "linux_regression": {
+    "passed": 385,
+    "subtests_passed": 190,
+    "warnings": 1
+  },
+  "windows_evidence": "evidence/windows_integrated_2026-10-13/validation_summary.json",
+  "contract": "BACKEND_ADULT_MESSAGES_CONTRACT_2026-10-13.md",
+  "source_files": {
+    "analytics_api.py": {
+      "git_blob": "86bbcfa5cd92c6168a447935dcc3b9610055150e"
+    },
+    "analytics_service/http.py": {
+      "git_blob": "1f2f5e71831d36bb7f099eb2e3cee7ab78237d40"
+    },
+    "analytics_service/settings.py": {
+      "git_blob": "122bc82a7f417b2e1612de832c95d7ea9c46c40e"
+    },
+    "analytics_service/adult_messages.py": {
+      "git_blob": "874b3e15df91018eafc567e5abde3e62a7b36a07"
+    },
+    "analytics_service/f12_export.py": {
+      "git_blob": "2830caecbfbe5dd9033dc32c859c5da2eb603f16"
+    },
+    "analytics_service/f12_bridge.py": {
+      "git_blob": "03fec658bbfa3093ebba003fa8390729a3080f74"
+    },
+    "analytics_service/daily_delivery.py": {
+      "git_blob": "18309cb693381bfa4c6dc5dc4c6090d750f817b9"
+    },
+    "analytics_service/historical_api.py": {
+      "git_blob": "39557e156f0d87d5fe01ecc64d4abe7fe190e332"
+    },
+    "analytics_service/historical_config.py": {
+      "git_blob": "77dd5ef3a2d7d44c8afa605c1242628a1a5b27c7"
+    },
+    "analytics_service/pmum.py": {
+      "git_blob": "cbbe65b4f6ee96bacb7bf178b1d3af90cd884a23"
+    },
+    "analytics_service/pmum_manifest.py": {
+      "git_blob": "d1b9fc365b25258c67a4a256448f4d04f7f3ff90"
+    },
+    "tools/integration/build_historical_request_from_export.py": {
+      "git_blob": "ae885d1bd2026bd2a45bfa97c7699f26c05cdf20"
+    },
+    "tools/integration/verify_f12_phone_parity.py": {
+      "git_blob": "2b7d20bc8dfa75de508159c6f6e770c54bbd9de1"
+    },
+    "tools/validation/verify_analytics_integrated_path.py": {
+      "git_blob": "e8f748f8c0e95151219807dbd27f03401320604d"
+    },
+    "tests/test_analytics_integrated_path.py": {
+      "git_blob": "89865f31acbf3c4c9394e95f1a81ad53b3263dd0"
+    },
+    "tests/test_adult_messages.py": {
+      "git_blob": "67665bb9b53465e16599c157190725e877ff5d4a"
+    },
+    "tests/test_adult_messages_audit.py": {
+      "git_blob": "3f3d1f14aee5b9a1c0ba3eb11bfe7ad0c0689e92"
+    },
+    "experiments/hu_pmum_candidate_v1.py": {
+      "git_blob": "b087b9024f068b24fb4f7f4d48609e3834819693"
+    },
+    "experiments/hu_pmum_parent_adapter_v2.py": {
+      "git_blob": "075baa234a61b5acb70ebfd4659f021b2dbe5721"
+    },
+    "recommendations.py": {
+      "git_blob": "d7a260b70f3cf0d5a4a4ffcd9c0c3aa6eb16d760"
+    },
+    "intervention_engine.py": {
+      "git_blob": "08d46581cb2a996d0f11afb1d4a9869e372091b1"
+    },
+    "intervention_history.py": {
+      "git_blob": "e3f28bfb7f065bcec40084e2539d1c6653c39855"
+    },
+    "intervention_service.py": {
+      "git_blob": "f72db907bcfcce39514183b0fa727176fd4bb6ad"
+    },
+    "Dockerfile.analytics": {
+      "git_blob": "495cdb6d047c027248faa3c361e8264c5c98487d"
+    },
+    "compose.analytics-historical.candidate.yml": {
+      "git_blob": "5ed0ae0c90999813147e6fe60e437e216cbcee02"
+    },
+    "requirements-analytics.txt": {
+      "git_blob": "32dc73a252c92ea2eebf935a73b98df0ccd17a95"
+    },
+    "requirements-analytics-test.txt": {
+      "git_blob": "a24fb3abab9a8e48fc61492faa74de20c2c71aa6"
+    },
+    "requirements-integration-tools.txt": {
+      "git_blob": "52a332e3dba6a2eea255070cf02b3539316877e9"
+    },
+    "tests/fixtures/historical_c1_smoke_only.json": {
+      "git_blob": "76e76d8441df3bcabab0c9c9b82c30023f370c16"
+    }
+  }
+}

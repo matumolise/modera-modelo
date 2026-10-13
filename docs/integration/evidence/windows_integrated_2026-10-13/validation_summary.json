@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "tested_commit": "1fd977c8d03409778ea8ae67ca1cfc5fc842aba5",
+  "reported_by": "Matías Molise",
+  "reported_date_local": "2026-10-13",
+  "time_zone": "America/Buenos_Aires",
+  "source": "User console excerpts in this conversation; not agent Windows execution",
+  "scope": "FICTITIOUS_IN_PROCESS_ANALYTICS_PATH",
+  "result": "PASS",
+  "integrated_tests": {
+    "passed": 7,
+    "warnings": 1,
+    "seconds": 27.55
+  },
+  "full_regression": {
+    "passed": 384,
+    "skipped": 1,
+    "subtests_passed": 190,
+    "warnings": 1,
+    "seconds": 106.8
+  },
+  "cli_result": "PASS",
+  "fixture_cases": 4,
+  "xml_received_by_agent": false,
+  "user_xml_path": "C:\\tesis_mensajes_integrado_v1\\recorrido_integrado_windows.xml",
+  "user_fixture_output_path": "C:\\tesis_mensajes_integrado_v1\\recorrido_integrado_ficticio_windows",
+  "skipped_test_identity_confirmed": false,
+  "production_capture_verified": false,
+  "backend_android_integration_verified": false,
+  "new_docker_execution_verified": false,
+  "console_excerpt_sha256": "8589753a7c72ef732d244f2dc3fae4a3e0ea5c2bebad95aab082919b722094ba",
+  "console_excerpt_sha256_basis": "UTF-8 with LF, as stored in the Git blob; not raw Windows log bytes",
+  "console_excerpt_git_blob": "eb57cc0cf0480815d5e8278e40cbd91090f12baf"
+}
