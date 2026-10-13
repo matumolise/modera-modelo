@@ -291,8 +291,22 @@ class AdultMessageService:
         self.path = Path(path)
         if not self.path.is_absolute():
             raise ValueError("absolute_message_database_required")
+        already_exists = self.path.exists()
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with closing(self.connect()) as db, db:
+            if already_exists:
+                # Sólo inicializar un archivo nuevo. Un repositorio incompleto no
+                # se repara creando tablas vacías: eso ocultaría pérdida de historia.
+                try:
+                    saved = db.execute("SELECT fingerprint FROM config WHERE id=1").fetchone()
+                    for table in ("states", "receipts", "evaluations", "revisions", "cards"):
+                        db.execute("SELECT 1 FROM "+table+" LIMIT 1").fetchone()
+                except sqlite3.Error:
+                    raise MessageUnavailable("adult_message_repository_unavailable") from None
+                if not saved:
+                    raise MessageUnavailable("adult_message_repository_unavailable")
+                if saved[0] != CONFIG_FINGERPRINT:
+                    raise MessageConflict("configuration_changed_requires_new_store")
             db.executescript('''
                 CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY, fingerprint TEXT NOT NULL);
                 CREATE TABLE IF NOT EXISTS states (profile TEXT PRIMARY KEY, state TEXT NOT NULL);
@@ -330,6 +344,16 @@ class AdultMessageService:
                 result = json.loads(equivalent[0]); result["replayed"] = True
                 db.execute("INSERT INTO receipts VALUES(?,?,?,?)", (p["request_id"],fingerprint,canonical(result),canonical(p)))
                 db.commit(); return result
+            previous_receipts = [
+                (json.loads(row[0]), json.loads(row[1]))
+                for row in db.execute(
+                    "SELECT r.payload,r.result FROM receipts r JOIN evaluations e "
+                    "ON r.fingerprint=e.fingerprint WHERE e.profile=?", (p["profile_id"],)
+                )
+            ]
+            if any(prior["series_id"] == p["series_id"] and prior["time_zone"] != p["time_zone"]
+                   for prior, _ in previous_receipts):
+                raise MessageConflict("series_time_zone_conflict")
             corrected_dates = []
             for row in p["days"]:
                 key = (p["profile_id"],p["series_id"],row["date"])
@@ -345,7 +369,20 @@ class AdultMessageService:
             persisted = db.execute("SELECT content FROM revisions r WHERE profile=? AND series=? AND day<? AND revision=(SELECT MAX(revision) FROM revisions x WHERE x.profile=r.profile AND x.series=r.series AND x.day=r.day) ORDER BY day", (p["profile_id"],p["series_id"],p["evaluation_date"])).fetchall()
             p["days"] = [json.loads(row[0]) for row in persisted]
             old = db.execute("SELECT state FROM states WHERE profile=?", (p["profile_id"],)).fetchone()
-            state, result = advance(json.loads(old[0]) if old else None, p)
+            previous_state = json.loads(old[0]) if old else None
+            if previous_state is not None and "c1_stale_by_series" not in previous_state:
+                # Compatibilidad con stores v1: reconstruir sólo las advertencias
+                # de correcciones reales, sin modificar los recibos históricos.
+                stale_by_series = {}
+                for prior, receipt in previous_receipts:
+                    dates = receipt.get("corrected_dates", [])
+                    if dates:
+                        series = prior["series_id"]
+                        candidates = dates + ([stale_by_series[series]] if series in stale_by_series else [])
+                        stale_by_series[series] = min(candidates)
+                previous_state["c1_stale_by_series"] = stale_by_series
+                previous_state.pop("c1_stale_since", None)
+            state, result = advance(previous_state, p)
             result["corrected_dates"] = corrected_dates
             result["historical_card_corrections"] = []
             terminal = {"RESOLVED", "WITHDRAWN", "EXPIRED", "SERIES_CHANGED", "CORRECTED_HISTORY"}
@@ -368,10 +405,11 @@ class AdultMessageService:
                 previous_card["updated_date"] = p["evaluation_date"]
                 db.execute("INSERT INTO cards VALUES(?,?,?,?)", (card_id,version+1,p["profile_id"],canonical(previous_card)))
                 result["historical_card_corrections"].append({"card_id":card_id,"version":version+1,"status":previous_card["status"]})
+            stale_by_series = state.setdefault("c1_stale_by_series", {})
             if corrected_dates:
-                old_stale = state.get("c1_stale_since")
-                state["c1_stale_since"] = min(corrected_dates+[old_stale] if old_stale else corrected_dates)
-            result["c1_correction_warning_since"] = state.get("c1_stale_since")
+                old_stale = stale_by_series.get(p["series_id"])
+                stale_by_series[p["series_id"]] = min(corrected_dates+[old_stale] if old_stale else corrected_dates)
+            result["c1_correction_warning_since"] = stale_by_series.get(p["series_id"])
             result["replayed"] = False
             result["evaluation_id"] = fingerprint
             result["card_version"] = None

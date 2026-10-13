@@ -22,7 +22,7 @@ candidato interno. No equivale a eficacia demostrada ni configuración clínica.
 | Correcciones de tarjetas terminadas | Nueva versión WITHDRAWN si apertura se invalida; en otro caso CORRECTED_HISTORY sin cifras obsoletas ni reapertura retroactiva |
 | Idempotencia | Mismo request con mismo contenido=replay; otro contenido=409; contenido equivalente con nuevo request=replay |
 | Orden | Evaluaciones por perfil no retroceden; admite revisión de la misma fecha; BEGIN IMMEDIATE serializa |
-| C1 | Evidencia complementaria con IDs; sin gate, reset, reentrenamiento ni sobrescritura. Correcciones marcan advertencia desde la fecha más temprana |
+| C1 | Evidencia complementaria con IDs; sin gate, reset, reentrenamiento ni sobrescritura. Correcciones marcan advertencia desde la fecha más temprana de esa serie |
 | PMUM | Sin efecto sobre tarjetas o actividades; preserva alcance existente |
 | Persistencia | SQLite propio: entradas, recibos, estado, revisiones diarias y versiones de tarjetas en una transacción |
 
@@ -72,6 +72,8 @@ assignment_verified, shared_phone, context_declared, days, c1_evidence_ids
 evaluation_date es el lunes posterior a los días comparados; no una fecha futura.
 series_id es estable para la misma asignación, dispositivo, perfil, zona y versión
 de medición. No se debe reutilizar al cambiar cualquiera de esas dimensiones.
+Reutilizar series_id con otra time_zone produce409, incluso sin episodio activo.
+Una serie nueva permite terminar el aviso anterior por cambio de medición.
 
 Cada elemento de days:
 
@@ -113,6 +115,12 @@ agrupar por card_id y mostrar la última versión; conservar anteriores en audit
 historical_card_corrections avisa qué tarjetas archivadas recibieron una versión.
 Un retry exacto devuelve su resultado original, aunque hoy la tarjeta tenga
 otras versiones; obtener la vista actual mediante history.
+
+Al reiniciar se distingue un archivo nuevo de un repositorio existente incompleto.
+Si falta alguna tabla requerida, no se recrea vacía ni se declara READY: se informa
+indisponibilidad y se requiere recuperar el store. Los estados privados anteriores
+con advertencia global C1 se convierten a advertencias por serie usando los recibos
+guardados, sin reescribirlos ni cambiar el perfil numérico.
 
 Sin nuevas candidatas ante falta de datos/contexto. Una tarjeta existente puede
 informar incertidumbre sin llamar recuperación a un faltante. Texto de consejo
