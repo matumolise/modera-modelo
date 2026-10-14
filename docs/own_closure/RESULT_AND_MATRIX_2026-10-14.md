@@ -1,5 +1,10 @@
 # Resultado transversal: cierre propio antes de redactar
 
+> Estado histórico del cierre e43695a. El cierre posterior de tarea 1 está en
+> `CHILD_COORDINATOR_RESULT_2026-10-14.md`: el bloqueo de coordinación infantil
+> queda resuelto en el componente. Esta actualización no reaudita las demás filas
+> ni ignora la evidencia PMUM recuperada después en el chat.
+
 14/10/2026. Base `1f67111c8fd9c9b45124bfd0bf5182490a9d4765`, rama nueva
 `modera-own-scope-closure-candidate`. El bloque se ejecutó sin tocar catálogo,
 Android/backend, datos reales, PMUM/C1/mensajes, parámetros o despliegues.
