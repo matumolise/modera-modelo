@@ -15,6 +15,9 @@ from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
 import json
+import os
+import tempfile
+import threading
 from typing import Iterable
 
 from recommendations import (
@@ -116,7 +119,7 @@ def create_intervention_record(
         activities_offered
     )
 
-    if child_id <= 0:
+    if type(child_id) is not int or child_id <= 0:
         raise ValueError(
             "child_id debe ser mayor que 0."
         )
@@ -226,7 +229,7 @@ def create_intervention_offer(
         activities_offered
     )
 
-    if child_id <= 0:
+    if type(child_id) is not int or child_id <= 0:
         raise ValueError(
             "child_id debe ser mayor que 0."
         )
@@ -283,6 +286,9 @@ def create_intervention_offer(
 # ============================================================
 
 
+_WRITE_LOCK = threading.RLock()
+
+
 def _append_jsonl(
     payload: dict,
     output_path: str = "data/intervention_history.jsonl",
@@ -300,23 +306,43 @@ def _append_jsonl(
         exist_ok=True,
     )
 
-    payload["activities_offered"] = list(
-        payload["activities_offered"]
-    )
+    from analytics_service.writer_lease import WriterLease
+    from intervention_history_reader import read_linked_offer_responses
 
-    with path.open(
-        "a",
-        encoding="utf-8",
-    ) as file:
-
-        file.write(
-            json.dumps(
-                payload,
-                ensure_ascii=False,
-            )
-        )
-
-        file.write("\n")
+    payload = dict(payload)
+    payload["activities_offered"] = list(payload["activities_offered"])
+    kind = payload["event_type"]
+    key = "offer_id" if kind == "offer" else "intervention_id"
+    encoded = (json.dumps(payload, ensure_ascii=False, allow_nan=False)+"\n").encode("utf-8")
+    with _WRITE_LOCK:
+        lease = WriterLease(path.with_name(path.name+".writer.lock"))
+        temporary = None
+        try:
+            original = path.read_bytes() if path.exists() else b""
+            rows = [json.loads(line) for line in original.decode("utf-8").splitlines()]
+            matches = [row for row in rows if row.get("event_type") == kind and row.get(key) == payload[key]]
+            if matches:
+                if len(matches) != 1 or matches[0] != payload:
+                    raise ValueError("Conflicting intervention event identity.")
+                read_linked_offer_responses(path)
+                return  # Retry of the frozen event: no rewrite, original IDs/times.
+            if original and not original.endswith(b"\n"):
+                raise ValueError("Incomplete intervention stream; recover before writing.")
+            with tempfile.NamedTemporaryFile(mode="wb", dir=path.parent, suffix=".tmp", delete=False) as stream:
+                temporary = Path(stream.name)
+                stream.write(original+encoded)
+                stream.flush()
+                os.fsync(stream.fileno())
+            # Reuse the canonical link validator before replacing any original.
+            read_linked_offer_responses(temporary)
+            if not lease.valid():
+                raise OSError("Intervention writer lease lost.")
+            os.replace(temporary, path)
+            temporary = None
+        finally:
+            if temporary is not None:
+                temporary.unlink(missing_ok=True)
+            lease.close()
 
 
 def append_intervention_offer(

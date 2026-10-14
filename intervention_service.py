@@ -124,6 +124,12 @@ def register_offer_response(
     persist: bool = True,
 ) -> InterventionRecord:
     """Registra una respuesta vinculada con una oferta previa."""
+    offered_at = datetime.fromisoformat(offer.timestamp)
+    event_time = timestamp if timestamp is not None else datetime.now(offered_at.tzinfo)
+    if (event_time.tzinfo is None) != (offered_at.tzinfo is None):
+        raise ValueError("Offer and response require compatible time zones.")
+    if event_time < offered_at:
+        raise ValueError("Response cannot precede its offer.")
     record = create_intervention_record(
         child_id=offer.child_id,
         source=offer.source,
@@ -131,7 +137,7 @@ def register_offer_response(
         activities_offered=offer.activities_offered,
         response=response,
         selected_activity_id=selected_activity_id,
-        timestamp=timestamp,
+        timestamp=event_time,
         offer_id=offer.offer_id,
     )
     if persist:
