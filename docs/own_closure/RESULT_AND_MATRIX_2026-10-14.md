@@ -9,6 +9,10 @@
 > recuperable de PMUM, atribución de errores y NoChildren. La matriz inferior
 > conserva su estado histórico; no debe usarse como lista de bloqueos vigente.
 
+> Tarea 3 posterior: `C1_CONFIGURATION_CLOSURE_2026-10-14.md` fija la configuración
+> de ensayo y las afirmaciones defendibles. No crea calibración de producto ni
+> convierte la ausencia de C1 en veto a las tarjetas adultas.
+
 14/10/2026. Base `1f67111c8fd9c9b45124bfd0bf5182490a9d4765`, rama nueva
 `modera-own-scope-closure-candidate`. El bloque se ejecutó sin tocar catálogo,
 Android/backend, datos reales, PMUM/C1/mensajes, parámetros o despliegues.

@@ -1,0 +1,16 @@
+{
+  "protocol_version": "c1_exploratory_grid_v1_2026-10-13",
+  "commit": "e090bd4ab466a12403f3cce990ecf61eaf1f3b96",
+  "start": "2026-01-05T00:00:00+00:00",
+  "days": 112,
+  "report_start_day": 57,
+  "seeds": [1, 50],
+  "sigmas": [0.15, 0.35],
+  "scenarios": ["S0", "S1", "S2a", "S2b", "S3a", "S3b"],
+  "k": [0.25, 0.5, 1.0],
+  "threshold": [3.0, 4.0, 5.0, 8.0],
+  "min_history": [3, 28],
+  "rng": "random.Random(seed).normalvariate(0, 1)",
+  "rounding": "Python round without intermediate rounding",
+  "scope": "exploratory_only_no_product_selection"
+}

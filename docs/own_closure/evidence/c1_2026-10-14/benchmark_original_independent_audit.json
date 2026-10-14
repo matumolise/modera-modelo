@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "independently_checked_evaluations": 1612800,
+  "runs": 14400,
+  "cells": 288,
+  "global_counts": {
+    "ABSTAIN": 223560,
+    "EMIT": 31870,
+    "NO_CHANGE": 727932,
+    "CHANGE": 661308
+  },
+  "output_hashes_verified": 6,
+  "paired_cells": 240,
+  "method": "Streaming independent arithmetic; no C1 or benchmark imports"
+}

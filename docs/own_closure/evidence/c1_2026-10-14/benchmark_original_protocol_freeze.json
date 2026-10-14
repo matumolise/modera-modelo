@@ -1,0 +1,9 @@
+{
+  "frozen_at_utc": "2026-10-13T13:37:35.952857+00:00",
+  "files": {
+    "PROTOCOLO_CONGELADO.md": "d0cf29cd4af9d8625baecc7e3c8db9dbb035c8e8d55982e35bb6b8eac565f9a2",
+    "config.json": "720fd383f0033dec7a1066f529d911b886589c3f8c4a9b35985a321ff37cecc6"
+  },
+  "source_protocol_sha256": "657ff5d3d55b60e00a4ec736f01af4b5659b821430c20bb29eef821d67adced6",
+  "prior_review_sha256": "dc63c7651f7754490178b7e796aa66f1f37b8c17af017a652fc32ed4edcd6bfd"
+}

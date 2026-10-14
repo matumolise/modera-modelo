@@ -1,0 +1,204 @@
+{
+  "status": "PASS",
+  "scope": "configuration_and_claims_reconciliation_not_calibration",
+  "base": "e3031a3e58cfe3dfcb7b3c7b4d09c3efe4477c77",
+  "configuration_binding": {
+    "historical_api_version": "historical-http-v1-candidate",
+    "configuration": {
+      "schema_version": 1,
+      "configuration_id": "smoke-only-not-calibrated",
+      "scope": "internal_technical_candidate",
+      "representation_spec_id": "daily_use_duration_minutes_v2",
+      "reference_policy": "all_prior_usable_records_v1",
+      "analysis_version": "published-c1-smoke-v1",
+      "emitter_version": "published-crossing-smoke-v1",
+      "detector": {
+        "k": 0.5,
+        "threshold": 3.0,
+        "min_history": 3
+      }
+    },
+    "configuration_fingerprint": "ced67439a2bf7c4bc4a6f4fc6bec805b404f14c662a927464d026d75d8f46466"
+  },
+  "configuration_source": "tests/fixtures/historical_c1_smoke_only.json",
+  "selected_product_configuration": null,
+  "calibrated_for_real_use": false,
+  "benchmark_archive_sha256": "4d43624d25cc7fa3f160c096404c2d0b65c711ed270db947081fccb6cb384a9f",
+  "benchmark_core_blobs_checked": [
+    {
+      "path": "historical/__init__.py",
+      "sha": "3b9d2a1a8001bdff1a46ac1d4800952971c8675d",
+      "error": false,
+      "current_git_blob": "3b9d2a1a8001bdff1a46ac1d4800952971c8675d",
+      "matches": true
+    },
+    {
+      "path": "historical/adapters.py",
+      "sha": "9a39fd774bd4043d0ce0b7c392ac1d11ba45ad73",
+      "error": false,
+      "current_git_blob": "9a39fd774bd4043d0ce0b7c392ac1d11ba45ad73",
+      "matches": true
+    },
+    {
+      "path": "historical/analyzer.py",
+      "sha": "2ab72ec69405fe9296cc1bae8c3377491dec5f71",
+      "error": false,
+      "current_git_blob": "2ab72ec69405fe9296cc1bae8c3377491dec5f71",
+      "matches": true
+    },
+    {
+      "path": "historical/android_usage.py",
+      "sha": "42770c6cf88c88c57d7126dff4709ea2a32891c3",
+      "error": false,
+      "current_git_blob": "42770c6cf88c88c57d7126dff4709ea2a32891c3",
+      "matches": true
+    },
+    {
+      "path": "historical/contracts.py",
+      "sha": "c92fc43513bae737201b505f30b27988bdcf0c90",
+      "error": false,
+      "current_git_blob": "c92fc43513bae737201b505f30b27988bdcf0c90",
+      "matches": true
+    },
+    {
+      "path": "historical/daily_usage.py",
+      "sha": "49914707ec32d760c17b6353c186b1f9cdcd2ada",
+      "error": false,
+      "current_git_blob": "49914707ec32d760c17b6353c186b1f9cdcd2ada",
+      "matches": true
+    },
+    {
+      "path": "historical/detector.py",
+      "sha": "e107e30485eacabe8d8a472d70ac850401ab2cf6",
+      "error": false,
+      "current_git_blob": "e107e30485eacabe8d8a472d70ac850401ab2cf6",
+      "matches": true
+    },
+    {
+      "path": "historical/eligibility.py",
+      "sha": "71b1abbf6b448f6e8b02f84cdb20c2c7c0ebed04",
+      "error": false,
+      "current_git_blob": "71b1abbf6b448f6e8b02f84cdb20c2c7c0ebed04",
+      "matches": true
+    },
+    {
+      "path": "historical/emitter.py",
+      "sha": "86efea92c8731b687d96cd3aba47a56f9295234a",
+      "error": false,
+      "current_git_blob": "86efea92c8731b687d96cd3aba47a56f9295234a",
+      "matches": true
+    },
+    {
+      "path": "historical/interpretation.py",
+      "sha": "11b867296db7e4ca2819bfe54d1b15efe8d16be4",
+      "error": false,
+      "current_git_blob": "11b867296db7e4ca2819bfe54d1b15efe8d16be4",
+      "matches": true
+    },
+    {
+      "path": "historical/persistence.py",
+      "sha": "c96de92dbfd94a06b2515c5daa9f7ceb8e9ad639",
+      "error": false,
+      "current_git_blob": "c96de92dbfd94a06b2515c5daa9f7ceb8e9ad639",
+      "matches": true
+    },
+    {
+      "path": "historical/receipts.py",
+      "sha": "1794172f41a8d3d480b0af6de5c4f40a243e7926",
+      "error": false,
+      "current_git_blob": "1794172f41a8d3d480b0af6de5c4f40a243e7926",
+      "matches": true
+    },
+    {
+      "path": "historical/reference.py",
+      "sha": "e8499500819d4d3a20509d9079571d15a471a739",
+      "error": false,
+      "current_git_blob": "e8499500819d4d3a20509d9079571d15a471a739",
+      "matches": true
+    },
+    {
+      "path": "historical/service.py",
+      "sha": "b845432526dfa656ad89ca9c7f9dc1a4541cfe27",
+      "error": false,
+      "current_git_blob": "b845432526dfa656ad89ca9c7f9dc1a4541cfe27",
+      "matches": true
+    }
+  ],
+  "benchmark_saved_outputs_hashes_checked": 6,
+  "benchmark_rerun": false,
+  "saved_independent_audit_status": "PASS",
+  "new_controlled_cases": [
+    {
+      "evidence": "FICTITIOUS_CONTROLLED_EXPORT_FIXTURE",
+      "name": "controlled_increase",
+      "days": 28,
+      "c1_outcomes": {
+        "ABSTAIN": 3,
+        "NO_CHANGE": 11,
+        "CHANGE": 14
+      },
+      "adult_message_statuses": [
+        "ACTIVE"
+      ],
+      "coverage_remains_unknown": true,
+      "quality_basis": "CONTROLLED_FIXTURE_ORACLE_ONLY",
+      "physical_capture_verified": false,
+      "historical_replay_original": true,
+      "historical_store_bytes_unchanged": true,
+      "card_history_unchanged_after_replay": true
+    },
+    {
+      "evidence": "FICTITIOUS_CONTROLLED_EXPORT_FIXTURE",
+      "name": "quality_withheld",
+      "days": 28,
+      "c1_outcomes": {
+        "ABSTAIN": 3,
+        "NO_CHANGE": 11,
+        "CHANGE": 14
+      },
+      "adult_message_statuses": [
+        "INSUFFICIENT_DATA"
+      ],
+      "coverage_remains_unknown": true,
+      "quality_basis": "CONTROLLED_FIXTURE_ORACLE_ONLY",
+      "physical_capture_verified": false,
+      "historical_replay_original": true,
+      "historical_store_bytes_unchanged": true,
+      "card_history_unchanged_after_replay": true
+    },
+    {
+      "evidence": "FICTITIOUS_CANONICAL_SERVICE_FIXTURE_NOT_EXPORT_CAPTURE",
+      "name": "constant_levels_mad_zero",
+      "days": 28,
+      "values_definition": "14 x 100 followed by 14 x 140",
+      "c1_outcomes": {
+        "ABSTAIN": 28
+      },
+      "adult_message_statuses": [
+        "ACTIVE"
+      ],
+      "coverage_remains_unknown": true,
+      "quality_basis": "CONSTRUCTED_COMPLETE_DAILY_VALUES_FOR_FIXTURE",
+      "physical_capture_verified": false,
+      "linked_c1_evaluation_ids_count": 28,
+      "assertion": "An adult increase card does not require C1 eligibility or emission"
+    }
+  ],
+  "adult_configuration_preserved": {
+    "version": "adult-messages-internal-candidate-v1",
+    "window_days": 14,
+    "increase_minutes": 20,
+    "minimum_direction_days": 10,
+    "return_margin_minutes": 5,
+    "maximum_episode_days": 56,
+    "cooldown_days": 14,
+    "maximum_new_cards": 1,
+    "limit_period_days": 28,
+    "c1_role": "complementary_technical_evidence",
+    "pmum_role": "none",
+    "scope": "internal_candidate_not_family_validated"
+  },
+  "runtime_code_modified": false,
+  "new_profiles_or_parameters_added": false,
+  "fixture_review_note": "The existing export fixture includes deterministic daily variability; it is not the constant-level fixture. An initial all-ABSTAIN expectation for that fixture was rejected and corrected after reading its planned values; no production logic or parameters changed."
+}

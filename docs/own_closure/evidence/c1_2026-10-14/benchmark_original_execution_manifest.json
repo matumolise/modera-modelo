@@ -1,0 +1,103 @@
+{
+  "started_at_utc": "2026-10-13T13:43:38.573862+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "script_sha256": "2af2c1377dfbe2105d6968fc60e95d0d6d98cfd65f8174bcc941526c0d395416",
+  "inputs_sha256": "53f85592d815069b72a7742dd930b0a176029b47b643ef5b6c208d9e3876a1e5",
+  "protocol": {
+    "frozen_at_utc": "2026-10-13T13:37:35.952857+00:00",
+    "files": {
+      "PROTOCOLO_CONGELADO.md": "d0cf29cd4af9d8625baecc7e3c8db9dbb035c8e8d55982e35bb6b8eac565f9a2",
+      "config.json": "720fd383f0033dec7a1066f529d911b886589c3f8c4a9b35985a321ff37cecc6"
+    },
+    "source_protocol_sha256": "657ff5d3d55b60e00a4ec736f01af4b5659b821430c20bb29eef821d67adced6",
+    "prior_review_sha256": "dc63c7651f7754490178b7e796aa66f1f37b8c17af017a652fc32ed4edcd6bfd"
+  },
+  "core": [
+    {
+      "path": "historical/__init__.py",
+      "sha": "3b9d2a1a8001bdff1a46ac1d4800952971c8675d",
+      "error": false
+    },
+    {
+      "path": "historical/adapters.py",
+      "sha": "9a39fd774bd4043d0ce0b7c392ac1d11ba45ad73",
+      "error": false
+    },
+    {
+      "path": "historical/analyzer.py",
+      "sha": "2ab72ec69405fe9296cc1bae8c3377491dec5f71",
+      "error": false
+    },
+    {
+      "path": "historical/android_usage.py",
+      "sha": "42770c6cf88c88c57d7126dff4709ea2a32891c3",
+      "error": false
+    },
+    {
+      "path": "historical/contracts.py",
+      "sha": "c92fc43513bae737201b505f30b27988bdcf0c90",
+      "error": false
+    },
+    {
+      "path": "historical/daily_usage.py",
+      "sha": "49914707ec32d760c17b6353c186b1f9cdcd2ada",
+      "error": false
+    },
+    {
+      "path": "historical/detector.py",
+      "sha": "e107e30485eacabe8d8a472d70ac850401ab2cf6",
+      "error": false
+    },
+    {
+      "path": "historical/eligibility.py",
+      "sha": "71b1abbf6b448f6e8b02f84cdb20c2c7c0ebed04",
+      "error": false
+    },
+    {
+      "path": "historical/emitter.py",
+      "sha": "86efea92c8731b687d96cd3aba47a56f9295234a",
+      "error": false
+    },
+    {
+      "path": "historical/interpretation.py",
+      "sha": "11b867296db7e4ca2819bfe54d1b15efe8d16be4",
+      "error": false
+    },
+    {
+      "path": "historical/persistence.py",
+      "sha": "c96de92dbfd94a06b2515c5daa9f7ceb8e9ad639",
+      "error": false
+    },
+    {
+      "path": "historical/receipts.py",
+      "sha": "1794172f41a8d3d480b0af6de5c4f40a243e7926",
+      "error": false
+    },
+    {
+      "path": "historical/reference.py",
+      "sha": "e8499500819d4d3a20509d9079571d15a471a739",
+      "error": false
+    },
+    {
+      "path": "historical/service.py",
+      "sha": "b845432526dfa656ad89ca9c7f9dc1a4541cfe27",
+      "error": false
+    }
+  ],
+  "scope": "exploratory_only_no_product_selection",
+  "completed_at_utc": "2026-10-13T13:46:23.534197+00:00",
+  "runs": 14400,
+  "cells": 288,
+  "evaluations": 1612800,
+  "elapsed_seconds": 164.95950211599984,
+  "status": "COMPLETED",
+  "selected_product_configuration": null,
+  "output_sha256": {
+    "inputs.json": "53f85592d815069b72a7742dd930b0a176029b47b643ef5b6c208d9e3876a1e5",
+    "paired_summary.json": "94640323325a0570d146b6bfd81b58ede9490f88d15f2626becc6b4cbecf3906",
+    "run_metrics.json": "18790f3ff2bb670adc2e5fbabca4c512aadca365fcad5bc5c08a6f08dc7101ba",
+    "evaluations.csv.gz": "f0f82f10209f13a9a7093c516fa79cbcf6794a6406903bfc31965710fb90fb17",
+    "overview.csv": "214e115f8434d8b3950d111d7d1445b4ecc24b1667a07f846a6c05d72edb8805",
+    "cell_summary.json": "9dd7ff0348dacea5243ee23caf64085540b3fa8dc50ae2a7839d22497024ffc6"
+  }
+}
