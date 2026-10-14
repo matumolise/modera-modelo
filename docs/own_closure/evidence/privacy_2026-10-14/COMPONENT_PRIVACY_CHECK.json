@@ -1,0 +1,11 @@
+{
+  "scope": "FICTITIOUS_COMPONENT_PRIVACY_CHECK_NOT_LEGAL_COMPLIANCE",
+  "runtime_code_modified": false,
+  "auth_before_parse": true,
+  "no_store_response": true,
+  "health_does_not_echo_service_token": true,
+  "child_suppressed_receipt_has_no_profile_index": true,
+  "child_profile_erase_requires_store_or_schema_plan": true,
+  "adult_history_separates_profile_ids": true,
+  "profile_id_filter_is_not_caller_authorization": true
+}

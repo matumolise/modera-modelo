@@ -1,5 +1,9 @@
 # Resultado transversal: cierre propio antes de redactar
 
+> **Estado vigente consolidado:** `CURRENT_CLOSURE_MATRIX_2026-10-14.md`.
+> Las cuatro tareas posteriores están cerradas en sus alcances declarados; este
+> informe sigue siendo evidencia histórica del cierre e43695a.
+
 > Estado histórico del cierre e43695a. El cierre posterior de tarea 1 está en
 > `CHILD_COORDINATOR_RESULT_2026-10-14.md`: el bloqueo de coordinación infantil
 > queda resuelto en el componente. Esta actualización no reaudita las demás filas

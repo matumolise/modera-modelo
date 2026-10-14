@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "scope": "documentary_component_privacy_closure_not_operational_compliance",
+  "base": "edc8641b21d34e67a32ebeda537e8f6d15b40175",
+  "runtime_checked_unchanged": [
+    {
+      "path": "analytics_service/http.py",
+      "base_git_blob": "1f2f5e71831d36bb7f099eb2e3cee7ab78237d40",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "analytics_service/settings.py",
+      "base_git_blob": "122bc82a7f417b2e1612de832c95d7ea9c46c40e",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "analytics_service/pmum.py",
+      "base_git_blob": "cbbe65b4f6ee96bacb7bf178b1d3af90cd884a23",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "analytics_service/historical_api.py",
+      "base_git_blob": "39557e156f0d87d5fe01ecc64d4abe7fe190e332",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "analytics_service/adult_messages.py",
+      "base_git_blob": "874b3e15df91018eafc567e5abde3e62a7b36a07",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "analytics_service/child_offers.py",
+      "base_git_blob": "5f3de66fc24241162bb5bf95a008ce8cae569774",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "analytics_service/condition_mapping.py",
+      "base_git_blob": "04d3471cd1ea9f882ce8921ee561a29a567a997b",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "tools/integration/build_historical_request_from_export.py",
+      "base_git_blob": "ae885d1bd2026bd2a45bfa97c7699f26c05cdf20",
+      "runtime_unchanged": true
+    },
+    {
+      "path": "intervention_history.py",
+      "base_git_blob": "f5a1518f2183165087ba2e61440f283d7f6b4081",
+      "runtime_unchanged": true
+    }
+  ],
+  "production_data_deleted": false,
+  "backend_android_modified": false,
+  "tests": {
+    "passed": 6,
+    "subtests": 2,
+    "deselected": 132,
+    "warning": "inherited Starlette/httpx",
+    "platform": "Linux",
+    "seconds": 1.15
+  },
+  "official_sources_accessed_on": "2026-10-14",
+  "official_sources": [
+    "https://www.argentina.gob.ar/normativa/nacional/64790/actualizacion",
+    "https://www.argentina.gob.ar/normativa/nacional/70368/actualizacion",
+    "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-47-2018-312662/texto",
+    "https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-4-2019-318874/texto",
+    "https://www.argentina.gob.ar/normativa/318874_res4AAIP_pdf/archivo"
+  ],
+  "resolution_4_2019_annex_read": true,
+  "juanma_specific_privacy_document_recovered": false,
+  "integral_erasure_implemented": false,
+  "family_authorization_implemented_in_analytics": false,
+  "future_integration_requirements_recorded": true,
+  "four_fronts_documentary_closure_complete": true
+}
