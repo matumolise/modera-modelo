@@ -1,0 +1,137 @@
+{
+  "status": "PASS",
+  "scope": "read_only_provenance_reconciliation_not_new_training_or_external_validation",
+  "source_sha256": "f16adde7e9fae278de2fa5d25412533b98db91306b31e2ba637f09c05347e8f5",
+  "source_entry_sha256": {
+    "SEM.sav": "5324fd35b83b212c4767a76dd00331fcaf4d0609cc83b6616e2fbffde590c3b7",
+    "CFA.sav": "2e40f05323281648f6c35bd22dea14e13165414879a27f673b321d549d24bc93"
+  },
+  "evaluation_package_sha256": "544ac6a5f4d2906454c772ad48b30cf16c28ccabe2798da89d82efee00ede539",
+  "historical_report_sha256": "f0eb942342857259651dc17ae7d728689eb75329cc3b1403df2f59352e1630f9",
+  "original_artifact_sha256_reported_in_windows": "56c991f40e56d2241196dc6f9efc1c9027c079e98a1b67549f48b10292e371e0",
+  "manifest_recovered_bytes_sha256": "98f2952c2bf0c2e4565fe86cadd0fe28faeae4ef4600a0d36c09983779495b09",
+  "manifest_recovery": "user_Get_Content_text_serialized_as_original_CRLF_hash_identical",
+  "manifest_created_utc": "2026-10-07T18:52:05.946441+00:00",
+  "original_files_modified": false,
+  "artifact_loaded_here": false,
+  "fit_executed": false,
+  "new_predictions_computed": false,
+  "metrics": {
+    "mean": {
+      "n": 803,
+      "MAE": 0.743,
+      "RMSE": 0.8914,
+      "R2": -0.0047
+    },
+    "median_baseline": {
+      "n": 803,
+      "MAE": 0.7455,
+      "RMSE": 0.8971,
+      "R2": -0.0176
+    },
+    "fixed_alpha_1": {
+      "n": 803,
+      "MAE": 0.6427,
+      "RMSE": 0.7839,
+      "R2": 0.2231
+    },
+    "nested_selection": {
+      "n": 803,
+      "MAE": 0.6427,
+      "RMSE": 0.7826,
+      "R2": 0.2257
+    }
+  },
+  "error_attribution": {
+    "fixed_alpha_1": {
+      "n": 803,
+      "error_over_one_count": 168,
+      "percent": 20.921544209215444
+    },
+    "nested_selection": {
+      "n": 803,
+      "error_over_one_count": 169,
+      "percent": 21.046077210460773
+    }
+  },
+  "fold_checks": [
+    {
+      "fold": 0,
+      "n_train": 642,
+      "n_test": 161,
+      "alpha": 1
+    },
+    {
+      "fold": 1,
+      "n_train": 642,
+      "n_test": 161,
+      "alpha": 1
+    },
+    {
+      "fold": 2,
+      "n_train": 642,
+      "n_test": 161,
+      "alpha": 1
+    },
+    {
+      "fold": 3,
+      "n_train": 643,
+      "n_test": 160,
+      "alpha": 10
+    },
+    {
+      "fold": 4,
+      "n_train": 643,
+      "n_test": 160,
+      "alpha": 1
+    }
+  ],
+  "questions_and_recoding": {
+    "STIWeekday": {
+      "sav_column": "Képernyőhasználat_30N_Hétköznap",
+      "label": "A következőkben arra kérjük, hogy válaszoljon néhány kérdésre a 6–17 éves korú, Ön által kiválasztott gyermek képernyőhasználati szokásaival kapcsolatban.  Képernyős eszközöknek tekintjük például az okostelefonokat, tableteket, számítógépeket és laptopoka",
+      "value_labels": {
+        "1.0": "Kevesebb, mint 1 óra",
+        "2.0": "1-2 óra",
+        "3.0": "3-4 óra",
+        "4.0": "5-6 óra",
+        "5.0": "7 óra vagy több"
+      }
+    },
+    "STIWeekend": {
+      "sav_column": "Képernyőhasználat_30N_Hétvége",
+      "label": "Az elmúlt 30 napra visszatekintve: ezen gyermek egy átlagos hétvégi napon összesen mennyi időt tölt képernyő előtt (minden eszközt beleszámítva: pl. okostelefon, tablet, számítógép/laptop, játékkonzol, televízió)?",
+      "value_labels": {
+        "1.0": "Kevesebb, mint 1 óra",
+        "2.0": "1-2 óra",
+        "3.0": "3-4 óra",
+        "4.0": "5-6 óra",
+        "5.0": "7 óra vagy több"
+      }
+    },
+    "CHGender": {
+      "sav_column": "VálasztottGyerek_Nem",
+      "label": "Mi ennek a gyermeknek a neme?",
+      "value_labels": {
+        "1.0": "Fiú",
+        "2.0": "Lány",
+        "4.0": "Nem kívánok válaszolni / Egyéb"
+      }
+    },
+    "NoChildren": {
+      "sav_column": "GyerekekSzáma_3KAT",
+      "raw_count_column_in_CFA": "GyerekekSzáma",
+      "raw_count_question": "Hány 18 év alatti gyermek nevelésében vesz részt a saját háztartásában (beleértve a vér szerinti gyermekeit, örökbefogadott gyermekeit, valamint a partnere gyermekét vagy gyermekeit mozaikcsalád esetén)?",
+      "code_1_equivalent_to_raw_count_1_all_rows": true,
+      "subgroup_n": 300,
+      "household_or_informant_independence_proven": false
+    }
+  },
+  "source_cohort_n": 803,
+  "original_train_function_AST_unchanged": true,
+  "original_loader_text_unchanged": true,
+  "earliest_available_committed_snapshot": "d597ce7c02151cefad4f2c36e3badd7c1e1b621f",
+  "exact_pre_training_snapshot_proven": false,
+  "raw_OOF_vectors_in_historical_report": false,
+  "source_metadata_reader": "pyreadstat 1.3.6"
+}

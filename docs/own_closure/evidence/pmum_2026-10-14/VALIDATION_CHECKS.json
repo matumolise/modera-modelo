@@ -1,0 +1,7 @@
+{
+  "audit_pass_with_fit_and_joblib_load_forbidden": true,
+  "changed_source_rejected": true,
+  "changed_manifest_rejected": true,
+  "runtime_code_or_model_modified": false,
+  "scope": "read_only_audit_guards_not_new_model_or_external_validation"
+}

@@ -1,0 +1,24 @@
+{
+  "provenance": "transcribed_from_Matias_console_2026-10-14_not_original_report_file_bytes",
+  "original_report_filename": "hu_original_cotejo_20261014.json",
+  "reported_result": {
+    "status": "PASS",
+    "scope": "artifact_contract_and_numeric_grid_not_external_validation",
+    "model_version": "hu_pmum_sf_experimental_v1",
+    "artifact_sha256": "56c991f40e56d2241196dc6f9efc1c9027c079e98a1b67549f48b10292e371e0",
+    "manifest_sha256": "98f2952c2bf0c2e4565fe86cadd0fe28faeae4ef4600a0d36c09983779495b09",
+    "grid_cases": 350,
+    "fractional_age_checks": 2,
+    "prediction_min": 1.489,
+    "prediction_max": 3.605,
+    "original_files_unchanged": true,
+    "new_model_trained": false,
+    "runtime": {
+      "scikit-learn": "1.7.2",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "joblib": "1.5.3"
+    },
+    "load_warnings": []
+  }
+}

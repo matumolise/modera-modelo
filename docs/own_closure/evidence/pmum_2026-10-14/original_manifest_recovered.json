@@ -1,0 +1,18 @@
+{
+  "model_version": "hu_pmum_sf_experimental_v1",
+  "source": "Zenodo 21802447 / SEM.dat",
+  "source_sha256": "f16adde7e9fae278de2fa5d25412533b98db91306b31e2ba637f09c05347e8f5",
+  "created_utc": "2026-10-07T18:52:05.946441+00:00",
+  "features": [
+    "age",
+    "sex_code",
+    "weekday_category",
+    "weekend_category"
+  ],
+  "target": "PMUM-SF mean, 1 to 5",
+  "n_trained": 803,
+  "sex_code_4_excluded": 3,
+  "regularization": "Ridge(alpha=1), selected after exploratory evaluation",
+  "evaluation": "Nested cross-validation on 803: MAE 0.6427, baseline 0.7430; exploratory, no external validation",
+  "deployment_status": "NOT APPROVED; no app integration"
+}

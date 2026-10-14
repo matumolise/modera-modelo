@@ -5,6 +5,10 @@
 > queda resuelto en el componente. Esta actualización no reaudita las demás filas
 > ni ignora la evidencia PMUM recuperada después en el chat.
 
+> Tarea 2 posterior: `PMUM_PROVENANCE_CLOSURE_2026-10-14.md` cierra la cadena
+> recuperable de PMUM, atribución de errores y NoChildren. La matriz inferior
+> conserva su estado histórico; no debe usarse como lista de bloqueos vigente.
+
 14/10/2026. Base `1f67111c8fd9c9b45124bfd0bf5182490a9d4765`, rama nueva
 `modera-own-scope-closure-candidate`. El bloque se ejecutó sin tocar catálogo,
 Android/backend, datos reales, PMUM/C1/mensajes, parámetros o despliegues.
