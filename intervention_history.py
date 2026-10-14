@@ -289,6 +289,15 @@ def create_intervention_offer(
 _WRITE_LOCK = threading.RLock()
 
 
+def validate_response_time(offer_timestamp: str, response_timestamp: str) -> None:
+    offered_at = datetime.fromisoformat(offer_timestamp)
+    responded_at = datetime.fromisoformat(response_timestamp)
+    if (responded_at.tzinfo is None) != (offered_at.tzinfo is None):
+        raise ValueError("Offer and response require compatible time zones.")
+    if responded_at < offered_at:
+        raise ValueError("Response cannot precede its offer.")
+
+
 def _append_jsonl(
     payload: dict,
     output_path: str = "data/intervention_history.jsonl",
@@ -328,6 +337,11 @@ def _append_jsonl(
                 return  # Retry of the frozen event: no rewrite, original IDs/times.
             if original and not original.endswith(b"\n"):
                 raise ValueError("Incomplete intervention stream; recover before writing.")
+            if kind == "response" and payload.get("offer_id") is not None:
+                linked_offers = [r for r in rows if r.get("event_type") == "offer" and r.get("offer_id") == payload["offer_id"]]
+                if len(linked_offers) != 1:
+                    raise ValueError("Linked response requires one original offer.")
+                validate_response_time(linked_offers[0]["timestamp"], payload["timestamp"])
             with tempfile.NamedTemporaryFile(mode="wb", dir=path.parent, suffix=".tmp", delete=False) as stream:
                 temporary = Path(stream.name)
                 stream.write(original+encoded)

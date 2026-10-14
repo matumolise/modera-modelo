@@ -51,6 +51,12 @@ class ChildOfferClosureTests(unittest.TestCase):
     def test_response_before_offer_rejected(self):
         with self.assertRaises(ValueError):register_offer_response(self.offer,"ignored",timestamp=self.time-timedelta(seconds=1),persist=False)
 
+    def test_direct_append_cannot_bypass_temporal_validation(self):
+        self.seed(); original=self.path.read_bytes()
+        early=replace(self.record,timestamp=(self.time-timedelta(seconds=1)).isoformat())
+        with self.assertRaises(ValueError):append_intervention_record(early,str(self.path))
+        self.assertEqual(self.path.read_bytes(),original)
+
     def test_boolean_child_id_rejected(self):
         with self.assertRaises(ValueError):create_offer_from_decision(True,request_voluntary_intervention(random_seed=42),persist=False)
 
