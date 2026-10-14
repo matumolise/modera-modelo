@@ -3,7 +3,7 @@
 Policy values are engineering decisions, not clinical recommendations. Inputs
 must be supplied by a trusted capture/identity adapter. Never infer delivery.
 """
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from copy import deepcopy
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta, timezone
@@ -105,7 +105,7 @@ class ChildOfferCoordinator:
         if not existed and not create:
             raise ValueError("Coordinator store missing; explicit initialization is required")
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        with sqlite3.connect(self.path) as db:
+        with closing(sqlite3.connect(self.path)) as db, db:
             db.execute("PRAGMA synchronous=FULL")
             db.execute("BEGIN IMMEDIATE")
             tables = {row[0] for row in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
@@ -117,7 +117,7 @@ class ChildOfferCoordinator:
 
     @contextmanager
     def _transaction(self):
-        with sqlite3.connect(self.path.resolve().as_uri() + "?mode=rw", uri=True, timeout=10) as db:
+        with closing(sqlite3.connect(self.path.resolve().as_uri() + "?mode=rw", uri=True, timeout=10)) as db, db:
             db.execute("PRAGMA synchronous=FULL")
             db.execute("BEGIN IMMEDIATE")
             yield db
