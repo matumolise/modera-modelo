@@ -48,6 +48,11 @@ class ChildOfferClosureTests(unittest.TestCase):
         with self.assertRaises(ValueError):append_intervention_offer(replace(self.offer,child_id=2),str(self.path))
         self.assertEqual(self.path.read_bytes(),original)
 
+    def test_replay_does_not_equate_boolean_with_integer(self):
+        self.seed(); original=self.path.read_bytes()
+        with self.assertRaises(ValueError):append_intervention_offer(replace(self.offer,child_id=True),str(self.path))
+        self.assertEqual(self.path.read_bytes(),original)
+
     def test_response_before_offer_rejected(self):
         with self.assertRaises(ValueError):register_offer_response(self.offer,"ignored",timestamp=self.time-timedelta(seconds=1),persist=False)
 

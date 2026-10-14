@@ -331,7 +331,9 @@ def _append_jsonl(
             rows = [json.loads(line) for line in original.decode("utf-8").splitlines()]
             matches = [row for row in rows if row.get("event_type") == kind and row.get(key) == payload[key]]
             if matches:
-                if len(matches) != 1 or matches[0] != payload:
+                # JSON tipado: Python considera True == 1, que no es un retry.
+                canonical = lambda value: json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
+                if len(matches) != 1 or canonical(matches[0]) != canonical(payload):
                     raise ValueError("Conflicting intervention event identity.")
                 read_linked_offer_responses(path)
                 return  # Retry of the frozen event: no rewrite, original IDs/times.

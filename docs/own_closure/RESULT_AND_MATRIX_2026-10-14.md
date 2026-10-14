@@ -25,7 +25,7 @@ no garantía de que toda evidencia necesaria fuese recuperable.
 |---|---|---|---|
 | API, representación diaria y recibos C1 | Cerrado técnico en alcance probado | Código/contratos y evidencia heredada; equipo | Conservar alcance y originales; no repetir el benchmark |
 | Mensajes al padre con explicación/consejo, revisiones y replay | Cerrado técnico | `1fd977c`, Linux/Windows y ensayo ficticio; equipo | No atribuir eficacia ni entrega real; implementación se conserva |
-| Escritura infantil, identidad y vínculos | Corregido y probado Linux | Siete escenarios defectuosos contando bypass directo; once tests nuevos; Matías | Nuevo candidato Windows pendiente de su propia comprobación |
+| Escritura infantil, identidad y vínculos | Corregido y probado Linux | Ocho escenarios defectuosos contando bypass temporal y tipado; doce tests nuevos; Matías | Nuevo candidato Windows pendiente de su propia comprobación |
 | Repetición del mismo evento congelado | Cerrado en writer | Concurrencia y nuevo proceso; bytes originales conservados | No reconstruir UUID/fecha en retry; mismo objeto/evento |
 | Coordinador diurno/descanso, cupos y rechazo/expiración | BLOQUEADO, no implementado | Código sólo voluntaria/descanso; propuesta leída y chats sin aceptación; Matías/equipo | Política explícita aceptada y luego implementación/pruebas. Mantener 60 min existentes no resuelve el coordinador |
 | Entrega mostrada, misma oportunidad entre canales y realización | Diferido por usuario | No hay app/backend auditados; Juanma/equipo | Prueba real y ACK/evento observable; selección no prueba realización |
@@ -49,14 +49,14 @@ acotada y se contrastó con los cierres posteriores para no revivir fases cerrad
 
 ## Pruebas de este código
 
-- Linux/Python 3.12.14: **405 aprobados, 192 subtests, una advertencia**, 15,74 s.
+- Linux/Python 3.12.14: **406 aprobados, 192 subtests, una advertencia**, 15,72 s.
   La suite incluye tests/ y nueve casos del lector de ofertas de raíz que no
-  estaban en la orden anterior. Comparación: 385 + once nuevos + nueve del
-  lector = 405; no son veinte tests nuevos de implementación.
+  estaban en la orden anterior. Comparación: 385 + doce nuevos + nueve del
+  lector = 406; no son veintiún tests nuevos de implementación.
 - Focalizadas finales de ofertas/historial/servicio/lector/elecciones:
-  **26 aprobadas y cuatro subtests**.
+  **27 aprobadas y cuatro subtests**.
 - Locale C, PYTHONUTF8=0, PYTHONCOERCECLOCALE=0, `-X utf8=0`, ofertas nuevas
-  y comprobación UTF-8 de catálogo: **12 aprobadas**, una advertencia.
+  y comprobación UTF-8 de catálogo: **13 aprobadas**, una advertencia.
 - La advertencia heredada Starlette/httpx no fue fallo; no cambiaron dependencias.
 - **Windows nuevo no ejecutado aquí.** El 384 PASS/uno omitido/190 subtests del
   usuario pertenece a `1fd977c`, no a esta modificación infantil.
@@ -65,6 +65,8 @@ El test nuevo de reemplazo fallido no se contó como contraejemplo de la base:
 su primer fallo era ausencia del hook de implementación. Los seis defectos
 iniciales sí se reprodujeron; el bypass adicional se reprodujo contra el primer
 checkpoint corregido y luego pasó. No se publica una cuenta inflada de defectos.
+El bypass de tipado True==1 también se reprodujo contra su checkpoint antes
+de corregir; se conserva el original y se rechaza el falso replay.
 
 Se restaura sólo data/intervention_history.jsonl generado por tests del nuevo
 worktree. Nuevos eventos ficticios temporales no se incorporan al commit.
