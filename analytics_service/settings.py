@@ -24,6 +24,8 @@ class Settings:
     historical_config_path: Path | None = None
     adult_messages_enabled: bool = False
     adult_messages_repository_path: Path | None = None
+    child_offers_enabled: bool = False
+    child_offers_repository_path: Path | None = None
 
     def __post_init__(self):
         if (not isinstance(self.token, str) or len(self.token) < 16
@@ -33,7 +35,8 @@ class Settings:
         if not self.host or type(self.port) is not int or not 1 <= self.port <= 65535:
             raise ValueError("Host o puerto inválido")
         if any(type(value) is not bool for value in
-               (self.pmum_enabled, self.activities_enabled, self.historical_enabled, self.adult_messages_enabled)):
+               (self.pmum_enabled, self.activities_enabled, self.historical_enabled,
+                self.adult_messages_enabled, self.child_offers_enabled)):
             raise ValueError("Las capacidades requieren valores booleanos")
         if (isinstance(self.body_timeout_seconds, bool)
                 or not isinstance(self.body_timeout_seconds, (float, int))
@@ -57,6 +60,14 @@ class Settings:
             if (self.historical_repository_path is not None
                     and self.adult_messages_repository_path.resolve() == self.historical_repository_path.resolve()):
                 raise ValueError("Mensajes adultos y C1 requieren repositorios diferentes")
+        if self.child_offers_enabled:
+            path = self.child_offers_repository_path
+            if not isinstance(path, Path) or not path.is_absolute():
+                raise ValueError("El coordinador requiere una base absoluta inicializada")
+            for other in (self.historical_repository_path, self.adult_messages_repository_path,
+                          self.historical_config_path, self.model_path, self.manifest_path):
+                if other is not None and path.resolve() == other.resolve():
+                    raise ValueError("El coordinador requiere una base independiente")
 
     @classmethod
     def from_env(cls):
@@ -86,4 +97,7 @@ class Settings:
             adult_messages_enabled=boolean("ANALYTICS_ADULT_MESSAGES_ENABLED", "false"),
             adult_messages_repository_path=Path(os.environ["ANALYTICS_ADULT_MESSAGES_REPOSITORY_PATH"])
                 if os.environ.get("ANALYTICS_ADULT_MESSAGES_REPOSITORY_PATH") else None,
+            child_offers_enabled=boolean("ANALYTICS_CHILD_OFFERS_ENABLED", "false"),
+            child_offers_repository_path=Path(os.environ["ANALYTICS_CHILD_OFFERS_REPOSITORY_PATH"])
+                if os.environ.get("ANALYTICS_CHILD_OFFERS_REPOSITORY_PATH") else None,
         )

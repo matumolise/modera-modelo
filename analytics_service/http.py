@@ -16,6 +16,10 @@ from .historical_config import HISTORICAL_API_VERSION
 from .condition_mapping import MAPPING_VERSION, resolve_considerations
 from .json_codec import strict_json as _strict_json
 from .adult_messages import AdultMessageService, MessageConflict, MessageUnavailable, VERSION as MESSAGES_VERSION
+from .child_offer_api import (
+    ChildOfferRuntime, CoordinatorConflict, CoordinatorUnavailable,
+    COORDINATOR_API_VERSION, POLICY as CHILD_POLICY, parse_evaluation, parse_event,
+)
 
 API_VERSION = "analytics-api-v3-integration-candidate"
 
@@ -92,6 +96,7 @@ def create_app(settings):
             app.state.pmum = CachedPmum(settings) if settings.pmum_enabled else None
             app.state.historical = HistoricalRuntime(settings) if settings.historical_enabled else None
             app.state.adult_messages = AdultMessageService(settings.adult_messages_repository_path) if settings.adult_messages_enabled else None
+            app.state.child_offers = ChildOfferRuntime(settings.child_offers_repository_path) if settings.child_offers_enabled else None
             app.state.started = True
             yield
         finally:
@@ -101,11 +106,13 @@ def create_app(settings):
             app.state.historical = None
             app.state.pmum = None
             app.state.adult_messages = None
+            app.state.child_offers = None
 
     app = FastAPI(lifespan=lifespan, docs_url=None, redoc_url=None, openapi_url=None)
     app.state.started, app.state.pmum = False, None
     app.state.historical = None
     app.state.adult_messages = None
+    app.state.child_offers = None
     app.add_middleware(TransportGuard, settings=settings)
 
     @app.exception_handler(StarletteHTTPException)
@@ -131,13 +138,20 @@ def create_app(settings):
         historical = app.state.historical
         historical_ready = bool(historical and historical.check_ready())
         messages_ready = bool(app.state.adult_messages and app.state.adult_messages.check_ready())
-        ready = (app.state.started and (settings.pmum_enabled or settings.activities_enabled or settings.historical_enabled or settings.adult_messages_enabled)
+        child_ready = bool(app.state.child_offers and app.state.child_offers.check_ready())
+        ready = (app.state.started and (settings.pmum_enabled or settings.activities_enabled or settings.historical_enabled or settings.adult_messages_enabled or settings.child_offers_enabled)
                  and (not settings.pmum_enabled or pmum_ready)
                  and (not settings.adult_messages_enabled or messages_ready)
+                 and (not settings.child_offers_enabled or child_ready)
                  and (not settings.historical_enabled or historical_ready))
         return reply({
             "status": "ready" if ready else "not_ready", "api_version": API_VERSION,
             "capabilities": {
+                **({"child_offers": {"state": "READY" if child_ready and app.state.started else "UNAVAILABLE",
+                                     "api_version": COORDINATOR_API_VERSION,
+                                     "policy_version": CHILD_POLICY["version"],
+                                     "catalog_status": "PROVISIONAL", "scope": "internal_integration_candidate"}}
+                   if settings.child_offers_enabled else {}),
                 **({"adult_messages": {"state": "READY" if messages_ready and app.state.started else "UNAVAILABLE",
                                        "version": MESSAGES_VERSION, "scope": "internal_candidate_not_family_validated"}}
                    if settings.adult_messages_enabled else {}),
@@ -241,6 +255,54 @@ def create_app(settings):
             return reply({"error": "invalid_profile_id"}, 400)
         except MessageUnavailable:
             return reply({"error": "adult_messages_unavailable"}, 503)
+
+    @app.post("/v1/child-offers/evaluate")
+    async def child_offer_evaluation(request: Request):
+        if not app.state.started or app.state.child_offers is None:
+            return reply({"error": "child_offers_disabled"}, 503)
+        parsed, error = await parse(request)
+        if error is not None:
+            return error
+        from starlette.concurrency import run_in_threadpool
+        try:
+            request_id, evidence = parse_evaluation(parsed)
+            return reply(await run_in_threadpool(app.state.child_offers.evaluate, request_id, evidence))
+        except CoordinatorConflict:
+            return reply({"error": "child_offer_conflict"}, 409)
+        except CoordinatorUnavailable:
+            return reply({"error": "child_offers_unavailable"}, 503)
+        except (ValueError, TypeError, OverflowError):
+            return reply({"error": "invalid_child_offer_request"}, 400)
+
+    @app.post("/v1/child-offers/events")
+    async def child_offer_event(request: Request):
+        if not app.state.started or app.state.child_offers is None:
+            return reply({"error": "child_offers_disabled"}, 503)
+        parsed, error = await parse(request)
+        if error is not None:
+            return error
+        from starlette.concurrency import run_in_threadpool
+        try:
+            request_id, payload = parse_event(parsed)
+            return reply(await run_in_threadpool(app.state.child_offers.record_event, request_id, payload))
+        except CoordinatorConflict:
+            return reply({"error": "child_offer_conflict"}, 409)
+        except CoordinatorUnavailable:
+            return reply({"error": "child_offers_unavailable"}, 503)
+        except (ValueError, TypeError, OverflowError):
+            return reply({"error": "invalid_child_offer_event"}, 400)
+
+    @app.get("/v1/child-offers/profiles/{profile_id}/history")
+    async def child_offer_history(profile_id: str):
+        if not app.state.started or app.state.child_offers is None:
+            return reply({"error": "child_offers_disabled"}, 503)
+        from starlette.concurrency import run_in_threadpool
+        try:
+            return reply(await run_in_threadpool(app.state.child_offers.history, profile_id))
+        except CoordinatorUnavailable:
+            return reply({"error": "child_offers_unavailable"}, 503)
+        except ValueError:
+            return reply({"error": "invalid_profile_id"}, 400)
 
     return app
 

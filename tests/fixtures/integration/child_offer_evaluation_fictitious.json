@@ -1,0 +1,21 @@
+{
+  "request_id": "fictitious-evaluation-001",
+  "evidence": {
+    "profile_id": "fictitious-account.child-001",
+    "series_id": "fictitious-assignment-001",
+    "interval_id": "fictitious-interval-001",
+    "now": "2026-10-16T10:00:00-03:00",
+    "interval_started_at": "2026-10-16T09:00:00-03:00",
+    "bedtime_at": "2026-10-16T21:00:00-03:00",
+    "automatic_enabled": true,
+    "assignment_verified": true,
+    "shared_phone": false,
+    "capture_verified": true,
+    "screen_interactive": true,
+    "game_active": false,
+    "in_school_period": false,
+    "eligibility_state": "known",
+    "eligibility": {},
+    "interests": []
+  }
+}

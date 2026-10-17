@@ -17,6 +17,14 @@ from uuid import uuid4
 from analytics_service.activities import select_activities
 from recommendations import ACTIVITY_CATALOG, ActivityEligibility, recommend_activities
 
+class CoordinatorConflict(ValueError):
+    """La petición contradice identidad, tiempo o estado ya conservados."""
+
+
+class CoordinatorUnavailable(ValueError):
+    """El almacén requiere recuperación explícita antes de continuar."""
+
+
 POLICY = {
     "version": "automatic-child-offers-v1-engineering",
     "day_start_hour": 8, "day_end_hour": 20, "continuous_minutes": 45,
@@ -62,12 +70,12 @@ def _stored_state(db):
         state = json.loads(db.execute("SELECT body FROM state WHERE id=1").fetchone()[0])
         count = db.execute("SELECT COUNT(*) FROM receipts").fetchone()[0]
     except (sqlite3.Error, TypeError, ValueError) as error:
-        raise ValueError("Incomplete coordinator store; recovery is required") from error
+        raise CoordinatorUnavailable("Incomplete coordinator store; recovery is required") from error
     if (not isinstance(state, dict) or _json(state.get("policy")) != _json(POLICY)
             or not isinstance(state.get("profiles"), dict)):
-        raise ValueError("Store policy/schema mismatch; explicit migration is required")
+        raise CoordinatorUnavailable("Store policy/schema mismatch; explicit migration is required")
     if type(state.get("receipt_count")) is not int or state["receipt_count"] != count:
-        raise ValueError("Incomplete receipt history; recovery is required")
+        raise CoordinatorUnavailable("Incomplete receipt history; recovery is required")
     return state
 
 
@@ -103,7 +111,7 @@ class ChildOfferCoordinator:
         self.path = Path(path)
         existed = self.path.exists()
         if not existed and not create:
-            raise ValueError("Coordinator store missing; explicit initialization is required")
+            raise CoordinatorUnavailable("Coordinator store missing; explicit initialization is required")
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with closing(sqlite3.connect(self.path)) as db, db:
             db.execute("PRAGMA synchronous=FULL")
@@ -130,13 +138,13 @@ class ChildOfferCoordinator:
             previous = db.execute("SELECT fingerprint, body FROM receipts WHERE id=?", (request_id,)).fetchone()
             if previous:
                 if previous[0] != fingerprint:
-                    raise ValueError("Request ID reused with different evidence")
+                    raise CoordinatorConflict("Request ID reused with different evidence")
                 return {**json.loads(previous[1]), "replayed": True}
             profile = state["profiles"].setdefault(payload["profile_id"], {
                 "clock": None, "intervals": {}, "offers": [], "events": [],
             })
             if profile["clock"] and now < _time(profile["clock"]):
-                raise ValueError("Processing clock moved backwards")
+                raise CoordinatorConflict("Processing clock moved backwards")
             result = operation(profile)
             profile["clock"] = _stamp(now)
             result = json.loads(_json({**result, "policy_version": POLICY["version"], "replayed": False}))
@@ -191,7 +199,7 @@ class ChildOfferCoordinator:
             key = evidence.series_id + ":" + evidence.interval_id
             previous_start = profile["intervals"].setdefault(key, _stamp(start))
             if previous_start != _stamp(start):
-                raise ValueError("Interval identity changed its original start")
+                raise CoordinatorConflict("Interval identity changed its original start")
             reason = self._guard(evidence)
             if reason:
                 return {"status": "suppressed", "reason": reason}
@@ -283,36 +291,36 @@ class ChildOfferCoordinator:
         def operation(profile):
             offer = next((o for o in profile["offers"] if o["offer_id"] == offer_id), None)
             if not offer:
-                raise ValueError("Offer does not belong to this profile")
+                raise CoordinatorConflict("Offer does not belong to this profile")
             if actual < _time(offer["created_at"]):
-                raise ValueError("Event precedes offer")
+                raise CoordinatorConflict("Event precedes offer")
             if event == "delivered":
                 if offer["status"] in {"failed", "responded"}:
-                    raise ValueError("Terminal offer cannot be delivered")
+                    raise CoordinatorConflict("Terminal offer cannot be delivered")
                 if actual >= _time(offer["expires_at"]):
-                    raise ValueError("Expired offer cannot be displayed")
+                    raise CoordinatorConflict("Expired offer cannot be displayed")
                 if offer["delivered_at"] is None:
                     offer["delivered_at"] = _stamp(actual)
                     offer["expires_at"] = _stamp(actual + timedelta(minutes=POLICY["ttl_minutes"]))
                     offer["status"] = "delivered"
                 elif actual < _time(offer["delivered_at"]):
-                    raise ValueError("Delivery channels out of chronological order")
+                    raise CoordinatorConflict("Delivery channels out of chronological order")
                 if channel not in offer["channels"]:
                     offer["channels"].append(channel)
             elif event == "delivery_failed":
                 if offer["delivered_at"] or offer["response"]:
-                    raise ValueError("Confirmed delivery cannot be withdrawn")
+                    raise CoordinatorConflict("Confirmed delivery cannot be withdrawn")
                 offer["status"] = "failed"
             else:
                 if not offer["delivered_at"] or actual < _time(offer["delivered_at"]):
-                    raise ValueError("Response requires prior confirmed delivery")
+                    raise CoordinatorConflict("Response requires prior confirmed delivery")
                 response = "ignored" if event == "dismissed" else event
                 if offer["response"] is not None:
-                    raise ValueError("Offer already has a response")
+                    raise CoordinatorConflict("Offer already has a response")
                 if actual >= _time(offer["expires_at"]):
-                    raise ValueError("Response outside offer validity")
+                    raise CoordinatorConflict("Response outside offer validity")
                 if event == "selected" and selected_activity_id not in offer["activities_offered"]:
-                    raise ValueError("Selected activity was not offered")
+                    raise CoordinatorConflict("Selected activity was not offered")
                 offer.update(status="responded", response=response, response_at=_stamp(actual),
                              selected_activity_id=selected_activity_id)
             profile["events"].append({**payload, "at": _stamp(processing)})
