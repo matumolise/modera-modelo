@@ -34,7 +34,7 @@ PHENOMENON = "TOTAL_USE_MINUTES"
 UNIT = "minutes"
 REPRESENTATION_SPEC_ID = "mediaticino.total_use.daily_minutes.f12c.v1"
 
-# Experimental conditions only. These are NOT product parameters.
+# Condiciones exclusivas del ensayo. NO son parámetros del producto.
 K_VALUES = (0.5, 1.0)
 THRESHOLDS = (3.0, 5.0)
 MIN_HISTORY = 7
@@ -429,8 +429,8 @@ def main() -> None:
             history = records[:start_index]
             start_reference = build_scalar_reference(current, history)
 
-            # This is experimental scenario admission, not a product
-            # maturity rule.
+            # Esta condición admite escenarios del ensayo, no define una regla
+            # de madurez del producto.
             if start_reference.history_count < MIN_HISTORY:
                 continue
 

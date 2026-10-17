@@ -277,7 +277,7 @@ class C1ClosureTests(unittest.TestCase):
             profile.close()
         self.store(d)
         before = f.repository.read_bytes()
-        # Math against a frozen reference is distinct from reconstructing that reference.
+        # Calcular sobre una referencia conservada no equivale a reconstruirla.
         runtime = HistoricalRuntime(f.settings)
         self.assertTrue(runtime.check_ready())
         runtime.close()

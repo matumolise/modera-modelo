@@ -223,9 +223,9 @@ def main() -> None:
 
     df = pd.read_csv(args.csv, na_values=["-99"])
 
-    # The distributed artifact contains at least one column name with
-    # surrounding whitespace (e.g. " totOnDurPerDayMin ").
-    # Normalize header whitespace only; raw data values are not altered.
+    # El archivo distribuido contiene al menos un nombre de columna con
+    # espacios en los extremos, por ejemplo " totOnDurPerDayMin ".
+    # Normalizar solo los espacios de encabezados, sin alterar los valores originales.
     original_columns = list(df.columns)
     normalized_columns = [str(c).strip() for c in original_columns]
 
@@ -270,7 +270,7 @@ def main() -> None:
 
         return cohort_result
 
-    # Reconstruct the subset used by the published analysis.
+    # Reconstruir el subconjunto utilizado por el análisis publicado.
     # These are source-study filters, NOT Moderá eligibility rules.
     published_subset = df[
         (pd.to_numeric(df["OUTLIERS"], errors="coerce") == 1)

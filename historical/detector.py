@@ -255,7 +255,7 @@ def evaluate_c1(
 
     current_value = _finite_scalar(current.value)
 
-    # ``reference.estimable`` was checked by eligibility above.
+    # La elegibilidad anterior ya comprobó ``reference.estimable``.
     if reference.location is None or reference.scale is None:
         raise RuntimeError("estimable reference is missing location/scale")
 

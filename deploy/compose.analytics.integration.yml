@@ -1,0 +1,56 @@
+# Entorno de integración: C1 SMOKE_ONLY, catálogo provisional y PMUM deshabilitado.
+name: modera-analytics-integration
+
+x-runtime: &runtime
+  image: modera-analytics:integration-local
+  build:
+    context: ..
+    dockerfile: Dockerfile.analytics
+  user: "10001:10001"
+  read_only: true
+  tmpfs:
+    - /tmp
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  volumes:
+    - analytics-state:/var/lib/modera
+    - ../tests/fixtures/historical_c1_smoke_only.json:/etc/modera/historical-profile.json:ro
+  networks:
+    - integration
+
+services:
+  analytics:
+    <<: *runtime
+    restart: unless-stopped
+    environment:
+      ANALYTICS_SERVICE_TOKEN: ${ANALYTICS_SERVICE_TOKEN:?Definir un token privado de servicio}
+      ANALYTICS_HOST: 0.0.0.0
+      ANALYTICS_PORT: "8765"
+      ANALYTICS_PMUM_ENABLED: "false"
+      ANALYTICS_ACTIVITIES_ENABLED: "true"
+      ANALYTICS_HISTORICAL_ENABLED: "true"
+      ANALYTICS_HISTORICAL_CONFIG_PATH: /etc/modera/historical-profile.json
+      ANALYTICS_HISTORICAL_REPOSITORY_PATH: /var/lib/modera/historical/repository.json
+      ANALYTICS_ADULT_MESSAGES_ENABLED: "true"
+      ANALYTICS_ADULT_MESSAGES_REPOSITORY_PATH: /var/lib/modera/messages/messages.sqlite
+      ANALYTICS_CHILD_OFFERS_ENABLED: "true"
+      ANALYTICS_CHILD_OFFERS_REPOSITORY_PATH: /var/lib/modera/child-offers/coordinator.sqlite
+    expose:
+      - "8765"
+
+  initialize-child-offers:
+    <<: *runtime
+    profiles:
+      - tools
+    command: ["python", "-m", "analytics_service.initialize_child_offers", "--path", "/var/lib/modera/child-offers/coordinator.sqlite"]
+    healthcheck:
+      disable: true
+
+volumes:
+  analytics-state:
+
+networks:
+  integration:
+    name: ${ANALYTICS_NETWORK:-modera-integration}

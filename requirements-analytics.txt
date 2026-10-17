@@ -19,3 +19,5 @@ opentelemetry-api==1.45.1
 threadpoolctl==3.7.0
 typing-extensions==4.16.0
 typing-inspection==0.4.4
+# Base IANA ya fijada en el preparador; necesaria también para mensajes en Windows.
+tzdata==2026.5

@@ -387,7 +387,7 @@ DATASET_A_FEATURES = [
 
 # mean_daily_app_openings es candidata preespecificada,
 # pero su permanencia definitiva dependerá exclusivamente del
-# sanity check de redundancia estructural T-N-openings.
+# Comprobación de redundancia estructural T-N-openings.
 PROVISIONAL_FEATURES = [
     "mean_daily_app_openings",
 ]

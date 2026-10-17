@@ -57,7 +57,7 @@ def _identifier(value):
 
 
 def _day_window(now, bedtime):
-    # End daytime offers at the configured bedtime window, including early beds.
+    # Finalizar las ofertas diurnas al comenzar la ventana de descanso, incluso si es temprana.
     bed_minutes = bedtime.hour * 60 + bedtime.minute
     end = POLICY["day_end_hour"] * 60
     if bed_minutes >= POLICY["day_start_hour"] * 60:
@@ -178,7 +178,7 @@ class ChildOfferCoordinator:
         if not isinstance(evidence, OfferEvidence):
             raise ValueError("OfferEvidence is required")
         payload = asdict(evidence)
-        evidence = OfferEvidence(**payload)  # Freeze caller-owned mutable filters.
+        evidence = OfferEvidence(**payload)  # Conservar una copia de los filtros mutables aportados por el llamador.
         for key in ("profile_id", "series_id", "interval_id"):
             _identifier(payload[key])
         for key in ("automatic_enabled", "assignment_verified", "shared_phone", "capture_verified",
@@ -188,7 +188,7 @@ class ChildOfferCoordinator:
         now, start, bedtime = map(_time, (evidence.now, evidence.interval_started_at, evidence.bedtime_at))
         if start > now:
             raise ValueError("Interval starts after processing time")
-        # Existing adapter validates eligibility and vocabulary; no duplicated filters.
+        # El adaptador existente valida elegibilidad y vocabulario, sin duplicar filtros.
         selection_request = {"request_id": request_id, "context": "general",
                              "interests": list(evidence.interests), "eligibility_state": evidence.eligibility_state}
         if evidence.eligibility is not None:
@@ -217,7 +217,7 @@ class ChildOfferCoordinator:
                 channel = "notification" if evidence.game_active else "overlay"
                 if offer["delivered_at"] is None and channel != offer["initial_channel"]:
                     return {"status": "suppressed", "reason": "pending_delivery_confirmation"}
-                # Recheck eligibility of the frozen list before presentation on another channel.
+                # Verificar de nuevo la elegibilidad de la lista conservada antes de presentarla en otro canal.
                 eligible = {a.activity_id for a in recommend_activities(
                     offer["context"], eligibility=ActivityEligibility(**evidence.eligibility),
                     n=len(ACTIVITY_CATALOG), random_seed=0,

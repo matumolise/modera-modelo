@@ -65,7 +65,7 @@ def read_linked_offer_responses(
                 raise ValueError(f"Line {line_number}: expected an object.")
 
             if "event_type" not in event:
-                # Historical response rows predate offers and cannot prove exposure.
+                # Las respuestas históricas son anteriores a las ofertas y no acreditan exposición.
                 if "response" not in event or "offer_id" in event:
                     raise ValueError(f"Line {line_number}: invalid legacy row.")
                 continue

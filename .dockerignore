@@ -1,0 +1,17 @@
+# Solo se envían al constructor los archivos que copia Dockerfile.analytics.
+**
+!Dockerfile.analytics
+!.dockerignore
+!requirements-analytics.txt
+!analytics_api.py
+!recommendations.py
+!analytics_service/
+!analytics_service/**
+!historical/
+!historical/**
+!experiments/
+!experiments/hu_pmum_candidate_v1.py
+!experiments/hu_pmum_parent_adapter_v2.py
+!experiments/hu_pmum_real_data.py
+**/__pycache__/
+**/*.pyc

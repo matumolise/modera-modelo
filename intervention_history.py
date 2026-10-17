@@ -336,7 +336,7 @@ def _append_jsonl(
                 if len(matches) != 1 or canonical(matches[0]) != canonical(payload):
                     raise ValueError("Conflicting intervention event identity.")
                 read_linked_offer_responses(path)
-                return  # Retry of the frozen event: no rewrite, original IDs/times.
+                return  # Reintento del evento conservado: sin reescritura, con identificadores y tiempos originales.
             if original and not original.endswith(b"\n"):
                 raise ValueError("Incomplete intervention stream; recover before writing.")
             if kind == "response" and payload.get("offer_id") is not None:
@@ -349,7 +349,7 @@ def _append_jsonl(
                 stream.write(original+encoded)
                 stream.flush()
                 os.fsync(stream.fileno())
-            # Reuse the canonical link validator before replacing any original.
+            # Reutilizar el validador canónico del vínculo antes de reemplazar un original.
             read_linked_offer_responses(temporary)
             if not lease.valid():
                 raise OSError("Intervention writer lease lost.")

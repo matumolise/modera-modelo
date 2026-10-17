@@ -1,4 +1,4 @@
-# Candidato de export F12 posterior a 61e31ce; verificar esta imagen nueva.
+# Servicio de integración; la construcción de esta imagen requiere comprobación propia.
 FROM python:3.10-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
     ANALYTICS_HOST=0.0.0.0 ANALYTICS_PORT=8765 \
@@ -8,8 +8,8 @@ COPY requirements-analytics.txt ./
 RUN pip install --no-cache-dir -r requirements-analytics.txt \
     && groupadd --gid 10001 analytics \
     && useradd --uid 10001 --gid analytics --no-create-home analytics \
-    && mkdir -p /var/lib/modera/historical \
-    && chown 10001:10001 /var/lib/modera/historical
+    && mkdir -p /var/lib/modera/historical /var/lib/modera/messages /var/lib/modera/child-offers \
+    && chown -R 10001:10001 /var/lib/modera
 COPY analytics_api.py recommendations.py ./
 COPY analytics_service/ ./analytics_service/
 COPY historical/ ./historical/
