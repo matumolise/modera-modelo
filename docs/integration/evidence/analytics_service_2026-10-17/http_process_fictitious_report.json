@@ -1,0 +1,379 @@
+{
+  "status": "PASS",
+  "evidence": "CONTROLLED_FICTITIOUS_ONLY",
+  "physical_android_validation": false,
+  "backend_juanma_validation": false,
+  "docker_validation": false,
+  "aws_validation": false,
+  "configuration_scope": "C1_SMOKE_ONLY_NOT_PRODUCT_CALIBRATION",
+  "checks": [
+    "authenticated_http",
+    "child_generation_delivery_selection_history",
+    "process_kill_restart",
+    "original_child_receipts",
+    "original_c1_receipt",
+    "c1_state_bytes_unchanged",
+    "original_adult_receipt",
+    "no_duplicate_history",
+    "identity_conflict",
+    "adult_increase_decrease_return"
+  ],
+  "health_before": {
+    "status": "ready",
+    "api_version": "analytics-api-v3-integration-candidate",
+    "capabilities": {
+      "child_offers": {
+        "state": "READY",
+        "api_version": "child-offers-http-v1",
+        "policy_version": "automatic-child-offers-v1-engineering",
+        "catalog_status": "PROVISIONAL",
+        "scope": "internal_integration_candidate"
+      },
+      "adult_messages": {
+        "state": "READY",
+        "version": "adult-messages-internal-candidate-v1",
+        "scope": "internal_candidate_not_family_validated"
+      },
+      "pmum": {
+        "state": "DISABLED",
+        "model_version": null
+      },
+      "activities": {
+        "state": "READY",
+        "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+        "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+        "considerations_mapping_version": "considerations-resolution-v1-candidate",
+        "catalog_status": "PROVISIONAL"
+      },
+      "historical": {
+        "state": "READY",
+        "implemented": true,
+        "historical_api_version": "historical-http-v1-candidate",
+        "configuration_id": "smoke-only-not-calibrated",
+        "configuration_fingerprint": "ced67439a2bf7c4bc4a6f4fc6bec805b404f14c662a927464d026d75d8f46466",
+        "representation_spec_id": "daily_use_duration_minutes_v2",
+        "scope": "internal_technical_candidate"
+      }
+    }
+  },
+  "health_after": {
+    "status": "ready",
+    "api_version": "analytics-api-v3-integration-candidate",
+    "capabilities": {
+      "child_offers": {
+        "state": "READY",
+        "api_version": "child-offers-http-v1",
+        "policy_version": "automatic-child-offers-v1-engineering",
+        "catalog_status": "PROVISIONAL",
+        "scope": "internal_integration_candidate"
+      },
+      "adult_messages": {
+        "state": "READY",
+        "version": "adult-messages-internal-candidate-v1",
+        "scope": "internal_candidate_not_family_validated"
+      },
+      "pmum": {
+        "state": "DISABLED",
+        "model_version": null
+      },
+      "activities": {
+        "state": "READY",
+        "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+        "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+        "considerations_mapping_version": "considerations-resolution-v1-candidate",
+        "catalog_status": "PROVISIONAL"
+      },
+      "historical": {
+        "state": "READY",
+        "implemented": true,
+        "historical_api_version": "historical-http-v1-candidate",
+        "configuration_id": "smoke-only-not-calibrated",
+        "configuration_fingerprint": "ced67439a2bf7c4bc4a6f4fc6bec805b404f14c662a927464d026d75d8f46466",
+        "representation_spec_id": "daily_use_duration_minutes_v2",
+        "scope": "internal_technical_candidate"
+      }
+    }
+  },
+  "child_offer_id": "cc3fb1a0-aaf4-4330-8cd4-082a4084107b",
+  "child_events": 3,
+  "requests": {
+    "child_evaluation": {
+      "request_id": "fictitious-evaluation-001",
+      "evidence": {
+        "profile_id": "fictitious-account.child-001",
+        "series_id": "fictitious-assignment-001",
+        "interval_id": "fictitious-interval-001",
+        "now": "2026-10-16T10:00:00-03:00",
+        "interval_started_at": "2026-10-16T09:00:00-03:00",
+        "bedtime_at": "2026-10-16T21:00:00-03:00",
+        "automatic_enabled": true,
+        "assignment_verified": true,
+        "shared_phone": false,
+        "capture_verified": true,
+        "screen_interactive": true,
+        "game_active": false,
+        "in_school_period": false,
+        "eligibility_state": "known",
+        "eligibility": {},
+        "interests": []
+      }
+    },
+    "delivery": {
+      "request_id": "fictitious-http-delivery",
+      "profile_id": "fictitious-account.child-001",
+      "offer_id": "cc3fb1a0-aaf4-4330-8cd4-082a4084107b",
+      "event": "delivered",
+      "channel": "overlay",
+      "occurred_at": "2026-10-16T10:00:00-03:00",
+      "now": "2026-10-16T10:00:00-03:00"
+    },
+    "selection": {
+      "request_id": "fictitious-http-selection",
+      "profile_id": "fictitious-account.child-001",
+      "offer_id": "cc3fb1a0-aaf4-4330-8cd4-082a4084107b",
+      "event": "selected",
+      "occurred_at": "2026-10-16T10:00:00-03:00",
+      "now": "2026-10-16T10:00:00-03:00",
+      "selected_activity_id": "creative_favorite_01"
+    },
+    "historical": {
+      "request_id": "fixture-2026-09-01",
+      "representation": {
+        "representation_record_id": "rep-57063951b442799a75befb3979acaa77d4e52ad423a1015c9823885cfa72d99f",
+        "representation_spec_id": "daily_use_duration_minutes_v2",
+        "subject_id": "series-ebe5921f341e1ce2f1340c1594712dd2ea7b6a070edf264bdcb454ab49d07d12",
+        "phenomenon": "DAILY_USE_DURATION",
+        "interval_start": "2026-09-01T03:00:00+00:00",
+        "interval_end": "2026-09-02T03:00:00+00:00",
+        "value": 60.0,
+        "unit": "minutes",
+        "status": "OBSERVED",
+        "coverage": {
+          "value": null,
+          "basis": "daily_capture_completeness_not_quantified"
+        },
+        "quality_flags": [],
+        "provenance": {
+          "source_id": "android-usage-events",
+          "source_version": "f12-backend-bridge-v1-candidate",
+          "source_semantics": "Interactive screen duration on assigned device; user attribution unverified",
+          "adapter_version": "v2",
+          "input_fingerprint": "29060ac9d6a02311f1afb9168fbe4d1fa704d23b32876f448eddb0f3b246d98e"
+        },
+        "computed_at": "2026-09-02T03:02:00+00:00"
+      }
+    },
+    "adult_increase": {
+      "profile_id": "fictitious-http-increase",
+      "series_id": "fictitious-http-increase-phone-assignment-v1",
+      "request_id": "fictitious-adult-increase",
+      "evaluation_date": "2026-02-02",
+      "time_zone": "America/Argentina/Buenos_Aires",
+      "assignment_verified": true,
+      "shared_phone": false,
+      "context_declared": false,
+      "c1_evidence_ids": [],
+      "days": [
+        {
+          "date": "2026-01-05",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-06",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-07",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-08",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-09",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-10",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-11",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-12",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-13",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-14",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-15",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-16",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-17",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-18",
+          "revision": 1,
+          "minutes": 100,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-19",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-20",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-21",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-22",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-23",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-24",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-25",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-26",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-27",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-28",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-29",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-30",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-01-31",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        },
+        {
+          "date": "2026-02-01",
+          "revision": 1,
+          "minutes": 140,
+          "observed": true,
+          "quality_verified": true
+        }
+      ]
+    }
+  },
+  "runtime": {
+    "python": "3.12.14"
+  }
+}

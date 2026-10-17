@@ -1,0 +1,38 @@
+[
+  {
+    "file": "analytics_service/child_offers.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "config.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "historical/detector.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "intervention_history.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "intervention_history_reader.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "recommendations.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "tests/test_model_closure.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "tools/f12/audit_mediaticino_longitudinal.py",
+    "ast_unchanged": true
+  },
+  {
+    "file": "tools/f12/run_f12c_semisynthetic.py",
+    "ast_unchanged": true
+  }
+]
