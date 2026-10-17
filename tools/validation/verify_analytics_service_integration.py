@@ -105,6 +105,7 @@ def main():
             child_history_route = "/v1/child-offers/profiles/" + offer["profile_id"] + "/history"
             current_history = request(child_history_route)
             original_historical = request("/v1/historical/evaluate", historical)
+            historical_bytes = (output / "fictitious-history.json").read_bytes()
             original_increase = request("/v1/adult-messages/evaluate", increase)
             original_decrease = request("/v1/adult-messages/evaluate", decrease)
             require(original_increase["card"] is not None and original_decrease["card"] is not None, "Falta tarjeta ficticia")
@@ -118,6 +119,7 @@ def main():
             require(request("/v1/child-offers/events", selection) == {**original_selection, "replayed": True}, "Cambió el recibo de selección")
             require(request(child_history_route) == current_history, "El replay alteró el historial infantil")
             require(request("/v1/historical/evaluate", historical) == {**original_historical, "replayed": True}, "El replay alteró el recibo C1")
+            require((output / "fictitious-history.json").read_bytes() == historical_bytes, "El replay avanzó o reescribió el estado C1")
             require(request("/v1/adult-messages/evaluate", increase) == {**original_increase, "replayed": True}, "El replay alteró el recibo adulto")
             require(request("/v1/adult-messages/profiles/fictitious-http-increase/history") == original_adult_history, "El replay duplicó versiones adultas")
             conflict = deepcopy(evaluation)
@@ -134,7 +136,7 @@ def main():
                       "configuration_scope": "C1_SMOKE_ONLY_NOT_PRODUCT_CALIBRATION",
                       "checks": ["authenticated_http", "child_generation_delivery_selection_history",
                                  "process_kill_restart", "original_child_receipts", "original_c1_receipt",
-                                 "original_adult_receipt", "no_duplicate_history", "identity_conflict",
+                                 "c1_state_bytes_unchanged", "original_adult_receipt", "no_duplicate_history", "identity_conflict",
                                  "adult_increase_decrease_return"],
                       "health_before": health, "health_after": health_after,
                       "child_offer_id": offer["offer_id"], "child_events": len(final_history["events"]),
