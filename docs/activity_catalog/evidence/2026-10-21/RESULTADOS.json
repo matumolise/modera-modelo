@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "scope": "controlled_fictitious_technical_checks_not_professional_approval",
+  "base_commit": "04f1e3a9076d914bccad49d356184d8b7b45ec13",
+  "tested_code_commit": "95f92729e11a8c2218c38b4d95cff2e538d4f752",
+  "runtime": {
+    "python": "3.12.14",
+    "os": "Linux",
+    "dependencies": "requirements-integration-tools.txt and pytest==9.1.1"
+  },
+  "source_document": "MODERA_ACTIVIDADES_SEGUNDA_REVISION_2026-10-19.docx",
+  "source_sha256": "e3869002bdd7437944d26d3a043f445949d103489851d3ab1e26aec9bd91acf9",
+  "source_titles_and_description_lines_matched": 18,
+  "regression": {
+    "passed": 497,
+    "subtests_passed": 192,
+    "warnings": 1,
+    "duration_seconds": 19.32
+  },
+  "focused": {
+    "passed": 128,
+    "subtests_passed": 45,
+    "warnings": 1,
+    "duration_seconds": 2.52
+  },
+  "native_http": "PASS; process kill/restart, original receipts, unchanged C1 state and no duplicate histories",
+  "new_catalog_version": "provisional-sha256:ae0318b2f83540e2370ec9cdd20dde566677c3220f6c844bdc86c41b9de2a023",
+  "selector_version_unchanged": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+  "unchanged_files": [
+    "analytics_service/child_offers.py",
+    "analytics_service/condition_mapping.py",
+    "analytics_service/adult_messages.py",
+    "Dockerfile.analytics",
+    "deploy/compose.analytics.integration.yml"
+  ],
+  "windows_verified": false,
+  "docker_verified": false,
+  "aws_verified": false,
+  "android_verified": false,
+  "professional_second_review": "PENDING",
+  "capture_compatibility": "PENDING_ANDROID_EXPORT_SAMPLE",
+  "notes": [
+    "Prior full attempt: one stale catalog-dependent fingerprint assertion failed. Replaced by equality with explicit unfiltered selection and unchanged selector hash.",
+    "Earlier collection found an empty-eligibility fixture missing the newly eligible quiet category. Updated its exclusions, without altering ranking or policies.",
+    "Two failing regression cases demonstrated rejection of retired IDs in legacy responses; corrected while preserving active-only new-offer validation.",
+    "Inherited FastAPI TestClient httpx deprecation warning remains.",
+    "Legacy test-generated JSONL was copied outside source and tracked JSONL restored. No runtime data migration or deletion."
+  ]
+}
