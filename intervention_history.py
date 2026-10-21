@@ -22,6 +22,7 @@ from typing import Iterable
 
 from recommendations import (
     ACTIVITY_CATALOG,
+    RETIRED_ACTIVITY_IDS,
     CONTEXT_VOLUNTARY,
     CONTEXT_BEDTIME,
     CONTEXT_GENERAL,
@@ -68,6 +69,9 @@ VALID_ACTIVITY_IDS = {
     activity.activity_id
     for activity in ACTIVITY_CATALOG
 }
+
+# Las respuestas históricas conservan los IDs originales aunque ya no se ofrezcan.
+KNOWN_ACTIVITY_IDS = VALID_ACTIVITY_IDS | RETIRED_ACTIVITY_IDS
 
 
 # ============================================================
@@ -150,7 +154,7 @@ def create_intervention_record(
         )
 
     unknown_activity_ids = (
-        set(offered) - VALID_ACTIVITY_IDS
+        set(offered) - KNOWN_ACTIVITY_IDS
     )
 
     if unknown_activity_ids:

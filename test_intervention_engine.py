@@ -210,6 +210,7 @@ without_eligible_activities = request_voluntary_intervention(
             "reading",
             "free_play",
             "social_family",
+            "quiet",
         ),
     ),
 )

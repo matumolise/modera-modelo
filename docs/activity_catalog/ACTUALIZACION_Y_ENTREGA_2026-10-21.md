@@ -31,7 +31,7 @@ comprensión con niños. No se modifica el PDF entregado ni código de backend o
 | Nuevos IDs para las dos sustituciones | Evita atribuir una selección de ayuda doméstica a creación conjunta, o preparación de objetos a imaginación de otro final. |
 | Aceptar IDs retirados como antecedentes y exclusiones | El coordinador y el backend pueden conservarlos. Aceptarlos no permite volver a sugerirlos. Los IDs desconocidos siguen rechazándose. |
 | Conservar intereses históricos `helping`, `organization`, `writing` como entradas | Evita errores al leer preferencias previas. No se trasladan a las nuevas actividades ni se prometen coincidencias si ya no hay una actividad con esa etiqueta. |
-| Actividad 7: intereses `stories`, `creative` | Ahora permite imaginar o contar. Ya no se ofrece por exigir escritura o dibujo. |
+| Actividad 7: intereses `stories`, `creative` | Ahora permite imaginar o contar. Se retiran las etiquetas `writing` y `drawing` porque no son necesarias para la consigna. |
 | Actividad 15: social, creatividad, historias y dibujo | Son variantes explícitas de creación por turnos. Sigue requiriendo otra persona. |
 | Actividad 17: historias y creatividad, nivel calmado | Consigna de imaginación sin materiales ni otra persona obligatoria. Disponible voluntariamente, en pausa general y antes de dormir, según la propuesta. No acredita un efecto sobre el sueño. |
 | Retirar bedtime de las actividades 6 y 7 | El Word las propone solo para pausa. Se limita el contexto de nuevas sugerencias y se conserva la actividad 18 para dibujo antes de dormir. Es una decisión provisional de catálogo, no dictamen profesional. |
@@ -97,6 +97,11 @@ actual: devuelve `frozen_offer_no_longer_eligible`. Se conserva el tratamiento
 existente de vencimiento y reconciliación, sin crear una oferta sustituta por
 fuera de las reglas. Una respuesta válida a una oferta antigua ya entregada se
 registra contra sus IDs originales.
+
+El registro heredado de respuestas también acepta esos dos IDs para conservar
+la respuesta a una oferta anterior. La creación de ofertas nuevas continúa
+validando exclusivamente el catálogo activo. Los tests guardan la oferta previa,
+registran y reintentan su respuesta y comprueban que no se alteró el original.
 
 ## Comprobación en PowerShell de VS Code
 

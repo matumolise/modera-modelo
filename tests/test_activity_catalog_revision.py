@@ -115,6 +115,37 @@ def test_conditions_are_not_reinterpreted_as_medically_approved_filters():
     assert result['activities'] == []
 
 
+@pytest.mark.parametrize('activity_id', sorted(RETIRED_ACTIVITY_IDS))
+def test_legacy_responses_preserve_retired_ids_without_new_offers(tmp_path, activity_id):
+    from datetime import datetime, timezone
+    from intervention_history import (
+        InterventionOffer, append_intervention_offer, append_intervention_record,
+        create_intervention_offer, create_intervention_record,
+    )
+    from intervention_history_reader import read_linked_offer_responses
+
+    path = tmp_path / 'fictitious-legacy.jsonl'
+    when = datetime(2026, 10, 16, 13, tzinfo=timezone.utc)
+    original = InterventionOffer('fictitious-legacy-offer', 1, when.isoformat(),
+                                 'child_initiated', 'voluntary', (activity_id,))
+    append_intervention_offer(original, str(path))
+    prefix = path.read_bytes()
+    record = create_intervention_record(1, 'child_initiated', 'voluntary',
+        (activity_id,), 'selected', activity_id, when, original.offer_id)
+    append_intervention_record(record, str(path))
+    after = path.read_bytes()
+    assert after.startswith(prefix)
+    append_intervention_record(record, str(path))
+    assert path.read_bytes() == after
+    assert record.selected_activity_id == activity_id
+    assert len(read_linked_offer_responses(path)) == 1
+    with pytest.raises(ValueError):
+        create_intervention_offer(1, 'child_initiated', 'voluntary', (activity_id,), when)
+    with pytest.raises(ValueError):
+        create_intervention_record(1, 'child_initiated', 'voluntary',
+            ('not-an-activity',), 'selected', 'not-an-activity', when)
+
+
 @pytest.mark.parametrize('case', FIXTURE['cases'], ids=lambda c: c['case'])
 def test_original_receipts_survive_catalog_upgrade_and_http_restart(tmp_path, case):
     path = tmp_path / 'fictitious-upgrade.sqlite'
