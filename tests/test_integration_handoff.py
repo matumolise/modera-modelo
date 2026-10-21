@@ -214,7 +214,12 @@ class ConsiderationsTests(unittest.TestCase):
         selected = select_activities({"request_id": "windows-smoke-01", "context": "voluntary",
                                       "eligibility_state": result["eligibility_state"],
                                       "eligibility": result["eligibility"]})
-        self.assertEqual(selected["selection_fingerprint"], "2348f20d9b1ab3a38935f52df2f043c4334c16ad025b0a540f551ae45cec831d")
+        # «Ninguna» no debe agregar filtros. La huella incluye el catálogo vigente.
+        unfiltered = select_activities({"request_id": "windows-smoke-01", "context": "voluntary",
+                                       "eligibility_state": "known", "eligibility": {}})
+        self.assertEqual(selected, unfiltered)
+        self.assertEqual(selected["selector_version"],
+                         "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace")
         self.assertEqual(len(ACTIVITY_CATALOG), 18)
 
     def test_every_condition_needs_functional_review(self):
