@@ -217,9 +217,12 @@ class ConditionsCombinationsTests(unittest.TestCase):
         self.assertEqual(indexed["social_story_01"]["review_domains"]["auditory"], "E")
         for activity in ("reading_choose_01", "reading_favorite_01"):
             self.assertEqual(indexed[activity]["review_domains"]["visual"], "V")
-        for activity in ("creative_character_01", "creative_story_01", "free_play_build_01", "quiet_draw_01"):
+        for activity in ("creative_character_01", "free_play_build_01", "quiet_draw_01"):
             self.assertEqual(indexed[activity]["review_domains"]["mobility_arms_hands"], "V")
-        self.assertEqual(indexed["movement_sequence_01"]["review_domains"]["mobility_legs"], "V")
+        # Las consignas revisadas no exigen dibujar la historia ni mover las piernas.
+        # N describe el texto y no acredita compatibilidad de una persona.
+        self.assertEqual(indexed["creative_story_01"]["review_domains"]["mobility_arms_hands"], "N")
+        self.assertEqual(indexed["movement_sequence_01"]["review_domains"]["mobility_legs"], "N")
 
     def test_all_31_valid_nonempty_label_combinations_abstain_without_functional_mapping(self):
         count = 0

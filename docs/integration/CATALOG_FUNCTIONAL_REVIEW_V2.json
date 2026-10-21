@@ -1,7 +1,7 @@
 {
   "audit_schema": "catalog-functional-review-v2-candidate",
-  "base_commit": "94ff3a82ad3581e74cb6f97449adda264972c61b",
-  "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+  "base_commit": "04f1e3a9076d914bccad49d356184d8b7b45ec13",
+  "catalog_version": "provisional-sha256:ae0318b2f83540e2370ec9cdd20dde566677c3220f6c844bdc86c41b9de2a023",
   "clinical_safety_validated": false,
   "automatic_condition_to_filter_mapping": false,
   "legend": {
@@ -12,15 +12,15 @@
   "activities": [
     {
       "activity_id": "movement_dance_01",
-      "title": "Bailá una canción",
-      "description": "Elegí una canción que te guste, dejá el celular y bailá mientras suena.",
-      "description_sha256": "3d4b3cdc9eff3ea2e39c18a40cf3efe935030095feb96ffce56b51fd48c92459",
+      "title": "Bailá a tu manera",
+      "description": "Necesitás: Una canción que conozcas. Si querés escucharla, un dispositivo para reproducirla.\n1. Elegí una canción que te guste. Podés ponerla o cantarla vos.\n2. Si usás el celular para escucharla, dejalo apoyado en un lugar seguro. No hace falta seguir mirando la pantalla.\n3. Mové las manos y los brazos al ritmo de la canción. Podés bailar sentado o de pie.",
+      "description_sha256": "b3e5cfef6b1c9d1416996df42e1c6a02dae8fea70ba36d4c579c749ce999f952",
       "review_domains": {
-        "mobility_arms_hands": "V",
+        "mobility_arms_hands": "E",
         "mobility_legs": "V",
         "visual": "N",
-        "auditory": "E",
-        "sensory": "E"
+        "auditory": "V",
+        "sensory": "V"
       },
       "mobility_both": "review union of mobility_arms_hands and mobility_legs",
       "instruction_access_review": "required globally; UI modality unverified",
@@ -28,17 +28,17 @@
       "may_require_device_interaction": true,
       "professional_approval": "PENDING",
       "runtime_compatibility": "UNKNOWN",
-      "followup": "Qué movimientos y estímulos puede admitir; acceso a la consigna y elección de canción.",
-      "title_sha256": "eaea858678c62775a1f537509cfb29b6bc54293cd7d0f90137fdd25c85717de8"
+      "followup": "Puede bailar sentado y poner o cantar una canción. No se garantiza accesibilidad auditiva o sensorial ni se resuelve con una exclusión automática.",
+      "title_sha256": "bebd86a30b644794ed3838e61afe67f1ab17677b23135bafd06668bbcbfdc073"
     },
     {
       "activity_id": "movement_sequence_01",
-      "title": "Armá una secuencia de movimientos",
-      "description": "Elegí tres movimientos que puedas hacer, como saltar, girar o agacharte, y tratá de repetir la secuencia.",
-      "description_sha256": "6320905c82571ea64c5e7ef6ec0eda968111c22ac5d0b74bf1ec763106a0d982",
+      "title": "Armá una cadena de movimientos",
+      "description": "No necesitás materiales.\n1. Levantá las manos y después bajalas.\n2. Agregá otro movimiento que puedas hacer, como abrir y cerrar las manos.\n3. Repetí los movimientos en ese mismo orden. Podés hacerlos sentado o de pie.",
+      "description_sha256": "2c6c6c8317cfa1da24b00b7f11421d2043fa430806fd91a434e8a2046e7c8044",
       "review_domains": {
-        "mobility_arms_hands": "V",
-        "mobility_legs": "V",
+        "mobility_arms_hands": "E",
+        "mobility_legs": "N",
         "visual": "N",
         "auditory": "N",
         "sensory": "V"
@@ -49,14 +49,14 @@
       "may_require_device_interaction": false,
       "professional_approval": "PENDING",
       "runtime_compatibility": "UNKNOWN",
-      "followup": "Elegir los movimientos concretos: saltar/girar/agacharse son ejemplos, no una secuencia obligatoria ni una inferencia de capacidades.",
-      "title_sha256": "f7c924b2db2bec1f11f8c160b67389f445ac109ff18e8f762d7fa4ecb2da3cfa"
+      "followup": "La consigna pide manos y brazos y permite estar sentado. Revisar movimientos y apoyos concretos. No inferir exclusiones desde una etiqueta.",
+      "title_sha256": "a0b877037ae3c7a65d3f24048e5a4fdf852b9aa87d155c7014188b57b9936031"
     },
     {
       "activity_id": "movement_ball_01",
       "title": "Jugá con una pelota",
-      "description": "Si tenés una pelota cerca y un lugar seguro, elegí una forma de jugar con ella.",
-      "description_sha256": "c85742950b68aae82e960311dea0fbbe7d19fb9f4cf66d609ee602d35ee128f6",
+      "description": "Necesitás: Una pelota blanda o un par de medias enrolladas. Un lugar donde esté permitido jugar.\n1. Buscá un espacio libre de cosas que se puedan romper.\n2. Apoyá la pelota en el piso y hacela rodar suavemente hacia un lugar que elijas.\n3. Andá a buscarla y probá hacerla rodar otra vez.",
+      "description_sha256": "8e07b55805af5744bd530e3aa12d1b1d19544f86679853e91edbcfc85687c0af",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "V",
@@ -76,8 +76,8 @@
     {
       "activity_id": "creative_character_01",
       "title": "Inventá un personaje",
-      "description": "Inventá un personaje nuevo y dibujá cómo sería.",
-      "description_sha256": "426eb2e04b646d5e466e971f71a7110109ef8cf54c49c2cd479cfb7565eb6efc",
+      "description": "No necesitás materiales. Si querés dibujarlo, usá papel y lápiz.\n1. Imaginá un personaje. Puede ser una persona, un animal o un monstruo inventado.\n2. Elegí su nombre y algo que le guste hacer.\n3. Podés contar cómo es o dibujarlo.",
+      "description_sha256": "f8298d02cc330980a3757a8305dd8601592ee82ca0e3f7fbe4ef3ea2d90ac98e",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "N",
@@ -96,9 +96,9 @@
     },
     {
       "activity_id": "creative_animal_01",
-      "title": "Creá un animal imaginario",
-      "description": "Mezclá características de animales que conozcas e inventá uno nuevo para dibujar.",
-      "description_sha256": "45cc8162c576e21a08306c1e154b448421c5a29188e78366f4db006b948da659",
+      "title": "Combiná dos animales",
+      "description": "No necesitás materiales. Si querés dibujar, usá papel y lápiz.\n1. Elegí dos animales que conozcas, por ejemplo, un gato y un pájaro.\n2. Imaginá un animal que tenga una parte de cada uno, como un gato con alas.\n3. Inventale un nombre. Podés contar cómo es o dibujarlo.",
+      "description_sha256": "17dcef383f6b15e0d20fbe489711c60bd1dab33f92a9c6f8360b9bc71970d88f",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "N",
@@ -113,13 +113,13 @@
       "professional_approval": "PENDING",
       "runtime_compatibility": "UNKNOWN",
       "followup": "Igual que dibujo; interés por animales no elimina restricciones.",
-      "title_sha256": "dc4079d52a189af0a507e64b0519b7cf63b90a54b0e597045b7c64842ada03c6"
+      "title_sha256": "32967709bd893620a1f3605a8ed5cd3ad497de382b3b1a6005439946af04143c"
     },
     {
       "activity_id": "creative_favorite_01",
       "title": "Dibujá algo que te guste",
-      "description": "Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.",
-      "description_sha256": "117a1509b3959996ca271fb7481f668197b2b935db7cb8b1e7724fbe0c55f987",
+      "description": "Necesitás: Papel y un lápiz o lápices de colores.\n1. Buscá el papel y los lápices.\n2. Elegí algo que te guste, como un animal, una persona o un lugar.\n3. Dibujalo como vos quieras. Si no sabés por dónde empezar, dibujá primero una parte.",
+      "description_sha256": "8aa2e69c5bedd0c609b34b1774ffafcb137a6cab480764eeb18e6afc056d632a",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "N",
@@ -139,12 +139,12 @@
     {
       "activity_id": "creative_story_01",
       "title": "Inventá una historia",
-      "description": "Inventá una historia corta. Podés escribirla, dibujarla o hacer las dos cosas.",
-      "description_sha256": "c143fa64349e1dc94f1cc00a921df93ab8f7ea4f0d16ba2092891febecf1ab8c",
+      "description": "No necesitás materiales.\n1. Elegí quién aparece en tu historia: una persona, un animal o un personaje inventado.\n2. Pensá dónde está y qué le pasa. Por ejemplo: «Un gato encontró una puerta chiquita».\n3. Inventá qué sucede después. Podés contar la historia o imaginarla en silencio.",
+      "description_sha256": "7a71e2379cc93be51537e3fe2b55a676512dfa7d35cab01ffe5c4a4f1051f098",
       "review_domains": {
-        "mobility_arms_hands": "V",
+        "mobility_arms_hands": "N",
         "mobility_legs": "N",
-        "visual": "V",
+        "visual": "N",
         "auditory": "N",
         "sensory": "V"
       },
@@ -154,14 +154,14 @@
       "may_require_device_interaction": false,
       "professional_approval": "PENDING",
       "runtime_compatibility": "UNKNOWN",
-      "followup": "Variante sin escritura/dibujo no está en el texto; requiere revisión.",
+      "followup": "La variante actual permite imaginar en silencio o contar. Ya no exige escribir ni dibujar. Revisar acceso a la consigna y forma de comunicación.",
       "title_sha256": "8ed31c57fb4e3ea0f689f2e2152753fb2a334e99563bb75f52844e356f888eba"
     },
     {
       "activity_id": "reading_choose_01",
       "title": "Elegí algo para leer",
-      "description": "Buscá un libro, cuento o cómic que tengas ganas de leer.",
-      "description_sha256": "5c08bfa17f74d9bfb697abbb0983631e845087a06d50dea873b556150b08d9ec",
+      "description": "Necesitás: Un libro o una historieta en papel.\nSi tenés un libro o historieta en papel, leé una parte a tu ritmo. También podés mirar sus ilustraciones.",
+      "description_sha256": "74e7b04151e00cc471e9fe45ac8b8c6d25b08267a3d2b7e4a3011bed94a64200",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "N",
@@ -181,8 +181,8 @@
     {
       "activity_id": "reading_favorite_01",
       "title": "Volvé a una historia que te guste",
-      "description": "Elegí un libro, cuento o cómic que ya conozcas y buscá una parte que quieras volver a leer.",
-      "description_sha256": "e25627cccf85bbfa01e5915e1883c91e519fddb5c50917303f488bc0ff0cd841",
+      "description": "Necesitás: Un libro o una historieta en papel, si lo tenés a mano.\nBuscá tu parte favorita de un libro o historieta en papel. Si no lo tenés a mano, recordá esa escena.",
+      "description_sha256": "c277610118537b4db7ca81a795abab0365787b47bfec683fc086cf7d47fb72ac",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "N",
@@ -202,8 +202,8 @@
     {
       "activity_id": "free_play_nearby_01",
       "title": "Jugá con algo que tengas cerca",
-      "description": "Elegí un juguete, cartas, bloques u otra cosa que tengas ganas de usar y empezá a jugar.",
-      "description_sha256": "6b6f8029e47287b6271fdaefce03135b82212c035c776852670ab9f484575dcf",
+      "description": "Necesitás: Juguetes, cartas o bloques que puedas usar.\n1. Elegí un juguete, cartas o bloques que tengas a mano.\n2. Pensá qué podés hacer con lo que elegiste. Por ejemplo, si elegís un autito, armale un camino en el piso.\n3. Empezá a jugar. Si elegiste el autito, podés cambiar el camino o inventar qué pasa durante el viaje.",
+      "description_sha256": "19e86eb712c7d9dc346362ed25988e6f27e8c054f60bdbdfe7d7acd342a644cb",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "V",
@@ -223,8 +223,8 @@
     {
       "activity_id": "free_play_build_01",
       "title": "Construí algo",
-      "description": "Si tenés bloques, piezas u objetos para construir, elegí qué querés crear y empezá.",
-      "description_sha256": "28b021321550074fab0bcc60c046a5e3d7719d88776c57abd65f37f0a3221835",
+      "description": "Necesitás: Bloques o cajas que tengas para jugar.\nCon bloques o cajas que tengas para jugar, armá una torre, un puente o lo que se te ocurra.",
+      "description_sha256": "182c77315a9a322c7eda0a381c6bedcd3028bb44cc825521f674359a7e5dffa1",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "V",
@@ -243,9 +243,9 @@
     },
     {
       "activity_id": "free_play_story_01",
-      "title": "Creá una historia con tus juguetes",
-      "description": "Elegí algunos juguetes y pensá qué historia podría pasarles.",
-      "description_sha256": "2f108ec1c8fb85c212bd083abcd5f832954e161f1b56e6107b951730f5a4b2d9",
+      "title": "Jugá a inventar con objetos",
+      "description": "Necesitás: Uno o dos juguetes u objetos que puedas usar para jugar.\nElegí uno o dos juguetes u objetos y jugá a que son personajes de una historia.",
+      "description_sha256": "97ec9c3621611fceda16f54994adc40aaa295c5fc1cc1b3f4b13439ceb188b71",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "V",
@@ -260,13 +260,13 @@
       "professional_approval": "PENDING",
       "runtime_compatibility": "UNKNOWN",
       "followup": "Distinguir imaginar de mover juguetes; variante no especificada.",
-      "title_sha256": "d4df5f7b3bceab686a47da0503588048a2d5b5c20ad1c33fa5fdc5bbb4aa8ffc"
+      "title_sha256": "d50ac6508b86743ef72c923e8c3c341197fe8dab5fab797ba35f8294eeedc7f4"
     },
     {
       "activity_id": "social_play_01",
       "title": "Jugá con alguien",
-      "description": "Si hay alguien de confianza cerca, preguntale si quiere jugar a algo con vos.",
-      "description_sha256": "ee6fa2af5f87b30b44da1333ffe901f1ccf8c2660f7194480732b24ca54124d6",
+      "description": "Necesitás: Una persona de confianza que esté con vos y quiera jugar.\n1. Preguntale si tiene ganas de jugar con vos.\n2. Si quiere, elijan un juego que los dos conozcan.\n3. Por ejemplo, uno piensa en un animal y el otro hace preguntas para adivinarlo. Después cambien de turno. Si ahora no puede jugar, podés elegir otra actividad.",
+      "description_sha256": "bed8a6ef0263ccb05042f322e99bc2026362c703a826138221fccb3e9289b84d",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "V",
@@ -286,8 +286,8 @@
     {
       "activity_id": "social_talk_01",
       "title": "Contá algo de tu día",
-      "description": "Si tenés ganas, contale a alguien de confianza algo divertido o interesante que te haya pasado.",
-      "description_sha256": "a04cc384d051078b7a7bc59e877cea62081f5725eb3f2a3a809d82acfa232fde",
+      "description": "Necesitás: Una persona de confianza que esté con vos y quiera conversar.\n1. Preguntale si tiene un momento para escucharte.\n2. Si tenés ganas, contale algo de tu día. Puede ser algo que hiciste, que te gustó o que te sorprendió.\n3. Después podés preguntarle cómo estuvo su día y escucharla. Si no querés contar, elegí otra actividad.",
+      "description_sha256": "6a1edd89adb30d45ca73de5c28772d37eb607379de1ce1f831c5e6d779f7eaf6",
       "review_domains": {
         "mobility_arms_hands": "N",
         "mobility_legs": "N",
@@ -305,13 +305,13 @@
       "title_sha256": "f371a0f166f5a8816228d33e08973a08fed802bf9353fd35caf33750f68e0a4f"
     },
     {
-      "activity_id": "social_help_01",
-      "title": "Ayudá con algo",
-      "description": "Si hay alguien cerca, preguntale si necesita ayuda con alguna tarea sencilla.",
-      "description_sha256": "8a4283cbe467015cd3498bd85cfe49c4d810340584ae9ef6999d7f369c6cca88",
+      "activity_id": "social_create_together_01",
+      "title": "Inventen algo entre dos",
+      "description": "Necesitás: Una persona de confianza que esté con vos y quiera participar. Si eligen dibujar, papel y lápices.\nCon una persona de confianza que tenga ganas, inventen algo por turnos: una historia, un dibujo o un juego.",
+      "description_sha256": "3e96c0571f29906247b2e4bbcbb6dc3acb9f6b6390bfdd96c797d88192dd4041",
       "review_domains": {
         "mobility_arms_hands": "V",
-        "mobility_legs": "V",
+        "mobility_legs": "N",
         "visual": "V",
         "auditory": "V",
         "sensory": "V"
@@ -322,14 +322,14 @@
       "may_require_device_interaction": false,
       "professional_approval": "PENDING",
       "runtime_compatibility": "UNKNOWN",
-      "followup": "Tarea concreta, apoyos y persona disponible; no usar categoría como filtro suficiente.",
-      "title_sha256": "e81de5180157813daeda50263a862b4248373185d6d4f090c62e7d2b76a57252"
+      "followup": "Creación por turnos con una persona disponible. Materiales y comunicación dependen de la variante. Reemplaza una tarea distinta, sin heredar su compatibilidad.",
+      "title_sha256": "f13be79f62e8a08dd281d8b79fbc16939940ee7d72748fbad0c38b8ee019ed87"
     },
     {
       "activity_id": "social_story_01",
       "title": "Escuchá una historia",
-      "description": "Si hay alguien de confianza con quien tengas ganas de hablar, preguntale si quiere contarte una historia o una anécdota.",
-      "description_sha256": "41e4eefa1547f72cd4343492ebd134fb0f52517a57ed32ab0c0da4eb01d218e1",
+      "description": "Necesitás: Una persona de confianza que esté con vos y quiera contar una historia.\nSi una persona de confianza está con vos y quiere, pedile que te cuente una historia. Vos elegís el tema.",
+      "description_sha256": "89228cc8ca6ccff34755a78471bce9634a2b394fbb659a3deba720b360fd3263",
       "review_domains": {
         "mobility_arms_hands": "N",
         "mobility_legs": "N",
@@ -347,14 +347,14 @@
       "title_sha256": "b995b43fa0301e9a1450dc6887330021b2b67ad9acfbc08a1f1474874ccd4dda"
     },
     {
-      "activity_id": "quiet_prepare_01",
-      "title": "Prepará algo para mañana",
-      "description": "Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.",
-      "description_sha256": "ba6d6dcd8f4ca4ca82f72a8a4aa59b1ddb0a3037618419cdf867893ede57a5f8",
+      "activity_id": "quiet_story_ending_01",
+      "title": "Inventá otro final",
+      "description": "No necesitás materiales.\nRecordá una historia que te guste e imaginá otro final. Podés guardártelo para vos.",
+      "description_sha256": "6b04722c2d76a070d0df60920e954766eedfe75aa02a1f51611027674b87304e",
       "review_domains": {
-        "mobility_arms_hands": "V",
-        "mobility_legs": "V",
-        "visual": "V",
+        "mobility_arms_hands": "N",
+        "mobility_legs": "N",
+        "visual": "N",
         "auditory": "N",
         "sensory": "V"
       },
@@ -364,14 +364,14 @@
       "may_require_device_interaction": false,
       "professional_approval": "PENDING",
       "runtime_compatibility": "UNKNOWN",
-      "followup": "Tarea concreta y apoyos; calm no excluye demanda manual o visual.",
-      "title_sha256": "31e78b2b2c1c69080bde696ade3471833ac26d4c8102f9d808bf673f354936ec"
+      "followup": "Imaginación sin materiales ni otra persona obligatoria. Revisar comprensión y contexto de descanso. N no garantiza compatibilidad.",
+      "title_sha256": "acd521c9d9d2a47f5818a9965999624d6fd6e413ca5734e2723d8711db842019"
     },
     {
       "activity_id": "quiet_draw_01",
       "title": "Hacé un dibujo tranquilo",
-      "description": "Elegí libremente algo que tengas ganas de dibujar mientras te preparás para terminar el día.",
-      "description_sha256": "0707bb5f68a743e80da29e3c3f0139c55f92e1357a8ad8179b7f5a29ce891cdf",
+      "description": "Necesitás: Papel y un lápiz o lápices de colores.\n1. Buscá el papel y los lápices y elegí un lugar cómodo para dibujar.\n2. Dibujá algo que conozcas, como una flor, una casa o un animal. También podés dibujar otra cosa que te guste.\n3. Hacelo a tu ritmo. Cuando quieras parar, guardá el dibujo. No hace falta terminarlo hoy.",
+      "description_sha256": "66151711155c5d86e5965ef4f4c53ec1abb6c88d41066377c5b8f931ccabf328",
       "review_domains": {
         "mobility_arms_hands": "V",
         "mobility_legs": "N",
@@ -388,5 +388,7 @@
       "followup": "Mismas restricciones que dibujo; etiqueta bedtime también provisional.",
       "title_sha256": "47c242ddea9f550286572a50c5b4af4f552a5759d5b1e84bdd7cd440a05577d9"
     }
-  ]
+  ],
+  "revision": "cecilia-followup-2026-10-21-candidate",
+  "source_decisions": "docs/activity_catalog/REVISION_2026-10-21.json"
 }

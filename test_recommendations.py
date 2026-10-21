@@ -147,6 +147,7 @@ no_activities = recommend_activities(
             "reading",
             "free_play",
             "social_family",
+            "quiet",
         ),
     ),
 )

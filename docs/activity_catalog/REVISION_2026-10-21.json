@@ -1,0 +1,464 @@
+{
+  "revision": "cecilia-followup-2026-10-21-candidate",
+  "source_document": "MODERA_ACTIVIDADES_SEGUNDA_REVISION_2026-10-19.docx",
+  "source_document_sha256": "e3869002bdd7437944d26d3a043f445949d103489851d3ab1e26aec9bd91acf9",
+  "source_proposal_date": "2026-10-19",
+  "professional_status": "SECOND_REVIEW_PENDING",
+  "approval_claim": false,
+  "common_child_text": "Elegí algo que tengas ganas de hacer. Mirá qué necesitás y cómo empezar. Después dejá el celular a un lado para hacer la actividad. Si ahora no querés, podés seguir sin elegir",
+  "excluded_additional_document_numbers": [
+    19,
+    20,
+    21
+  ],
+  "activities": [
+    {
+      "document_number": 1,
+      "previous_activity_id": "movement_dance_01",
+      "activity": {
+        "activity_id": "movement_dance_01",
+        "title": "Bailá a tu manera",
+        "description": "Necesitás: Una canción que conozcas. Si querés escucharla, un dispositivo para reproducirla.\n1. Elegí una canción que te guste. Podés ponerla o cantarla vos.\n2. Si usás el celular para escucharla, dejalo apoyado en un lugar seguro. No hace falta seguir mirando la pantalla.\n3. Mové las manos y los brazos al ritmo de la canción. Podés bailar sentado o de pie.",
+        "category": "movement",
+        "interest_tags": [
+          "music",
+          "dance",
+          "movement"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "active",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": true
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 2,
+      "previous_activity_id": "movement_sequence_01",
+      "activity": {
+        "activity_id": "movement_sequence_01",
+        "title": "Armá una cadena de movimientos",
+        "description": "No necesitás materiales.\n1. Levantá las manos y después bajalas.\n2. Agregá otro movimiento que puedas hacer, como abrir y cerrar las manos.\n3. Repetí los movimientos en ese mismo orden. Podés hacerlos sentado o de pie.",
+        "category": "movement",
+        "interest_tags": [
+          "movement",
+          "sports"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "active",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 3,
+      "previous_activity_id": "movement_ball_01",
+      "activity": {
+        "activity_id": "movement_ball_01",
+        "title": "Jugá con una pelota",
+        "description": "Necesitás: Una pelota blanda o un par de medias enrolladas. Un lugar donde esté permitido jugar.\n1. Buscá un espacio libre de cosas que se puedan romper.\n2. Apoyá la pelota en el piso y hacela rodar suavemente hacia un lugar que elijas.\n3. Andá a buscarla y probá hacerla rodar otra vez.",
+        "category": "movement",
+        "interest_tags": [
+          "sports",
+          "movement"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "active",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 4,
+      "previous_activity_id": "creative_character_01",
+      "activity": {
+        "activity_id": "creative_character_01",
+        "title": "Inventá un personaje",
+        "description": "No necesitás materiales. Si querés dibujarlo, usá papel y lápiz.\n1. Imaginá un personaje. Puede ser una persona, un animal o un monstruo inventado.\n2. Elegí su nombre y algo que le guste hacer.\n3. Podés contar cómo es o dibujarlo.",
+        "category": "creative",
+        "interest_tags": [
+          "drawing",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa y antes de dormir.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 5,
+      "previous_activity_id": "creative_animal_01",
+      "activity": {
+        "activity_id": "creative_animal_01",
+        "title": "Combiná dos animales",
+        "description": "No necesitás materiales. Si querés dibujar, usá papel y lápiz.\n1. Elegí dos animales que conozcas, por ejemplo, un gato y un pájaro.\n2. Imaginá un animal que tenga una parte de cada uno, como un gato con alas.\n3. Inventale un nombre. Podés contar cómo es o dibujarlo.",
+        "category": "creative",
+        "interest_tags": [
+          "drawing",
+          "animals",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa y antes de dormir.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 6,
+      "previous_activity_id": "creative_favorite_01",
+      "activity": {
+        "activity_id": "creative_favorite_01",
+        "title": "Dibujá algo que te guste",
+        "description": "Necesitás: Papel y un lápiz o lápices de colores.\n1. Buscá el papel y los lápices.\n2. Elegí algo que te guste, como un animal, una persona o un lugar.\n3. Dibujalo como vos quieras. Si no sabés por dónde empezar, dibujá primero una parte.",
+        "category": "creative",
+        "interest_tags": [
+          "drawing",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 7,
+      "previous_activity_id": "creative_story_01",
+      "activity": {
+        "activity_id": "creative_story_01",
+        "title": "Inventá una historia",
+        "description": "No necesitás materiales.\n1. Elegí quién aparece en tu historia: una persona, un animal o un personaje inventado.\n2. Pensá dónde está y qué le pasa. Por ejemplo: «Un gato encontró una puerta chiquita».\n3. Inventá qué sucede después. Podés contar la historia o imaginarla en silencio.",
+        "category": "creative",
+        "interest_tags": [
+          "stories",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 8,
+      "previous_activity_id": "reading_choose_01",
+      "activity": {
+        "activity_id": "reading_choose_01",
+        "title": "Elegí algo para leer",
+        "description": "Necesitás: Un libro o una historieta en papel.\nSi tenés un libro o historieta en papel, leé una parte a tu ritmo. También podés mirar sus ilustraciones.",
+        "category": "reading",
+        "interest_tags": [
+          "reading",
+          "books",
+          "comics"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa y antes de dormir.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 9,
+      "previous_activity_id": "reading_favorite_01",
+      "activity": {
+        "activity_id": "reading_favorite_01",
+        "title": "Volvé a una historia que te guste",
+        "description": "Necesitás: Un libro o una historieta en papel, si lo tenés a mano.\nBuscá tu parte favorita de un libro o historieta en papel. Si no lo tenés a mano, recordá esa escena.",
+        "category": "reading",
+        "interest_tags": [
+          "reading",
+          "books",
+          "comics"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa y antes de dormir.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 10,
+      "previous_activity_id": "free_play_nearby_01",
+      "activity": {
+        "activity_id": "free_play_nearby_01",
+        "title": "Jugá con algo que tengas cerca",
+        "description": "Necesitás: Juguetes, cartas o bloques que puedas usar.\n1. Elegí un juguete, cartas o bloques que tengas a mano.\n2. Pensá qué podés hacer con lo que elegiste. Por ejemplo, si elegís un autito, armale un camino en el piso.\n3. Empezá a jugar. Si elegiste el autito, podés cambiar el camino o inventar qué pasa durante el viaje.",
+        "category": "free_play",
+        "interest_tags": [
+          "toys",
+          "games",
+          "free_play"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 11,
+      "previous_activity_id": "free_play_build_01",
+      "activity": {
+        "activity_id": "free_play_build_01",
+        "title": "Construí algo",
+        "description": "Necesitás: Bloques o cajas que tengas para jugar.\nCon bloques o cajas que tengas para jugar, armá una torre, un puente o lo que se te ocurra.",
+        "category": "free_play",
+        "interest_tags": [
+          "building",
+          "creative",
+          "toys"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 12,
+      "previous_activity_id": "free_play_story_01",
+      "activity": {
+        "activity_id": "free_play_story_01",
+        "title": "Jugá a inventar con objetos",
+        "description": "Necesitás: Uno o dos juguetes u objetos que puedas usar para jugar.\nElegí uno o dos juguetes u objetos y jugá a que son personajes de una historia.",
+        "category": "free_play",
+        "interest_tags": [
+          "toys",
+          "creative",
+          "stories"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 13,
+      "previous_activity_id": "social_play_01",
+      "activity": {
+        "activity_id": "social_play_01",
+        "title": "Jugá con alguien",
+        "description": "Necesitás: Una persona de confianza que esté con vos y quiera jugar.\n1. Preguntale si tiene ganas de jugar con vos.\n2. Si quiere, elijan un juego que los dos conozcan.\n3. Por ejemplo, uno piensa en un animal y el otro hace preguntas para adivinarlo. Después cambien de turno. Si ahora no puede jugar, podés elegir otra actividad.",
+        "category": "social_family",
+        "interest_tags": [
+          "social",
+          "games"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": true,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 14,
+      "previous_activity_id": "social_talk_01",
+      "activity": {
+        "activity_id": "social_talk_01",
+        "title": "Contá algo de tu día",
+        "description": "Necesitás: Una persona de confianza que esté con vos y quiera conversar.\n1. Preguntale si tiene un momento para escucharte.\n2. Si tenés ganas, contale algo de tu día. Puede ser algo que hiciste, que te gustó o que te sorprendió.\n3. Después podés preguntarle cómo estuvo su día y escucharla. Si no querés contar, elegí otra actividad.",
+        "category": "social_family",
+        "interest_tags": [
+          "social",
+          "conversation"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": true,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa y antes de dormir.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 15,
+      "previous_activity_id": "social_help_01",
+      "activity": {
+        "activity_id": "social_create_together_01",
+        "title": "Inventen algo entre dos",
+        "description": "Necesitás: Una persona de confianza que esté con vos y quiera participar. Si eligen dibujar, papel y lápices.\nCon una persona de confianza que tenga ganas, inventen algo por turnos: una historia, un dibujo o un juego.",
+        "category": "social_family",
+        "interest_tags": [
+          "social",
+          "creative",
+          "stories",
+          "drawing"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": true,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa.",
+      "decision": "Sustitución de ayuda doméstica por creación conjunta. No heredar selecciones ni exclusiones de la tarea anterior."
+    },
+    {
+      "document_number": 16,
+      "previous_activity_id": "social_story_01",
+      "activity": {
+        "activity_id": "social_story_01",
+        "title": "Escuchá una historia",
+        "description": "Necesitás: Una persona de confianza que esté con vos y quiera contar una historia.\nSi una persona de confianza está con vos y quiere, pedile que te cuente una historia. Vos elegís el tema.",
+        "category": "social_family",
+        "interest_tags": [
+          "social",
+          "conversation",
+          "stories"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": true,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa y antes de dormir.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    },
+    {
+      "document_number": 17,
+      "previous_activity_id": "quiet_prepare_01",
+      "activity": {
+        "activity_id": "quiet_story_ending_01",
+        "title": "Inventá otro final",
+        "description": "No necesitás materiales.\nRecordá una historia que te guste e imaginá otro final. Podés guardártelo para vos.",
+        "category": "quiet",
+        "interest_tags": [
+          "stories",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Pausa y antes de dormir.",
+      "decision": "Sustitución de preparación de objetos por imaginación de otro final. No heredar selecciones ni exclusiones de la tarea anterior."
+    },
+    {
+      "document_number": 18,
+      "previous_activity_id": "quiet_draw_01",
+      "activity": {
+        "activity_id": "quiet_draw_01",
+        "title": "Hacé un dibujo tranquilo",
+        "description": "Necesitás: Papel y un lápiz o lápices de colores.\n1. Buscá el papel y los lápices y elegí un lugar cómodo para dibujar.\n2. Dibujá algo que conozcas, como una flor, una casa o un animal. También podés dibujar otra cosa que te guste.\n3. Hacelo a tu ritmo. Cuando quieras parar, guardá el dibujo. No hace falta terminarlo hoy.",
+        "category": "quiet",
+        "interest_tags": [
+          "drawing",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "proposed_context": "Contexto propuesto: Antes de dormir.",
+      "decision": "Consigna y materiales según propuesta. Identidad de actividad conservada."
+    }
+  ]
+}

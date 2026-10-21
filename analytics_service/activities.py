@@ -5,7 +5,10 @@ import inspect
 import json
 from dataclasses import asdict
 
-from recommendations import ACTIVITY_CATALOG, ActivityEligibility, recommend_activities
+from recommendations import (
+    ACTIVITY_CATALOG, LEGACY_INTEREST_TAGS, RETIRED_ACTIVITY_IDS,
+    ActivityEligibility, recommend_activities,
+)
 
 
 class InvalidSelection(ValueError):
@@ -17,8 +20,11 @@ CATALOG_VERSION = "provisional-sha256:" + hashlib.sha256(
     json.dumps(CATALOG_SNAPSHOT, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
 ).hexdigest()
 ACTIVITY_IDS = frozenset(a.activity_id for a in ACTIVITY_CATALOG)
+# Los antecedentes y filtros viejos pueden nombrar una actividad ya retirada.
+# Se acepta su identidad sin volver a ofrecerla ni trasladar su significado.
+KNOWN_ACTIVITY_IDS = ACTIVITY_IDS | RETIRED_ACTIVITY_IDS
 CATEGORIES = frozenset(a.category for a in ACTIVITY_CATALOG)
-INTERESTS = frozenset(tag for a in ACTIVITY_CATALOG for tag in a.interest_tags)
+INTERESTS = frozenset(tag for a in ACTIVITY_CATALOG for tag in a.interest_tags) | LEGACY_INTEREST_TAGS
 SELECTOR_VERSION = "published-selector-sha256:" + hashlib.sha256(
     inspect.getsource(recommend_activities).encode()
 ).hexdigest()
@@ -49,7 +55,7 @@ def select_activities(request):
     if not isinstance(context, str) or context not in {"voluntary", "general", "bedtime"}:
         raise InvalidSelection("Contexto inválido")
     interests = _string_list(request.get("interests", []), INTERESTS)
-    recent = _string_list(request.get("recently_shown_ids", []), ACTIVITY_IDS)
+    recent = _string_list(request.get("recently_shown_ids", []), KNOWN_ACTIVITY_IDS)
     state = request.get("eligibility_state")
     if not isinstance(state, str) or state not in {"known", "unknown"}:
         raise InvalidSelection("Estado de elegibilidad requerido")
@@ -67,7 +73,7 @@ def select_activities(request):
     fields = request["eligibility"]
     if not isinstance(fields, dict) or set(fields) - ELIGIBILITY_FIELDS:
         raise InvalidSelection("Elegibilidad no admitida")
-    ids = _string_list(fields.get("excluded_activity_ids", []), ACTIVITY_IDS)
+    ids = _string_list(fields.get("excluded_activity_ids", []), KNOWN_ACTIVITY_IDS)
     categories = _string_list(fields.get("excluded_categories", []), CATEGORIES)
     levels = _string_list(fields.get("allowed_activity_levels", sorted(LEVELS)), LEVELS)
     other = fields.get("allow_requires_other_person", True)

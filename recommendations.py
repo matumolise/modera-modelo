@@ -65,7 +65,7 @@ class ActivityEligibility:
 
 
 # ============================================================
-# CATÁLOGO V1
+# CATÁLOGO PROVISIONAL REVISADO
 # ============================================================
 
 ACTIVITY_CATALOG: tuple[Activity, ...] = (
@@ -76,10 +76,12 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
 
     Activity(
         activity_id="movement_dance_01",
-        title="Bailá una canción",
+        title="Bailá a tu manera",
         description=(
-            "Elegí una canción que te guste, "
-            "dejá el celular y bailá mientras suena."
+            "Necesitás: Una canción que conozcas. Si querés escucharla, un dispositivo para reproducirla.\n"
+            "1. Elegí una canción que te guste. Podés ponerla o cantarla vos.\n"
+            "2. Si usás el celular para escucharla, dejalo apoyado en un lugar seguro. No hace falta seguir mirando la pantalla.\n"
+            "3. Mové las manos y los brazos al ritmo de la canción. Podés bailar sentado o de pie."
         ),
         category="movement",
         interest_tags=(
@@ -99,11 +101,12 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
 
     Activity(
         activity_id="movement_sequence_01",
-        title="Armá una secuencia de movimientos",
+        title="Armá una cadena de movimientos",
         description=(
-            "Elegí tres movimientos que puedas hacer, "
-            "como saltar, girar o agacharte, "
-            "y tratá de repetir la secuencia."
+            "No necesitás materiales.\n"
+            "1. Levantá las manos y después bajalas.\n"
+            "2. Agregá otro movimiento que puedas hacer, como abrir y cerrar las manos.\n"
+            "3. Repetí los movimientos en ese mismo orden. Podés hacerlos sentado o de pie."
         ),
         category="movement",
         interest_tags=(
@@ -124,8 +127,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="movement_ball_01",
         title="Jugá con una pelota",
         description=(
-            "Si tenés una pelota cerca y un lugar seguro, "
-            "elegí una forma de jugar con ella."
+            "Necesitás: Una pelota blanda o un par de medias enrolladas. Un lugar donde esté permitido jugar.\n"
+            "1. Buscá un espacio libre de cosas que se puedan romper.\n"
+            "2. Apoyá la pelota en el piso y hacela rodar suavemente hacia un lugar que elijas.\n"
+            "3. Andá a buscarla y probá hacerla rodar otra vez."
         ),
         category="movement",
         interest_tags=(
@@ -150,7 +155,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="creative_character_01",
         title="Inventá un personaje",
         description=(
-            "Inventá un personaje nuevo y dibujá cómo sería."
+            "No necesitás materiales. Si querés dibujarlo, usá papel y lápiz.\n"
+            "1. Imaginá un personaje. Puede ser una persona, un animal o un monstruo inventado.\n"
+            "2. Elegí su nombre y algo que le guste hacer.\n"
+            "3. Podés contar cómo es o dibujarlo."
         ),
         category="creative",
         interest_tags=(
@@ -170,10 +178,12 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
 
     Activity(
         activity_id="creative_animal_01",
-        title="Creá un animal imaginario",
+        title="Combiná dos animales",
         description=(
-            "Mezclá características de animales que conozcas "
-            "e inventá uno nuevo para dibujar."
+            "No necesitás materiales. Si querés dibujar, usá papel y lápiz.\n"
+            "1. Elegí dos animales que conozcas, por ejemplo, un gato y un pájaro.\n"
+            "2. Imaginá un animal que tenga una parte de cada uno, como un gato con alas.\n"
+            "3. Inventale un nombre. Podés contar cómo es o dibujarlo."
         ),
         category="creative",
         interest_tags=(
@@ -196,8 +206,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="creative_favorite_01",
         title="Dibujá algo que te guste",
         description=(
-            "Elegí un personaje, lugar, objeto o cualquier "
-            "cosa que tengas ganas de dibujar."
+            "Necesitás: Papel y un lápiz o lápices de colores.\n"
+            "1. Buscá el papel y los lápices.\n"
+            "2. Elegí algo que te guste, como un animal, una persona o un lugar.\n"
+            "3. Dibujalo como vos quieras. Si no sabés por dónde empezar, dibujá primero una parte."
         ),
         category="creative",
         interest_tags=(
@@ -207,10 +219,9 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         allowed_contexts=(
             CONTEXT_VOLUNTARY,
             CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
         ),
         activity_level="calm",
-        bedtime_suitable=True,
+        bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
@@ -219,22 +230,22 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="creative_story_01",
         title="Inventá una historia",
         description=(
-            "Inventá una historia corta. "
-            "Podés escribirla, dibujarla o hacer las dos cosas."
+            "No necesitás materiales.\n"
+            "1. Elegí quién aparece en tu historia: una persona, un animal o un personaje inventado.\n"
+            "2. Pensá dónde está y qué le pasa. Por ejemplo: «Un gato encontró una puerta chiquita».\n"
+            "3. Inventá qué sucede después. Podés contar la historia o imaginarla en silencio."
         ),
         category="creative",
         interest_tags=(
-            "writing",
-            "drawing",
+            "stories",
             "creative",
         ),
         allowed_contexts=(
             CONTEXT_VOLUNTARY,
             CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
         ),
         activity_level="calm",
-        bedtime_suitable=True,
+        bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
@@ -247,8 +258,8 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="reading_choose_01",
         title="Elegí algo para leer",
         description=(
-            "Buscá un libro, cuento o cómic "
-            "que tengas ganas de leer."
+            "Necesitás: Un libro o una historieta en papel.\n"
+            "Si tenés un libro o historieta en papel, leé una parte a tu ritmo. También podés mirar sus ilustraciones."
         ),
         category="reading",
         interest_tags=(
@@ -271,8 +282,8 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="reading_favorite_01",
         title="Volvé a una historia que te guste",
         description=(
-            "Elegí un libro, cuento o cómic que ya conozcas "
-            "y buscá una parte que quieras volver a leer."
+            "Necesitás: Un libro o una historieta en papel, si lo tenés a mano.\n"
+            "Buscá tu parte favorita de un libro o historieta en papel. Si no lo tenés a mano, recordá esa escena."
         ),
         category="reading",
         interest_tags=(
@@ -299,8 +310,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="free_play_nearby_01",
         title="Jugá con algo que tengas cerca",
         description=(
-            "Elegí un juguete, cartas, bloques u otra cosa "
-            "que tengas ganas de usar y empezá a jugar."
+            "Necesitás: Juguetes, cartas o bloques que puedas usar.\n"
+            "1. Elegí un juguete, cartas o bloques que tengas a mano.\n"
+            "2. Pensá qué podés hacer con lo que elegiste. Por ejemplo, si elegís un autito, armale un camino en el piso.\n"
+            "3. Empezá a jugar. Si elegiste el autito, podés cambiar el camino o inventar qué pasa durante el viaje."
         ),
         category="free_play",
         interest_tags=(
@@ -322,8 +335,8 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="free_play_build_01",
         title="Construí algo",
         description=(
-            "Si tenés bloques, piezas u objetos para construir, "
-            "elegí qué querés crear y empezá."
+            "Necesitás: Bloques o cajas que tengas para jugar.\n"
+            "Con bloques o cajas que tengas para jugar, armá una torre, un puente o lo que se te ocurra."
         ),
         category="free_play",
         interest_tags=(
@@ -343,10 +356,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
 
     Activity(
         activity_id="free_play_story_01",
-        title="Creá una historia con tus juguetes",
+        title="Jugá a inventar con objetos",
         description=(
-            "Elegí algunos juguetes y pensá qué historia "
-            "podría pasarles."
+            "Necesitás: Uno o dos juguetes u objetos que puedas usar para jugar.\n"
+            "Elegí uno o dos juguetes u objetos y jugá a que son personajes de una historia."
         ),
         category="free_play",
         interest_tags=(
@@ -372,8 +385,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="social_play_01",
         title="Jugá con alguien",
         description=(
-            "Si hay alguien de confianza cerca, "
-            "preguntale si quiere jugar a algo con vos."
+            "Necesitás: Una persona de confianza que esté con vos y quiera jugar.\n"
+            "1. Preguntale si tiene ganas de jugar con vos.\n"
+            "2. Si quiere, elijan un juego que los dos conozcan.\n"
+            "3. Por ejemplo, uno piensa en un animal y el otro hace preguntas para adivinarlo. Después cambien de turno. Si ahora no puede jugar, podés elegir otra actividad."
         ),
         category="social_family",
         interest_tags=(
@@ -394,8 +409,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="social_talk_01",
         title="Contá algo de tu día",
         description=(
-            "Si tenés ganas, contale a alguien de confianza "
-            "algo divertido o interesante que te haya pasado."
+            "Necesitás: Una persona de confianza que esté con vos y quiera conversar.\n"
+            "1. Preguntale si tiene un momento para escucharte.\n"
+            "2. Si tenés ganas, contale algo de tu día. Puede ser algo que hiciste, que te gustó o que te sorprendió.\n"
+            "3. Después podés preguntarle cómo estuvo su día y escucharla. Si no querés contar, elegí otra actividad."
         ),
         category="social_family",
         interest_tags=(
@@ -414,16 +431,18 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
     ),
 
     Activity(
-        activity_id="social_help_01",
-        title="Ayudá con algo",
+        activity_id="social_create_together_01",
+        title="Inventen algo entre dos",
         description=(
-            "Si hay alguien cerca, preguntale si necesita "
-            "ayuda con alguna tarea sencilla."
+            "Necesitás: Una persona de confianza que esté con vos y quiera participar. Si eligen dibujar, papel y lápices.\n"
+            "Con una persona de confianza que tenga ganas, inventen algo por turnos: una historia, un dibujo o un juego."
         ),
         category="social_family",
         interest_tags=(
             "social",
-            "helping",
+            "creative",
+            "stories",
+            "drawing",
         ),
         allowed_contexts=(
             CONTEXT_VOLUNTARY,
@@ -439,9 +458,8 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="social_story_01",
         title="Escuchá una historia",
         description=(
-            "Si hay alguien de confianza con quien tengas ganas "
-            "de hablar, preguntale si quiere contarte una historia "
-            "o una anécdota."
+            "Necesitás: Una persona de confianza que esté con vos y quiera contar una historia.\n"
+            "Si una persona de confianza está con vos y quiere, pedile que te cuente una historia. Vos elegís el tema."
         ),
         category="social_family",
         interest_tags=(
@@ -465,19 +483,21 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
     # --------------------------------------------------------
 
     Activity(
-        activity_id="quiet_prepare_01",
-        title="Prepará algo para mañana",
+        activity_id="quiet_story_ending_01",
+        title="Inventá otro final",
         description=(
-            "Elegí alguna cosa sencilla que puedas dejar lista "
-            "para mañana, como tu mochila, ropa o materiales."
+            "No necesitás materiales.\n"
+            "Recordá una historia que te guste e imaginá otro final. Podés guardártelo para vos."
         ),
         category="quiet",
         interest_tags=(
-            "organization",
+            "stories",
+            "creative",
         ),
         allowed_contexts=(
-            CONTEXT_BEDTIME,
+            CONTEXT_VOLUNTARY,
             CONTEXT_GENERAL,
+            CONTEXT_BEDTIME,
         ),
         activity_level="calm",
         bedtime_suitable=True,
@@ -489,8 +509,10 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         activity_id="quiet_draw_01",
         title="Hacé un dibujo tranquilo",
         description=(
-            "Elegí libremente algo que tengas ganas de dibujar "
-            "mientras te preparás para terminar el día."
+            "Necesitás: Papel y un lápiz o lápices de colores.\n"
+            "1. Buscá el papel y los lápices y elegí un lugar cómodo para dibujar.\n"
+            "2. Dibujá algo que conozcas, como una flor, una casa o un animal. También podés dibujar otra cosa que te guste.\n"
+            "3. Hacelo a tu ritmo. Cuando quieras parar, guardá el dibujo. No hace falta terminarlo hoy."
         ),
         category="quiet",
         interest_tags=(
@@ -506,6 +528,12 @@ ACTIVITY_CATALOG: tuple[Activity, ...] = (
         may_require_device_interaction=False,
     ),
 )
+
+
+# Identificadores retirados de nuevas sugerencias, conservados para antecedentes.
+RETIRED_ACTIVITY_IDS = frozenset({"social_help_01", "quiet_prepare_01"})
+# Intereses históricos aceptados como entrada, sin transferirlos a otra actividad.
+LEGACY_INTEREST_TAGS = frozenset({"helping", "organization", "writing"})
 
 
 # ============================================================
