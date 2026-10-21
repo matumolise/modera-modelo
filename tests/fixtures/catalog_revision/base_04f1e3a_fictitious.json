@@ -1,0 +1,1740 @@
+{
+  "scope": "CONTROLLED_FICTITIOUS_UPGRADE_FIXTURE",
+  "base_commit": "04f1e3a9076d914bccad49d356184d8b7b45ec13",
+  "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+  "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+  "catalog": [
+    {
+      "activity_id": "movement_dance_01",
+      "title": "Bailá una canción",
+      "description": "Elegí una canción que te guste, dejá el celular y bailá mientras suena.",
+      "category": "movement",
+      "interest_tags": [
+        "music",
+        "dance",
+        "movement"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "active",
+      "bedtime_suitable": false,
+      "requires_other_person": false,
+      "may_require_device_interaction": true
+    },
+    {
+      "activity_id": "movement_sequence_01",
+      "title": "Armá una secuencia de movimientos",
+      "description": "Elegí tres movimientos que puedas hacer, como saltar, girar o agacharte, y tratá de repetir la secuencia.",
+      "category": "movement",
+      "interest_tags": [
+        "movement",
+        "sports"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "active",
+      "bedtime_suitable": false,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "movement_ball_01",
+      "title": "Jugá con una pelota",
+      "description": "Si tenés una pelota cerca y un lugar seguro, elegí una forma de jugar con ella.",
+      "category": "movement",
+      "interest_tags": [
+        "sports",
+        "movement"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "active",
+      "bedtime_suitable": false,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "creative_character_01",
+      "title": "Inventá un personaje",
+      "description": "Inventá un personaje nuevo y dibujá cómo sería.",
+      "category": "creative",
+      "interest_tags": [
+        "drawing",
+        "creative"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "creative_animal_01",
+      "title": "Creá un animal imaginario",
+      "description": "Mezclá características de animales que conozcas e inventá uno nuevo para dibujar.",
+      "category": "creative",
+      "interest_tags": [
+        "drawing",
+        "animals",
+        "creative"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "creative_favorite_01",
+      "title": "Dibujá algo que te guste",
+      "description": "Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.",
+      "category": "creative",
+      "interest_tags": [
+        "drawing",
+        "creative"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "creative_story_01",
+      "title": "Inventá una historia",
+      "description": "Inventá una historia corta. Podés escribirla, dibujarla o hacer las dos cosas.",
+      "category": "creative",
+      "interest_tags": [
+        "writing",
+        "drawing",
+        "creative"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "reading_choose_01",
+      "title": "Elegí algo para leer",
+      "description": "Buscá un libro, cuento o cómic que tengas ganas de leer.",
+      "category": "reading",
+      "interest_tags": [
+        "reading",
+        "books",
+        "comics"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "reading_favorite_01",
+      "title": "Volvé a una historia que te guste",
+      "description": "Elegí un libro, cuento o cómic que ya conozcas y buscá una parte que quieras volver a leer.",
+      "category": "reading",
+      "interest_tags": [
+        "reading",
+        "books",
+        "comics"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "free_play_nearby_01",
+      "title": "Jugá con algo que tengas cerca",
+      "description": "Elegí un juguete, cartas, bloques u otra cosa que tengas ganas de usar y empezá a jugar.",
+      "category": "free_play",
+      "interest_tags": [
+        "toys",
+        "games",
+        "free_play"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "moderate",
+      "bedtime_suitable": false,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "free_play_build_01",
+      "title": "Construí algo",
+      "description": "Si tenés bloques, piezas u objetos para construir, elegí qué querés crear y empezá.",
+      "category": "free_play",
+      "interest_tags": [
+        "building",
+        "creative",
+        "toys"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "moderate",
+      "bedtime_suitable": false,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "free_play_story_01",
+      "title": "Creá una historia con tus juguetes",
+      "description": "Elegí algunos juguetes y pensá qué historia podría pasarles.",
+      "category": "free_play",
+      "interest_tags": [
+        "toys",
+        "creative",
+        "stories"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "moderate",
+      "bedtime_suitable": false,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "social_play_01",
+      "title": "Jugá con alguien",
+      "description": "Si hay alguien de confianza cerca, preguntale si quiere jugar a algo con vos.",
+      "category": "social_family",
+      "interest_tags": [
+        "social",
+        "games"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "moderate",
+      "bedtime_suitable": false,
+      "requires_other_person": true,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "social_talk_01",
+      "title": "Contá algo de tu día",
+      "description": "Si tenés ganas, contale a alguien de confianza algo divertido o interesante que te haya pasado.",
+      "category": "social_family",
+      "interest_tags": [
+        "social",
+        "conversation"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": true,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "social_help_01",
+      "title": "Ayudá con algo",
+      "description": "Si hay alguien cerca, preguntale si necesita ayuda con alguna tarea sencilla.",
+      "category": "social_family",
+      "interest_tags": [
+        "social",
+        "helping"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general"
+      ],
+      "activity_level": "moderate",
+      "bedtime_suitable": false,
+      "requires_other_person": true,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "social_story_01",
+      "title": "Escuchá una historia",
+      "description": "Si hay alguien de confianza con quien tengas ganas de hablar, preguntale si quiere contarte una historia o una anécdota.",
+      "category": "social_family",
+      "interest_tags": [
+        "social",
+        "conversation",
+        "stories"
+      ],
+      "allowed_contexts": [
+        "voluntary",
+        "general",
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": true,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "quiet_prepare_01",
+      "title": "Prepará algo para mañana",
+      "description": "Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.",
+      "category": "quiet",
+      "interest_tags": [
+        "organization"
+      ],
+      "allowed_contexts": [
+        "bedtime",
+        "general"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    },
+    {
+      "activity_id": "quiet_draw_01",
+      "title": "Hacé un dibujo tranquilo",
+      "description": "Elegí libremente algo que tengas ganas de dibujar mientras te preparás para terminar el día.",
+      "category": "quiet",
+      "interest_tags": [
+        "drawing",
+        "creative"
+      ],
+      "allowed_contexts": [
+        "bedtime"
+      ],
+      "activity_level": "calm",
+      "bedtime_suitable": true,
+      "requires_other_person": false,
+      "may_require_device_interaction": false
+    }
+  ],
+  "cases": [
+    {
+      "case": "retired-pending",
+      "activity_id": "social_help_01",
+      "profile_id": "fictitious-retired-pending",
+      "operations": [
+        {
+          "kind": "evaluate",
+          "request_id": "fictitious-eval-retired-pending",
+          "evidence": {
+            "profile_id": "fictitious-retired-pending",
+            "series_id": "fictitious-assignment",
+            "interval_id": "fictitious-interval",
+            "now": "2026-10-16T10:00:00-03:00",
+            "interval_started_at": "2026-10-16T09:00:00-03:00",
+            "bedtime_at": "2026-10-16T21:00:00-03:00",
+            "automatic_enabled": true,
+            "assignment_verified": true,
+            "shared_phone": false,
+            "capture_verified": true,
+            "screen_interactive": true,
+            "game_active": false,
+            "in_school_period": false,
+            "eligibility_state": "known",
+            "eligibility": {
+              "excluded_activity_ids": [
+                "movement_dance_01",
+                "movement_sequence_01",
+                "movement_ball_01",
+                "creative_character_01",
+                "creative_animal_01",
+                "creative_favorite_01",
+                "creative_story_01",
+                "reading_choose_01",
+                "reading_favorite_01",
+                "free_play_nearby_01",
+                "free_play_build_01",
+                "free_play_story_01",
+                "social_play_01",
+                "social_talk_01",
+                "social_story_01",
+                "quiet_prepare_01",
+                "quiet_draw_01"
+              ]
+            },
+            "interests": []
+          },
+          "receipt": {
+            "channel": "overlay",
+            "offer": {
+              "activities_offered": [
+                "social_help_01"
+              ],
+              "channels": [],
+              "context": "general",
+              "created_at": "2026-10-16T13:00:00+00:00",
+              "delivered_at": null,
+              "evidence": {
+                "assignment_verified": true,
+                "automatic_enabled": true,
+                "bedtime_at": "2026-10-16T21:00:00-03:00",
+                "capture_verified": true,
+                "eligibility": {
+                  "excluded_activity_ids": [
+                    "movement_dance_01",
+                    "movement_sequence_01",
+                    "movement_ball_01",
+                    "creative_character_01",
+                    "creative_animal_01",
+                    "creative_favorite_01",
+                    "creative_story_01",
+                    "reading_choose_01",
+                    "reading_favorite_01",
+                    "free_play_nearby_01",
+                    "free_play_build_01",
+                    "free_play_story_01",
+                    "social_play_01",
+                    "social_talk_01",
+                    "social_story_01",
+                    "quiet_prepare_01",
+                    "quiet_draw_01"
+                  ]
+                },
+                "eligibility_state": "known",
+                "game_active": false,
+                "in_school_period": false,
+                "interests": [],
+                "interval_id": "fictitious-interval",
+                "interval_started_at": "2026-10-16T09:00:00-03:00",
+                "now": "2026-10-16T10:00:00-03:00",
+                "profile_id": "fictitious-retired-pending",
+                "screen_interactive": true,
+                "series_id": "fictitious-assignment",
+                "shared_phone": false
+              },
+              "expires_at": "2026-10-16T13:10:00+00:00",
+              "initial_channel": "overlay",
+              "interval_id": "fictitious-interval",
+              "offer_id": "1bab2ef1-9108-447b-9fdc-f332229b176a",
+              "opportunity": "fictitious-assignment:fictitious-interval",
+              "profile_id": "fictitious-retired-pending",
+              "response": null,
+              "response_at": null,
+              "selected_activity_id": null,
+              "selection": {
+                "activities": [
+                  {
+                    "activity_id": "social_help_01",
+                    "activity_level": "moderate",
+                    "allowed_contexts": [
+                      "voluntary",
+                      "general"
+                    ],
+                    "bedtime_suitable": false,
+                    "category": "social_family",
+                    "description": "Si hay alguien cerca, preguntale si necesita ayuda con alguna tarea sencilla.",
+                    "interest_tags": [
+                      "social",
+                      "helping"
+                    ],
+                    "may_require_device_interaction": false,
+                    "requires_other_person": true,
+                    "title": "Ayudá con algo"
+                  }
+                ],
+                "catalog_status": "PROVISIONAL",
+                "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+                "request_id": "fictitious-eval-retired-pending",
+                "selection_fingerprint": "6765419fb5cf359cfdae92684fce2d6b0e5716592de6c094e560a5ef046b3f4d",
+                "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+                "status": "selected"
+              },
+              "series_id": "fictitious-assignment",
+              "source": "system_daytime",
+              "status": "pending"
+            },
+            "policy_version": "automatic-child-offers-v1-engineering",
+            "replayed": false,
+            "status": "offer"
+          }
+        }
+      ],
+      "store": {
+        "state_body": "{\"policy\":{\"bedtime_minutes\":60,\"continuous_minutes\":45,\"cooldown_minutes\":120,\"day_end_hour\":20,\"day_start_hour\":8,\"maximum_bedtime\":1,\"maximum_daytime\":2,\"maximum_total\":3,\"rejection_pause_hours\":24,\"ttl_minutes\":10,\"version\":\"automatic-child-offers-v1-engineering\"},\"profiles\":{\"fictitious-retired-pending\":{\"clock\":\"2026-10-16T13:00:00+00:00\",\"events\":[{\"at\":\"2026-10-16T13:00:00+00:00\",\"event\":\"generated\",\"offer_id\":\"1bab2ef1-9108-447b-9fdc-f332229b176a\"}],\"intervals\":{\"fictitious-assignment:fictitious-interval\":\"2026-10-16T12:00:00+00:00\"},\"offers\":[{\"activities_offered\":[\"social_help_01\"],\"channels\":[],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":null,\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_favorite_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-retired-pending\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"1bab2ef1-9108-447b-9fdc-f332229b176a\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-retired-pending\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"social_help_01\",\"activity_level\":\"moderate\",\"allowed_contexts\":[\"voluntary\",\"general\"],\"bedtime_suitable\":false,\"category\":\"social_family\",\"description\":\"Si hay alguien cerca, preguntale si necesita ayuda con alguna tarea sencilla.\",\"interest_tags\":[\"social\",\"helping\"],\"may_require_device_interaction\":false,\"requires_other_person\":true,\"title\":\"Ayudá con algo\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-retired-pending\",\"selection_fingerprint\":\"6765419fb5cf359cfdae92684fce2d6b0e5716592de6c094e560a5ef046b3f4d\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"pending\"}]}},\"receipt_count\":1}",
+        "receipts": [
+          [
+            "fictitious-eval-retired-pending",
+            "573af8b0c6f64f5ab3738b5335bb2f074ebbeead95baf8a6ed6c72c241b6d5ba",
+            "{\"channel\":\"overlay\",\"offer\":{\"activities_offered\":[\"social_help_01\"],\"channels\":[],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":null,\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_favorite_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-retired-pending\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"1bab2ef1-9108-447b-9fdc-f332229b176a\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-retired-pending\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"social_help_01\",\"activity_level\":\"moderate\",\"allowed_contexts\":[\"voluntary\",\"general\"],\"bedtime_suitable\":false,\"category\":\"social_family\",\"description\":\"Si hay alguien cerca, preguntale si necesita ayuda con alguna tarea sencilla.\",\"interest_tags\":[\"social\",\"helping\"],\"may_require_device_interaction\":false,\"requires_other_person\":true,\"title\":\"Ayudá con algo\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-retired-pending\",\"selection_fingerprint\":\"6765419fb5cf359cfdae92684fce2d6b0e5716592de6c094e560a5ef046b3f4d\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"pending\"},\"policy_version\":\"automatic-child-offers-v1-engineering\",\"replayed\":false,\"status\":\"offer\"}"
+          ]
+        ]
+      },
+      "history": {
+        "clock": "2026-10-16T13:00:00+00:00",
+        "events": [
+          {
+            "at": "2026-10-16T13:00:00+00:00",
+            "event": "generated",
+            "offer_id": "1bab2ef1-9108-447b-9fdc-f332229b176a"
+          }
+        ],
+        "intervals": {
+          "fictitious-assignment:fictitious-interval": "2026-10-16T12:00:00+00:00"
+        },
+        "offers": [
+          {
+            "activities_offered": [
+              "social_help_01"
+            ],
+            "channels": [],
+            "context": "general",
+            "created_at": "2026-10-16T13:00:00+00:00",
+            "delivered_at": null,
+            "evidence": {
+              "assignment_verified": true,
+              "automatic_enabled": true,
+              "bedtime_at": "2026-10-16T21:00:00-03:00",
+              "capture_verified": true,
+              "eligibility": {
+                "excluded_activity_ids": [
+                  "movement_dance_01",
+                  "movement_sequence_01",
+                  "movement_ball_01",
+                  "creative_character_01",
+                  "creative_animal_01",
+                  "creative_favorite_01",
+                  "creative_story_01",
+                  "reading_choose_01",
+                  "reading_favorite_01",
+                  "free_play_nearby_01",
+                  "free_play_build_01",
+                  "free_play_story_01",
+                  "social_play_01",
+                  "social_talk_01",
+                  "social_story_01",
+                  "quiet_prepare_01",
+                  "quiet_draw_01"
+                ]
+              },
+              "eligibility_state": "known",
+              "game_active": false,
+              "in_school_period": false,
+              "interests": [],
+              "interval_id": "fictitious-interval",
+              "interval_started_at": "2026-10-16T09:00:00-03:00",
+              "now": "2026-10-16T10:00:00-03:00",
+              "profile_id": "fictitious-retired-pending",
+              "screen_interactive": true,
+              "series_id": "fictitious-assignment",
+              "shared_phone": false
+            },
+            "expires_at": "2026-10-16T13:10:00+00:00",
+            "initial_channel": "overlay",
+            "interval_id": "fictitious-interval",
+            "offer_id": "1bab2ef1-9108-447b-9fdc-f332229b176a",
+            "opportunity": "fictitious-assignment:fictitious-interval",
+            "profile_id": "fictitious-retired-pending",
+            "response": null,
+            "response_at": null,
+            "selected_activity_id": null,
+            "selection": {
+              "activities": [
+                {
+                  "activity_id": "social_help_01",
+                  "activity_level": "moderate",
+                  "allowed_contexts": [
+                    "voluntary",
+                    "general"
+                  ],
+                  "bedtime_suitable": false,
+                  "category": "social_family",
+                  "description": "Si hay alguien cerca, preguntale si necesita ayuda con alguna tarea sencilla.",
+                  "interest_tags": [
+                    "social",
+                    "helping"
+                  ],
+                  "may_require_device_interaction": false,
+                  "requires_other_person": true,
+                  "title": "Ayudá con algo"
+                }
+              ],
+              "catalog_status": "PROVISIONAL",
+              "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+              "request_id": "fictitious-eval-retired-pending",
+              "selection_fingerprint": "6765419fb5cf359cfdae92684fce2d6b0e5716592de6c094e560a5ef046b3f4d",
+              "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+              "status": "selected"
+            },
+            "series_id": "fictitious-assignment",
+            "source": "system_daytime",
+            "status": "pending"
+          }
+        ]
+      }
+    },
+    {
+      "case": "retired-delivered",
+      "activity_id": "quiet_prepare_01",
+      "profile_id": "fictitious-retired-delivered",
+      "operations": [
+        {
+          "kind": "evaluate",
+          "request_id": "fictitious-eval-retired-delivered",
+          "evidence": {
+            "profile_id": "fictitious-retired-delivered",
+            "series_id": "fictitious-assignment",
+            "interval_id": "fictitious-interval",
+            "now": "2026-10-16T10:00:00-03:00",
+            "interval_started_at": "2026-10-16T09:00:00-03:00",
+            "bedtime_at": "2026-10-16T21:00:00-03:00",
+            "automatic_enabled": true,
+            "assignment_verified": true,
+            "shared_phone": false,
+            "capture_verified": true,
+            "screen_interactive": true,
+            "game_active": false,
+            "in_school_period": false,
+            "eligibility_state": "known",
+            "eligibility": {
+              "excluded_activity_ids": [
+                "movement_dance_01",
+                "movement_sequence_01",
+                "movement_ball_01",
+                "creative_character_01",
+                "creative_animal_01",
+                "creative_favorite_01",
+                "creative_story_01",
+                "reading_choose_01",
+                "reading_favorite_01",
+                "free_play_nearby_01",
+                "free_play_build_01",
+                "free_play_story_01",
+                "social_play_01",
+                "social_talk_01",
+                "social_help_01",
+                "social_story_01",
+                "quiet_draw_01"
+              ]
+            },
+            "interests": []
+          },
+          "receipt": {
+            "channel": "overlay",
+            "offer": {
+              "activities_offered": [
+                "quiet_prepare_01"
+              ],
+              "channels": [],
+              "context": "general",
+              "created_at": "2026-10-16T13:00:00+00:00",
+              "delivered_at": null,
+              "evidence": {
+                "assignment_verified": true,
+                "automatic_enabled": true,
+                "bedtime_at": "2026-10-16T21:00:00-03:00",
+                "capture_verified": true,
+                "eligibility": {
+                  "excluded_activity_ids": [
+                    "movement_dance_01",
+                    "movement_sequence_01",
+                    "movement_ball_01",
+                    "creative_character_01",
+                    "creative_animal_01",
+                    "creative_favorite_01",
+                    "creative_story_01",
+                    "reading_choose_01",
+                    "reading_favorite_01",
+                    "free_play_nearby_01",
+                    "free_play_build_01",
+                    "free_play_story_01",
+                    "social_play_01",
+                    "social_talk_01",
+                    "social_help_01",
+                    "social_story_01",
+                    "quiet_draw_01"
+                  ]
+                },
+                "eligibility_state": "known",
+                "game_active": false,
+                "in_school_period": false,
+                "interests": [],
+                "interval_id": "fictitious-interval",
+                "interval_started_at": "2026-10-16T09:00:00-03:00",
+                "now": "2026-10-16T10:00:00-03:00",
+                "profile_id": "fictitious-retired-delivered",
+                "screen_interactive": true,
+                "series_id": "fictitious-assignment",
+                "shared_phone": false
+              },
+              "expires_at": "2026-10-16T13:10:00+00:00",
+              "initial_channel": "overlay",
+              "interval_id": "fictitious-interval",
+              "offer_id": "28d72f14-6b3c-404c-a5f0-4ce5892903be",
+              "opportunity": "fictitious-assignment:fictitious-interval",
+              "profile_id": "fictitious-retired-delivered",
+              "response": null,
+              "response_at": null,
+              "selected_activity_id": null,
+              "selection": {
+                "activities": [
+                  {
+                    "activity_id": "quiet_prepare_01",
+                    "activity_level": "calm",
+                    "allowed_contexts": [
+                      "bedtime",
+                      "general"
+                    ],
+                    "bedtime_suitable": true,
+                    "category": "quiet",
+                    "description": "Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.",
+                    "interest_tags": [
+                      "organization"
+                    ],
+                    "may_require_device_interaction": false,
+                    "requires_other_person": false,
+                    "title": "Prepará algo para mañana"
+                  }
+                ],
+                "catalog_status": "PROVISIONAL",
+                "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+                "request_id": "fictitious-eval-retired-delivered",
+                "selection_fingerprint": "e4da3c655974dfea091a09d3c100199ee98647832b13fe7f36c080a9280790d8",
+                "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+                "status": "selected"
+              },
+              "series_id": "fictitious-assignment",
+              "source": "system_daytime",
+              "status": "pending"
+            },
+            "policy_version": "automatic-child-offers-v1-engineering",
+            "replayed": false,
+            "status": "offer"
+          }
+        },
+        {
+          "kind": "event",
+          "request_id": "fictitious-delivered-retired-delivered",
+          "payload": {
+            "profile_id": "fictitious-retired-delivered",
+            "offer_id": "28d72f14-6b3c-404c-a5f0-4ce5892903be",
+            "event": "delivered",
+            "occurred_at": "2026-10-16T10:00:00-03:00",
+            "now": "2026-10-16T10:00:00-03:00",
+            "channel": "overlay"
+          },
+          "receipt": {
+            "offer": {
+              "activities_offered": [
+                "quiet_prepare_01"
+              ],
+              "channels": [
+                "overlay"
+              ],
+              "context": "general",
+              "created_at": "2026-10-16T13:00:00+00:00",
+              "delivered_at": "2026-10-16T13:00:00+00:00",
+              "evidence": {
+                "assignment_verified": true,
+                "automatic_enabled": true,
+                "bedtime_at": "2026-10-16T21:00:00-03:00",
+                "capture_verified": true,
+                "eligibility": {
+                  "excluded_activity_ids": [
+                    "movement_dance_01",
+                    "movement_sequence_01",
+                    "movement_ball_01",
+                    "creative_character_01",
+                    "creative_animal_01",
+                    "creative_favorite_01",
+                    "creative_story_01",
+                    "reading_choose_01",
+                    "reading_favorite_01",
+                    "free_play_nearby_01",
+                    "free_play_build_01",
+                    "free_play_story_01",
+                    "social_play_01",
+                    "social_talk_01",
+                    "social_help_01",
+                    "social_story_01",
+                    "quiet_draw_01"
+                  ]
+                },
+                "eligibility_state": "known",
+                "game_active": false,
+                "in_school_period": false,
+                "interests": [],
+                "interval_id": "fictitious-interval",
+                "interval_started_at": "2026-10-16T09:00:00-03:00",
+                "now": "2026-10-16T10:00:00-03:00",
+                "profile_id": "fictitious-retired-delivered",
+                "screen_interactive": true,
+                "series_id": "fictitious-assignment",
+                "shared_phone": false
+              },
+              "expires_at": "2026-10-16T13:10:00+00:00",
+              "initial_channel": "overlay",
+              "interval_id": "fictitious-interval",
+              "offer_id": "28d72f14-6b3c-404c-a5f0-4ce5892903be",
+              "opportunity": "fictitious-assignment:fictitious-interval",
+              "profile_id": "fictitious-retired-delivered",
+              "response": null,
+              "response_at": null,
+              "selected_activity_id": null,
+              "selection": {
+                "activities": [
+                  {
+                    "activity_id": "quiet_prepare_01",
+                    "activity_level": "calm",
+                    "allowed_contexts": [
+                      "bedtime",
+                      "general"
+                    ],
+                    "bedtime_suitable": true,
+                    "category": "quiet",
+                    "description": "Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.",
+                    "interest_tags": [
+                      "organization"
+                    ],
+                    "may_require_device_interaction": false,
+                    "requires_other_person": false,
+                    "title": "Prepará algo para mañana"
+                  }
+                ],
+                "catalog_status": "PROVISIONAL",
+                "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+                "request_id": "fictitious-eval-retired-delivered",
+                "selection_fingerprint": "e4da3c655974dfea091a09d3c100199ee98647832b13fe7f36c080a9280790d8",
+                "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+                "status": "selected"
+              },
+              "series_id": "fictitious-assignment",
+              "source": "system_daytime",
+              "status": "delivered"
+            },
+            "policy_version": "automatic-child-offers-v1-engineering",
+            "replayed": false,
+            "status": "recorded"
+          }
+        }
+      ],
+      "store": {
+        "state_body": "{\"policy\":{\"bedtime_minutes\":60,\"continuous_minutes\":45,\"cooldown_minutes\":120,\"day_end_hour\":20,\"day_start_hour\":8,\"maximum_bedtime\":1,\"maximum_daytime\":2,\"maximum_total\":3,\"rejection_pause_hours\":24,\"ttl_minutes\":10,\"version\":\"automatic-child-offers-v1-engineering\"},\"profiles\":{\"fictitious-retired-delivered\":{\"clock\":\"2026-10-16T13:00:00+00:00\",\"events\":[{\"at\":\"2026-10-16T13:00:00+00:00\",\"event\":\"generated\",\"offer_id\":\"28d72f14-6b3c-404c-a5f0-4ce5892903be\"},{\"at\":\"2026-10-16T13:00:00+00:00\",\"channel\":\"overlay\",\"event\":\"delivered\",\"method\":\"event\",\"now\":\"2026-10-16T10:00:00-03:00\",\"occurred_at\":\"2026-10-16T10:00:00-03:00\",\"offer_id\":\"28d72f14-6b3c-404c-a5f0-4ce5892903be\",\"profile_id\":\"fictitious-retired-delivered\",\"selected_activity_id\":null}],\"intervals\":{\"fictitious-assignment:fictitious-interval\":\"2026-10-16T12:00:00+00:00\"},\"offers\":[{\"activities_offered\":[\"quiet_prepare_01\"],\"channels\":[\"overlay\"],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":\"2026-10-16T13:00:00+00:00\",\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_favorite_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-retired-delivered\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"28d72f14-6b3c-404c-a5f0-4ce5892903be\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-retired-delivered\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"quiet_prepare_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"bedtime\",\"general\"],\"bedtime_suitable\":true,\"category\":\"quiet\",\"description\":\"Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.\",\"interest_tags\":[\"organization\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Prepará algo para mañana\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-retired-delivered\",\"selection_fingerprint\":\"e4da3c655974dfea091a09d3c100199ee98647832b13fe7f36c080a9280790d8\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"delivered\"}]}},\"receipt_count\":2}",
+        "receipts": [
+          [
+            "fictitious-delivered-retired-delivered",
+            "86b8fc891c571bef4f4e5a1eed7fa4c45ac20b91852fe776793135396d2caeb3",
+            "{\"offer\":{\"activities_offered\":[\"quiet_prepare_01\"],\"channels\":[\"overlay\"],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":\"2026-10-16T13:00:00+00:00\",\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_favorite_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-retired-delivered\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"28d72f14-6b3c-404c-a5f0-4ce5892903be\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-retired-delivered\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"quiet_prepare_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"bedtime\",\"general\"],\"bedtime_suitable\":true,\"category\":\"quiet\",\"description\":\"Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.\",\"interest_tags\":[\"organization\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Prepará algo para mañana\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-retired-delivered\",\"selection_fingerprint\":\"e4da3c655974dfea091a09d3c100199ee98647832b13fe7f36c080a9280790d8\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"delivered\"},\"policy_version\":\"automatic-child-offers-v1-engineering\",\"replayed\":false,\"status\":\"recorded\"}"
+          ],
+          [
+            "fictitious-eval-retired-delivered",
+            "cc1223d60dca22991d5fad25da3fc2c9e27114cec89851e021fff17259d6acb3",
+            "{\"channel\":\"overlay\",\"offer\":{\"activities_offered\":[\"quiet_prepare_01\"],\"channels\":[],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":null,\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_favorite_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-retired-delivered\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"28d72f14-6b3c-404c-a5f0-4ce5892903be\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-retired-delivered\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"quiet_prepare_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"bedtime\",\"general\"],\"bedtime_suitable\":true,\"category\":\"quiet\",\"description\":\"Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.\",\"interest_tags\":[\"organization\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Prepará algo para mañana\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-retired-delivered\",\"selection_fingerprint\":\"e4da3c655974dfea091a09d3c100199ee98647832b13fe7f36c080a9280790d8\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"pending\"},\"policy_version\":\"automatic-child-offers-v1-engineering\",\"replayed\":false,\"status\":\"offer\"}"
+          ]
+        ]
+      },
+      "history": {
+        "clock": "2026-10-16T13:00:00+00:00",
+        "events": [
+          {
+            "at": "2026-10-16T13:00:00+00:00",
+            "event": "generated",
+            "offer_id": "28d72f14-6b3c-404c-a5f0-4ce5892903be"
+          },
+          {
+            "at": "2026-10-16T13:00:00+00:00",
+            "channel": "overlay",
+            "event": "delivered",
+            "method": "event",
+            "now": "2026-10-16T10:00:00-03:00",
+            "occurred_at": "2026-10-16T10:00:00-03:00",
+            "offer_id": "28d72f14-6b3c-404c-a5f0-4ce5892903be",
+            "profile_id": "fictitious-retired-delivered",
+            "selected_activity_id": null
+          }
+        ],
+        "intervals": {
+          "fictitious-assignment:fictitious-interval": "2026-10-16T12:00:00+00:00"
+        },
+        "offers": [
+          {
+            "activities_offered": [
+              "quiet_prepare_01"
+            ],
+            "channels": [
+              "overlay"
+            ],
+            "context": "general",
+            "created_at": "2026-10-16T13:00:00+00:00",
+            "delivered_at": "2026-10-16T13:00:00+00:00",
+            "evidence": {
+              "assignment_verified": true,
+              "automatic_enabled": true,
+              "bedtime_at": "2026-10-16T21:00:00-03:00",
+              "capture_verified": true,
+              "eligibility": {
+                "excluded_activity_ids": [
+                  "movement_dance_01",
+                  "movement_sequence_01",
+                  "movement_ball_01",
+                  "creative_character_01",
+                  "creative_animal_01",
+                  "creative_favorite_01",
+                  "creative_story_01",
+                  "reading_choose_01",
+                  "reading_favorite_01",
+                  "free_play_nearby_01",
+                  "free_play_build_01",
+                  "free_play_story_01",
+                  "social_play_01",
+                  "social_talk_01",
+                  "social_help_01",
+                  "social_story_01",
+                  "quiet_draw_01"
+                ]
+              },
+              "eligibility_state": "known",
+              "game_active": false,
+              "in_school_period": false,
+              "interests": [],
+              "interval_id": "fictitious-interval",
+              "interval_started_at": "2026-10-16T09:00:00-03:00",
+              "now": "2026-10-16T10:00:00-03:00",
+              "profile_id": "fictitious-retired-delivered",
+              "screen_interactive": true,
+              "series_id": "fictitious-assignment",
+              "shared_phone": false
+            },
+            "expires_at": "2026-10-16T13:10:00+00:00",
+            "initial_channel": "overlay",
+            "interval_id": "fictitious-interval",
+            "offer_id": "28d72f14-6b3c-404c-a5f0-4ce5892903be",
+            "opportunity": "fictitious-assignment:fictitious-interval",
+            "profile_id": "fictitious-retired-delivered",
+            "response": null,
+            "response_at": null,
+            "selected_activity_id": null,
+            "selection": {
+              "activities": [
+                {
+                  "activity_id": "quiet_prepare_01",
+                  "activity_level": "calm",
+                  "allowed_contexts": [
+                    "bedtime",
+                    "general"
+                  ],
+                  "bedtime_suitable": true,
+                  "category": "quiet",
+                  "description": "Elegí alguna cosa sencilla que puedas dejar lista para mañana, como tu mochila, ropa o materiales.",
+                  "interest_tags": [
+                    "organization"
+                  ],
+                  "may_require_device_interaction": false,
+                  "requires_other_person": false,
+                  "title": "Prepará algo para mañana"
+                }
+              ],
+              "catalog_status": "PROVISIONAL",
+              "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+              "request_id": "fictitious-eval-retired-delivered",
+              "selection_fingerprint": "e4da3c655974dfea091a09d3c100199ee98647832b13fe7f36c080a9280790d8",
+              "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+              "status": "selected"
+            },
+            "series_id": "fictitious-assignment",
+            "source": "system_daytime",
+            "status": "delivered"
+          }
+        ]
+      }
+    },
+    {
+      "case": "original-responded",
+      "activity_id": "creative_favorite_01",
+      "profile_id": "fictitious-original-responded",
+      "operations": [
+        {
+          "kind": "evaluate",
+          "request_id": "fictitious-eval-original-responded",
+          "evidence": {
+            "profile_id": "fictitious-original-responded",
+            "series_id": "fictitious-assignment",
+            "interval_id": "fictitious-interval",
+            "now": "2026-10-16T10:00:00-03:00",
+            "interval_started_at": "2026-10-16T09:00:00-03:00",
+            "bedtime_at": "2026-10-16T21:00:00-03:00",
+            "automatic_enabled": true,
+            "assignment_verified": true,
+            "shared_phone": false,
+            "capture_verified": true,
+            "screen_interactive": true,
+            "game_active": false,
+            "in_school_period": false,
+            "eligibility_state": "known",
+            "eligibility": {
+              "excluded_activity_ids": [
+                "movement_dance_01",
+                "movement_sequence_01",
+                "movement_ball_01",
+                "creative_character_01",
+                "creative_animal_01",
+                "creative_story_01",
+                "reading_choose_01",
+                "reading_favorite_01",
+                "free_play_nearby_01",
+                "free_play_build_01",
+                "free_play_story_01",
+                "social_play_01",
+                "social_talk_01",
+                "social_help_01",
+                "social_story_01",
+                "quiet_prepare_01",
+                "quiet_draw_01"
+              ]
+            },
+            "interests": []
+          },
+          "receipt": {
+            "channel": "overlay",
+            "offer": {
+              "activities_offered": [
+                "creative_favorite_01"
+              ],
+              "channels": [],
+              "context": "general",
+              "created_at": "2026-10-16T13:00:00+00:00",
+              "delivered_at": null,
+              "evidence": {
+                "assignment_verified": true,
+                "automatic_enabled": true,
+                "bedtime_at": "2026-10-16T21:00:00-03:00",
+                "capture_verified": true,
+                "eligibility": {
+                  "excluded_activity_ids": [
+                    "movement_dance_01",
+                    "movement_sequence_01",
+                    "movement_ball_01",
+                    "creative_character_01",
+                    "creative_animal_01",
+                    "creative_story_01",
+                    "reading_choose_01",
+                    "reading_favorite_01",
+                    "free_play_nearby_01",
+                    "free_play_build_01",
+                    "free_play_story_01",
+                    "social_play_01",
+                    "social_talk_01",
+                    "social_help_01",
+                    "social_story_01",
+                    "quiet_prepare_01",
+                    "quiet_draw_01"
+                  ]
+                },
+                "eligibility_state": "known",
+                "game_active": false,
+                "in_school_period": false,
+                "interests": [],
+                "interval_id": "fictitious-interval",
+                "interval_started_at": "2026-10-16T09:00:00-03:00",
+                "now": "2026-10-16T10:00:00-03:00",
+                "profile_id": "fictitious-original-responded",
+                "screen_interactive": true,
+                "series_id": "fictitious-assignment",
+                "shared_phone": false
+              },
+              "expires_at": "2026-10-16T13:10:00+00:00",
+              "initial_channel": "overlay",
+              "interval_id": "fictitious-interval",
+              "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+              "opportunity": "fictitious-assignment:fictitious-interval",
+              "profile_id": "fictitious-original-responded",
+              "response": null,
+              "response_at": null,
+              "selected_activity_id": null,
+              "selection": {
+                "activities": [
+                  {
+                    "activity_id": "creative_favorite_01",
+                    "activity_level": "calm",
+                    "allowed_contexts": [
+                      "voluntary",
+                      "general",
+                      "bedtime"
+                    ],
+                    "bedtime_suitable": true,
+                    "category": "creative",
+                    "description": "Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.",
+                    "interest_tags": [
+                      "drawing",
+                      "creative"
+                    ],
+                    "may_require_device_interaction": false,
+                    "requires_other_person": false,
+                    "title": "Dibujá algo que te guste"
+                  }
+                ],
+                "catalog_status": "PROVISIONAL",
+                "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+                "request_id": "fictitious-eval-original-responded",
+                "selection_fingerprint": "402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a",
+                "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+                "status": "selected"
+              },
+              "series_id": "fictitious-assignment",
+              "source": "system_daytime",
+              "status": "pending"
+            },
+            "policy_version": "automatic-child-offers-v1-engineering",
+            "replayed": false,
+            "status": "offer"
+          }
+        },
+        {
+          "kind": "event",
+          "request_id": "fictitious-delivered-original-responded",
+          "payload": {
+            "profile_id": "fictitious-original-responded",
+            "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+            "event": "delivered",
+            "occurred_at": "2026-10-16T10:00:00-03:00",
+            "now": "2026-10-16T10:00:00-03:00",
+            "channel": "overlay"
+          },
+          "receipt": {
+            "offer": {
+              "activities_offered": [
+                "creative_favorite_01"
+              ],
+              "channels": [
+                "overlay"
+              ],
+              "context": "general",
+              "created_at": "2026-10-16T13:00:00+00:00",
+              "delivered_at": "2026-10-16T13:00:00+00:00",
+              "evidence": {
+                "assignment_verified": true,
+                "automatic_enabled": true,
+                "bedtime_at": "2026-10-16T21:00:00-03:00",
+                "capture_verified": true,
+                "eligibility": {
+                  "excluded_activity_ids": [
+                    "movement_dance_01",
+                    "movement_sequence_01",
+                    "movement_ball_01",
+                    "creative_character_01",
+                    "creative_animal_01",
+                    "creative_story_01",
+                    "reading_choose_01",
+                    "reading_favorite_01",
+                    "free_play_nearby_01",
+                    "free_play_build_01",
+                    "free_play_story_01",
+                    "social_play_01",
+                    "social_talk_01",
+                    "social_help_01",
+                    "social_story_01",
+                    "quiet_prepare_01",
+                    "quiet_draw_01"
+                  ]
+                },
+                "eligibility_state": "known",
+                "game_active": false,
+                "in_school_period": false,
+                "interests": [],
+                "interval_id": "fictitious-interval",
+                "interval_started_at": "2026-10-16T09:00:00-03:00",
+                "now": "2026-10-16T10:00:00-03:00",
+                "profile_id": "fictitious-original-responded",
+                "screen_interactive": true,
+                "series_id": "fictitious-assignment",
+                "shared_phone": false
+              },
+              "expires_at": "2026-10-16T13:10:00+00:00",
+              "initial_channel": "overlay",
+              "interval_id": "fictitious-interval",
+              "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+              "opportunity": "fictitious-assignment:fictitious-interval",
+              "profile_id": "fictitious-original-responded",
+              "response": null,
+              "response_at": null,
+              "selected_activity_id": null,
+              "selection": {
+                "activities": [
+                  {
+                    "activity_id": "creative_favorite_01",
+                    "activity_level": "calm",
+                    "allowed_contexts": [
+                      "voluntary",
+                      "general",
+                      "bedtime"
+                    ],
+                    "bedtime_suitable": true,
+                    "category": "creative",
+                    "description": "Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.",
+                    "interest_tags": [
+                      "drawing",
+                      "creative"
+                    ],
+                    "may_require_device_interaction": false,
+                    "requires_other_person": false,
+                    "title": "Dibujá algo que te guste"
+                  }
+                ],
+                "catalog_status": "PROVISIONAL",
+                "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+                "request_id": "fictitious-eval-original-responded",
+                "selection_fingerprint": "402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a",
+                "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+                "status": "selected"
+              },
+              "series_id": "fictitious-assignment",
+              "source": "system_daytime",
+              "status": "delivered"
+            },
+            "policy_version": "automatic-child-offers-v1-engineering",
+            "replayed": false,
+            "status": "recorded"
+          }
+        },
+        {
+          "kind": "event",
+          "request_id": "fictitious-selected-original-responded",
+          "payload": {
+            "profile_id": "fictitious-original-responded",
+            "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+            "event": "selected",
+            "occurred_at": "2026-10-16T10:00:00-03:00",
+            "now": "2026-10-16T10:00:00-03:00",
+            "selected_activity_id": "creative_favorite_01"
+          },
+          "receipt": {
+            "offer": {
+              "activities_offered": [
+                "creative_favorite_01"
+              ],
+              "channels": [
+                "overlay"
+              ],
+              "context": "general",
+              "created_at": "2026-10-16T13:00:00+00:00",
+              "delivered_at": "2026-10-16T13:00:00+00:00",
+              "evidence": {
+                "assignment_verified": true,
+                "automatic_enabled": true,
+                "bedtime_at": "2026-10-16T21:00:00-03:00",
+                "capture_verified": true,
+                "eligibility": {
+                  "excluded_activity_ids": [
+                    "movement_dance_01",
+                    "movement_sequence_01",
+                    "movement_ball_01",
+                    "creative_character_01",
+                    "creative_animal_01",
+                    "creative_story_01",
+                    "reading_choose_01",
+                    "reading_favorite_01",
+                    "free_play_nearby_01",
+                    "free_play_build_01",
+                    "free_play_story_01",
+                    "social_play_01",
+                    "social_talk_01",
+                    "social_help_01",
+                    "social_story_01",
+                    "quiet_prepare_01",
+                    "quiet_draw_01"
+                  ]
+                },
+                "eligibility_state": "known",
+                "game_active": false,
+                "in_school_period": false,
+                "interests": [],
+                "interval_id": "fictitious-interval",
+                "interval_started_at": "2026-10-16T09:00:00-03:00",
+                "now": "2026-10-16T10:00:00-03:00",
+                "profile_id": "fictitious-original-responded",
+                "screen_interactive": true,
+                "series_id": "fictitious-assignment",
+                "shared_phone": false
+              },
+              "expires_at": "2026-10-16T13:10:00+00:00",
+              "initial_channel": "overlay",
+              "interval_id": "fictitious-interval",
+              "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+              "opportunity": "fictitious-assignment:fictitious-interval",
+              "profile_id": "fictitious-original-responded",
+              "response": "selected",
+              "response_at": "2026-10-16T13:00:00+00:00",
+              "selected_activity_id": "creative_favorite_01",
+              "selection": {
+                "activities": [
+                  {
+                    "activity_id": "creative_favorite_01",
+                    "activity_level": "calm",
+                    "allowed_contexts": [
+                      "voluntary",
+                      "general",
+                      "bedtime"
+                    ],
+                    "bedtime_suitable": true,
+                    "category": "creative",
+                    "description": "Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.",
+                    "interest_tags": [
+                      "drawing",
+                      "creative"
+                    ],
+                    "may_require_device_interaction": false,
+                    "requires_other_person": false,
+                    "title": "Dibujá algo que te guste"
+                  }
+                ],
+                "catalog_status": "PROVISIONAL",
+                "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+                "request_id": "fictitious-eval-original-responded",
+                "selection_fingerprint": "402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a",
+                "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+                "status": "selected"
+              },
+              "series_id": "fictitious-assignment",
+              "source": "system_daytime",
+              "status": "responded"
+            },
+            "policy_version": "automatic-child-offers-v1-engineering",
+            "replayed": false,
+            "status": "recorded"
+          }
+        }
+      ],
+      "store": {
+        "state_body": "{\"policy\":{\"bedtime_minutes\":60,\"continuous_minutes\":45,\"cooldown_minutes\":120,\"day_end_hour\":20,\"day_start_hour\":8,\"maximum_bedtime\":1,\"maximum_daytime\":2,\"maximum_total\":3,\"rejection_pause_hours\":24,\"ttl_minutes\":10,\"version\":\"automatic-child-offers-v1-engineering\"},\"profiles\":{\"fictitious-original-responded\":{\"clock\":\"2026-10-16T13:00:00+00:00\",\"events\":[{\"at\":\"2026-10-16T13:00:00+00:00\",\"event\":\"generated\",\"offer_id\":\"01c25021-d621-4e82-b7d9-0492bf0e47ec\"},{\"at\":\"2026-10-16T13:00:00+00:00\",\"channel\":\"overlay\",\"event\":\"delivered\",\"method\":\"event\",\"now\":\"2026-10-16T10:00:00-03:00\",\"occurred_at\":\"2026-10-16T10:00:00-03:00\",\"offer_id\":\"01c25021-d621-4e82-b7d9-0492bf0e47ec\",\"profile_id\":\"fictitious-original-responded\",\"selected_activity_id\":null},{\"at\":\"2026-10-16T13:00:00+00:00\",\"channel\":null,\"event\":\"selected\",\"method\":\"event\",\"now\":\"2026-10-16T10:00:00-03:00\",\"occurred_at\":\"2026-10-16T10:00:00-03:00\",\"offer_id\":\"01c25021-d621-4e82-b7d9-0492bf0e47ec\",\"profile_id\":\"fictitious-original-responded\",\"selected_activity_id\":\"creative_favorite_01\"}],\"intervals\":{\"fictitious-assignment:fictitious-interval\":\"2026-10-16T12:00:00+00:00\"},\"offers\":[{\"activities_offered\":[\"creative_favorite_01\"],\"channels\":[\"overlay\"],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":\"2026-10-16T13:00:00+00:00\",\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-original-responded\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"01c25021-d621-4e82-b7d9-0492bf0e47ec\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-original-responded\",\"response\":\"selected\",\"response_at\":\"2026-10-16T13:00:00+00:00\",\"selected_activity_id\":\"creative_favorite_01\",\"selection\":{\"activities\":[{\"activity_id\":\"creative_favorite_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"voluntary\",\"general\",\"bedtime\"],\"bedtime_suitable\":true,\"category\":\"creative\",\"description\":\"Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.\",\"interest_tags\":[\"drawing\",\"creative\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Dibujá algo que te guste\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-original-responded\",\"selection_fingerprint\":\"402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"responded\"}]}},\"receipt_count\":3}",
+        "receipts": [
+          [
+            "fictitious-delivered-original-responded",
+            "0af1d5bcdeb75dfc44db8b701c0941926feea74a32bd0eb21a612a45bfc47ea6",
+            "{\"offer\":{\"activities_offered\":[\"creative_favorite_01\"],\"channels\":[\"overlay\"],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":\"2026-10-16T13:00:00+00:00\",\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-original-responded\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"01c25021-d621-4e82-b7d9-0492bf0e47ec\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-original-responded\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"creative_favorite_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"voluntary\",\"general\",\"bedtime\"],\"bedtime_suitable\":true,\"category\":\"creative\",\"description\":\"Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.\",\"interest_tags\":[\"drawing\",\"creative\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Dibujá algo que te guste\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-original-responded\",\"selection_fingerprint\":\"402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"delivered\"},\"policy_version\":\"automatic-child-offers-v1-engineering\",\"replayed\":false,\"status\":\"recorded\"}"
+          ],
+          [
+            "fictitious-eval-original-responded",
+            "f61ffeb19769df37715b278f53f72af72de18170317b449262432203f57b7e70",
+            "{\"channel\":\"overlay\",\"offer\":{\"activities_offered\":[\"creative_favorite_01\"],\"channels\":[],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":null,\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-original-responded\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"01c25021-d621-4e82-b7d9-0492bf0e47ec\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-original-responded\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"creative_favorite_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"voluntary\",\"general\",\"bedtime\"],\"bedtime_suitable\":true,\"category\":\"creative\",\"description\":\"Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.\",\"interest_tags\":[\"drawing\",\"creative\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Dibujá algo que te guste\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-original-responded\",\"selection_fingerprint\":\"402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"pending\"},\"policy_version\":\"automatic-child-offers-v1-engineering\",\"replayed\":false,\"status\":\"offer\"}"
+          ],
+          [
+            "fictitious-selected-original-responded",
+            "b796884d0803c07b6ed867355346bbc579b14abbbf491ea504f7dd175c65cdec",
+            "{\"offer\":{\"activities_offered\":[\"creative_favorite_01\"],\"channels\":[\"overlay\"],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":\"2026-10-16T13:00:00+00:00\",\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_story_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-original-responded\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"01c25021-d621-4e82-b7d9-0492bf0e47ec\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-original-responded\",\"response\":\"selected\",\"response_at\":\"2026-10-16T13:00:00+00:00\",\"selected_activity_id\":\"creative_favorite_01\",\"selection\":{\"activities\":[{\"activity_id\":\"creative_favorite_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"voluntary\",\"general\",\"bedtime\"],\"bedtime_suitable\":true,\"category\":\"creative\",\"description\":\"Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.\",\"interest_tags\":[\"drawing\",\"creative\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Dibujá algo que te guste\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-original-responded\",\"selection_fingerprint\":\"402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"responded\"},\"policy_version\":\"automatic-child-offers-v1-engineering\",\"replayed\":false,\"status\":\"recorded\"}"
+          ]
+        ]
+      },
+      "history": {
+        "clock": "2026-10-16T13:00:00+00:00",
+        "events": [
+          {
+            "at": "2026-10-16T13:00:00+00:00",
+            "event": "generated",
+            "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec"
+          },
+          {
+            "at": "2026-10-16T13:00:00+00:00",
+            "channel": "overlay",
+            "event": "delivered",
+            "method": "event",
+            "now": "2026-10-16T10:00:00-03:00",
+            "occurred_at": "2026-10-16T10:00:00-03:00",
+            "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+            "profile_id": "fictitious-original-responded",
+            "selected_activity_id": null
+          },
+          {
+            "at": "2026-10-16T13:00:00+00:00",
+            "channel": null,
+            "event": "selected",
+            "method": "event",
+            "now": "2026-10-16T10:00:00-03:00",
+            "occurred_at": "2026-10-16T10:00:00-03:00",
+            "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+            "profile_id": "fictitious-original-responded",
+            "selected_activity_id": "creative_favorite_01"
+          }
+        ],
+        "intervals": {
+          "fictitious-assignment:fictitious-interval": "2026-10-16T12:00:00+00:00"
+        },
+        "offers": [
+          {
+            "activities_offered": [
+              "creative_favorite_01"
+            ],
+            "channels": [
+              "overlay"
+            ],
+            "context": "general",
+            "created_at": "2026-10-16T13:00:00+00:00",
+            "delivered_at": "2026-10-16T13:00:00+00:00",
+            "evidence": {
+              "assignment_verified": true,
+              "automatic_enabled": true,
+              "bedtime_at": "2026-10-16T21:00:00-03:00",
+              "capture_verified": true,
+              "eligibility": {
+                "excluded_activity_ids": [
+                  "movement_dance_01",
+                  "movement_sequence_01",
+                  "movement_ball_01",
+                  "creative_character_01",
+                  "creative_animal_01",
+                  "creative_story_01",
+                  "reading_choose_01",
+                  "reading_favorite_01",
+                  "free_play_nearby_01",
+                  "free_play_build_01",
+                  "free_play_story_01",
+                  "social_play_01",
+                  "social_talk_01",
+                  "social_help_01",
+                  "social_story_01",
+                  "quiet_prepare_01",
+                  "quiet_draw_01"
+                ]
+              },
+              "eligibility_state": "known",
+              "game_active": false,
+              "in_school_period": false,
+              "interests": [],
+              "interval_id": "fictitious-interval",
+              "interval_started_at": "2026-10-16T09:00:00-03:00",
+              "now": "2026-10-16T10:00:00-03:00",
+              "profile_id": "fictitious-original-responded",
+              "screen_interactive": true,
+              "series_id": "fictitious-assignment",
+              "shared_phone": false
+            },
+            "expires_at": "2026-10-16T13:10:00+00:00",
+            "initial_channel": "overlay",
+            "interval_id": "fictitious-interval",
+            "offer_id": "01c25021-d621-4e82-b7d9-0492bf0e47ec",
+            "opportunity": "fictitious-assignment:fictitious-interval",
+            "profile_id": "fictitious-original-responded",
+            "response": "selected",
+            "response_at": "2026-10-16T13:00:00+00:00",
+            "selected_activity_id": "creative_favorite_01",
+            "selection": {
+              "activities": [
+                {
+                  "activity_id": "creative_favorite_01",
+                  "activity_level": "calm",
+                  "allowed_contexts": [
+                    "voluntary",
+                    "general",
+                    "bedtime"
+                  ],
+                  "bedtime_suitable": true,
+                  "category": "creative",
+                  "description": "Elegí un personaje, lugar, objeto o cualquier cosa que tengas ganas de dibujar.",
+                  "interest_tags": [
+                    "drawing",
+                    "creative"
+                  ],
+                  "may_require_device_interaction": false,
+                  "requires_other_person": false,
+                  "title": "Dibujá algo que te guste"
+                }
+              ],
+              "catalog_status": "PROVISIONAL",
+              "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+              "request_id": "fictitious-eval-original-responded",
+              "selection_fingerprint": "402844fc048108935b5da35d29b5a9ff65bd4b65aae30ae3dc863e2ac9d0ec9a",
+              "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+              "status": "selected"
+            },
+            "series_id": "fictitious-assignment",
+            "source": "system_daytime",
+            "status": "responded"
+          }
+        ]
+      }
+    },
+    {
+      "case": "original-pending",
+      "activity_id": "creative_story_01",
+      "profile_id": "fictitious-original-pending",
+      "operations": [
+        {
+          "kind": "evaluate",
+          "request_id": "fictitious-eval-original-pending",
+          "evidence": {
+            "profile_id": "fictitious-original-pending",
+            "series_id": "fictitious-assignment",
+            "interval_id": "fictitious-interval",
+            "now": "2026-10-16T10:00:00-03:00",
+            "interval_started_at": "2026-10-16T09:00:00-03:00",
+            "bedtime_at": "2026-10-16T21:00:00-03:00",
+            "automatic_enabled": true,
+            "assignment_verified": true,
+            "shared_phone": false,
+            "capture_verified": true,
+            "screen_interactive": true,
+            "game_active": false,
+            "in_school_period": false,
+            "eligibility_state": "known",
+            "eligibility": {
+              "excluded_activity_ids": [
+                "movement_dance_01",
+                "movement_sequence_01",
+                "movement_ball_01",
+                "creative_character_01",
+                "creative_animal_01",
+                "creative_favorite_01",
+                "reading_choose_01",
+                "reading_favorite_01",
+                "free_play_nearby_01",
+                "free_play_build_01",
+                "free_play_story_01",
+                "social_play_01",
+                "social_talk_01",
+                "social_help_01",
+                "social_story_01",
+                "quiet_prepare_01",
+                "quiet_draw_01"
+              ]
+            },
+            "interests": []
+          },
+          "receipt": {
+            "channel": "overlay",
+            "offer": {
+              "activities_offered": [
+                "creative_story_01"
+              ],
+              "channels": [],
+              "context": "general",
+              "created_at": "2026-10-16T13:00:00+00:00",
+              "delivered_at": null,
+              "evidence": {
+                "assignment_verified": true,
+                "automatic_enabled": true,
+                "bedtime_at": "2026-10-16T21:00:00-03:00",
+                "capture_verified": true,
+                "eligibility": {
+                  "excluded_activity_ids": [
+                    "movement_dance_01",
+                    "movement_sequence_01",
+                    "movement_ball_01",
+                    "creative_character_01",
+                    "creative_animal_01",
+                    "creative_favorite_01",
+                    "reading_choose_01",
+                    "reading_favorite_01",
+                    "free_play_nearby_01",
+                    "free_play_build_01",
+                    "free_play_story_01",
+                    "social_play_01",
+                    "social_talk_01",
+                    "social_help_01",
+                    "social_story_01",
+                    "quiet_prepare_01",
+                    "quiet_draw_01"
+                  ]
+                },
+                "eligibility_state": "known",
+                "game_active": false,
+                "in_school_period": false,
+                "interests": [],
+                "interval_id": "fictitious-interval",
+                "interval_started_at": "2026-10-16T09:00:00-03:00",
+                "now": "2026-10-16T10:00:00-03:00",
+                "profile_id": "fictitious-original-pending",
+                "screen_interactive": true,
+                "series_id": "fictitious-assignment",
+                "shared_phone": false
+              },
+              "expires_at": "2026-10-16T13:10:00+00:00",
+              "initial_channel": "overlay",
+              "interval_id": "fictitious-interval",
+              "offer_id": "fa9a6eca-c6f2-4b2c-9e8b-91a8932d201e",
+              "opportunity": "fictitious-assignment:fictitious-interval",
+              "profile_id": "fictitious-original-pending",
+              "response": null,
+              "response_at": null,
+              "selected_activity_id": null,
+              "selection": {
+                "activities": [
+                  {
+                    "activity_id": "creative_story_01",
+                    "activity_level": "calm",
+                    "allowed_contexts": [
+                      "voluntary",
+                      "general",
+                      "bedtime"
+                    ],
+                    "bedtime_suitable": true,
+                    "category": "creative",
+                    "description": "Inventá una historia corta. Podés escribirla, dibujarla o hacer las dos cosas.",
+                    "interest_tags": [
+                      "writing",
+                      "drawing",
+                      "creative"
+                    ],
+                    "may_require_device_interaction": false,
+                    "requires_other_person": false,
+                    "title": "Inventá una historia"
+                  }
+                ],
+                "catalog_status": "PROVISIONAL",
+                "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+                "request_id": "fictitious-eval-original-pending",
+                "selection_fingerprint": "6b3620dcc72d905895b9c6df941c902cef7e8c5859f900aaf05ff3966ee75208",
+                "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+                "status": "selected"
+              },
+              "series_id": "fictitious-assignment",
+              "source": "system_daytime",
+              "status": "pending"
+            },
+            "policy_version": "automatic-child-offers-v1-engineering",
+            "replayed": false,
+            "status": "offer"
+          }
+        }
+      ],
+      "store": {
+        "state_body": "{\"policy\":{\"bedtime_minutes\":60,\"continuous_minutes\":45,\"cooldown_minutes\":120,\"day_end_hour\":20,\"day_start_hour\":8,\"maximum_bedtime\":1,\"maximum_daytime\":2,\"maximum_total\":3,\"rejection_pause_hours\":24,\"ttl_minutes\":10,\"version\":\"automatic-child-offers-v1-engineering\"},\"profiles\":{\"fictitious-original-pending\":{\"clock\":\"2026-10-16T13:00:00+00:00\",\"events\":[{\"at\":\"2026-10-16T13:00:00+00:00\",\"event\":\"generated\",\"offer_id\":\"fa9a6eca-c6f2-4b2c-9e8b-91a8932d201e\"}],\"intervals\":{\"fictitious-assignment:fictitious-interval\":\"2026-10-16T12:00:00+00:00\"},\"offers\":[{\"activities_offered\":[\"creative_story_01\"],\"channels\":[],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":null,\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_favorite_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-original-pending\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"fa9a6eca-c6f2-4b2c-9e8b-91a8932d201e\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-original-pending\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"creative_story_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"voluntary\",\"general\",\"bedtime\"],\"bedtime_suitable\":true,\"category\":\"creative\",\"description\":\"Inventá una historia corta. Podés escribirla, dibujarla o hacer las dos cosas.\",\"interest_tags\":[\"writing\",\"drawing\",\"creative\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Inventá una historia\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-original-pending\",\"selection_fingerprint\":\"6b3620dcc72d905895b9c6df941c902cef7e8c5859f900aaf05ff3966ee75208\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"pending\"}]}},\"receipt_count\":1}",
+        "receipts": [
+          [
+            "fictitious-eval-original-pending",
+            "ef51eb566ee0c110a11f97075737e818dfd067d5113c247e266bc69c67ec8710",
+            "{\"channel\":\"overlay\",\"offer\":{\"activities_offered\":[\"creative_story_01\"],\"channels\":[],\"context\":\"general\",\"created_at\":\"2026-10-16T13:00:00+00:00\",\"delivered_at\":null,\"evidence\":{\"assignment_verified\":true,\"automatic_enabled\":true,\"bedtime_at\":\"2026-10-16T21:00:00-03:00\",\"capture_verified\":true,\"eligibility\":{\"excluded_activity_ids\":[\"movement_dance_01\",\"movement_sequence_01\",\"movement_ball_01\",\"creative_character_01\",\"creative_animal_01\",\"creative_favorite_01\",\"reading_choose_01\",\"reading_favorite_01\",\"free_play_nearby_01\",\"free_play_build_01\",\"free_play_story_01\",\"social_play_01\",\"social_talk_01\",\"social_help_01\",\"social_story_01\",\"quiet_prepare_01\",\"quiet_draw_01\"]},\"eligibility_state\":\"known\",\"game_active\":false,\"in_school_period\":false,\"interests\":[],\"interval_id\":\"fictitious-interval\",\"interval_started_at\":\"2026-10-16T09:00:00-03:00\",\"now\":\"2026-10-16T10:00:00-03:00\",\"profile_id\":\"fictitious-original-pending\",\"screen_interactive\":true,\"series_id\":\"fictitious-assignment\",\"shared_phone\":false},\"expires_at\":\"2026-10-16T13:10:00+00:00\",\"initial_channel\":\"overlay\",\"interval_id\":\"fictitious-interval\",\"offer_id\":\"fa9a6eca-c6f2-4b2c-9e8b-91a8932d201e\",\"opportunity\":\"fictitious-assignment:fictitious-interval\",\"profile_id\":\"fictitious-original-pending\",\"response\":null,\"response_at\":null,\"selected_activity_id\":null,\"selection\":{\"activities\":[{\"activity_id\":\"creative_story_01\",\"activity_level\":\"calm\",\"allowed_contexts\":[\"voluntary\",\"general\",\"bedtime\"],\"bedtime_suitable\":true,\"category\":\"creative\",\"description\":\"Inventá una historia corta. Podés escribirla, dibujarla o hacer las dos cosas.\",\"interest_tags\":[\"writing\",\"drawing\",\"creative\"],\"may_require_device_interaction\":false,\"requires_other_person\":false,\"title\":\"Inventá una historia\"}],\"catalog_status\":\"PROVISIONAL\",\"catalog_version\":\"provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b\",\"request_id\":\"fictitious-eval-original-pending\",\"selection_fingerprint\":\"6b3620dcc72d905895b9c6df941c902cef7e8c5859f900aaf05ff3966ee75208\",\"selector_version\":\"published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace\",\"status\":\"selected\"},\"series_id\":\"fictitious-assignment\",\"source\":\"system_daytime\",\"status\":\"pending\"},\"policy_version\":\"automatic-child-offers-v1-engineering\",\"replayed\":false,\"status\":\"offer\"}"
+          ]
+        ]
+      },
+      "history": {
+        "clock": "2026-10-16T13:00:00+00:00",
+        "events": [
+          {
+            "at": "2026-10-16T13:00:00+00:00",
+            "event": "generated",
+            "offer_id": "fa9a6eca-c6f2-4b2c-9e8b-91a8932d201e"
+          }
+        ],
+        "intervals": {
+          "fictitious-assignment:fictitious-interval": "2026-10-16T12:00:00+00:00"
+        },
+        "offers": [
+          {
+            "activities_offered": [
+              "creative_story_01"
+            ],
+            "channels": [],
+            "context": "general",
+            "created_at": "2026-10-16T13:00:00+00:00",
+            "delivered_at": null,
+            "evidence": {
+              "assignment_verified": true,
+              "automatic_enabled": true,
+              "bedtime_at": "2026-10-16T21:00:00-03:00",
+              "capture_verified": true,
+              "eligibility": {
+                "excluded_activity_ids": [
+                  "movement_dance_01",
+                  "movement_sequence_01",
+                  "movement_ball_01",
+                  "creative_character_01",
+                  "creative_animal_01",
+                  "creative_favorite_01",
+                  "reading_choose_01",
+                  "reading_favorite_01",
+                  "free_play_nearby_01",
+                  "free_play_build_01",
+                  "free_play_story_01",
+                  "social_play_01",
+                  "social_talk_01",
+                  "social_help_01",
+                  "social_story_01",
+                  "quiet_prepare_01",
+                  "quiet_draw_01"
+                ]
+              },
+              "eligibility_state": "known",
+              "game_active": false,
+              "in_school_period": false,
+              "interests": [],
+              "interval_id": "fictitious-interval",
+              "interval_started_at": "2026-10-16T09:00:00-03:00",
+              "now": "2026-10-16T10:00:00-03:00",
+              "profile_id": "fictitious-original-pending",
+              "screen_interactive": true,
+              "series_id": "fictitious-assignment",
+              "shared_phone": false
+            },
+            "expires_at": "2026-10-16T13:10:00+00:00",
+            "initial_channel": "overlay",
+            "interval_id": "fictitious-interval",
+            "offer_id": "fa9a6eca-c6f2-4b2c-9e8b-91a8932d201e",
+            "opportunity": "fictitious-assignment:fictitious-interval",
+            "profile_id": "fictitious-original-pending",
+            "response": null,
+            "response_at": null,
+            "selected_activity_id": null,
+            "selection": {
+              "activities": [
+                {
+                  "activity_id": "creative_story_01",
+                  "activity_level": "calm",
+                  "allowed_contexts": [
+                    "voluntary",
+                    "general",
+                    "bedtime"
+                  ],
+                  "bedtime_suitable": true,
+                  "category": "creative",
+                  "description": "Inventá una historia corta. Podés escribirla, dibujarla o hacer las dos cosas.",
+                  "interest_tags": [
+                    "writing",
+                    "drawing",
+                    "creative"
+                  ],
+                  "may_require_device_interaction": false,
+                  "requires_other_person": false,
+                  "title": "Inventá una historia"
+                }
+              ],
+              "catalog_status": "PROVISIONAL",
+              "catalog_version": "provisional-sha256:e7a897d256c33c0e6e43ab2f5649750512f4c9c55b1c2d38f1392a616f78fb3b",
+              "request_id": "fictitious-eval-original-pending",
+              "selection_fingerprint": "6b3620dcc72d905895b9c6df941c902cef7e8c5859f900aaf05ff3966ee75208",
+              "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+              "status": "selected"
+            },
+            "series_id": "fictitious-assignment",
+            "source": "system_daytime",
+            "status": "pending"
+          }
+        ]
+      }
+    }
+  ]
+}
