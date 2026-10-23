@@ -1,0 +1,56 @@
+{
+  "base_commit": "1445056ad13728fba5aaabec6a61aa9bbd1730c3",
+  "checked_source_commit": "93a507cf09e8060154c381c803e404cd45eef524",
+  "scope": "technical_catalog_revision_not_family_effectiveness",
+  "runtime": {
+    "python": "3.12.14"
+  },
+  "tests": {
+    "focused": {
+      "tests": 167,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "subtests_passed": 45,
+      "passed": 167,
+      "junit_cases_including_subtests": 212
+    },
+    "full_regression": {
+      "tests": 536,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "subtests_passed": 192,
+      "passed": 536,
+      "junit_cases_including_subtests": 728
+    }
+  },
+  "runtime_protected_files_unchanged": 44,
+  "unchanged_selector_source": true,
+  "unchanged_activity_http_schema": true,
+  "source_sha256": {
+    "recommendations.py": "65e3f74e1baf720c208532b638bb5ca2afcb14bacd0ac590a2f38a5a8023e1e8",
+    "test_intervention_history_reader.py": "4ada06b1465164bd56eff684407f31cb237220c543b36447bbbed707398a59f1",
+    "test_child_choice_signals.py": "d66955c3754e885e0c03d148e6eadafe660f4ad8b7f65f18e2b7e3c3b6d705c9",
+    "tools/validation/verify_activity_professional_revision.py": "9a503bad099e906d2d3a0ee61872e3860ff7e6ee2475565913918254f5b96450",
+    "tests/test_activity_professional_review.py": "e74327697048c1a7f05c42f1b964cc3c71eed74592397b4b799ca8b962982fc9",
+    "tests/test_activity_catalog_revision.py": "8fc6bbe576d2393cc4e7714c9f988346016ac5d74529428b5bd159b82fb79a16",
+    "tests/test_integration_closure.py": "e4651897e5efe1906bbd1b0b1269ed6a81583d17dbfc41269d18ed33b13bc52f",
+    "tests/test_integration_handoff.py": "1b128df1ca5c44826557e6c6b87c923ec805e92ebd38ea9d092107c909082a02",
+    "tests/fixtures/catalog_revision/base_1445056_fictitious.json": "86644e7a81fe9f4ba3224f01436f5dfc3833f4671e3f1ccc738b4dfaa1578e40",
+    "docs/activity_catalog/REVISION_PROFESIONAL_2026-10-23.json": "ceaa533a79d57f5ed87fd95ff059165a632997bf4a65d41c2a14c4cd4066bad6",
+    "docs/integration/CATALOG_FUNCTIONAL_REVIEW_V3.json": "c73d93a835daa21601056006f65eaf6a8413c697bd9c8ab170dd4e171f6e7fc1"
+  },
+  "docker_available": false,
+  "docker_aws_android_windows_validated_here": false,
+  "native_http_process_restart_and_original_receipts": "PASS",
+  "full_catalog_http_and_predecessor_exclusions": "PASS",
+  "first_regression_attempt": {
+    "failed": 1,
+    "passed": 535,
+    "reason": "Una prueba creaba una oferta nueva con creative_story_01, ahora retirado. Se actualizó ese dato a un ID activo; no se relajó la validación de producción."
+  },
+  "professional_content_review_received": true,
+  "clinical_safety_validated": false,
+  "automatic_condition_to_filter_mapping": false
+}
