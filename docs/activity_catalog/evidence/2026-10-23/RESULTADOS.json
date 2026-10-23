@@ -48,7 +48,9 @@
   "first_regression_attempt": {
     "failed": 1,
     "passed": 535,
-    "reason": "Una prueba creaba una oferta nueva con creative_story_01, ahora retirado. Se actualizó ese dato a un ID activo; no se relajó la validación de producción."
+    "reason": "Una prueba creaba una oferta nueva con creative_story_01, ahora retirado. Se actualizó ese dato a un ID activo; no se relajó la validación de producción.",
+    "original_report_gzip": "regression_linux_first_attempt.xml.gz",
+    "uncompressed_sha256": "b062d7158cb1a5e21dde54d2db141045fd3b2661a4cf7156ae8877f66ef6c16f"
   },
   "professional_content_review_received": true,
   "clinical_safety_validated": false,
