@@ -55,7 +55,7 @@ class OfferHistoryReaderTests(unittest.TestCase):
             child_id=3,
             source=SOURCE_CHILD_INITIATED,
             context=CONTEXT_VOLUNTARY,
-            activities_offered=("creative_story_01", "movement_ball_01"),
+            activities_offered=("creative_character_story_01", "movement_ball_01"),
         )
         response = create_intervention_record(
             child_id=3,

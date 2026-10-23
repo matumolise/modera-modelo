@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "commit": "3a959016f52cf59c00f4dcf6b9c3cc1c963e1716",
+  "scope": "controlled_fictitious_in_process_http_catalog_check",
+  "catalog_version": "provisional-sha256:976271d8f060d4fb9c1cc09ea1f2210d0726f0b391da64ed745e0fe1bed7ccd4",
+  "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+  "filter_compatibility_version": "explicit-exclusions-merged-activities-v1",
+  "activities_checked": 16,
+  "inherited_exclusions_checked": [
+    {
+      "predecessor": "creative_character_01",
+      "merged_activity": "creative_character_story_01"
+    },
+    {
+      "predecessor": "creative_story_01",
+      "merged_activity": "creative_character_story_01"
+    },
+    {
+      "predecessor": "social_story_01",
+      "merged_activity": "social_conversation_story_01"
+    },
+    {
+      "predecessor": "social_talk_01",
+      "merged_activity": "social_conversation_story_01"
+    }
+  ],
+  "professional_content_review": "RECEIVED_WITH_DOCUMENTED_EDITS",
+  "clinical_approval": false,
+  "child_effectiveness_validated": false,
+  "docker_aws_android_validated": false,
+  "source_documents": [
+    {
+      "filename": "Revisión  corregida de Actividades de Moderá V2.docx",
+      "sha256": "7d76c1f11577e1c05c6f68ae220817cfbbdb008edc4d866cbb3c91a651a9917d"
+    },
+    {
+      "filename": "Revisión  corregida de Actividades de Moderá V2.pdf",
+      "sha256": "f7f9da6f8846bc3a123bee42532198eaec4fda510368f491113bd85c122d0f96"
+    }
+  ],
+  "runtime": {
+    "python": "3.12.14"
+  }
+}
