@@ -63,475 +63,333 @@ class ActivityEligibility:
     allow_requires_other_person: bool = True
     allow_may_require_device_interaction: bool = True
 
+    def __post_init__(self):
+        # Aplicar la misma compatibilidad en selección directa, HTTP y coordinador.
+        object.__setattr__(self, "excluded_activity_ids",
+                           _expand_merged_activity_exclusions(self.excluded_activity_ids))
+
 
 # ============================================================
 # CATÁLOGO PROVISIONAL REVISADO
 # ============================================================
 
 ACTIVITY_CATALOG: tuple[Activity, ...] = (
-
-    # --------------------------------------------------------
-    # MOVIMIENTO
-    # --------------------------------------------------------
-
     Activity(
-        activity_id="movement_dance_01",
-        title="Bailá a tu manera",
+        activity_id='movement_dance_01',
+        title='Bailá al ritmo de tu canción',
         description=(
-            "Necesitás: Una canción que conozcas. Si querés escucharla, un dispositivo para reproducirla.\n"
-            "1. Elegí una canción que te guste. Podés ponerla o cantarla vos.\n"
-            "2. Si usás el celular para escucharla, dejalo apoyado en un lugar seguro. No hace falta seguir mirando la pantalla.\n"
-            "3. Mové las manos y los brazos al ritmo de la canción. Podés bailar sentado o de pie."
+            'Necesitás: Un dispositivo para escuchar música, si querés poner una canción. Si preferís cantarla, no hace falta.\n'
+            '1. Elegí una canción que te guste. Podés ponerla o cantarla vos.\n'
+            '2. Si usás el celular, dejalo apoyado en un lugar seguro para tener las manos libres.\n'
+            '3. Mové las manos, la cabeza o todo el cuerpo al ritmo de la canción. Podés bailar sentado o de pie.\n'
+            '4. ¿Te animás a cantar o a dar palmas siguiendo el ritmo? Probá como te salga.'
         ),
-        category="movement",
-        interest_tags=(
-            "music",
-            "dance",
-            "movement",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="active",
+        category='movement',
+        interest_tags=('music', 'dance', 'movement'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='active',
         bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=True,
     ),
 
     Activity(
-        activity_id="movement_sequence_01",
-        title="Armá una cadena de movimientos",
+        activity_id='movement_sequence_01',
+        title='Sumá movimientos a tu secuencia',
         description=(
-            "No necesitás materiales.\n"
-            "1. Levantá las manos y después bajalas.\n"
-            "2. Agregá otro movimiento que puedas hacer, como abrir y cerrar las manos.\n"
-            "3. Repetí los movimientos en ese mismo orden. Podés hacerlos sentado o de pie."
+            'No necesitás materiales. La música es opcional. Si la ponés desde el celular, dejalo apoyado en un lugar seguro.\n'
+            '1. Levantá las manos y después bajalas.\n'
+            '2. Sumá otro movimiento que puedas hacer, como abrir y cerrar las manos.\n'
+            '3. Agregá un movimiento con otra parte del cuerpo, por ejemplo, mover la cabeza hacia los lados.\n'
+            '4. Repetí la secuencia en ese orden, a tu ritmo. Podés hacerlo sentado o de pie.'
         ),
-        category="movement",
-        interest_tags=(
-            "movement",
-            "sports",
+        category='movement',
+        interest_tags=('movement', 'sports'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='active',
+        bedtime_suitable=False,
+        requires_other_person=False,
+        may_require_device_interaction=True,
+    ),
+
+    Activity(
+        activity_id='movement_ball_01',
+        title='Jugá con una pelota',
+        description=(
+            'Necesitás: Una pelota blanda o un par de medias enrolladas y un espacio donde esté permitido jugar.\n'
+            '1. Buscá un lugar libre de objetos que se puedan romper.\n'
+            '2. Elegí cómo jugar: hacé rodar la pelota por el piso, pasala de una mano a otra o apretala varias veces.\n'
+            '3. Si tenés espacio y está permitido, también podés patearla suave o lanzarla suavemente con la mano. Elegí un movimiento que puedas hacer.'
         ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="active",
+        category='movement',
+        interest_tags=('sports', 'movement'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='active',
         bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="movement_ball_01",
-        title="Jugá con una pelota",
+        activity_id='creative_character_story_01',
+        title='Inventá un personaje y su historia',
         description=(
-            "Necesitás: Una pelota blanda o un par de medias enrolladas. Un lugar donde esté permitido jugar.\n"
-            "1. Buscá un espacio libre de cosas que se puedan romper.\n"
-            "2. Apoyá la pelota en el piso y hacela rodar suavemente hacia un lugar que elijas.\n"
-            "3. Andá a buscarla y probá hacerla rodar otra vez."
+            'Necesitás: Papel y lápices solo si querés dibujar o escribir. Para imaginar no necesitás materiales.\n'
+            '1. Imaginá un personaje: una persona, un animal o un monstruo, real o inventado.\n'
+            '2. Elegí su nombre y algo que le guste hacer.\n'
+            '3. Pensá qué le pasa y cómo se siente. Por ejemplo, encontró una puerta chiquita. ¿Qué hay del otro lado?\n'
+            '4. Podés imaginar su historia en silencio, contarla, escribirla o dibujarla.'
         ),
-        category="movement",
-        interest_tags=(
-            "sports",
-            "movement",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="active",
-        bedtime_suitable=False,
-        requires_other_person=False,
-        may_require_device_interaction=False,
-    ),
-
-    # --------------------------------------------------------
-    # CREATIVIDAD
-    # --------------------------------------------------------
-
-    Activity(
-        activity_id="creative_character_01",
-        title="Inventá un personaje",
-        description=(
-            "No necesitás materiales. Si querés dibujarlo, usá papel y lápiz.\n"
-            "1. Imaginá un personaje. Puede ser una persona, un animal o un monstruo inventado.\n"
-            "2. Elegí su nombre y algo que le guste hacer.\n"
-            "3. Podés contar cómo es o dibujarlo."
-        ),
-        category="creative",
-        interest_tags=(
-            "drawing",
-            "creative",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
+        category='creative',
+        interest_tags=('creative', 'stories', 'drawing', 'writing'),
+        allowed_contexts=('voluntary', 'general', 'bedtime'),
+        activity_level='calm',
         bedtime_suitable=True,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="creative_animal_01",
-        title="Combiná dos animales",
+        activity_id='creative_animal_01',
+        title='Inventá un animal',
         description=(
-            "No necesitás materiales. Si querés dibujar, usá papel y lápiz.\n"
-            "1. Elegí dos animales que conozcas, por ejemplo, un gato y un pájaro.\n"
-            "2. Imaginá un animal que tenga una parte de cada uno, como un gato con alas.\n"
-            "3. Inventale un nombre. Podés contar cómo es o dibujarlo."
+            'Necesitás: Papel y lápices solo si querés dibujar. Para imaginar no necesitás materiales.\n'
+            '1. Inventá un animal. Podés combinar dos que conozcas, como un gato con alas.\n'
+            '2. Ponele un nombre y elegí de qué color es.\n'
+            '3. Imaginá dónde vive, qué hace o quiénes son sus amigos. Podés contarlo, imaginarlo en silencio o dibujarlo.'
         ),
-        category="creative",
-        interest_tags=(
-            "drawing",
-            "animals",
-            "creative",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
+        category='creative',
+        interest_tags=('drawing', 'animals', 'creative'),
+        allowed_contexts=('voluntary', 'general', 'bedtime'),
+        activity_level='calm',
         bedtime_suitable=True,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="creative_favorite_01",
-        title="Dibujá algo que te guste",
+        activity_id='creative_favorite_01',
+        title='Dibujá algo que te guste',
         description=(
-            "Necesitás: Papel y un lápiz o lápices de colores.\n"
-            "1. Buscá el papel y los lápices.\n"
-            "2. Elegí algo que te guste, como un animal, una persona o un lugar.\n"
-            "3. Dibujalo como vos quieras. Si no sabés por dónde empezar, dibujá primero una parte."
+            'Necesitás: Papel y un lápiz o lápices de colores.\n'
+            '1. Buscá el papel y los lápices.\n'
+            '2. Elegí algo para dibujar, como un animal, una persona o algo que veas por la ventana o dentro de tu casa.\n'
+            '3. Empezá por una parte y seguí de a poco. Hacelo como te salga.'
         ),
-        category="creative",
-        interest_tags=(
-            "drawing",
-            "creative",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="calm",
+        category='creative',
+        interest_tags=('drawing', 'creative'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='calm',
         bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="creative_story_01",
-        title="Inventá una historia",
+        activity_id='reading_choose_01',
+        title='Elegí algo para leer o mirar',
         description=(
-            "No necesitás materiales.\n"
-            "1. Elegí quién aparece en tu historia: una persona, un animal o un personaje inventado.\n"
-            "2. Pensá dónde está y qué le pasa. Por ejemplo: «Un gato encontró una puerta chiquita».\n"
-            "3. Inventá qué sucede después. Podés contar la historia o imaginarla en silencio."
+            'Necesitás: Un libro o una historieta en papel. También puede ser un libro con ilustraciones.\n'
+            '1. Buscá algo para leer o mirar y elegí un lugar cómodo.\n'
+            '2. Mirá las ilustraciones o leé una parte, en voz alta o en silencio.\n'
+            '3. Seguí a tu ritmo. No hace falta terminarlo ahora.'
         ),
-        category="creative",
-        interest_tags=(
-            "stories",
-            "creative",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="calm",
-        bedtime_suitable=False,
-        requires_other_person=False,
-        may_require_device_interaction=False,
-    ),
-
-    # --------------------------------------------------------
-    # LECTURA
-    # --------------------------------------------------------
-
-    Activity(
-        activity_id="reading_choose_01",
-        title="Elegí algo para leer",
-        description=(
-            "Necesitás: Un libro o una historieta en papel.\n"
-            "Si tenés un libro o historieta en papel, leé una parte a tu ritmo. También podés mirar sus ilustraciones."
-        ),
-        category="reading",
-        interest_tags=(
-            "reading",
-            "books",
-            "comics",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
+        category='reading',
+        interest_tags=('reading', 'books', 'comics'),
+        allowed_contexts=('voluntary', 'general', 'bedtime'),
+        activity_level='calm',
         bedtime_suitable=True,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="reading_favorite_01",
-        title="Volvé a una historia que te guste",
+        activity_id='reading_favorite_01',
+        title='Volvé a tu historia favorita',
         description=(
-            "Necesitás: Un libro o una historieta en papel, si lo tenés a mano.\n"
-            "Buscá tu parte favorita de un libro o historieta en papel. Si no lo tenés a mano, recordá esa escena."
+            'Necesitás: Un libro o una historieta en papel solo si querés releer. Para recordar la historia no necesitás materiales.\n'
+            '1. Elegí una historia o un cuento que te guste mucho.\n'
+            '2. Si lo tenés a mano, volvé a tu parte favorita. Si no, recordá qué pasaba y quiénes aparecían.\n'
+            '3. Releé o imaginá esa escena a tu ritmo.'
         ),
-        category="reading",
-        interest_tags=(
-            "reading",
-            "books",
-            "comics",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
+        category='reading',
+        interest_tags=('reading', 'books', 'comics'),
+        allowed_contexts=('voluntary', 'general', 'bedtime'),
+        activity_level='calm',
         bedtime_suitable=True,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
-    # --------------------------------------------------------
-    # JUEGO LIBRE
-    # --------------------------------------------------------
-
     Activity(
-        activity_id="free_play_nearby_01",
-        title="Jugá con algo que tengas cerca",
+        activity_id='free_play_nearby_01',
+        title='Jugá con tu juguete favorito',
         description=(
-            "Necesitás: Juguetes, cartas o bloques que puedas usar.\n"
-            "1. Elegí un juguete, cartas o bloques que tengas a mano.\n"
-            "2. Pensá qué podés hacer con lo que elegiste. Por ejemplo, si elegís un autito, armale un camino en el piso.\n"
-            "3. Empezá a jugar. Si elegiste el autito, podés cambiar el camino o inventar qué pasa durante el viaje."
+            'Necesitás: Un juguete que puedas usar. Si elegís cartas, un juego que ya conozcas.\n'
+            '1. Buscá tu juguete favorito y un lugar cómodo para jugar.\n'
+            '2. Si es un autito, armale un camino. Si es un muñeco, invitá a tu personaje a tomar el té o a dar un paseo imaginario.\n'
+            '3. Elegí una de esas ideas y empezá a jugar. Si elegiste cartas, jugá a un juego que conozcas.'
         ),
-        category="free_play",
-        interest_tags=(
-            "toys",
-            "games",
-            "free_play",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="moderate",
+        category='free_play',
+        interest_tags=('toys', 'games', 'free_play'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='moderate',
         bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="free_play_build_01",
-        title="Construí algo",
+        activity_id='free_play_build_01',
+        title='Construí un puente o una torre',
         description=(
-            "Necesitás: Bloques o cajas que tengas para jugar.\n"
-            "Con bloques o cajas que tengas para jugar, armá una torre, un puente o lo que se te ocurra."
+            'Necesitás: Bloques o cajas que tengas para jugar.\n'
+            '1. Juntá los bloques o las cajas y elegí un lugar para construir.\n'
+            '2. ¿Querés hacer una torre? Apilá las piezas. ¿Un puente? Probá poner una pieza sobre dos apoyos.\n'
+            '3. Agregá otras piezas para seguir tu construcción.'
         ),
-        category="free_play",
-        interest_tags=(
-            "building",
-            "creative",
-            "toys",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="moderate",
+        category='free_play',
+        interest_tags=('building', 'creative', 'toys'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='moderate',
         bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="free_play_story_01",
-        title="Jugá a inventar con objetos",
+        activity_id='free_play_story_01',
+        title='Inventá una historia con tus juguetes',
         description=(
-            "Necesitás: Uno o dos juguetes u objetos que puedas usar para jugar.\n"
-            "Elegí uno o dos juguetes u objetos y jugá a que son personajes de una historia."
+            'Necesitás: Dos juguetes u objetos que puedas usar para jugar.\n'
+            '1. Elegí dos juguetes y decidí quién es cada personaje.\n'
+            '2. Imaginá que se encuentran. ¿Dónde están y qué se dicen?\n'
+            '3. Contá o representá qué les pasa después.'
         ),
-        category="free_play",
-        interest_tags=(
-            "toys",
-            "creative",
-            "stories",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="moderate",
+        category='free_play',
+        interest_tags=('toys', 'creative', 'stories'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='moderate',
         bedtime_suitable=False,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
-    # --------------------------------------------------------
-    # SOCIAL / FAMILIAR
-    # --------------------------------------------------------
-
     Activity(
-        activity_id="social_play_01",
-        title="Jugá con alguien",
+        activity_id='social_play_01',
+        title='Invitá a alguien a jugar',
         description=(
-            "Necesitás: Una persona de confianza que esté con vos y quiera jugar.\n"
-            "1. Preguntale si tiene ganas de jugar con vos.\n"
-            "2. Si quiere, elijan un juego que los dos conozcan.\n"
-            "3. Por ejemplo, uno piensa en un animal y el otro hace preguntas para adivinarlo. Después cambien de turno. Si ahora no puede jugar, podés elegir otra actividad."
+            'Necesitás: Una persona de confianza que esté con vos y quiera jugar.\n'
+            '1. Invitá a jugar a alguien que te acompañe. Si ahora no puede, podés elegir otra actividad.\n'
+            '2. Elijan un juego. Por ejemplo, uno representa un animal sin hablar y el otro intenta adivinarlo. Después cambian de turno.\n'
+            '3. También pueden jugar a adivinar con preguntas: uno piensa un animal y el otro pregunta si vuela, nada o vive en la tierra.'
         ),
-        category="social_family",
-        interest_tags=(
-            "social",
-            "games",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="moderate",
+        category='social_family',
+        interest_tags=('social', 'games'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='moderate',
         bedtime_suitable=False,
         requires_other_person=True,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="social_talk_01",
-        title="Contá algo de tu día",
+        activity_id='social_conversation_story_01',
+        title='Compartí una charla o una historia',
         description=(
-            "Necesitás: Una persona de confianza que esté con vos y quiera conversar.\n"
-            "1. Preguntale si tiene un momento para escucharte.\n"
-            "2. Si tenés ganas, contale algo de tu día. Puede ser algo que hiciste, que te gustó o que te sorprendió.\n"
-            "3. Después podés preguntarle cómo estuvo su día y escucharla. Si no querés contar, elegí otra actividad."
+            'Necesitás: Una persona de confianza que esté con vos y quiera conversar o contar una historia.\n'
+            '1. Preguntale si tiene un momento para compartir con vos. Si ahora no puede, elegí otra actividad.\n'
+            '2. Podés contarle algo de tu día, como algo que te gustó o te sorprendió, y preguntarle cómo estuvo el suyo.\n'
+            '3. Si preferís escuchar, pedile que te cuente una historia y elegí el tema. No hace falta contar algo personal.'
         ),
-        category="social_family",
-        interest_tags=(
-            "social",
-            "conversation",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
+        category='social_family',
+        interest_tags=('social', 'conversation', 'stories'),
+        allowed_contexts=('voluntary', 'general', 'bedtime'),
+        activity_level='calm',
         bedtime_suitable=True,
         requires_other_person=True,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="social_create_together_01",
-        title="Inventen algo entre dos",
+        activity_id='social_create_together_01',
+        title='Creá algo con alguien',
         description=(
-            "Necesitás: Una persona de confianza que esté con vos y quiera participar. Si eligen dibujar, papel y lápices.\n"
-            "Con una persona de confianza que tenga ganas, inventen algo por turnos: una historia, un dibujo o un juego."
+            'Necesitás: Una persona de confianza que esté con vos y quiera participar. Si eligen dibujar, papel y lápices.\n'
+            '1. Invitá a alguien a crear una historia, un dibujo o un juego juntos. Si ahora no puede, elegí otra actividad.\n'
+            '2. Si eligen una historia, uno dice cómo empieza y el otro agrega qué pasa después. Si eligen dibujar, agreguen una parte cada uno.\n'
+            '3. Sigan por turnos para completar su creación.'
         ),
-        category="social_family",
-        interest_tags=(
-            "social",
-            "creative",
-            "stories",
-            "drawing",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-        ),
-        activity_level="moderate",
+        category='social_family',
+        interest_tags=('social', 'creative', 'stories', 'drawing'),
+        allowed_contexts=('voluntary', 'general'),
+        activity_level='moderate',
         bedtime_suitable=False,
         requires_other_person=True,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="social_story_01",
-        title="Escuchá una historia",
+        activity_id='quiet_story_ending_01',
+        title='Inventá otro final',
         description=(
-            "Necesitás: Una persona de confianza que esté con vos y quiera contar una historia.\n"
-            "Si una persona de confianza está con vos y quiere, pedile que te cuente una historia. Vos elegís el tema."
+            'No necesitás materiales. Podés hacerlo solo o compartirlo con alguien de confianza que esté con vos.\n'
+            '1. Recordá una historia que te guste y cómo termina.\n'
+            '2. Imaginá qué pasaría si terminara de otra manera.\n'
+            '3. Podés guardarte ese final para vos o contárselo a quien te acompañe, si tiene ganas de escucharlo.'
         ),
-        category="social_family",
-        interest_tags=(
-            "social",
-            "conversation",
-            "stories",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
-        bedtime_suitable=True,
-        requires_other_person=True,
-        may_require_device_interaction=False,
-    ),
-
-    # --------------------------------------------------------
-    # CALMA / DESCANSO
-    # --------------------------------------------------------
-
-    Activity(
-        activity_id="quiet_story_ending_01",
-        title="Inventá otro final",
-        description=(
-            "No necesitás materiales.\n"
-            "Recordá una historia que te guste e imaginá otro final. Podés guardártelo para vos."
-        ),
-        category="quiet",
-        interest_tags=(
-            "stories",
-            "creative",
-        ),
-        allowed_contexts=(
-            CONTEXT_VOLUNTARY,
-            CONTEXT_GENERAL,
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
+        category='quiet',
+        interest_tags=('stories', 'creative'),
+        allowed_contexts=('voluntary', 'general', 'bedtime'),
+        activity_level='calm',
         bedtime_suitable=True,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
 
     Activity(
-        activity_id="quiet_draw_01",
-        title="Hacé un dibujo tranquilo",
+        activity_id='quiet_draw_01',
+        title='Dibujá a tu ritmo',
         description=(
-            "Necesitás: Papel y un lápiz o lápices de colores.\n"
-            "1. Buscá el papel y los lápices y elegí un lugar cómodo para dibujar.\n"
-            "2. Dibujá algo que conozcas, como una flor, una casa o un animal. También podés dibujar otra cosa que te guste.\n"
-            "3. Hacelo a tu ritmo. Cuando quieras parar, guardá el dibujo. No hace falta terminarlo hoy."
+            'Necesitás: Papel y un lápiz o lápices de colores.\n'
+            '1. Buscá el papel y los lápices y elegí un lugar cómodo.\n'
+            '2. Dibujá algo que te guste, como una flor, una casa o un animal. Hacelo a tu ritmo.\n'
+            '3. Cuando quieras parar, guardá el dibujo y preparate para descansar. No hace falta terminarlo hoy.'
         ),
-        category="quiet",
-        interest_tags=(
-            "drawing",
-            "creative",
-        ),
-        allowed_contexts=(
-            CONTEXT_BEDTIME,
-        ),
-        activity_level="calm",
+        category='quiet',
+        interest_tags=('drawing', 'creative'),
+        allowed_contexts=('bedtime',),
+        activity_level='calm',
         bedtime_suitable=True,
         requires_other_person=False,
         may_require_device_interaction=False,
     ),
+
 )
 
 
 # Identificadores retirados de nuevas sugerencias, conservados para antecedentes.
-RETIRED_ACTIVITY_IDS = frozenset({"social_help_01", "quiet_prepare_01"})
+RETIRED_ACTIVITY_IDS = frozenset({
+    "social_help_01", "quiet_prepare_01", "creative_character_01",
+    "creative_story_01", "social_talk_01", "social_story_01",
+})
+
+# La fusión no es un alias histórico. Una exclusión previa bloquea la nueva propuesta.
+ACTIVITY_MERGE_PREDECESSORS = {
+    "creative_character_story_01": frozenset({"creative_character_01", "creative_story_01"}),
+    "social_conversation_story_01": frozenset({"social_talk_01", "social_story_01"}),
+}
+FILTER_COMPATIBILITY_VERSION = "explicit-exclusions-merged-activities-v1"
+
+CHILD_ACTIVITY_INTRO_TEXT = 'Elegí una actividad que te guste. Leé qué necesitás y buscá esas cosas. Después mirá los pasos y dejá el celular a un lado para jugar. Si lo usás para poner música, dejalo apoyado. Podés volver a leer la consigna cuando lo necesites. Si ahora no tenés ganas, podés seguir sin elegir.'
+
+def _expand_merged_activity_exclusions(activity_ids):
+    """Conserva exclusiones explícitas sin deducir restricciones de una condición."""
+    result = list(dict.fromkeys(activity_ids))
+    for merged_id, predecessors in ACTIVITY_MERGE_PREDECESSORS.items():
+        if predecessors.intersection(result) and merged_id not in result:
+            result.append(merged_id)
+    return tuple(result)
 # Intereses históricos aceptados como entrada, sin transferirlos a otra actividad.
 LEGACY_INTEREST_TAGS = frozenset({"helping", "organization", "writing"})
 

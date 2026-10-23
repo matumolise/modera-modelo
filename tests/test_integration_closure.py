@@ -201,7 +201,7 @@ class PacketIntegrityTests(unittest.TestCase):
 class ConditionsCombinationsTests(unittest.TestCase):
     def test_review_matrix_covers_exact_catalog_without_implying_approval(self):
         from recommendations import ACTIVITY_CATALOG
-        matrix = json.loads((ROOT / "docs/integration/CATALOG_FUNCTIONAL_REVIEW_V2.json").read_text(encoding="utf-8"))
+        matrix = json.loads((ROOT / "docs/integration/CATALOG_FUNCTIONAL_REVIEW_V3.json").read_text(encoding="utf-8"))
         self.assertFalse(matrix["automatic_condition_to_filter_mapping"])
         self.assertFalse(matrix["clinical_safety_validated"])
         indexed = {r["activity_id"]: r for r in matrix["activities"]}
@@ -212,16 +212,17 @@ class ConditionsCombinationsTests(unittest.TestCase):
             self.assertEqual(row["title_sha256"], sha256(a.title.encode()).hexdigest())
             self.assertEqual(row["description"], a.description)
             self.assertEqual(row["description_sha256"], sha256(a.description.encode()).hexdigest())
-            self.assertEqual(row["professional_approval"], "PENDING")
+            self.assertEqual(row["professional_approval"], "NOT_CLAIMED")
+            self.assertEqual(row["professional_content_review"], "RECEIVED_WITH_DOCUMENTED_EDITS")
             self.assertEqual(row["runtime_compatibility"], "UNKNOWN")
-        self.assertEqual(indexed["social_story_01"]["review_domains"]["auditory"], "E")
+        self.assertEqual(indexed["social_conversation_story_01"]["review_domains"]["auditory"], "V")
         for activity in ("reading_choose_01", "reading_favorite_01"):
             self.assertEqual(indexed[activity]["review_domains"]["visual"], "V")
-        for activity in ("creative_character_01", "free_play_build_01", "quiet_draw_01"):
+        for activity in ("creative_character_story_01", "free_play_build_01", "quiet_draw_01"):
             self.assertEqual(indexed[activity]["review_domains"]["mobility_arms_hands"], "V")
-        # Las consignas revisadas no exigen dibujar la historia ni mover las piernas.
+        # Imaginar no exige dibujar; la variante opcional de escritura/dibujo se conserva.
         # N describe el texto y no acredita compatibilidad de una persona.
-        self.assertEqual(indexed["creative_story_01"]["review_domains"]["mobility_arms_hands"], "N")
+        self.assertEqual(indexed["creative_character_story_01"]["review_domains"]["mobility_arms_hands"], "V")
         self.assertEqual(indexed["movement_sequence_01"]["review_domains"]["mobility_legs"], "N")
 
     def test_all_31_valid_nonempty_label_combinations_abstain_without_functional_mapping(self):

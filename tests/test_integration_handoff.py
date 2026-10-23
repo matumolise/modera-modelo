@@ -220,7 +220,7 @@ class ConsiderationsTests(unittest.TestCase):
         self.assertEqual(selected, unfiltered)
         self.assertEqual(selected["selector_version"],
                          "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace")
-        self.assertEqual(len(ACTIVITY_CATALOG), 18)
+        self.assertEqual(len(ACTIVITY_CATALOG), 16)
 
     def test_every_condition_needs_functional_review(self):
         for condition in ("mobility_arms_hands", "mobility_legs", "mobility_both", "visual", "auditory", "sensory"):

@@ -24,13 +24,13 @@ from recommendations import (
 
 class ChildChoiceSignalTests(unittest.TestCase):
     def interaction(self, child_id=1, context=CONTEXT_VOLUNTARY,
-                    response="selected", selected="creative_story_01"):
+                    response="selected", selected="creative_character_story_01"):
         return LinkedOfferResponse(
             offer_id="offer-1",
             child_id=child_id,
             source="child_initiated",
             context=context,
-            activities_offered=("creative_story_01", "creative_animal_01"),
+            activities_offered=("creative_character_story_01", "creative_animal_01"),
             response=response,
             selected_activity_id=selected,
         )
@@ -45,7 +45,7 @@ class ChildChoiceSignalTests(unittest.TestCase):
         ]
         self.assertEqual(
             selected_activity_counts(records, child_id=1, context=CONTEXT_VOLUNTARY),
-            {"creative_story_01": 2},
+            {"creative_character_story_01": 2},
         )
 
     def test_persisted_choices_can_feed_selector(self):
@@ -56,7 +56,7 @@ class ChildChoiceSignalTests(unittest.TestCase):
                     child_id=1,
                     source=SOURCE_CHILD_INITIATED,
                     context=CONTEXT_VOLUNTARY,
-                    activities_offered=("creative_story_01", "creative_animal_01"),
+                    activities_offered=("creative_character_story_01", "creative_animal_01"),
                 )
                 record = create_intervention_record(
                     child_id=1,
@@ -64,7 +64,7 @@ class ChildChoiceSignalTests(unittest.TestCase):
                     context=offer.context,
                     activities_offered=offer.activities_offered,
                     response="selected",
-                    selected_activity_id="creative_story_01",
+                    selected_activity_id="creative_character_story_01",
                     offer_id=offer.offer_id,
                 )
                 append_intervention_offer(offer, output_path=path)
@@ -72,7 +72,7 @@ class ChildChoiceSignalTests(unittest.TestCase):
             counts = selected_activity_counts(
                 read_linked_offer_responses(path), 1, CONTEXT_VOLUNTARY
             )
-        self.assertEqual(counts, {"creative_story_01": 3})
+        self.assertEqual(counts, {"creative_character_story_01": 3})
         decision = request_voluntary_intervention(
             selected_activity_counts=counts, random_seed=42
         )
@@ -83,14 +83,14 @@ class ChildChoiceSignalTests(unittest.TestCase):
         one_choice = recommend_activities(
             CONTEXT_VOLUNTARY,
             random_seed=42,
-            selected_activity_counts={"creative_story_01": 1},
+            selected_activity_counts={"creative_character_story_01": 1},
         )
         self.assertEqual(one_choice, baseline)
 
     def test_repeated_choices_raise_selection_without_locking_it(self):
         def shown(seed, counts=None):
             return any(
-                activity.activity_id == "creative_story_01"
+                activity.activity_id == "creative_character_story_01"
                 for activity in recommend_activities(
                     CONTEXT_VOLUNTARY,
                     random_seed=seed,
@@ -99,31 +99,31 @@ class ChildChoiceSignalTests(unittest.TestCase):
             )
 
         baseline = sum(shown(seed) for seed in range(100))
-        favored = sum(shown(seed, {"creative_story_01": 10}) for seed in range(100))
+        favored = sum(shown(seed, {"creative_character_story_01": 10}) for seed in range(100))
         self.assertGreater(favored, baseline)
         self.assertLess(favored, 100)
 
     def test_eligibility_and_recent_offer_penalty_still_apply(self):
-        counts = {"creative_story_01": 1000}
+        counts = {"creative_character_story_01": 1000}
         ineligible = request_voluntary_intervention(
             eligibility=ActivityEligibility(
-                excluded_activity_ids=("creative_story_01",),
+                excluded_activity_ids=("creative_character_story_01",),
             ),
             selected_activity_counts=counts,
             random_seed=42,
         )
         self.assertNotIn(
-            "creative_story_01",
+            "creative_character_story_01",
             {activity.activity_id for activity in ineligible.activities},
         )
         recent = recommend_activities(
             CONTEXT_VOLUNTARY,
-            recently_shown_ids=("creative_story_01",),
+            recently_shown_ids=("creative_character_story_01",),
             selected_activity_counts=counts,
             random_seed=42,
         )
         self.assertNotIn(
-            "creative_story_01", {activity.activity_id for activity in recent}
+            "creative_character_story_01", {activity.activity_id for activity in recent}
         )
 
         bedtime = recommend_activities(
@@ -137,7 +137,7 @@ class ChildChoiceSignalTests(unittest.TestCase):
         self.assertTrue(all(activity.bedtime_suitable for activity in bedtime))
 
     def test_invalid_counts_are_rejected(self):
-        for counts in ({"creative_story_01": -1}, {"creative_story_01": 1.5}):
+        for counts in ({"creative_character_story_01": -1}, {"creative_character_story_01": 1.5}):
             with self.subTest(counts=counts):
                 with self.assertRaises(ValueError):
                     recommend_activities(

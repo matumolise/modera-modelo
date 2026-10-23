@@ -1,0 +1,518 @@
+{
+  "revision": "professional-content-review-2026-10-23-candidate",
+  "base_commit": "1445056ad13728fba5aaabec6a61aa9bbd1730c3",
+  "professional_status": "SECOND_CONTENT_REVIEW_RECEIVED_AND_INCORPORATED_WITH_DOCUMENTED_EDITS",
+  "clinical_approval_claim": false,
+  "child_effectiveness_validated": false,
+  "sources": [
+    {
+      "filename": "Revisión  corregida de Actividades de Moderá V2.docx",
+      "sha256": "7d76c1f11577e1c05c6f68ae220817cfbbdb008edc4d866cbb3c91a651a9917d"
+    },
+    {
+      "filename": "Revisión  corregida de Actividades de Moderá V2.pdf",
+      "sha256": "f7f9da6f8846bc3a123bee42532198eaec4fda510368f491113bd85c122d0f96"
+    }
+  ],
+  "source_received_date": "2026-10-22",
+  "incorporation_date": "2026-10-23",
+  "common_child_text": "Elegí una actividad que te guste. Leé qué necesitás y buscá esas cosas. Después mirá los pasos y dejá el celular a un lado para jugar. Si lo usás para poner música, dejalo apoyado. Podés volver a leer la consigna cuando lo necesites. Si ahora no tenés ganas, podés seguir sin elegir.",
+  "merged_predecessors": {
+    "creative_character_story_01": [
+      "creative_character_01",
+      "creative_story_01"
+    ],
+    "social_conversation_story_01": [
+      "social_talk_01",
+      "social_story_01"
+    ]
+  },
+  "decisions": [
+    {
+      "source_numbers": [
+        4,
+        7
+      ],
+      "decision": "merge_with_new_identity",
+      "activity_ids": [
+        "creative_character_story_01"
+      ],
+      "reason": "Personaje e historia integrados según corrección; no se reetiquetan respuestas antiguas."
+    },
+    {
+      "source_numbers": [
+        14,
+        16
+      ],
+      "decision": "merge_with_new_identity",
+      "activity_ids": [
+        "social_conversation_story_01"
+      ],
+      "reason": "Conversación y escucha se ofrecen como variantes acompañadas de una misma propuesta."
+    },
+    {
+      "source_numbers": [
+        6,
+        18
+      ],
+      "decision": "one_editorial_family_two_context_variants",
+      "activity_ids": [
+        "creative_favorite_01",
+        "quiet_draw_01"
+      ],
+      "reason": "Las variantes diurna y de descanso no comparten contexto de selección; se conserva el cierre tranquilo sin obligación de terminar."
+    },
+    {
+      "source_numbers": [
+        10,
+        11,
+        12
+      ],
+      "decision": "retain_distinct_activities",
+      "activity_ids": [
+        "free_play_nearby_01",
+        "free_play_build_01",
+        "free_play_story_01"
+      ],
+      "reason": "La agrupación fue opcional. Se conservan tareas, materiales e intereses diferentes."
+    },
+    {
+      "source_numbers": [
+        19
+      ],
+      "decision": "do_not_add_paper_folding_variant",
+      "reason": "Barco o sombrero requieren instrucciones de plegado no provistas. No se añade una variante que presupone saber realizarlos."
+    },
+    {
+      "source_numbers": [
+        20
+      ],
+      "decision": "incorporate_as_variant",
+      "activity_ids": [
+        "social_play_01"
+      ],
+      "reason": "Mímica incorporada con turnos y ejemplo, sin nueva identidad."
+    },
+    {
+      "source_numbers": [
+        21
+      ],
+      "decision": "remain_excluded",
+      "reason": "No fue reincorporada en la devolución; observación anterior no aclarada."
+    },
+    {
+      "source_numbers": [
+        1
+      ],
+      "decision": "editorial_title_adjustment",
+      "reason": "Se conserva invitación al baile sin exigir ser el mejor. No se atribuye a un estudio una ventaja de esta decisión."
+    },
+    {
+      "source_numbers": [
+        6
+      ],
+      "decision": "retain_pencil_drawing_variant",
+      "reason": "Se incorpora la consigna de dibujo; no se añade la variante opcional de pintura con otros materiales."
+    },
+    {
+      "source_numbers": [
+        2
+      ],
+      "decision": "allow_optional_music_and_update_device_flag",
+      "reason": "La consigna puede usar música desde el celular; el filtro existente de posible interacción debe reflejarlo."
+    }
+  ],
+  "editorial_policy": "Se normalizan tildes, voseo, puntuación, mayúsculas y frases incompletas. El PDF y la transcripción distinguen fuente, corrección profesional y ajuste editorial.",
+  "automatic_condition_to_filter_mapping": false,
+  "activities": [
+    {
+      "activity": {
+        "activity_id": "movement_dance_01",
+        "title": "Bailá al ritmo de tu canción",
+        "description": "Necesitás: Un dispositivo para escuchar música, si querés poner una canción. Si preferís cantarla, no hace falta.\n1. Elegí una canción que te guste. Podés ponerla o cantarla vos.\n2. Si usás el celular, dejalo apoyado en un lugar seguro para tener las manos libres.\n3. Mové las manos, la cabeza o todo el cuerpo al ritmo de la canción. Podés bailar sentado o de pie.\n4. ¿Te animás a cantar o a dar palmas siguiendo el ritmo? Probá como te salga.",
+        "category": "movement",
+        "interest_tags": [
+          "music",
+          "dance",
+          "movement"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "active",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": true
+      },
+      "source_document_numbers": [
+        1
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "movement_sequence_01",
+        "title": "Sumá movimientos a tu secuencia",
+        "description": "No necesitás materiales. La música es opcional. Si la ponés desde el celular, dejalo apoyado en un lugar seguro.\n1. Levantá las manos y después bajalas.\n2. Sumá otro movimiento que puedas hacer, como abrir y cerrar las manos.\n3. Agregá un movimiento con otra parte del cuerpo, por ejemplo, mover la cabeza hacia los lados.\n4. Repetí la secuencia en ese orden, a tu ritmo. Podés hacerlo sentado o de pie.",
+        "category": "movement",
+        "interest_tags": [
+          "movement",
+          "sports"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "active",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": true
+      },
+      "source_document_numbers": [
+        2
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "movement_ball_01",
+        "title": "Jugá con una pelota",
+        "description": "Necesitás: Una pelota blanda o un par de medias enrolladas y un espacio donde esté permitido jugar.\n1. Buscá un lugar libre de objetos que se puedan romper.\n2. Elegí cómo jugar: hacé rodar la pelota por el piso, pasala de una mano a otra o apretala varias veces.\n3. Si tenés espacio y está permitido, también podés patearla suave o lanzarla suavemente con la mano. Elegí un movimiento que puedas hacer.",
+        "category": "movement",
+        "interest_tags": [
+          "sports",
+          "movement"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "active",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        3
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "creative_character_story_01",
+        "title": "Inventá un personaje y su historia",
+        "description": "Necesitás: Papel y lápices solo si querés dibujar o escribir. Para imaginar no necesitás materiales.\n1. Imaginá un personaje: una persona, un animal o un monstruo, real o inventado.\n2. Elegí su nombre y algo que le guste hacer.\n3. Pensá qué le pasa y cómo se siente. Por ejemplo, encontró una puerta chiquita. ¿Qué hay del otro lado?\n4. Podés imaginar su historia en silencio, contarla, escribirla o dibujarla.",
+        "category": "creative",
+        "interest_tags": [
+          "creative",
+          "stories",
+          "drawing",
+          "writing"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        4,
+        7
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "creative_animal_01",
+        "title": "Inventá un animal",
+        "description": "Necesitás: Papel y lápices solo si querés dibujar. Para imaginar no necesitás materiales.\n1. Inventá un animal. Podés combinar dos que conozcas, como un gato con alas.\n2. Ponele un nombre y elegí de qué color es.\n3. Imaginá dónde vive, qué hace o quiénes son sus amigos. Podés contarlo, imaginarlo en silencio o dibujarlo.",
+        "category": "creative",
+        "interest_tags": [
+          "drawing",
+          "animals",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        5
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "creative_favorite_01",
+        "title": "Dibujá algo que te guste",
+        "description": "Necesitás: Papel y un lápiz o lápices de colores.\n1. Buscá el papel y los lápices.\n2. Elegí algo para dibujar, como un animal, una persona o algo que veas por la ventana o dentro de tu casa.\n3. Empezá por una parte y seguí de a poco. Hacelo como te salga.",
+        "category": "creative",
+        "interest_tags": [
+          "drawing",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        6
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "reading_choose_01",
+        "title": "Elegí algo para leer o mirar",
+        "description": "Necesitás: Un libro o una historieta en papel. También puede ser un libro con ilustraciones.\n1. Buscá algo para leer o mirar y elegí un lugar cómodo.\n2. Mirá las ilustraciones o leé una parte, en voz alta o en silencio.\n3. Seguí a tu ritmo. No hace falta terminarlo ahora.",
+        "category": "reading",
+        "interest_tags": [
+          "reading",
+          "books",
+          "comics"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        8
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "reading_favorite_01",
+        "title": "Volvé a tu historia favorita",
+        "description": "Necesitás: Un libro o una historieta en papel solo si querés releer. Para recordar la historia no necesitás materiales.\n1. Elegí una historia o un cuento que te guste mucho.\n2. Si lo tenés a mano, volvé a tu parte favorita. Si no, recordá qué pasaba y quiénes aparecían.\n3. Releé o imaginá esa escena a tu ritmo.",
+        "category": "reading",
+        "interest_tags": [
+          "reading",
+          "books",
+          "comics"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        9
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "free_play_nearby_01",
+        "title": "Jugá con tu juguete favorito",
+        "description": "Necesitás: Un juguete que puedas usar. Si elegís cartas, un juego que ya conozcas.\n1. Buscá tu juguete favorito y un lugar cómodo para jugar.\n2. Si es un autito, armale un camino. Si es un muñeco, invitá a tu personaje a tomar el té o a dar un paseo imaginario.\n3. Elegí una de esas ideas y empezá a jugar. Si elegiste cartas, jugá a un juego que conozcas.",
+        "category": "free_play",
+        "interest_tags": [
+          "toys",
+          "games",
+          "free_play"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        10
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "free_play_build_01",
+        "title": "Construí un puente o una torre",
+        "description": "Necesitás: Bloques o cajas que tengas para jugar.\n1. Juntá los bloques o las cajas y elegí un lugar para construir.\n2. ¿Querés hacer una torre? Apilá las piezas. ¿Un puente? Probá poner una pieza sobre dos apoyos.\n3. Agregá otras piezas para seguir tu construcción.",
+        "category": "free_play",
+        "interest_tags": [
+          "building",
+          "creative",
+          "toys"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        11
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "free_play_story_01",
+        "title": "Inventá una historia con tus juguetes",
+        "description": "Necesitás: Dos juguetes u objetos que puedas usar para jugar.\n1. Elegí dos juguetes y decidí quién es cada personaje.\n2. Imaginá que se encuentran. ¿Dónde están y qué se dicen?\n3. Contá o representá qué les pasa después.",
+        "category": "free_play",
+        "interest_tags": [
+          "toys",
+          "creative",
+          "stories"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        12
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "social_play_01",
+        "title": "Invitá a alguien a jugar",
+        "description": "Necesitás: Una persona de confianza que esté con vos y quiera jugar.\n1. Invitá a jugar a alguien que te acompañe. Si ahora no puede, podés elegir otra actividad.\n2. Elijan un juego. Por ejemplo, uno representa un animal sin hablar y el otro intenta adivinarlo. Después cambian de turno.\n3. También pueden jugar a adivinar con preguntas: uno piensa un animal y el otro pregunta si vuela, nada o vive en la tierra.",
+        "category": "social_family",
+        "interest_tags": [
+          "social",
+          "games"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": true,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        13,
+        20
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "social_conversation_story_01",
+        "title": "Compartí una charla o una historia",
+        "description": "Necesitás: Una persona de confianza que esté con vos y quiera conversar o contar una historia.\n1. Preguntale si tiene un momento para compartir con vos. Si ahora no puede, elegí otra actividad.\n2. Podés contarle algo de tu día, como algo que te gustó o te sorprendió, y preguntarle cómo estuvo el suyo.\n3. Si preferís escuchar, pedile que te cuente una historia y elegí el tema. No hace falta contar algo personal.",
+        "category": "social_family",
+        "interest_tags": [
+          "social",
+          "conversation",
+          "stories"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": true,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        14,
+        16
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "social_create_together_01",
+        "title": "Creá algo con alguien",
+        "description": "Necesitás: Una persona de confianza que esté con vos y quiera participar. Si eligen dibujar, papel y lápices.\n1. Invitá a alguien a crear una historia, un dibujo o un juego juntos. Si ahora no puede, elegí otra actividad.\n2. Si eligen una historia, uno dice cómo empieza y el otro agrega qué pasa después. Si eligen dibujar, agreguen una parte cada uno.\n3. Sigan por turnos para completar su creación.",
+        "category": "social_family",
+        "interest_tags": [
+          "social",
+          "creative",
+          "stories",
+          "drawing"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general"
+        ],
+        "activity_level": "moderate",
+        "bedtime_suitable": false,
+        "requires_other_person": true,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        15
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "quiet_story_ending_01",
+        "title": "Inventá otro final",
+        "description": "No necesitás materiales. Podés hacerlo solo o compartirlo con alguien de confianza que esté con vos.\n1. Recordá una historia que te guste y cómo termina.\n2. Imaginá qué pasaría si terminara de otra manera.\n3. Podés guardarte ese final para vos o contárselo a quien te acompañe, si tiene ganas de escucharlo.",
+        "category": "quiet",
+        "interest_tags": [
+          "stories",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "voluntary",
+          "general",
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        17
+      ]
+    },
+    {
+      "activity": {
+        "activity_id": "quiet_draw_01",
+        "title": "Dibujá a tu ritmo",
+        "description": "Necesitás: Papel y un lápiz o lápices de colores.\n1. Buscá el papel y los lápices y elegí un lugar cómodo.\n2. Dibujá algo que te guste, como una flor, una casa o un animal. Hacelo a tu ritmo.\n3. Cuando quieras parar, guardá el dibujo y preparate para descansar. No hace falta terminarlo hoy.",
+        "category": "quiet",
+        "interest_tags": [
+          "drawing",
+          "creative"
+        ],
+        "allowed_contexts": [
+          "bedtime"
+        ],
+        "activity_level": "calm",
+        "bedtime_suitable": true,
+        "requires_other_person": false,
+        "may_require_device_interaction": false
+      },
+      "source_document_numbers": [
+        18
+      ]
+    }
+  ],
+  "catalog_version": "provisional-sha256:976271d8f060d4fb9c1cc09ea1f2210d0726f0b391da64ed745e0fe1bed7ccd4"
+}

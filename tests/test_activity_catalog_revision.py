@@ -26,7 +26,10 @@ TOKEN = 'fictitious-catalog-upgrade-token'
 HEADERS = {'Authorization': 'Bearer ' + TOKEN}
 EVALUATE = '/v1/child-offers/evaluate'
 EVENTS = '/v1/child-offers/events'
-NEW_IDS = {'social_create_together_01', 'quiet_story_ending_01'}
+NEW_IDS = {'social_create_together_01', 'quiet_story_ending_01',
+           'creative_character_story_01', 'social_conversation_story_01'}
+CURRENT_REVISION = ROOT / 'docs/activity_catalog/REVISION_PROFESIONAL_2026-10-23.json'
+LATEST_FIXTURE = json.loads((ROOT / 'tests/fixtures/catalog_revision/base_1445056_fictitious.json').read_text(encoding='utf-8'))
 
 
 def restore_fictitious_store(path, case):
@@ -49,14 +52,14 @@ def selection(**changes):
             'eligibility_state': 'known', 'eligibility': {}, **changes}
 
 
-def test_source_correspondence_and_only_two_new_identities():
-    proposal = json.loads((ROOT / 'docs/activity_catalog/REVISION_2026-10-21.json').read_text(encoding='utf-8'))
-    assert proposal['professional_status'] == 'SECOND_REVIEW_PENDING'
-    assert proposal['approval_claim'] is False
-    assert len(ACTIVITY_CATALOG) == len(proposal['activities']) == 18
+def test_current_source_correspondence_and_explicit_identity_changes():
+    proposal = json.loads(CURRENT_REVISION.read_text(encoding='utf-8'))
+    assert proposal['professional_status'] == 'SECOND_CONTENT_REVIEW_RECEIVED_AND_INCORPORATED_WITH_DOCUMENTED_EDITS'
+    assert proposal['clinical_approval_claim'] is False
+    assert len(ACTIVITY_CATALOG) == len(proposal['activities']) == 16
     previous_ids = {a['activity_id'] for a in FIXTURE['catalog']}
     assert ACTIVITY_IDS == (previous_ids - RETIRED_ACTIVITY_IDS) | NEW_IDS
-    assert proposal['excluded_additional_document_numbers'] == [19, 20, 21]
+    assert proposal['child_effectiveness_validated'] is False
     for activity, row in zip(ACTIVITY_CATALOG, proposal['activities']):
         assert json.loads(json.dumps(asdict(activity))) == row['activity']
         assert activity.description.startswith(('Necesitás:', 'No necesitás materiales.'))
@@ -73,9 +76,9 @@ def test_reviewed_requirements_and_contexts_are_conservative():
     assert catalog['social_create_together_01'].requires_other_person is True
     assert catalog['quiet_story_ending_01'].requires_other_person is False
     assert catalog['quiet_story_ending_01'].activity_level == 'calm'
-    assert not {'writing', 'drawing'} & set(catalog['creative_story_01'].interest_tags)
+    assert {'writing', 'drawing', 'stories'} <= set(catalog['creative_character_story_01'].interest_tags)
     assert 'bedtime' not in catalog['creative_favorite_01'].allowed_contexts
-    assert 'bedtime' not in catalog['creative_story_01'].allowed_contexts
+    assert catalog['social_conversation_story_01'].requires_other_person is True
     for context in ('general', 'voluntary', 'bedtime'):
         for seed in range(12):
             chosen = recommend_activities(context, n=30, random_seed=seed)
@@ -209,7 +212,7 @@ def test_selection_of_already_delivered_retired_activity_preserves_original_snap
 
 
 def test_pending_activity_with_same_identity_keeps_its_original_text(tmp_path):
-    case = FIXTURE['cases'][3]
+    case = next(c for c in LATEST_FIXTURE['cases'] if c['case'] == 'creative_favorite_01-pending')
     path = tmp_path / 'fictitious-original-pending.sqlite'
     restore_fictitious_store(path, case)
     evidence = deepcopy(case['operations'][0]['evidence'])
@@ -217,7 +220,7 @@ def test_pending_activity_with_same_identity_keeps_its_original_text(tmp_path):
     result = c.evaluate('fictitious-same-pending-new-request',
         OfferEvidence(**{**evidence, 'interests': tuple(evidence['interests'])}))
     assert result['offer'] == case['history']['offers'][0]
-    assert result['offer']['selection']['catalog_version'] == FIXTURE['catalog_version']
+    assert result['offer']['selection']['catalog_version'] == LATEST_FIXTURE['catalog_version']
     assert len(c.history(case['profile_id'])['offers']) == 1
 
 
