@@ -1,0 +1,214 @@
+{
+  "status": "PASS",
+  "scope": "controlled_profiles_real_process_model_to_coordinator",
+  "original_registered_model": false,
+  "model_sha256": "5f3142f93bab4dc4f104f19cb9c0d3e6943f263209d992587f3fcbb22a59f1b4",
+  "manifest_sha256": "228c064a549f565c288d1749f49d4e7c7727615c5b346ce4a8576ca1aad6f7f5",
+  "model_files_unchanged": true,
+  "trained_model": false,
+  "policy": {
+    "version": "automatic-child-offers-v2-pmum-engineering-candidate",
+    "day_start_hour": 8,
+    "day_end_hour": 20,
+    "continuous_minutes": 45,
+    "bedtime_minutes": 60,
+    "maximum_total": 3,
+    "maximum_daytime": 2,
+    "maximum_bedtime": 1,
+    "ttl_minutes": 10,
+    "rejection_pause_hours": 24,
+    "legacy_cooldown_minutes": 120,
+    "pmum_timing": {
+      "version": "pmum-linear-cooldown-v1-engineering-candidate",
+      "minimum_minutes": 120,
+      "maximum_minutes": 180,
+      "missing_estimate": "suppress_automatic_offer",
+      "freeze": "at_offer_generation_for_next_wait_after_confirmed_delivery"
+    }
+  },
+  "corner_predictions_checked": 16,
+  "compared_cases": {
+    "lower": {
+      "timing": {
+        "status": "estimated",
+        "version": "pmum-linear-cooldown-v1-engineering-candidate",
+        "estimated_pmum_sf_mean": 1.0,
+        "model_version": "hu_pmum_sf_experimental_v1",
+        "artifact_sha256": "5f3142f93bab4dc4f104f19cb9c0d3e6943f263209d992587f3fcbb22a59f1b4",
+        "minimum_minutes": 120,
+        "maximum_minutes": 180,
+        "cooldown_minutes": 180.0,
+        "experimental": true
+      },
+      "parent_answers": {
+        "age": 6,
+        "sex_code": 1,
+        "weekday_category": 1,
+        "weekend_category": 1,
+        "respondent": "parent_or_caregiver",
+        "reference_days": 30
+      }
+    },
+    "higher": {
+      "timing": {
+        "status": "estimated",
+        "version": "pmum-linear-cooldown-v1-engineering-candidate",
+        "estimated_pmum_sf_mean": 5.0,
+        "model_version": "hu_pmum_sf_experimental_v1",
+        "artifact_sha256": "5f3142f93bab4dc4f104f19cb9c0d3e6943f263209d992587f3fcbb22a59f1b4",
+        "minimum_minutes": 120,
+        "maximum_minutes": 180,
+        "cooldown_minutes": 120.0,
+        "experimental": true
+      },
+      "parent_answers": {
+        "age": 12,
+        "sex_code": 2,
+        "weekday_category": 5,
+        "weekend_category": 5,
+        "respondent": "parent_or_caregiver",
+        "reference_days": 30
+      }
+    }
+  },
+  "replayed_original_receipts": 6,
+  "histories_preserved": true,
+  "decisions_at_same_elapsed_minutes": {
+    "minutes": 150.0,
+    "results": {
+      "lower": {
+        "policy_version": "automatic-child-offers-v2-pmum-engineering-candidate",
+        "reason": "shared_cooldown",
+        "replayed": false,
+        "status": "suppressed"
+      },
+      "higher": {
+        "channel": "overlay",
+        "offer": {
+          "activities_offered": [
+            "creative_animal_01",
+            "quiet_story_ending_01",
+            "movement_sequence_01"
+          ],
+          "channels": [],
+          "context": "general",
+          "created_at": "2026-10-16T14:30:00+00:00",
+          "delivered_at": null,
+          "evidence": {
+            "assignment_verified": true,
+            "automatic_enabled": true,
+            "bedtime_at": "2026-10-16T23:00:00-03:00",
+            "capture_verified": true,
+            "eligibility": {},
+            "eligibility_state": "known",
+            "game_active": false,
+            "in_school_period": false,
+            "interests": [],
+            "interval_id": "second",
+            "interval_started_at": "2026-10-16T10:30:00-03:00",
+            "now": "2026-10-16T11:30:00-03:00",
+            "profile_id": "fictitious-pmum-higher",
+            "screen_interactive": true,
+            "series_id": "fictitious-series-higher",
+            "shared_phone": false
+          },
+          "expires_at": "2026-10-16T14:40:00+00:00",
+          "initial_channel": "overlay",
+          "interval_id": "second",
+          "offer_id": "859cd3b3-216b-4f56-9965-6941181cc0f3",
+          "opportunity": "fictitious-series-higher:second",
+          "profile_id": "fictitious-pmum-higher",
+          "response": null,
+          "response_at": null,
+          "selected_activity_id": null,
+          "selection": {
+            "activities": [
+              {
+                "activity_id": "creative_animal_01",
+                "activity_level": "calm",
+                "allowed_contexts": [
+                  "voluntary",
+                  "general",
+                  "bedtime"
+                ],
+                "bedtime_suitable": true,
+                "category": "creative",
+                "description": "Necesitás: Papel y lápices solo si querés dibujar. Para imaginar no necesitás materiales.\n1. Inventá un animal. Podés combinar dos que conozcas, como un gato con alas.\n2. Ponele un nombre y elegí de qué color es.\n3. Imaginá dónde vive, qué hace o quiénes son sus amigos. Podés contarlo, imaginarlo en silencio o dibujarlo.",
+                "interest_tags": [
+                  "drawing",
+                  "animals",
+                  "creative"
+                ],
+                "may_require_device_interaction": false,
+                "requires_other_person": false,
+                "title": "Inventá un animal"
+              },
+              {
+                "activity_id": "quiet_story_ending_01",
+                "activity_level": "calm",
+                "allowed_contexts": [
+                  "voluntary",
+                  "general",
+                  "bedtime"
+                ],
+                "bedtime_suitable": true,
+                "category": "quiet",
+                "description": "No necesitás materiales. Podés hacerlo solo o compartirlo con alguien de confianza que esté con vos.\n1. Recordá una historia que te guste y cómo termina.\n2. Imaginá qué pasaría si terminara de otra manera.\n3. Podés guardarte ese final para vos o contárselo a quien te acompañe, si tiene ganas de escucharlo.",
+                "interest_tags": [
+                  "stories",
+                  "creative"
+                ],
+                "may_require_device_interaction": false,
+                "requires_other_person": false,
+                "title": "Inventá otro final"
+              },
+              {
+                "activity_id": "movement_sequence_01",
+                "activity_level": "active",
+                "allowed_contexts": [
+                  "voluntary",
+                  "general"
+                ],
+                "bedtime_suitable": false,
+                "category": "movement",
+                "description": "No necesitás materiales. La música es opcional. Si la ponés desde el celular, dejalo apoyado en un lugar seguro.\n1. Levantá las manos y después bajalas.\n2. Sumá otro movimiento que puedas hacer, como abrir y cerrar las manos.\n3. Agregá un movimiento con otra parte del cuerpo, por ejemplo, mover la cabeza hacia los lados.\n4. Repetí la secuencia en ese orden, a tu ritmo. Podés hacerlo sentado o de pie.",
+                "interest_tags": [
+                  "movement",
+                  "sports"
+                ],
+                "may_require_device_interaction": true,
+                "requires_other_person": false,
+                "title": "Sumá movimientos a tu secuencia"
+              }
+            ],
+            "catalog_status": "PROVISIONAL",
+            "catalog_version": "provisional-sha256:976271d8f060d4fb9c1cc09ea1f2210d0726f0b391da64ed745e0fe1bed7ccd4",
+            "request_id": "higher-second",
+            "selection_fingerprint": "e982eceef3652e7326cd61692e967fe0793e024025c56cd7842bf1b9e9d76d33",
+            "selector_version": "published-selector-sha256:f0c44edc74e0dff72163c593ea56298ce56050cf9aca2fd77c9a3ac6be6f5ace",
+            "status": "selected"
+          },
+          "series_id": "fictitious-series-higher",
+          "source": "system_daytime",
+          "status": "pending",
+          "timing": {
+            "artifact_sha256": "5f3142f93bab4dc4f104f19cb9c0d3e6943f263209d992587f3fcbb22a59f1b4",
+            "cooldown_minutes": 120.0,
+            "estimated_pmum_sf_mean": 5.0,
+            "experimental": true,
+            "input_fingerprint": "1340f943cf68befcb45bc647ce11fe1f0605c30228161ee3bb2e71f5a3bf9715",
+            "maximum_minutes": 180,
+            "minimum_minutes": 120,
+            "model_version": "hu_pmum_sf_experimental_v1",
+            "status": "estimated",
+            "version": "pmum-linear-cooldown-v1-engineering-candidate"
+          }
+        },
+        "policy_version": "automatic-child-offers-v2-pmum-engineering-candidate",
+        "replayed": false,
+        "status": "offer"
+      }
+    }
+  },
+  "real_android_backend_aws_validated": false
+}

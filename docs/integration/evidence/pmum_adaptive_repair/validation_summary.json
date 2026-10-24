@@ -1,0 +1,84 @@
+{
+  "status": "PASS_CONTROLLED_CODE_CHECKS",
+  "base_commit": "831d43326b94546829be2b9f7b30f58816535d11",
+  "tested_code_commit": "4659b150ae903f4e05e6535a0195871535e4f48a",
+  "branch": "pmum-adaptive-offers-repair-candidate",
+  "checked_at_utc": "2026-10-24T00:18:32.661Z",
+  "runtime": {
+    "python": "3.12",
+    "requirements": "requirements-integration-tools.txt",
+    "pytest": "9.1.1"
+  },
+  "new_adaptive_tests": {
+    "passed": 39,
+    "failures": 0,
+    "errors": 0,
+    "report": "linux_adaptive.xml"
+  },
+  "final_regression": {
+    "passed": 575,
+    "subtests_passed": 192,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "junit_test_nodes_including_subtests": 767,
+    "report": "linux_full.xml",
+    "command": "python -m pytest -q tests test_intervention_history.py test_intervention_service.py test_intervention_engine.py test_intervention_history_reader.py test_recommendations.py test_child_choice_signals.py test_weekly_analysis.py test_inference.py --junitxml=pmum-repair-final-regression.xml"
+  },
+  "controlled_native_http": {
+    "passed": true,
+    "report": "controlled_predictor_http.json",
+    "trained_model_used": false,
+    "original_registered_model_used": false,
+    "replayed_original_receipts": 6,
+    "histories_preserved": true,
+    "server_restarted": true
+  },
+  "training_code_changed": false,
+  "model_retrained": false,
+  "original_artifact": {
+    "available_in_this_environment": false,
+    "expected_sha256": "56c991f40e56d2241196dc6f9efc1c9027c079e98a1b67549f48b10292e371e0",
+    "windows_original_binary_check": "PENDING"
+  },
+  "policy": {
+    "mechanism": "continuous_decreasing_linear_wait",
+    "bounds_required_explicitly": true,
+    "test_bounds_minutes": [
+      120,
+      180
+    ],
+    "minimum_allowed_minutes": 120,
+    "bounds_professionally_validated": false,
+    "missing_estimate": "suppress_automatic_offer",
+    "first_daytime_trigger_changed": false
+  },
+  "migration": {
+    "original_source_unchanged": true,
+    "history_and_receipts_preserved": true,
+    "explicit_copy_required": true
+  },
+  "initial_test_failures": {
+    "import_error": "fixed package-qualified test import",
+    "two_test_fixture_failures": "fixed interval identity in fixture and existing shared-phone reason expectation",
+    "compressed_reports_preserved": true
+  },
+  "warning": "Inherited Starlette/httpx deprecation. No runtime dependencies changed.",
+  "legacy_test_side_effect": {
+    "file": "data/intervention_history.jsonl",
+    "appended_fictitious_rows": 8,
+    "preserved_copy": "legacy_history_after_tests.jsonl",
+    "tracked_file_restored": true
+  },
+  "pending": [
+    "original model binary Windows verification",
+    "explicit choice of timing bounds before activation",
+    "Docker verification (Docker not installed here)",
+    "backend parent-answer persistence and v2 call integration",
+    "real Android/backend/AWS acceptance",
+    "thesis and presentation updates"
+  ],
+  "published": false,
+  "deployed": false
+}
