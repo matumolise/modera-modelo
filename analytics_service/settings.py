@@ -26,6 +26,8 @@ class Settings:
     adult_messages_repository_path: Path | None = None
     child_offers_enabled: bool = False
     child_offers_repository_path: Path | None = None
+    child_offers_pmum_min_minutes: int | None = None
+    child_offers_pmum_max_minutes: int | None = None
 
     def __post_init__(self):
         if (not isinstance(self.token, str) or len(self.token) < 16
@@ -68,6 +70,21 @@ class Settings:
                           self.historical_config_path, self.model_path, self.manifest_path):
                 if other is not None and path.resolve() == other.resolve():
                     raise ValueError("El coordinador requiere una base independiente")
+        if self.child_offers_pmum_min_minutes is not None or self.child_offers_pmum_max_minutes is not None:
+            from .child_offers import POLICY
+            from .child_offer_timing import adaptive_policy
+            if not self.pmum_enabled or not self.child_offers_enabled:
+                raise ValueError("La adaptación requiere PMUM y coordinador habilitados")
+            adaptive_policy(POLICY, self.child_offers_pmum_min_minutes,
+                            self.child_offers_pmum_max_minutes)
+
+    def child_offer_policy(self):
+        from .child_offers import POLICY
+        from .child_offer_timing import adaptive_policy
+        if self.child_offers_pmum_min_minutes is None:
+            return POLICY
+        return adaptive_policy(POLICY, self.child_offers_pmum_min_minutes,
+                               self.child_offers_pmum_max_minutes)
 
     @classmethod
     def from_env(cls):
@@ -100,4 +117,8 @@ class Settings:
             child_offers_enabled=boolean("ANALYTICS_CHILD_OFFERS_ENABLED", "false"),
             child_offers_repository_path=Path(os.environ["ANALYTICS_CHILD_OFFERS_REPOSITORY_PATH"])
                 if os.environ.get("ANALYTICS_CHILD_OFFERS_REPOSITORY_PATH") else None,
+            child_offers_pmum_min_minutes=int(os.environ["ANALYTICS_CHILD_OFFERS_PMUM_MIN_MINUTES"])
+                if os.environ.get("ANALYTICS_CHILD_OFFERS_PMUM_MIN_MINUTES") else None,
+            child_offers_pmum_max_minutes=int(os.environ["ANALYTICS_CHILD_OFFERS_PMUM_MAX_MINUTES"])
+                if os.environ.get("ANALYTICS_CHILD_OFFERS_PMUM_MAX_MINUTES") else None,
         )

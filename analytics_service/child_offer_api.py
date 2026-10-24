@@ -2,6 +2,7 @@
 
 from dataclasses import fields
 import sqlite3
+from .pmum import ModelUnavailable
 
 from .child_offers import (
     ChildOfferCoordinator, CoordinatorConflict, CoordinatorUnavailable,
@@ -10,6 +11,17 @@ from .child_offers import (
 
 
 COORDINATOR_API_VERSION = "child-offers-http-v1"
+ADAPTIVE_API_VERSION = "child-offers-http-v2-pmum-candidate"
+
+
+def parse_adaptive_evaluation(payload):
+    if not isinstance(payload, dict) or set(payload) != {"request_id", "evidence", "pmum_parent_answers"}:
+        raise ValueError("Invalid adaptive evaluation envelope")
+    answers = payload["pmum_parent_answers"]
+    if answers is not None and not isinstance(answers, dict):
+        raise ValueError("Parent answers must be an object or null")
+    request_id, evidence = parse_evaluation({key: payload[key] for key in ("request_id", "evidence")})
+    return request_id, evidence, answers
 
 
 def parse_evaluation(payload):
@@ -49,8 +61,9 @@ def parse_event(payload):
 class ChildOfferRuntime:
     """Reabre una base inicializada y conserva las transacciones del coordinador."""
 
-    def __init__(self, path):
-        self.coordinator = ChildOfferCoordinator(path)
+    def __init__(self, path, *, policy=None, pmum=None):
+        self.coordinator = ChildOfferCoordinator(path, policy=policy)
+        self.pmum = pmum
 
     def check_ready(self):
         try:
@@ -68,6 +81,17 @@ class ChildOfferRuntime:
 
     def evaluate(self, request_id, evidence):
         return self._call(self.coordinator.evaluate, request_id, evidence)
+
+    def evaluate_adaptive(self, request_id, evidence, parent_answers):
+        def estimate(answers):
+            if self.pmum is None:
+                raise ModelUnavailable("El estimador no está configurado")
+            result = self.pmum.estimate(answers)
+            if result.get("status") == "estimated":
+                result = {**result, "artifact_sha256": self.pmum.artifact_sha256}
+            return result
+        return self._call(self.coordinator.evaluate, request_id, evidence,
+                          parent_answers=parent_answers, estimator=estimate)
 
     def record_event(self, request_id, payload):
         return self._call(self.coordinator.record_event, request_id, **payload)

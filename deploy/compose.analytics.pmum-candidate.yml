@@ -1,0 +1,47 @@
+# Complemento explícito del compose de integración. No despliega ni migra solo.
+# Los extremos son una decisión de ingeniería que debe fijarse al habilitarlo.
+services:
+  analytics:
+    environment:
+      ANALYTICS_PMUM_ENABLED: "true"
+      ANALYTICS_MODEL_PATH: /etc/modera/pmum/hu_pmum_sf_experimental_v1.joblib
+      ANALYTICS_MODEL_MANIFEST_PATH: /etc/modera/pmum/hu_pmum_sf_experimental_v1.json
+      ANALYTICS_MODEL_SHA256: ${ANALYTICS_MODEL_SHA256:?Definir la huella del artefacto original verificado}
+      ANALYTICS_CHILD_OFFERS_REPOSITORY_PATH: /var/lib/modera/child-offers/coordinator-pmum.sqlite
+      ANALYTICS_CHILD_OFFERS_PMUM_MIN_MINUTES: ${ANALYTICS_CHILD_OFFERS_PMUM_MIN_MINUTES:?Definir espera minima de ingenieria}
+      ANALYTICS_CHILD_OFFERS_PMUM_MAX_MINUTES: ${ANALYTICS_CHILD_OFFERS_PMUM_MAX_MINUTES:?Definir espera maxima de ingenieria}
+    volumes:
+      - ${ANALYTICS_PMUM_MODEL_DIRECTORY:?Definir carpeta con artefacto y manifiesto}:/etc/modera/pmum:ro
+
+  initialize-child-offers:
+    command:
+      - python
+      - -m
+      - analytics_service.initialize_child_offers
+      - --path
+      - /var/lib/modera/child-offers/coordinator-pmum.sqlite
+      - --pmum-min-minutes
+      - ${ANALYTICS_CHILD_OFFERS_PMUM_MIN_MINUTES:?Definir espera minima de ingenieria}
+      - --pmum-max-minutes
+      - ${ANALYTICS_CHILD_OFFERS_PMUM_MAX_MINUTES:?Definir espera maxima de ingenieria}
+
+  migrate-child-offers-pmum:
+    image: modera-analytics:integration-local
+    user: "10001:10001"
+    read_only: true
+    network_mode: none
+    profiles: [tools]
+    volumes:
+      - analytics-state:/var/lib/modera
+    command:
+      - python
+      - -m
+      - analytics_service.migrate_child_offer_pmum
+      - --source
+      - /var/lib/modera/child-offers/coordinator.sqlite
+      - --target
+      - /var/lib/modera/child-offers/coordinator-pmum.sqlite
+      - --pmum-min-minutes
+      - ${ANALYTICS_CHILD_OFFERS_PMUM_MIN_MINUTES:?Definir espera minima de ingenieria}
+      - --pmum-max-minutes
+      - ${ANALYTICS_CHILD_OFFERS_PMUM_MAX_MINUTES:?Definir espera maxima de ingenieria}

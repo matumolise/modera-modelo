@@ -29,6 +29,7 @@ class CachedPmum:
                     digest.update(block)
             if digest.hexdigest() != settings.model_sha256:
                 raise ValueError("Huella del artefacto incompatible")
+            self.artifact_sha256 = settings.model_sha256
             manifest = validate_manifest(read_manifest(settings.manifest_path))
             # Cargar estos mismos bytes evita un cambio entre hash y joblib.load(path).
             import io

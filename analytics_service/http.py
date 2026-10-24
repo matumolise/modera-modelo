@@ -18,7 +18,8 @@ from .json_codec import strict_json as _strict_json
 from .adult_messages import AdultMessageService, MessageConflict, MessageUnavailable, VERSION as MESSAGES_VERSION
 from .child_offer_api import (
     ChildOfferRuntime, CoordinatorConflict, CoordinatorUnavailable,
-    COORDINATOR_API_VERSION, POLICY as CHILD_POLICY, parse_evaluation, parse_event,
+    COORDINATOR_API_VERSION, ADAPTIVE_API_VERSION, parse_adaptive_evaluation,
+    parse_evaluation, parse_event,
 )
 
 API_VERSION = "analytics-api-v3-integration-candidate"
@@ -96,7 +97,9 @@ def create_app(settings):
             app.state.pmum = CachedPmum(settings) if settings.pmum_enabled else None
             app.state.historical = HistoricalRuntime(settings) if settings.historical_enabled else None
             app.state.adult_messages = AdultMessageService(settings.adult_messages_repository_path) if settings.adult_messages_enabled else None
-            app.state.child_offers = ChildOfferRuntime(settings.child_offers_repository_path) if settings.child_offers_enabled else None
+            app.state.child_offers = ChildOfferRuntime(
+                settings.child_offers_repository_path, policy=settings.child_offer_policy(),
+                pmum=app.state.pmum) if settings.child_offers_enabled else None
             app.state.started = True
             yield
         finally:
@@ -149,7 +152,10 @@ def create_app(settings):
             "capabilities": {
                 **({"child_offers": {"state": "READY" if child_ready and app.state.started else "UNAVAILABLE",
                                      "api_version": COORDINATOR_API_VERSION,
-                                     "policy_version": CHILD_POLICY["version"],
+                                     "policy_version": settings.child_offer_policy()["version"],
+                                     **({"adaptive_api_version": ADAPTIVE_API_VERSION,
+                                         "pmum_timing": settings.child_offer_policy()["pmum_timing"]}
+                                        if settings.child_offers_pmum_min_minutes is not None else {}),
                                      "catalog_status": "PROVISIONAL", "scope": "internal_integration_candidate"}}
                    if settings.child_offers_enabled else {}),
                 **({"adult_messages": {"state": "READY" if messages_ready and app.state.started else "UNAVAILABLE",
@@ -273,6 +279,28 @@ def create_app(settings):
             return reply({"error": "child_offers_unavailable"}, 503)
         except (ValueError, TypeError, OverflowError):
             return reply({"error": "invalid_child_offer_request"}, 400)
+
+    @app.post("/v2/child-offers/evaluate")
+    async def adaptive_child_offer(request: Request):
+        if (not app.state.started or app.state.child_offers is None
+                or settings.child_offers_pmum_min_minutes is None):
+            return reply({"error": "adaptive_child_offers_disabled"}, 503)
+        parsed, error = await parse(request)
+        if error is not None:
+            return error
+        from starlette.concurrency import run_in_threadpool
+        try:
+            request_id, evidence, answers = parse_adaptive_evaluation(parsed)
+            return reply(await run_in_threadpool(app.state.child_offers.evaluate_adaptive,
+                                                request_id, evidence, answers))
+        except ModelUnavailable:
+            return reply({"error": "model_unavailable"}, 503)
+        except CoordinatorConflict:
+            return reply({"error": "child_offer_conflict"}, 409)
+        except CoordinatorUnavailable:
+            return reply({"error": "child_offers_unavailable"}, 503)
+        except (ValueError, TypeError, OverflowError):
+            return reply({"error": "invalid_adaptive_child_offer_request"}, 400)
 
     @app.post("/v1/child-offers/events")
     async def child_offer_event(request: Request):
